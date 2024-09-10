@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
     initReviewActions();
+    initStarRating();
 });
 
 function initReviewActions() {
@@ -15,6 +16,38 @@ function initReviewActions() {
             const reviewId = this.getAttribute('data-review-id');
             deleteReview(reviewId);
         });
+    });
+}
+
+function initStarRating() {
+    document.querySelectorAll('.star-rating').forEach(ratingContainer => {
+        const stars = ratingContainer.querySelectorAll('.star');
+        const rating = parseFloat(ratingContainer.getAttribute('data-rating'));
+
+        updateStars(stars, rating);
+
+        // 리뷰 작성/수정 페이지에서만 별점 클릭 이벤트 추가
+        if (document.getElementById('reviewForm')) {
+            stars.forEach((star, index) => {
+                star.addEventListener('click', function() {
+                    const newRating = index + 1;
+                    updateStars(stars, newRating);
+                    document.getElementById('ratingInput').value = newRating;
+                });
+            });
+        }
+    });
+}
+
+function updateStars(stars, rating) {
+    stars.forEach((star, index) => {
+        if (index < rating) {
+            star.textContent = '★';
+            star.classList.add('filled');
+        } else {
+            star.textContent = '☆';
+            star.classList.remove('filled');
+        }
     });
 }
 
