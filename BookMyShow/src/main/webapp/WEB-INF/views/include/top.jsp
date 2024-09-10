@@ -34,7 +34,7 @@
                 <!-- Dropdown menu -->
                 <div class="dropdown-menu shadow border-0 " id="cs-dropdown-menu">
                     <div class="h-100 d-flex row justify-content-between align-items-center">
-                        <div class="w-100"><a class="text-decoration-none text-dark" href="#">공지사항</a></div>
+                        <div class="w-100"><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/support/notice">공지사항</a></div>
                         <div><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/support/frequentQuestion">FAQ</a></div>
                         <div><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/support/inquiry">1:1문의</a></div>
                     </div>

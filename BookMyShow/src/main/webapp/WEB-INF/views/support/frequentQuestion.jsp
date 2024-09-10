@@ -19,6 +19,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
             <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/support.css">
     <style>
+        .site-logo {
+            text-decoration: none;
+            color: #ff4b4b;
+            font-size: 30px;
+            font-weight: bold;
+        }
+    </style>
+    <style>
         #extra-info {
             background-color: white;
         }
@@ -54,7 +62,8 @@
 </main>
 
 <div id="noticenum">
-<span onclick="location.reload();" style="cursor:pointer"><b class="now">1</b></span>
+<span onclick="location.reload();" style="cursor:pointer"><b class="now">
+<a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${1}">1</a></b></span>
 <a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${2}" class="pgnum">2</a>
 <a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${3}" class="pgnum">3</a>
 <a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${4}" class="pgnum">4</a>
