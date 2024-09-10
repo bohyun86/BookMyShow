@@ -1,0 +1,80 @@
+@charset "UTF-8";
+
+#board-content {
+    padding: 2rem;
+}
+
+.title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.review-summary {
+    margin-bottom: 2rem;
+    font-size: 1.1rem;
+}
+
+.average-rating {
+    color: #ff4b4b;
+    font-weight: bold;
+}
+
+.review-item {
+    height: 100%;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.review-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+}
+
+.card-title {
+    margin-bottom: 0.5rem;
+}
+
+.review-date {
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.review-rating {
+    font-size: 1.2rem;
+}
+
+.star {
+    color: #e0e0e0;
+}
+
+.star.filled {
+    color: #ffc107;
+}
+
+.review-content {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.card-footer {
+    background-color: #fff;
+    border-top: 1px solid rgba(0,0,0,.125);
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+@media (max-width: 768px) {
+    #board-content {
+        padding: 1rem;
+    }
+
+    .title {
+        font-size: 1.5rem;
+    }
+}
