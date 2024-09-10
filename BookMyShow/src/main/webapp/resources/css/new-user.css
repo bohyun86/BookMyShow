@@ -1,0 +1,148 @@
+.input-group {
+    border: lightgray 1px solid;
+    border-radius: 5px;
+}
+
+.form-group {
+    width: 500px;
+}
+
+#join-form {
+    background-color: #ffffff;
+    border-radius: 30px;
+    border: 3px solid #ffd1d1;
+
+}
+
+#id-input, #pass-input, #repass-input, #join-button, #name-input, #email-input, #phone-input {
+    height: 57px;
+    width: 422px;
+}
+
+#join-form input {
+    height: 55px;
+}
+
+.input-alert {
+    height: 25px;
+    font-size: 13px;
+    color: #f00;
+    width: 422px;
+    padding-left: 15px;
+}
+
+#join-form span {
+    height: 55px;
+}
+
+#join-form i {
+    font-size: 1.2rem;
+    color: #ff4b4b;
+    font-weight: bolder;
+
+}
+
+#join-button {
+    background-color: #ff4b4b;
+    border: none;
+    font-weight: bolder;
+    font-size: 18px;
+}
+
+#simple-join-img img {
+    width: 85px;
+}
+
+#join-submenu a{
+    padding: 0 20px;
+    font-size: 14px;
+    color: #777777;
+}
+
+#join-submenu a:nth-child(2) {
+    border-left: 1px solid #777777;
+    border-right: 1px solid #777777;
+}
+
+#join-problem a {
+    color: #2f80ed;
+    text-decoration: none;
+}
+
+.check-group {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    margin-top: 10px;
+    width: 422px;
+    background-color: #f5f5f5;
+    padding: 5px 25px;
+}
+
+.section-title {
+    width: 422px;
+    font-size: 20px;
+    color: #555555;
+    font-weight: bold;
+}
+
+.check-group .form-switch {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 375px;
+    height: 49px;
+    padding: 0;
+}
+
+.check-group .form-switch a {
+    font-size: 13px;
+    text-decoration: none;
+    color: #999999;
+    border-bottom: 1px solid #999999;
+}
+
+.check-group .form-switch label {
+    padding: 0 0 0 10px;
+    color: #777;
+}
+
+.check-group .form-switch label span {
+    font-size: 13px;
+    color: #ff4b4b;
+}
+
+.check-group .form-switch:nth-child(1),
+.check-group .form-switch:nth-child(2),
+.check-group .form-switch:nth-child(3){
+    border-bottom: 1px solid #ccc;
+}
+
+.check-group .form-switch:nth-child(3),
+.check-group .form-switch:nth-child(4) {
+    justify-content: space-between;
+}
+
+.small-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+#agree-check+label {
+    font-weight: 700;
+    color: #333;
+}
+
+.site-logo {
+    text-decoration: none;
+    color: #ff4b4b;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+
+
+

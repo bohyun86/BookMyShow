@@ -1,0 +1,191 @@
+@charset "UTF-8";
+
+/* 전역 스타일 */
+body {
+	background-color: #f4f4f4;
+	height: auto;
+	overflow: auto;
+}
+
+/* 최종적으로 변경시 important 조정*/
+a {
+	text-decoration: none !important;
+	color: inherit !important;
+}
+
+/* 레이아웃 */
+.my-ticket-header-container {
+	width: 100%;
+	background-color: #f4f4f4;
+	margin-bottom: 1px;
+}
+
+.my-ticket-header, #board-main {
+	max-width: 1100px;
+	margin: 0 auto;
+}
+
+/* 헤더 스타일 */
+.my-ticket-header {
+	padding: 10px 0;
+}
+
+.my-ticket-header .nav-pills {
+	display: flex;
+	justify-content: space-between;
+	align-items: stretch;
+	height: 80px;
+}
+
+.my-ticket-header .nav-item {
+	flex: 1;
+	margin: 0 3px;
+	border-radius: 10px;
+	overflow: hidden;
+}
+
+.my-ticket-header .nav-link {
+	height: 100%;
+	color: #333;
+	background-color: white;
+	border: none;
+	padding: 0.5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.my-ticket-header .nav-item:first-child .nav-link {
+	background-color: #dc3545;
+	color: white;
+}
+
+.my-ticket-title {
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+.user-name, .my-point, .usable-ticket-count {
+	font-weight: bold;
+	color: #333;
+}
+
+/* 메인 콘텐츠 */
+#board-main aside, #board-content {
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	padding: 20px;
+}
+
+#board-main aside {
+	width: 25%;
+	flex-shrink: 0;
+}
+
+#board-main {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start; /* 변경: stretch에서 flex-start로 */
+	margin-top: 1px;
+	min-height: calc(100vh - 200px); /* 예상 헤더/푸터 높이를 뺀 값 */
+	height: auto; /* 추가: 내용에 따라 자동으로 높이 조절 */
+	overflow: visible;
+}
+
+#board-content {
+	width: 73%;
+	display: flex;
+	flex-direction: column;
+	overflow: visible; /* 변경: auto에서 visible로 */
+	height: auto; /* 추가: 내용에 따라 자동으로 높이 조절 */
+}
+
+#board-content .title {
+	font-size: 1.5rem;
+	font-weight: bold;
+	padding-bottom: 1rem;
+	margin-bottom: 1rem;
+	border-bottom: 1px solid #ddd;
+}
+
+/* 사이드바 스타일 */
+#board-main .list-group-item {
+	border: none;
+	padding: 10px 0;
+}
+
+#board-main .list-group-item:first-child {
+	padding-top: 0;
+}
+
+#board-main .list-group-item a {
+	font-weight: bold;
+	display: block;
+	padding-left: 20px;
+}
+
+#board-main .list-group-item a:hover {
+	color: #007bff;
+}
+
+.list-group-item:nth-child(4)::after, .list-group-item:nth-child(6)::after
+	{
+	content: "";
+	display: block;
+	border-bottom: 1px solid lightgray;
+	margin: 20px 16px 0;
+}
+
+/* 버튼 스타일 통일 */
+.btn-outline-secondary,
+.btn-outline-dark,
+.btn-outline-danger,
+.btn-outline-success {
+    background-color: transparent;
+    transition: all 0.3s ease;
+}
+
+.btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-outline-dark {
+    color: #343a40;
+    border-color: #343a40;
+}
+
+.btn-outline-danger {
+    color: #dc3545;
+    border-color: #dc3545;
+}
+
+.btn-outline-success {
+    color: #28a745;
+    border-color: #28a745;
+}
+
+.btn-outline-secondary:hover,
+.btn-outline-dark:hover,
+.btn-outline-danger:hover,
+.btn-outline-success:hover {
+    color: #fff;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+}
+
+.btn-outline-dark:hover {
+    background-color: #343a40;
+}
+
+.btn-outline-danger:hover {
+    background-color: #dc3545;
+}
+
+.btn-outline-success:hover {
+    background-color: #28a745;
+}

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </Console>
+    </Appenders>
+
+    <Loggers>
+        <!-- 기존 로거들 -->
+        <Logger name="org.zerock" level="INFO" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="com.zaxxer" level="INFO" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+
+        <!-- 트랜잭션 로그 레벨을 DEBUG로 설정 -->
+        <Logger name="org.springframework.transaction" level="DEBUG" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.springframework.transaction.interceptor" level="DEBUG" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+        <Logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager" level="DEBUG" additivity="false">
+            <AppenderRef ref="console"/>
+        </Logger>
+
+        <!-- Root logger 설정 -->
+        <Root level="INFO">
+            <AppenderRef ref="console"/>
+        </Root>
+    </Loggers>
+</Configuration>

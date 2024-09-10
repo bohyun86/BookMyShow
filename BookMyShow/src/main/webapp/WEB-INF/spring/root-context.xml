@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<bean id="mysqlCleanup" class="com.itwillbs.common.MySQLCleanup" destroy-method="cleanup"/>
+
+	<!-- HikariCP 데이터 소스 설정 -->
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
+		<property name="jdbcUrl" value="jdbc:mysql://itwillbs.com:3306/c1d2405t1?serverTimezone=Asia/Seoul" />
+		<property name="username" value="c1d2405t1" />
+		<property name="password" value="1234" />
+
+		<!-- 추가 HikariCP 설정 (선택 사항) -->
+		<!--		<property name="maximumPoolSize" value="10" />-->
+		<!--		<property name="minimumIdle" value="5" />-->
+		<!--		<property name="idleTimeout" value="30000" />-->
+		<!--		<property name="connectionTimeout" value="20000" />-->
+	</bean>
+
+	<!-- 트랜잭션 관리자 설정 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"/>
+	</bean>
+
+	<!-- 트랜잭션 어노테이션 활성화 -->
+	<tx:annotation-driven transaction-manager="transactionManager"/>
+
+	<!-- MyBatis 설정 -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="mapperLocations" value="classpath:mapper/**/*Mapper.xml" />
+	</bean>
+
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	</bean>
+
+
+
+
+
+	<mybatis-spring:scan base-package="com.itwillbs.mapper" />
+
+	<!-- root-context에서는 @Service, @Repository, @Configuration, @Component 같은 빈을 스캔 -->
+
+	<context:component-scan base-package="com.itwillbs.aop" />
+	<context:component-scan base-package="com.itwillbs.dao" />
+	<context:component-scan base-package="com.itwillbs.service" />
+	<context:component-scan base-package="com.itwillbs.domain" />
+	<context:component-scan base-package="com.itwillbs.mapper" />
+
+	<aop:aspectj-autoproxy />
+
+	<!-- 테스트용 빈 스캔 설정-->
+	<context:component-scan base-package="com.itwillbs.controller"/>
+</beans>
