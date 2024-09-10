@@ -74,9 +74,13 @@ public class AdminController {
     	log.info("admin partner success");
     	return "/admin/partner";
     }
-    //寃��깋�쓣 �늻瑜대㈃ 諛묒뿉 �젙蹂닿� �뼚�빞�븿 由ъ뒪�듃以�  �꽑�깮�빐�빞 �뙆�듃�꼫 �닔�젙�럹�씠吏��뒗 �럹�씠吏�寃곌낵 �돺寃� 蹂대젮怨� �엫�떆濡� 寃쎈줈�꽕�젙
-    //�옄諛붿뒪�겕由쏀듃 �뜥�빞�븷�벏
 
+    @GetMapping("/partner_submit")
+    public String partner_submit() {
+    	log.info("admin partner_submit success");
+    	return "/admin/partner_submit";
+    }
+    
     @GetMapping("/partnerPro")
     public String partnerPro() {
     	log.info("admin partnerPro success");
@@ -103,9 +107,7 @@ public class AdminController {
     	return "/admin/member";
     }
 
- //寃��깋�쓣 �늻瑜대㈃ 諛묒뿉 �젙蹂닿� �쑉怨� 由ъ뒪�듃以� �쉶�썝�쓣 �꽑�깮�빐�빞 �쉶�썝 �닔�젙�럹�씠吏��뒗 �럹�씠吏�寃곌낵 �돺寃� 蹂대젮怨� �엫�떆濡� 寃쎈줈�꽕�젙
-  //�옄諛붿뒪�겕由쏀듃 �뜥�빞�븷�벏
-
+    
     @GetMapping("/memberPro")
     public String memberPro() {
     	log.info("admin memberPro success");
