@@ -37,6 +37,7 @@ public class LoginController {
             log.info(getUser);
             session.setAttribute("userId", getUser.getUserId());
             session.setAttribute("userRole", getUser.getUserRole());
+            session.setAttribute("userName", getUser.getUserName());
             return "redirect:/main/";
         }
     }
