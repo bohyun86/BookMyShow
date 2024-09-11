@@ -98,7 +98,7 @@
 													
 												<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연기간</span>
-  													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" required>
+  													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange"onChange="setendmin(this.value)" required>
   													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="endDate" name="daterange" required>
     													
     													
@@ -204,9 +204,32 @@
 
 
 <script>
-
-document.getElementById('startDate').value = new Date().toISOString().substring(0, 10);;
-
+$(function(){
+	   var today = new Date();
+	   var dd = today.getDate();
+	   var mm = today.getMonth()+1; 
+	
+	   var yyyy = today.getFullYear();
+	   if(dd<10){
+	     dd='0'+dd
+	   } 
+	   if(mm<10){
+	     mm='0'+mm
+	   } 
+	   today = yyyy+'-'+mm+'-'+dd;
+	
+	   document.getElementById("startDate").setAttribute("min", today);
+	  })
+	     
+	
+	function setendmin(e){
+	   console.log(e);
+	   document.getElementById("endDate").setAttribute("min", e);
+	   }  
+	   
+	   //startDate 오늘날짜 가져옴
+	   //endDate는 startDate 전날짜 못가져옴
+	   
 function deleteok(){
     if(!confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')){
         return false;
