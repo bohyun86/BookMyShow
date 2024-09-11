@@ -144,7 +144,7 @@
 	 													 
 	 													 <div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">티켓가격</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" onkeyup="realshowMoney2(this.value);" style="border-color: red"required>
     													<div class="invalid-feedback">
      														  티켓가격을 입력해주세요.
    														 </div>
@@ -224,7 +224,8 @@
 <script>
 
 
-
+//startDate 오늘날짜 가져옴
+//endDate는 startDate 전날짜 못가져옴
 $(function(){
 var today = new Date();
 var dd = today.getDate();
@@ -247,15 +248,20 @@ var mm = today.getMonth()+1;
 	   document.getElementById("endDate").setAttribute("min", e);
 	   }  
 	   
-	   //startDate 오늘날짜 가져옴
-	   //endDate는 startDate 전날짜 못가져옴
 	   
+//티켓가격 숫자만 입력 가능
+	   function realshowMoney2(inMoney, Ev) {
+       var evCode = (window.netscape) ? Ev.which : event.keyCode;
+
+       if (!((evCode >= 37 && evCode <= 57)|| (evCode >= 96 && evCode <= 105)|| evCode == 8 || evCode == 9)) {
+
+             alert("숫자만 입력해주세요. ");
+             event.returnValue = false;
+       }
+       }
 	
 	   
-	   
-	
-	   
-	   
+//삭제컨펌
 function deleteok(){
     if(!confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')){
         return false;

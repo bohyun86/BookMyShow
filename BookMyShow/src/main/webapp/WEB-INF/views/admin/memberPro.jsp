@@ -108,7 +108,7 @@
 													
 													<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">연락처</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" onkeyup="phone(this.value);" style="border-color: red"required>
     													<div class="invalid-feedback">
      														 연락처를 입력해주세요.
    														 </div>
@@ -116,7 +116,7 @@
 													
 													<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">이메일</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+  													<input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
     													<div class="invalid-feedback">
      														  이메일을 입력해주세요.
    														 </div>
@@ -174,6 +174,17 @@ function deleteok(){
         return false;
     }
 }
+
+function phone(inMoney, Ev) {
+    var evCode = (window.netscape) ? Ev.which : event.keyCode;
+
+    if (!((evCode >= 37 && evCode <= 57)|| (evCode >= 96 && evCode <= 105)|| evCode == 8 || evCode == 9)) {
+
+          alert("숫자만 입력해주세요. ");
+          event.returnValue = false;
+          
+    }
+    }
 
 </script>
 
