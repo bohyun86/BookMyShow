@@ -87,7 +87,7 @@
         							<h4 class="card-title">뮤지컬 수정</h4>
        									 <p class="card-text">
        									 	
-       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/edit">
+       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/edit" name="fr" method="get">
        									 	<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">뮤지컬 제목</span>
   													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
@@ -98,15 +98,25 @@
 													
 												<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연기간</span>
-  													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange"onChange="setendmin(this.value)" required>
-  													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="endDate" name="daterange" required>
-    													
-    													
+  													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="startDate"onChange="setendmin(this.value)" required>
+  													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="endDate" name="endDate" required>
+    																									
     													<div class="invalid-feedback">
      														 공연 기간을 입력해주세요.
    														 </div>
 													</div> 
-<!-- 													공연기간 종료날짜가 시작날짜보다 전 날짜로 선택 못하게 설정해야함 -->
+													
+													<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연시간</span>
+  													<input type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startTime" name="startTime"onChange="setendmin(this.value)" required>
+  													<input type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="endTime" name="endTime" required>
+    																									
+    													<div class="invalid-feedback">
+     														 공연 시간을 입력해주세요.
+   														 </div>
+													</div> 
+													
+<!-- 													공연시간 설정 -->
 													
 													<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연장소</span>
@@ -204,11 +214,14 @@
 
 
 <script>
+
+
+
 $(function(){
-	   var today = new Date();
-	   var dd = today.getDate();
-	   var mm = today.getMonth()+1; 
-	
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; 
+	  
 	   var yyyy = today.getFullYear();
 	   if(dd<10){
 	     dd='0'+dd
@@ -229,6 +242,10 @@ $(function(){
 	   
 	   //startDate 오늘날짜 가져옴
 	   //endDate는 startDate 전날짜 못가져옴
+	   
+	   
+	
+	   
 	   
 function deleteok(){
     if(!confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')){
