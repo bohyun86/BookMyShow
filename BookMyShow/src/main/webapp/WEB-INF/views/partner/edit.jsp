@@ -57,7 +57,8 @@
                         <div class="page-header">
                             <h2 class="pageheader-title">공연수정</h2>
                             <div class="m-2 bg-white form-body">
-                                <form action="" method="post">
+                                <form action="${pageContext.request.contextPath}/partner/status" method="get">
+<!--                                 프론트작업때문에 메소드 겟으로 잠시 변경 나중에 포스트로 바꿔야함 -->
                                 <div class="p-3 mb-2 bg-body-tertiary">
                                     <div class="form-group col">
                                         <label class=" col-form-label">공연명</label>

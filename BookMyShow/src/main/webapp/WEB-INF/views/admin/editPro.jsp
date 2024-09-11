@@ -98,7 +98,7 @@
 													
 												<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연기간</span>
-  													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="startDate"onChange="setendmin(this.value)" required>
+  													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="startDate" onChange="setendmin(this.value)" required>
   													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="endDate" name="endDate" required>
     																									
     													<div class="invalid-feedback">
