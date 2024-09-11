@@ -107,12 +107,20 @@
 													</div> 
 													
 													<div class="input-group input-group-sm mb-3">
- 	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연시간</span>
-  													<input type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startTime" name="startTime"onChange="setendmin(this.value)" required>
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연시작시간</span>
   													<input type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="endTime" name="endTime" required>
     																									
     													<div class="invalid-feedback">
-     														 공연 시간을 입력해주세요.
+     														 공연 시작시간을 입력해주세요.
+   														 </div>
+													</div> 
+													
+													<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연종료시간</span>
+  													<input type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="endTime" name="endTime" required>
+    																									
+    													<div class="invalid-feedback">
+     														 공연 종료시간을 입력해주세요.
    														 </div>
 													</div> 
 													
@@ -236,12 +244,13 @@ var mm = today.getMonth()+1;
 	     
 	
 	function setendmin(e){
-	   console.log(e);
 	   document.getElementById("endDate").setAttribute("min", e);
 	   }  
 	   
 	   //startDate 오늘날짜 가져옴
 	   //endDate는 startDate 전날짜 못가져옴
+	   
+	
 	   
 	   
 	
