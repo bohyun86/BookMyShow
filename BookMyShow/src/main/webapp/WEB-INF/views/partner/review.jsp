@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title"><span class="name">${sessionScope.userName}</span>님 환영합니다.</h2>
+                            <h2 class="pageheader-title">후기</h2>
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
                                 </nav>
@@ -59,6 +59,88 @@
                         </div>
                     </div>
                 </div>
+                
+                   <table class="table table-light table-hover">
+          <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">뮤지컬명</th>
+      <th scope="col">장소/회차</th>
+      <th scope="col">공연일</th>
+      <th scope="col">후기</th>
+      <th scope="col">고객ID</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td><b>금발이너무해</b>
+  <form>
+      <input type="text" class="form-control" id="review" placeholder="답변을 작성해주세요">
+    <button type="submit" class="btn btn-primary">작성완료</button>
+  </form>
+      
+      </td>
+      <td>대학로/3회차</td>
+      <td>yyyy-mm-dd</td>
+      <td>오랜만 어쩌구</td>
+      <td>홍길동 </td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td><b>Jacob</b>
+       <form>
+      <input type="text" class="form-control" id="review" placeholder="답변을 작성해주세요">
+    <button type="submit" class="btn btn-primary">작성완료</button>
+  </form>
+      
+      </td>
+      <td>Thornton</td>
+      <td>yyyy-mm-dd</td>
+      <td>@fat</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td><b>Jacob</b>
+      <form>
+      <input type="text" class="form-control" id="review" placeholder="답변을 작성해주세요">
+    <button type="submit" class="btn btn-primary">작성완료</button>
+  </form>
+      </td>
+      <td>Thornton</td>
+      <td>yyyy-mm-dd</td>
+      <td>@fat</td>
+      <td>@fat</td>
+    </tr>
+    
+  </tbody>
+</table>
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">5</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+</div>
+</div>
+                
+                
                 <!-- ============================================================== -->
                 <!-- end pageheader  -->
                 <!-- ============================================================== -->

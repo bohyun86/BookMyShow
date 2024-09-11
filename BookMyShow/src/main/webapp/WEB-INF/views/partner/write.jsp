@@ -32,14 +32,14 @@
     <!-- ============================================================== -->
     <!-- navbar -->
     <!-- ============================================================== -->
-    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/include/partner/top.jsp"/>
+    <jsp:include page="../include/partner/top.jsp"/>
     <!-- ============================================================== -->
     <!-- end navbar -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->
     <!-- left sidebar -->
     <!-- ============================================================== -->
-    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/include/partner/sidebar.jsp"/>
+    <jsp:include page="../include/partner/sidebar.jsp"/>
     <!-- ============================================================== -->
     <!-- end left sidebar -->
     <!-- ============================================================== -->
@@ -57,7 +57,9 @@
                         <div class="page-header">
                             <h2 class="pageheader-title">신규등록</h2>
                             <div class="m-2 bg-white form-body">
+                            
                                 <form action="" method="post">
+                                <div class="p-3 mb-2 bg-body-tertiary">
                                     <div class="form-group col">
                                         <label class=" col-form-label">공연명</label>
                                         <input type="text" class="form-control"
@@ -291,7 +293,7 @@
                                         <label></label>
                                         <input type="submit" value="등록신청" class="btn btn-primary" Style="color: white">
                                     </div>
-
+</div>
 
                                 </form>
                             </div>

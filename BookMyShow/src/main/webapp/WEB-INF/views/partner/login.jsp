@@ -11,7 +11,11 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="${pageContext.request.contextPath}/resources/admin_partner/documentation/css/login.css" rel="stylesheet">
 </head>
+
+
 <body class="bg-opacity-50">
+
+
 <c:if test="${sessionScope.userRole == 'partner'}">
     <script>
         location.href = "${pageContext.request.contextPath}/partner/main";

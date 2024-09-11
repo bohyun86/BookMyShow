@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title"><span class="name">${sessionScope.userName}</span>님 환영합니다.</h2>
+                            <h2 class="pageheader-title">1:1문의</h2>
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
                                 </nav>
@@ -59,6 +59,91 @@
                         </div>
                     </div>
                 </div>
+                <table class="table table-light table-hover">
+          <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">제목</th>
+      <th scope="col">파트너명</th>
+      <th scope="col">작성일</th>
+      <th colspan="col">처리상태</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>금발이너무해</td>
+      <td>대학로/3회차</td>
+      <td>yyyy-mm-dd</td>
+      <td>
+       <div class="d-grid gap-2 d-md-flex justify-content-md-end"> 
+  <a class="btn btn-success" href="#" role="button">처리중</a> 
+   </div>
+</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+      <td> 
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end"> 
+ <a class="btn btn-primary" href="#" role="button">완료</a> 
+</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+      <td>
+      <div class="d-grid gap-2 d-md-flex justify-content-md-end"> 
+<a class="btn btn-primary" href="#" role="button">완료</a>  </div>
+      </td>
+    </tr>
+    
+  </tbody>
+</table>
+	
+	
+
+
+
+
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">5</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end"> 
+<a class="btn btn-warning" href="${pageContext.request.contextPath}/partner/qna_write" role="button">문의작성</a>  </div>
+</div>
+</div>
+                
+                
+                
+                
+                
+                
+                
+                
+                
                 <!-- ============================================================== -->
                 <!-- end pageheader  -->
                 <!-- ============================================================== -->
