@@ -142,7 +142,7 @@
                                                 <div class="seat-reserved">
                                                     <label for="reserved-seat">지정석</label>
                                                     <input type="radio" id="reserved-seat" name="reserved" class="seat"
-                                                           value="true">
+                                                           value="true" checked>
                                                 </div>
                                                 <div class="seat-unreserved">
                                                     <label for="unreserved-seat">비지정석</label>
