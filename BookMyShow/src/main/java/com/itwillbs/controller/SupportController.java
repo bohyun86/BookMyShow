@@ -17,10 +17,24 @@ public class SupportController {
         return "/support/frequentQuestion";
     }
 
-    @GetMapping("/notice/")
-    public String notice() {
-        log.info("notice success");
+    @GetMapping("/support/notice")
+	public String notice() {
+    	log.info("notice success");
 
-        return "/notice/notice";
-    }
+		return "/support/notice";
+	}
+    
+    @GetMapping("/support/frequentQuestion")
+   	public String frequentQuestion() {
+       	log.info("frequentQuestion success");
+
+   		return "/support/frequentQuestion";
+   	}
+    
+    @GetMapping("/support/inquiry")
+	public String inquiry() {
+    	log.info("inquiry success");
+
+		return "/support/inquiry";
+	}
 }

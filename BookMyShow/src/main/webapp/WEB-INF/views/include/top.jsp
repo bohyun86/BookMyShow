@@ -16,12 +16,12 @@
             </c:if>
             <c:if test="${sessionScope.userRole == 'admin'}">
                 <li class="nav-item">
-                    <a class="nav-link text-black" href="${pageContext.request.contextPath}/admin/main/">관리자 페이지</a>
+                    <a class="nav-link text-black" href="${pageContext.request.contextPath}/admin/">관리자 페이지</a>
                 </li>
             </c:if>
             <c:if test="${sessionScope.userRole == 'member'}">
                 <li class="nav-item">
-                    <a class="nav-link text-black" href="${pageContext.request.contextPath}/my/bookings">마이페이지</a>
+                    <a class="nav-link text-black" href="${pageContext.request.contextPath}/mypage/">마이페이지</a>
                 </li>
             </c:if>
             <c:if test="${sessionScope.userRole == null}">
@@ -34,9 +34,9 @@
                 <!-- Dropdown menu -->
                 <div class="dropdown-menu shadow border-0 " id="cs-dropdown-menu">
                     <div class="h-100 d-flex row justify-content-between align-items-center">
-                        <div class="w-100"><a class="text-decoration-none text-dark" href="#">공지사항</a></div>
-                        <div><a class="text-decoration-none text-dark" href="#">FAQ</a></div>
-                        <div><a class="text-decoration-none text-dark" href="#">1:1문의</a></div>
+                        <div class="w-100"><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/support/notice">공지사항</a></div>
+                        <div><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/support/frequentQuestion">FAQ</a></div>
+                        <div><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/support/inquiry">1:1문의</a></div>
                     </div>
                 </div>
             </li>
