@@ -1,6 +1,7 @@
 
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!doctype html>
 <html lang="en">
 
@@ -25,6 +26,7 @@
 </head>
 
 <body>
+<% request.setCharacterEncoding("UTF-8"); %>
 <!-- ============================================================== -->
 <!-- main wrapper -->
 <!-- ============================================================== -->
@@ -61,28 +63,28 @@
                                     <div class="form-group col">
                                         <label class=" col-form-label">공연명</label>
                                         <input type="text" class="form-control"
-                                               placeholder="상품명을 입력해주세요.">
+                                               placeholder="상품명을 입력해주세요." name="title">
                                     </div>
                                     <div class="form-group col">
                                         <label class="col-form-label">장르</label>
                                         <select class="form-select" aria-label="Default select example">
                                             <option selected>장르를 선택해주세요</option>
-                                            <option name="genre_id" value="1">로맨틱코미디</option>
-                                            <option name="genre_id" value="2">코믹</option>
-                                            <option name="genre_id" value="3">드라마</option>
-                                            <option name="genre_id" value="4">퍼포먼스</option>
-                                            <option name="genre_id" value="5">어린이뮤지컬</option>
-                                            <option name="genre_id" value="6">기타</option>
+                                            <option name="genreId" value="1">로맨틱코미디</option>
+                                            <option name="genreId" value="2">코믹</option>
+                                            <option name="genreId" value="3">드라마</option>
+                                            <option name="genreId" value="4">퍼포먼스</option>
+                                            <option name="genreId" value="5">어린이뮤지컬</option>
+                                            <option name="genreId" value="6">기타</option>
                                         </select>
                                     </div>
                                     <div class="form-group col">
                                         <label class="col-form-label">관람등급</label>
                                         <select class="form-select" aria-label="Default select example">
                                             <option selected>관람등급을 선택해주세요</option>
-                                            <option name="age_limit" value="1">전체관람가</option>
-                                            <option name="age_limit" value="2">12세이상관람가</option>
-                                            <option name="age_limit" value="3">15세이상관람가</option>
-                                            <option name="age_limit" value="4">18세이상관람가</option>
+                                            <option name="ageLimit" value="1">전체관람가</option>
+                                            <option name="ageLimit" value="2">12세이상관람가</option>
+                                            <option name="ageLimit" value="3">15세이상관람가</option>
+                                            <option name="ageLimit" value="4">18세이상관람가</option>
                                         </select>
 
                                     </div>
@@ -90,14 +92,20 @@
                                         <label class="col-form-label">공연장</label>
                                         <div class="venue-sub-menu">
                                             <input type="text" class="form-control"
-                                                   placeholder="공연장 명을 작성해주세요.">
+                                                   placeholder="공연장 명을 작성해주세요." id="search" name="venueTitle" autocomplete="off">
+                                            <ul id="results" style="width: 500px"></ul>
+                                            <input type="hidden" class="region-name" name="regionName">
+                                            <input type="hidden" class="theater-id" name="theaterId">
                                             <div class="input-group" id="address-detail">
                                                 <div class="address-first-line">
-                                                    <input type="text" class="post-address" placeholder="우편번호">
+                                                    <input type="text" class="post-address"
+                                                           placeholder="우편번호" name="postCode">
                                                     <button type="button" class="btn btn-primary btn-address">주소검색</button>
                                                 </div>
-                                                <input type="text" class="basic-address" placeholder="기본주소" style="border-radius: 5px; margin-top: 5px;">
-                                                <input type="text" class="detail-address" placeholder="상세주소" style="border-radius: 5px; margin-top: 5px;">
+                                                <input type="text" class="basic-address" placeholder="기본주소"
+                                                       style="border-radius: 5px; margin-top: 5px;" name="basicAddress">
+                                                <input type="text" class="detail-address" placeholder="상세주소"
+                                                       style="border-radius: 5px; margin-top: 5px;" name="detailAddress">
                                             </div>
                                         </div>
                                     </div>
@@ -106,9 +114,11 @@
                                         <!--                                        공연일시 시작일, 종료일 -->
                                         <div id="perform-date">
                                             <label for="start-date" class="col-form-label">시작일</label>
-                                            <input type="date" id="start-date" class="form-control">
+                                            <input type="date" id="start-date" class="form-control"
+                                            name="startDate">
                                             <label for="end-date" class="col-form-label">종료일</label>
-                                            <input type="date" id="end-date" class="form-control">
+                                            <input type="date" id="end-date" class="form-control"
+                                            name="endDate">
                                         </div>
                                     </div>
                                     <div class="form-group col">
@@ -116,11 +126,11 @@
                                         <div class="show-time">
                                             <div class="total-time">
                                                 <p>총 공연시간 :</p>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" name="totalTime">
                                             </div>
                                             <div class="interval-time">
                                                 <p>인터벌 시간 :</p>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" name="intervalTime">
                                             </div>
                                         </div>
                                     </div>
@@ -131,18 +141,18 @@
                                                 <!-- 지정석 비지정석 -->
                                                 <div class="seat-reserved">
                                                     <label for="reserved-seat">지정석</label>
-                                                    <input type="radio" id="reserved-seat" name="reserve" class="seat"
-                                                           value="reserved">
+                                                    <input type="radio" id="reserved-seat" name="reserved" class="seat"
+                                                           value="true">
                                                 </div>
                                                 <div class="seat-unreserved">
                                                     <label for="unreserved-seat">비지정석</label>
-                                                    <input type="radio" id="unreserved-seat" name="reserve" class="seat"
-                                                           value="unreserved">
+                                                    <input type="radio" id="unreserved-seat" name="reserved" class="seat"
+                                                           value="false">
                                                 </div>
                                             </div>
                                             <div class="total-seat">
                                                 <p>총 좌석 수 :</p>
-                                                <input type="text" class="form-control">
+                                                <input type="text" class="form-control" name="totalSeat" disabled>
                                             </div>
                                         </div>
                                     </div>
@@ -157,27 +167,27 @@
                                                 <div class="input-group-parent">
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">가격</span>
-                                                        <input type="number" class="form-control">
+                                                        <input type="number" class="form-control" disabled>
                                                     </div>
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">좌석수</span>
-                                                        <input type="number" class="form-control">
+                                                        <input type="number" class="form-control" disabled>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="sub-group">
                                                 <div class="check-box">
-                                                    <input type="checkbox" id="grade-r" name="grade-checkbox">
+                                                    <input type="checkbox" id="grade-r" name="grade-checkbox" class="r-grade">
                                                     <label for="grade-r">R</label>
                                                 </div>
                                                 <div class="input-group-parent">
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">가격</span>
-                                                        <input type="number" class="form-control">
+                                                        <input type="number" class="form-control r-grade" disabled>
                                                     </div>
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">좌석수</span>
-                                                        <input type="number" class="form-control">
+                                                        <input type="number" class="form-control r-grade" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -189,11 +199,11 @@
                                                 <div class="input-group-parent">
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">가격</span>
-                                                        <input type="number" class="form-control">
+                                                        <input type="number" class="form-control" disabled>
                                                     </div>
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">좌석수</span>
-                                                        <input type="number" class="form-control">
+                                                        <input type="number" class="form-control" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -205,11 +215,11 @@
                                                 <div class="input-group-parent">
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">가격</span>
-                                                        <input type="number" class="form-control">
+                                                        <input type="number" class="form-control" disabled>
                                                     </div>
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">좌석수</span>
-                                                        <input type="number" class="form-control">
+                                                        <input type="number" class="form-control" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -222,11 +232,11 @@
                                                 <div class="input-group-parent">
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">가격</span>
-                                                        <input type="number" class="form-control">
+                                                        <input type="number" class="form-control" disabled>
                                                     </div>
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">좌석수</span>
-                                                        <input type="number" class="form-control">
+                                                        <input type="number" class="form-control"  disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -291,6 +301,7 @@
                                         <label></label>
                                         <input type="submit" value="등록신청" class="btn btn-primary" Style="color: white">
                                     </div>
+                                    <input type="hidden" name="UserId" value="${sessionScope.userId}">
 
 
                                 </form>
@@ -320,6 +331,7 @@
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script src="${pageContext.request.contextPath}/resources/admin_partner/documentation/js/write.js"></script>
 <script>
 
     const postAddress = document.querySelector('.post-address');
