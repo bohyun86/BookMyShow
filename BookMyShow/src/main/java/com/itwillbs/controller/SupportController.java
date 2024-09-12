@@ -24,6 +24,13 @@ public class SupportController {
 		return "/support/notice";
 	}
     
+    @GetMapping("/support/ntwrite")
+	public String ntwrite() {
+    	log.info("ntwrite success");
+
+		return "/support/ntwrite";
+	}
+    
     @GetMapping("/support/frequentQuestion")
    	public String frequentQuestion() {
        	log.info("frequentQuestion success");

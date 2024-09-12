@@ -11,18 +11,19 @@
     <!-- Bootstrap icons  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/support.css">
-        <style>
-        .site-logo {
-            text-decoration: none;
-            color: #ff4b4b;
-            font-size: 30px;
-            font-weight: bold;
-        }
-    </style>
     <style>
         #extra-info {
             background-color: white;
         }
+    </style>
+    <style>
+    .btn_srch {
+    margin: 0 0 0 540px;
+    padding: 5px 10px;
+    font-size: 18px;
+    background: #dfdfdf;
+    border-radius: 5px;
+    }
     </style>
 </head>
 <body id="board-body">
