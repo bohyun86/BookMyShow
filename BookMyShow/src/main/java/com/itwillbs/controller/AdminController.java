@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,20 +18,61 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.UserDTO;
+import com.itwillbs.service.UserServiceImpl;
 
 @Controller
 @Log4j2
 @RequestMapping("/admin")
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class AdminController {
+	
+	@Autowired
+	private UserServiceImpl userServiceImpl;
 
     @GetMapping("/main")
     public String home() {
         log.info("admin main success");
 
-
-
         return "/admin/main";
     }
+    
+    @GetMapping("/login")
+    public String login() {
+        log.info("admin login success");
+
+        return "/admin/login";
+    }
+    
+    @PostMapping("/loginPro")
+    public String loginPro(UserDTO userDTO , HttpSession session) {
+        log.info("admin loginPro success");
+        UserDTO getUser = userServiceImpl.loginPro(userDTO);
+        log.info(getUser);
+        if (getUser == null) {
+            return "redirect:/admin/login";
+        } else {
+            log.info(getUser);
+            session.setAttribute("userId", getUser.getUserId());
+            session.setAttribute("userRole", getUser.getUserRole());
+            session.setAttribute("userName", getUser.getUserName());
+            return "redirect:/admin/main/";
+        }
+        
+    }
+    
+    
+    
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        log.info("admin logout success");
+        session.invalidate();
+
+        return "/admin/login";
+    }
+
+    
+    
 
 
     @GetMapping("/search")

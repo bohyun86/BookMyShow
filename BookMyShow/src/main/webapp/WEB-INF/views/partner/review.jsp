@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title">후기</h2>
+                            <h2 class="pageheader-title"></h2>
                             <div class="page-breadcrumb">
                                 <nav aria-label="breadcrumb">
                                 </nav>
@@ -60,9 +60,14 @@
                     </div>
                 </div>
                 
-                   <table class="table table-light table-hover">
-          <thead>
-    <tr>
+                   <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+                            <div class="card">
+                                <h5 class="card-header">후기</h5>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class="bg-light">
+                                            <tr class="border-0">
       <th scope="col">#</th>
       <th scope="col">뮤지컬명</th>
       <th scope="col">장소/회차</th>
@@ -117,6 +122,10 @@
   </tbody>
 </table>
 
+
+</div>
+</div>
+</div>
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
     <li class="page-item">
@@ -136,9 +145,8 @@
     </li>
   </ul>
 </nav>
+</div>
 
-</div>
-</div>
                 
                 
                 <!-- ============================================================== -->

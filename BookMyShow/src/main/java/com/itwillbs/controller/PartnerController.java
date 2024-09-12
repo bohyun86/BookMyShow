@@ -49,17 +49,8 @@ public class PartnerController {
         session.invalidate();
         return "redirect:/partner/login";
     }
+ 
     
-    @GetMapping("/performanceEnroll")
-    public String performanceEnroll( ) {
-    	log.info("performanceEnroll");
-        return "redirect:/partner/performanceEnroll";
-    }
-    
-    
-    
-    
-
     @GetMapping("/write")
     public String write() {
         return "/partner/write";

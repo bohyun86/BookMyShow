@@ -51,7 +51,7 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title">정산</h2>
+                            <h2 class="pageheader-title"></h2>
                             <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel
                                 mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
                         </div>
@@ -62,63 +62,80 @@
                 <!-- ============================================================== -->
                  
 <!-- ==================================================== -->
-         <table class="table table-light table-hover">
-          <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">뮤지컬명</th>
-      <th scope="col">장소/회차</th>
-      <th scope="col">공연일</th>
-      <th scope="col">총좌석</th>
-      <th scope="col">판매좌석</th>
-      <th scope="col">판매금액</th>
-      <th scope="col">수수료율</th>
-      <th scope="col">정산금액</th>
-      <th scope="col">상태</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>금발이너무해</td>
-      <td>대학로/3회차</td>
-      <td>yyyy-mm-dd</td>
-      <td>80석</td>
-      <td>72석 </td>
-      <td>1,500,000원</td>
-      <td>3%</td>
-      <td>1,455,000%</td>
-      <td>정산중</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>yyyy-mm-dd</td>
-      <td>@fat</td>
-      <td>@fat</td>
-      <td>@fat</td>
-      <td>@fat</td>
-      <td>@fat</td>
-      <td>정산완료</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>yyyy-mm-dd</td>
-      <td>@fat</td>
-      <td>@fat</td>
-      <td>@fat</td>
-      <td>@fat</td>
-      <td>@fat</td>
-      <td>--</td>
-    </tr>
-    
-  </tbody>
-</table>
 
-<nav aria-label="Page navigation example">
+ <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+                            <div class="card">
+                                <h5 class="card-header">정산</h5>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class="bg-light">
+                                            <tr class="border-0">
+                                                <th class="border-0">#</th>
+                                                <th class="border-0">뮤지컬명</th>
+                                                <th class="border-0">장소/회차</th>
+                                                <th class="border-0">공연일</th>
+                                                <th class="border-0">총좌석</th>
+                                                <th class="border-0">판매좌석</th>
+                                                <th class="border-0">판매금액</th>
+                                                <th class="border-0">수수료율</th>
+                                                <th class="border-0">정산금액</th>
+                                                <th class="border-0">상태</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>1</td>
+                                                
+                                                </td>
+                                                <td>금발이너무해</td>
+                                                <td>대학로/3회차</td>
+                                                <td>27-08-2018 01:22:12</td>
+                                                <td>80석</td>
+                                                <td>72석</td>
+                                                <td>1,500,000원</td>
+                                                <td>3%</td>
+                                                <td>1,455,000%</td>
+                                                <td><span class="badge-dot badge-brand mr-1"></span>처리중</td>
+                                            </tr>
+                                            <tr>
+                                                <td>2</td>
+                                                </td>
+                                                <td>Product #2</td>
+                                                <td>25-08-2018 21:12:56</td>
+                                                <td>24-08-2018 14:12:77</td>
+                                                <td>80석</td>
+                                                <td>72석</td>
+                                                <td>1,500,000원</td>
+                                                <td>3%</td>
+                                                <td>1,455,000%</td>
+                                                <td><span class="badge-dot badge-success mr-1"></span>확인</td>
+                                            </tr>
+                                            <tr>
+                                                </td>
+                                                <td>2</td>
+                                                <td>Product #3</td>
+                                                <td>24-08-2018 14:12:77</td>
+                                                <td>25-08-2018 21:12:56</td>
+                                                <td>80석</td>
+                                                <td>72석</td>
+                                                <td>1,500,000원</td>
+                                                <td>3%</td>
+                                                <td>1,455,000%</td>
+                                                <td><span class="badge-dot badge-info mr-1"></span>완료</td>
+                                            </tr>
+                                           
+                                            </tbody>
+                                        </table>
+</div>
+</div>
+
+
+
+
+</div>
+                                        
+                                        <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
     <li class="page-item">
       <a class="page-link" href="#" aria-label="Previous">
@@ -137,8 +154,6 @@
     </li>
   </ul>
 </nav>
-
-</div>
 </div>
                 <!-- ============================================================== -->
                 <!-- end pageheader  -->

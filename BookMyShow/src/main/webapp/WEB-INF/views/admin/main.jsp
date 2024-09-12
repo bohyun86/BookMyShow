@@ -68,25 +68,8 @@
 
 
 
-<!-- 					↓주석 풀면 주소 주소이동x 일단 주석처리 -->
-<!-- 				String id =(String)session.getAttribute("id"); -->
-				
-<%-- 				<c:if test="${empty sessionScope.id }"> --%>
-<%-- 					<c:redirect url="${pageContext.request.contextPath}/main/main"/> --%>
-<%-- 				</c:if> --%>
-
-				
-<%-- 				<c:if test="${ !empty sessionScope.id}"> --%>
-<%-- 			<c:if test="${sessionScope.id == 'admin' }"> --%>
+			<h2><span class="name">${sessionScope.userName}</span>관리자님 환영합니다.</h2>
 			
-				${sessionScope.id }님이 로그인 하셨습니다.<br>
-<!-- 				관리자 아이디로 로그인 하셨습니다 -->
-<%-- 				<a href ="${pageContext.request.contextPath}/musical/insert">뮤지컬등록</a><br> <%// 관리자만 사용가능 %> --%>
-<!-- 				<a href = "write.bo">글쓰기</a><br> -->
-<!-- 				<a href = "list.bo">글목록</a><br> -->
-			
-<%-- 			</c:if>		 --%>
-<%-- 		</c:if> --%>
 				
 				  </div>
                 </div>

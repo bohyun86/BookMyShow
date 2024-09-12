@@ -48,68 +48,55 @@
                 <!-- ============================================================== -->
                 <!-- pageheader  -->
                 <!-- ============================================================== -->
-                <div class="row">
-                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
-                        <div class="page-header">
-                            <h2 class="pageheader-title">1:1문의</h2>
-                            <div class="page-breadcrumb">
-                                <nav aria-label="breadcrumb">
-                                </nav>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <table class="table table-light table-hover">
-          <thead>
-    <tr>
-      <th scope="col">#</th>
+                
+                 <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+                            <div class="card">
+                                <h5 class="card-header">1:1문의</h5>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class="bg-light">
+                                            <tr class="border-0">
+           <th scope="col">#</th>
       <th scope="col">제목</th>
       <th scope="col">파트너명</th>
       <th scope="col">작성일</th>
       <th colspan="col">처리상태</th>
-    </tr>
-  </thead>
+
+                                            </tr>
+                                            </thead>
+  
   <tbody>
+    <tr>
+    <th scope="row">1</th>
+      <td>금발이너무해</td>
+      <td>대학로/3회차</td>
+      <td>yyyy-mm-dd</td>
+      <td><span class="badge-dot badge-brand mr-1"></span>처리중</td>
+    </tr>
     <tr>
       <th scope="row">1</th>
       <td>금발이너무해</td>
       <td>대학로/3회차</td>
       <td>yyyy-mm-dd</td>
-      <td>
-       <div class="d-grid gap-2 d-md-flex justify-content-md-end"> 
-  <a class="btn btn-success" href="#" role="button">처리중</a> 
-   </div>
-</td>
-    </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td> 
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end"> 
- <a class="btn btn-primary" href="#" role="button">완료</a> 
-</td>
+      <td><span class="badge-dot badge-info mr-1"></span>완료</td>
     </tr>
     <tr>
       <th scope="row">3</th>
       <td>Jacob</td>
       <td>Thornton</td>
-      <td>@fat</td>
-      <td>
-      <div class="d-grid gap-2 d-md-flex justify-content-md-end"> 
-<a class="btn btn-primary" href="#" role="button">완료</a>  </div>
-      </td>
+      <td>yyyy-mm-dd</td>
+      <td><span class="badge-dot badge-info mr-1"></span>완료</td>
     </tr>
     
   </tbody>
 </table>
-	
-	
 
+               
 
-
-
+</div>
+</div>
+</div>
 <nav aria-label="Page navigation example">
   <ul class="pagination justify-content-center">
     <li class="page-item">
@@ -130,10 +117,8 @@
   </ul>
 </nav>
 
-
 <div class="d-grid gap-2 d-md-flex justify-content-md-end"> 
 <a class="btn btn-warning" href="${pageContext.request.contextPath}/partner/qna_write" role="button">문의작성</a>  </div>
-</div>
 </div>
                 
                 
