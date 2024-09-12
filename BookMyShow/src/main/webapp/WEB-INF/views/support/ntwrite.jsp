@@ -10,10 +10,11 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css">
     <!-- Bootstrap icons  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/support-ntwrite.css">
         <style>
         .site-logo {
             text-decoration: none;
-            color: #ff4b4b;
+            color: #000;
             font-size: 30px;
             font-weight: bold;
         }
@@ -27,15 +28,29 @@
     #board-main {
     height: 920px;
     width: 1100px;
+    padding: 40px;
     }
     </style>
 </head>
 <body id="board-body">
 <jsp:include page="../include/top.jsp"/>
 
-<main class="row d-flex justify-content-between align-items-center" id="board-main">
+<main class="support-notice-write" id="board-main">
     <section class="h-100" id="board-content">
-
+    <form action="${pageContext.request.contextPath}/support/writePro" class="supportForm" method="post" name="fr">		
+			<ul class="notice-write">
+				<li class="notice_title">글제목 : <input type="text" name="subject"></li>
+				<li class="notice_content">
+					<div class="editer_content">
+					    글내용 : <textarea name="content" rows="10" cols="30"></textarea>
+                    </div>
+				</li>
+			</ul>
+					<p class="btn_line txt_right">
+				<a href="javascript:document.fr.submit();" class="btn_bbs">공지사항 작성</a>
+				<a href="${pageContext.request.contextPath}/support/notice" class="btn_bbs">돌아가기</a>
+			</p>
+		</form>
     </section>
 </main>
 

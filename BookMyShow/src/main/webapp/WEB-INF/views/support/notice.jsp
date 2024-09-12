@@ -12,15 +12,23 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/support.css">
     <style>
+        .site-logo {
+            text-decoration: none;
+            color: #ff4b4b;
+            font-size: 30px;
+            font-weight: bold;
+        }
+    </style>
+    <style>
         #extra-info {
             background-color: white;
         }
     </style>
     <style>
-    .btn_srch {
-    margin: 0 0 0 540px;
-    padding: 5px 10px;
-    font-size: 18px;
+    .ntwrite {
+    margin: 0 0 0 503px;
+    padding: 3px 8px;
+    font-size: 16px;
     background: #dfdfdf;
     border-radius: 5px;
     }
@@ -46,7 +54,7 @@
         <div class="title">
             공지사항
             
-    <a href="${pageContext.request.contextPath}/support/ntwrite" class="btn_srch">글쓰기</a>
+    <a href="${pageContext.request.contextPath}/support/ntwrite" class="ntwrite">공지사항 작성</a>
     <ul class="notice-header">
 		<li style="width:35px;">번호</li>
 		<li style="width:570px;">제목</li>

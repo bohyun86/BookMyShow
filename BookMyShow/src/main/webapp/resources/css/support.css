@@ -38,11 +38,6 @@
     font-weight: 600;
 }
 
-a{
-	color: #000;
-	text-decoration: none;
-}
-
 a:visited {
 	color: #000;
 	text-decoration: none;
@@ -67,9 +62,4 @@ a:visited {
 	font-size: 22px;
 	color: #8080c0;
 	text-decoration: none;
-}
-
-#btn_srch {
-    background: #dfdfdf;
-    border-radius: 8px;
 }
