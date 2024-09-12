@@ -149,7 +149,7 @@
     padding: 0;
 }
 
-.detail-info .poster-image, .detail-info .description-image {
+.detail-info .musicalImage, .detail-info .musicalDescriptionImage {
     display: flex;
     flex-direction: row;
     width: 500px;
@@ -157,7 +157,7 @@
     align-items: center;
 }
 
-.detail-info .description-image {
+.detail-info .musicalDescriptionImage {
     margin-top: 5px;
 }
 

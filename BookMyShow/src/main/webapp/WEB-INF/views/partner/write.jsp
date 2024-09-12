@@ -161,82 +161,82 @@
                                         <div class="classify-grade">
                                             <div class="sub-group">
                                                 <div class="check-box">
-                                                    <input type="checkbox" id="grade-vip" name="grade-checkbox">
+                                                    <input type="checkbox" id="grade-vip" name="class" value="1">
                                                     <label for="grade-vip">VIP</label>
                                                 </div>
                                                 <div class="input-group-parent">
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">가격</span>
-                                                        <input type="number" class="form-control" disabled>
+                                                        <input type="number" class="form-control"  name="price" disabled>
                                                     </div>
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">좌석수</span>
-                                                        <input type="number" class="form-control" disabled>
+                                                        <input type="number" class="form-control" name="numberOfSeats" disabled>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="sub-group">
                                                 <div class="check-box">
-                                                    <input type="checkbox" id="grade-r" name="grade-checkbox" class="r-grade">
+                                                    <input type="checkbox" id="grade-r" name="class" value="2" class="r-grade">
                                                     <label for="grade-r">R</label>
                                                 </div>
                                                 <div class="input-group-parent">
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">가격</span>
-                                                        <input type="number" class="form-control r-grade" disabled>
+                                                        <input type="number" class="form-control r-grade" name="price" disabled>
                                                     </div>
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">좌석수</span>
-                                                        <input type="number" class="form-control r-grade" disabled>
+                                                        <input type="number" class="form-control r-grade" name="numberOfSeats" disabled>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="sub-group">
                                                 <div class="check-box">
-                                                    <input type="checkbox" id="grade-s" name="grade-checkbox">
+                                                    <input type="checkbox" id="grade-s" name="class" value="3">
                                                     <label for="grade-s">S</label>
                                                 </div>
                                                 <div class="input-group-parent">
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">가격</span>
-                                                        <input type="number" class="form-control" disabled>
+                                                        <input type="number" class="form-control" name="price" disabled>
                                                     </div>
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">좌석수</span>
-                                                        <input type="number" class="form-control" disabled>
+                                                        <input type="number" class="form-control" name="numberOfSeats" disabled>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="sub-group">
                                                 <div class="check-box">
-                                                    <input type="checkbox" id="grade-a" name="grade-checkbox">
+                                                    <input type="checkbox" id="grade-a" name="class" value="4" >
                                                     <label for="grade-a">A</label>
                                                 </div>
                                                 <div class="input-group-parent">
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">가격</span>
-                                                        <input type="number" class="form-control" disabled>
+                                                        <input type="number" class="form-control" name="price" disabled>
                                                     </div>
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">좌석수</span>
-                                                        <input type="number" class="form-control" disabled>
+                                                        <input type="number" class="form-control" name="numberOfSeats" disabled>
                                                     </div>
                                                 </div>
                                             </div>
 
                                             <div class="sub-group">
                                                 <div class="check-box">
-                                                    <input type="checkbox" id="grade-b" name="grade-checkbox">
+                                                    <input type="checkbox" id="grade-b" name="class" value="5">
                                                     <label for="grade-b">B</label>
                                                 </div>
                                                 <div class="input-group-parent">
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">가격</span>
-                                                        <input type="number" class="form-control" disabled>
+                                                        <input type="number" class="form-control" name="price" disabled>
                                                     </div>
                                                     <div class="input-group" style="width: 190px">
                                                         <span class="input-group-text">좌석수</span>
-                                                        <input type="number" class="form-control"  disabled>
+                                                        <input type="number" class="form-control" name="numberOfSeats" disabled>
                                                     </div>
                                                 </div>
                                             </div>
@@ -266,11 +266,11 @@
                                     <div class="form-group col" id="detail-info">
                                         <label class="col-form-label">공연상세정보</label>
                                         <div class="detail-info">
-                                            <div class="poster-image">
+                                            <div class="musicalImage">
                                                 <p>포스터 이미지 :</p>
                                                 <input type="file" class="form-control">
                                             </div>
-                                            <div class="description-image">
+                                            <div class="musicalDescriptionImage">
                                                 <p>상세설명 이미지 :</p>
                                                 <input type="file" class="form-control">
                                             </div>
@@ -278,23 +278,22 @@
                                     </div>
                                     <div class="form-group col">
                                         <label class="col-form-label">주요배우</label>
-                                        <input type="text" placeholder='배우 이름은 쉼표(",")로 구분해주세요.'>
-                                        <!-- 0이하로 안떨어지게 js로 구현-->
+                                        <input type="text" placeholder='배우 이름은 쉼표(",")로 구분해주세요.' name="name">
                                     </div>
                                     <div class="form-group col">
                                         <label class="col-form-label">제작진</label>
-                                        <input type="text">
+                                        <input type="text" name="musicalStaff">
                                     </div>
                                     <div class="form-group col">
                                         <label class="col-form-label">주최주관</label>
-                                        <input type="text">
+                                        <input type="text"  name="">
                                     </div>
                                     <div class="form-group col inquire">
-                                        <label class="col-form-label">요청사항</label>
+                                        <label class="col-form-label">기획제작</label>
                                         <input type="text">
                                     </div>
                                     <div class="form-group col">
-                                        <label class="col-form-label">기획제작</label>
+                                        <label class="col-form-label" name="request">요청사항</label>
                                         <input type="text">
                                     </div>
                                     <div class="form-group col">

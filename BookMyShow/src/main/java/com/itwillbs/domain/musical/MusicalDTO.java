@@ -2,29 +2,14 @@ package com.itwillbs.domain.musical;
 
 import lombok.Data;
 
-import java.sql.Date;
-
-/*
-* musical_id
-title
-description
-start_date
-end_date
-age_limit
-created_at
-updated_at
-partner_id
-genre_id
-venue_id
-musical_image
-
-* */
+import java.io.File;
 
 @Data
 public class MusicalDTO {
 
     // musical 테이블
     private int musicalId;
+    private int memberId;
     private String title; // 1
     private String description;
     private String startDate; //
@@ -32,24 +17,45 @@ public class MusicalDTO {
     private int ageLimit; // 1
     private String createdAt; //
     private String updatedAt; //
-    private int genreId; // 1
-    // private int venueId; // 1
-    private String musicalImage;
-
     private String totalTime; //
     private String intervalTime; //
+    private int genreId; // 1
+    private File musicalImage; // 1
+    private File musicalDescriptionImage; // 1
+    private String musicalStaff;
+    private String request; // 1
 
-    private String venueTitle; //
+    // Actor 테이블
+    private int actorId;
+    private String Name; // 1
+
+    //TicketPrice 테이블
+    private int ticketPriceId;
+    private int[] price; // 1
+    private String[] capacity; // 1
+    private String[] seatClassId; // 1
+
+
+    // Performance 테이블
+    private int performanceId;
+    private String performanceDate; // 1
+
+    // Venue 테이블
+    private int venueId;
+    private String venueTitle;
+    private String publicVenueId; //
     private String postCode; //
     private String basicAddress; // 1
     private String detailAddress; //
+    private String region;
+    private int totalSeat; //
 
 
     private int UserId;
     private boolean reserved; //
 
-    private int venueId;
-    private int totalSeat; //
+
+
 
 
 
