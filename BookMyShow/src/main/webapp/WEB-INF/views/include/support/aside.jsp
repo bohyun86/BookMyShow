@@ -9,7 +9,7 @@
     <div class="list_group">
         <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/notice.css">
         <ul class="list-group list-group-flush mt-3">
-            <li class="list-group-item "><a href="${pageContext.request.contextPath}/border/notice">공지사항</a></li>
+            <li class="list-group-item "><a href="${pageContext.request.contextPath}/support/notice">공지사항</a></li>
             <li class="list-group-item "><a>자주 묻는 질문</a></li>
             <li class="list-group-item "><a>1:1문의</a></li>
         </ul>

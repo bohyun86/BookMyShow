@@ -9,7 +9,7 @@
 	
 	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
 		select * from Member
-		where id = #{member_id}
+		where member_id = #{member_id}
 	</select>
 	
 	

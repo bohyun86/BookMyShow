@@ -77,12 +77,16 @@
 		<option value="2">아이디</option>
 		<option value="3">이메일</option>
 	</select>
-		<input type="text" name="findKeyword" placeholder="검색어를 입력하세요" class="form-control mr-2"  style="width: 200px;">
-			<button class="btn btn-success" id="memberSearch" type="button">검 색</button>
+		<input type="text" name="findKeyword"  placeholder="검색어를 입력하세요" class="form-control mr-2"  style="width: 200px;">
+			<button class="btn btn-success"  type="button" id="memberSearch">검 색</button>
 
-<ul class="list-group" id="result">
-  <li class="list-group-item" ></li>
-</ul>
+<!-- <div class="bbs_line"> -->
+<!-- <li><a href="javascript:;">이번 여름 휴가 제주 갈까? 미션 투어 (여행경비 50만원 지원)</a></li> --> 
+ 						<ul class="list-group">
+
+					  <li class="list-group-item" id="result"></li>
+					  </ul>
+<!-- </div> -->
 
 <p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
   <button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/memberPro'">정보 조회 및 수정</button>
@@ -107,18 +111,26 @@ $(function(){
 // 		console.log("notice 클릭");
 	$.ajax({
 		url:"${pageContext.request.contextPath}/admin/result",
-		dataType:"jason",
+		data:{'memberSearch':$('#memberSearch').val()},
+// 		dataType:"jason",
+		error:function(err){
+			
+		alert("error");
+			console.log("error")
+		},
 		success:function(result){
 // 		alert("notice 클릭");
 		if(result=='noInfo'){
 			$('#result').html("회원정보가 없습니다");
-		alert("notice 클릭");
-		console.log("notice 클릭");
+		alert("noInfo");
+		console.log("noInfo");
 			
 		}	else {
-			$('#result');		
-		alert("notice 클릭");
-		console.log("notice 클릭");
+		alert($('#result'));
+		console.log("okinfo");
+		$("#result").text(jsonData.id);
+// 		$('.list-group11').html('<li class="list-group-item"><a href="javascript:;">'+item.member_id +'</a></li>');
+// 		result=$('#result');
 		}
 			
 		}
