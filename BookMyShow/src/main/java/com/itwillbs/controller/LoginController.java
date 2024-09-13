@@ -38,7 +38,7 @@ public class LoginController {
             session.setAttribute("userId", getUser.getUserId());
             session.setAttribute("userRole", getUser.getUserRole());
             session.setAttribute("userName", getUser.getUserName());
-            return "redirect:/main/";
+            return "redirect:/main/main";
         }
     }
 
@@ -87,7 +87,7 @@ public class LoginController {
     public String logout(HttpSession session) {
         log.info("logout success");
         session.invalidate();
-        return "redirect:/main/";
+        return "redirect:/main/main";
     }
 
 
