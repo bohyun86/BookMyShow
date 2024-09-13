@@ -23,6 +23,7 @@ public class AdminAjaxController {
 		System.out.println("AdminAjaxController result" );
 		String id = request.getParameter("user_name");
 		UserDTO userDTO=memberService.getMember(id);
+		System.out.println(userDTO);
 		JsonObject jsonObject = new JsonObject();
 		String result="";
 		if(userDTO!=null) {

@@ -17,9 +17,10 @@
 
 	
 	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO" resultMap="memberResultMap">
-    SELECT  U.user_name, U.email, U.phone_number,U.name
+  SELECT  U.user_name, U.email, U.phone_number,U.name
     FROM Member M JOIN User U 
     ON (M.user_id = U.user_id)
+    where U.user_name='?';
 	</select>
 	
 	
