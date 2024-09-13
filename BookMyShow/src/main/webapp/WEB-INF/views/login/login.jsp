@@ -13,7 +13,7 @@
 <body class="bg-opacity-50">
 <div class="w-100 min-vh-100 d-flex justify-content-center align-items-center bg-white" >
     <form class="p-5 shadow" id="login-form" method="post" action="${pageContext.request.contextPath}/login/loginPro" >
-        <h2 class="pb-3 text-center mt-5 mb-3"><a href="${pageContext.request.contextPath}/main/">예매하다</a></h2>
+        <h2 class="pb-3 text-center mt-5 mb-3"><a href="${pageContext.request.contextPath}/main/main">예매하다</a></h2>
         <div class="form-group pb-2 d-flex row align-items-stretch">
             <div class="input-group my-2 px-0" id="id-input" >
                 <div class="input-group-prepend">

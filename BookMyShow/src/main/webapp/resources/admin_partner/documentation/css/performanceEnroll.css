@@ -149,7 +149,7 @@
     padding: 0;
 }
 
-.detail-info .poster-image, .detail-info .description-image {
+.detail-info .musicalImage, .detail-info .musicalDescriptionImage {
     display: flex;
     flex-direction: row;
     width: 500px;
@@ -157,7 +157,7 @@
     align-items: center;
 }
 
-.detail-info .description-image {
+.detail-info .musicalDescriptionImage {
     margin-top: 5px;
 }
 
@@ -275,5 +275,37 @@ input[type="date"] {
     border-radius: 0;
 }
 
+/* 검색 결과 리스트 스타일 */
+#results {
+    border: 1px solid #ccc;
+    max-height: 200px;
+    width: 200px;
+    overflow-y: auto;
+    position: absolute;
+    background-color: white;
+    z-index: 1000;
+}
+
+#results li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+#results li:hover {
+    background-color: #f0f0f0;
+}
+
+/* 검색창 위치 설정 */
+.search-container {
+    position: relative;
+    width: 200px;
+}
+
+#results li {
+    list-style-type: none;
+    font-size: 13px;
+    color: #777;
+    width: 400px;
+}
 
 
