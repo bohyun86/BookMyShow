@@ -14,7 +14,7 @@
 	<main id="board-main">
 		<jsp:include page="../include/support/aside.jsp" />
 		<section id="board-content">
-			<div class="title">공지사항</div>
+			<div class="title">1:1문의</div>
 
 			<%-- <c:forEach var="booking" items="${bookings}"> --%>
 <!-- 			<div class="booking-card"> -->
@@ -22,21 +22,27 @@
 						
 						<table class="table">
   <thead class="table-danger">
-    <tr>
+    <tr >
       <th scope="col">번호</th>
       <th scope="col">제목</th>
+      <th scope="col">이름</th>
       <th scope="col">작성일</th>
+      <th scope="col">처리상태</th>
     </tr>
   </thead>
   <tbody>
-    <tr onclick = "location.href='${pageContext.request.contextPath}/support/qna'">
+    <tr onclick = "location.href='${pageContext.request.contextPath}/support/'">
       <th scope="row">1</th>
       <td>데이터없음 테스트중</td>
+      <td>데이터없음 테스트중</td>
+      <td>2024-09-13</td>
       <td>2024-09-13</td>
     </tr>
-    <tr onclick = "location.href='${pageContext.request.contextPath}/support/qna_write'">
+    <tr onclick = "location.href='${pageContext.request.contextPath}/support/'">
       <th scope="row">2</th>
       <td>Jacob</td>
+      <td>Jacob</td>
+      <td>Thornton</td>
       <td>Thornton</td>
     </tr>
     
@@ -65,6 +71,9 @@
     </li>
   </ul>
 </nav>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+<button type="button" class="btn btn-danger" onclick = "location.href='${pageContext.request.contextPath}/support/qna_write'">문의작성</button>
+</div>
 
 		</section>
 	</main>
