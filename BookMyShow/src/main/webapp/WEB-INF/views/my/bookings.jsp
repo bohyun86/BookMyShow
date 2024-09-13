@@ -120,7 +120,6 @@
 				</div>
 				<div class="modal-body">
 					<ul id="seatList${booking.bookingId}">
-						<!-- 좌석 정보가 여기에 동적으로 추가됩니다 -->
 						<li>a열 10번</li>
 					</ul>
 				</div>
