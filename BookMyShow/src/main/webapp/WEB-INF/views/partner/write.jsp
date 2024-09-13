@@ -34,14 +34,14 @@
     <!-- ============================================================== -->
     <!-- navbar -->
     <!-- ============================================================== -->
-    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/include/partner/top.jsp"/>
+    <jsp:include page="../include/partner/top.jsp"/>
     <!-- ============================================================== -->
     <!-- end navbar -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->
     <!-- left sidebar -->
     <!-- ============================================================== -->
-    <jsp:include page="${pageContext.request.contextPath}/WEB-INF/views/include/partner/sidebar.jsp"/>
+    <jsp:include page="../include/partner/sidebar.jsp"/>
     <!-- ============================================================== -->
     <!-- end left sidebar -->
     <!-- ============================================================== -->
@@ -59,12 +59,19 @@
                         <div class="page-header">
                             <h2 class="pageheader-title">신규등록</h2>
                             <div class="m-2 bg-white form-body">
-                                <form action="" method="post">
+                            
+                                <form action="${pageContext.request.contextPath}/partner/status" method="get" class="was-validated">
+<!--                                 프론트작업때문에 메소드 겟으로 잠시 변경 나중에 포스트로 바꿔야함 -->
+                                <div class="p-3 mb-2 bg-body-tertiary">
                                     <div class="form-group col">
                                         <label class=" col-form-label">공연명</label>
                                         <input type="text" class="form-control"
+
+
                                                placeholder="상품명을 입력해주세요." name="title">
+
                                     </div>
+
                                     <div class="form-group col">
                                         <label class="col-form-label">장르</label>
                                         <select class="form-select" aria-label="Default select example">
@@ -75,6 +82,7 @@
                                             <option name="genreId" value="4">퍼포먼스</option>
                                             <option name="genreId" value="5">어린이뮤지컬</option>
                                             <option name="genreId" value="6">기타</option>
+
                                         </select>
                                     </div>
                                     <div class="form-group col">
@@ -92,20 +100,29 @@
                                         <label class="col-form-label">공연장</label>
                                         <div class="venue-sub-menu">
                                             <input type="text" class="form-control"
+
                                                    placeholder="공연장 명을 작성해주세요." id="search" name="venueTitle" autocomplete="off">
                                             <ul id="results" style="width: 500px"></ul>
                                             <input type="hidden" class="region-name" name="regionName">
                                             <input type="hidden" class="theater-id" name="theaterId">
+
                                             <div class="input-group" id="address-detail">
                                                 <div class="address-first-line">
+
                                                     <input type="text" class="post-address"
                                                            placeholder="우편번호" name="postCode">
+
                                                     <button type="button" class="btn btn-primary btn-address">주소검색</button>
+                                                     <div class="invalid-feedback">
+     														 우편번호를 입력해주세요.
+   														 </div>
                                                 </div>
+
                                                 <input type="text" class="basic-address" placeholder="기본주소"
                                                        style="border-radius: 5px; margin-top: 5px;" name="basicAddress">
                                                 <input type="text" class="detail-address" placeholder="상세주소"
                                                        style="border-radius: 5px; margin-top: 5px;" name="detailAddress">
+
                                             </div>
                                         </div>
                                     </div>
@@ -114,11 +131,15 @@
                                         <!--                                        공연일시 시작일, 종료일 -->
                                         <div id="perform-date">
                                             <label for="start-date" class="col-form-label">시작일</label>
+
                                             <input type="date" id="start-date" class="form-control"
                                             name="startDate">
+
                                             <label for="end-date" class="col-form-label">종료일</label>
+
                                             <input type="date" id="end-date" class="form-control"
                                             name="endDate">
+
                                         </div>
                                     </div>
                                     <div class="form-group col">
@@ -300,7 +321,9 @@
                                         <label></label>
                                         <input type="submit" value="등록신청" class="btn btn-primary" Style="color: white">
                                     </div>
+
                                     <input type="hidden" name="UserId" value="${sessionScope.userId}">
+
 
 
                                 </form>
@@ -349,6 +372,32 @@
             detailAddress.focus();
         }
     });
+    
+
+
+  //startDate 오늘날짜 가져옴
+  //endDate는 startDate 전날짜 못가져옴
+  $(function(){
+  var today = new Date();
+  var dd = today.getDate();
+  var mm = today.getMonth()+1; 
+  	  
+  	   var yyyy = today.getFullYear();
+  	   if(dd<10){
+  	     dd='0'+dd
+  	   } 
+  	   if(mm<10){
+  	     mm='0'+mm
+  	   } 
+  	   today = yyyy+'-'+mm+'-'+dd;
+  	
+  	   document.getElementById("startDate").setAttribute("min", today);
+  	  })
+  	     
+  	
+  	function setendmin(e){
+  	   document.getElementById("endDate").setAttribute("min", e);
+  	   }  
 </script>
 </body>
 

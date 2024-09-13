@@ -49,12 +49,49 @@ public class PartnerController {
         session.invalidate();
         return "redirect:/partner/login";
     }
-
+ 
+    
     @GetMapping("/write")
     public String write() {
         return "/partner/write";
     }
+    
+    @GetMapping("/status")
+    public String status() {
+        return "/partner/status";
+    }
 
+    @GetMapping("/edit")
+    public String edit() {
+        return "/partner//edit";
+    }
+
+    
+    @GetMapping("/booking")
+    public String booking() {
+        return "/partner/booking";
+    }
+    
+    @GetMapping("/settlement")
+    public String settlement() {
+        return "/partner/settlement";
+    }
+    
+    @GetMapping("/review")
+    public String review() {
+        return "/partner/review";
+    }
+    
+    @GetMapping("/qna")
+    public String qna() {
+        return "/partner/qna";
+    }
+    
+    @GetMapping("/qna_write")
+    public String qna_write() {
+        return "/partner/qna_write";
+    }
+    
     @GetMapping("/main")
     public String main() {
         return "/partner/main";

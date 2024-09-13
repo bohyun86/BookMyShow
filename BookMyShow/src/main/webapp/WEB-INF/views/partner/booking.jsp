@@ -47,18 +47,100 @@
             <div class="container-fluid dashboard-content ">
                 <!-- ============================================================== -->
                 <!-- pageheader  -->
-                <!-- ============================================================== -->
+              <!-- ============================================================== -->
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title"><span class="name">${sessionScope.userName}</span>님 환영합니다.</h2>
-                            <div class="page-breadcrumb">
-                                <nav aria-label="breadcrumb">
-                                </nav>
-                            </div>
+                            <h2 class="pageheader-title"></h2>
+                            <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel
+                                mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
                         </div>
-                    </div>
+                   </div>
                 </div>
+                <!-- ============================================================== -->
+                <!-- end pageheader  -->
+                <!-- ============================================================== -->
+                 
+<!-- ==================================================== -->
+        <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+                            <div class="card">
+                                <h5 class="card-header">예매현황</h5>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table">
+                                            <thead class="bg-light">
+                                            <tr class="border-0">
+                                                <th scope="col">#</th>
+      <th scope="col">뮤지컬명</th>
+      <th scope="col">장소/회차</th>
+      <th scope="col">공연일</th>
+      <th scope="col">총좌석</th>
+      <th scope="col">예매좌석</th>
+      <th scope="col">예매율</th>
+      <th scope="col">진행상황</th>
+                                            </tr>
+                                            </thead>
+  
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>금발이너무해</td>
+      <td>대학로/3회차</td>
+      <td>yyyy-mm-dd</td>
+      <td>80석</td>
+      <td>72석 </td>
+      <td>90.0%</td>
+      <td><span class="badge-dot badge-brand mr-1"></span>공연전</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>yyyy-mm-dd</td>
+      <td>@fat</td>
+      <td>@fat</td>
+      <td>@fat</td>
+      <td><span class="badge-dot badge-brand mr-1"></span>공연전</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>yyyy-mm-dd</td>
+      <td>@fat</td>
+      <td>@fat</td>
+      <td>@fat</td>
+      <td><span class="badge-dot badge-info mr-1"></span>완료</td>
+    </tr>
+    
+  </tbody>
+</table>
+
+
+
+</div>
+</div>
+</div>
+<nav aria-label="Page navigation example">
+  <ul class="pagination justify-content-center">
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <li class="page-item"><a class="page-link" href="#">1</a></li>
+    <li class="page-item"><a class="page-link" href="#">2</a></li>
+    <li class="page-item"><a class="page-link" href="#">3</a></li>
+    <li class="page-item"><a class="page-link" href="#">4</a></li>
+    <li class="page-item"><a class="page-link" href="#">5</a></li>
+    <li class="page-item">
+      <a class="page-link" href="#" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+</div>
                 <!-- ============================================================== -->
                 <!-- end pageheader  -->
                 <!-- ============================================================== -->

@@ -1,3 +1,6 @@
+
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!doctype html>
 <html lang="en">
 
@@ -6,18 +9,18 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link href="assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
-    <link rel="stylesheet" href="assets/libs/css/style.css">
-    <link rel="stylesheet" href="assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
-    <link rel="stylesheet" href="assets/vendor/charts/chartist-bundle/chartist.css">
-    <link rel="stylesheet" href="assets/vendor/charts/morris-bundle/morris.css">
-    <link rel="stylesheet" href="assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
-    <link rel="stylesheet" href="assets/vendor/charts/c3charts/c3.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/fonts/circular-std/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin_partner/assets/libs/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/fonts/fontawesome/css/fontawesome-all.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/chartist-bundle/chartist.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/morris-bundle/morris.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/c3charts/c3.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <link rel="stylesheet" href="documentation/css/performanceEnroll.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin_partner/documentation/css/performanceEnroll.css">
     <title>Concept - Bootstrap 4 Admin Dashboard Template</title>
 </head>
 
@@ -29,76 +32,14 @@
     <!-- ============================================================== -->
     <!-- navbar -->
     <!-- ============================================================== -->
-    <div class="dashboard-header">
-        <nav class="navbar navbar-expand-lg bg-white fixed-top">
-            <a class="navbar-brand" href="main.html">파트너 페이지</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse " id="navbarSupportedContent">
-                <ul class="navbar-nav ml-auto navbar-right-top">
-                    <li class="nav-item dropdown connection">
-                        <a class="nav-link" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                           aria-haspopup="true" aria-expanded="false"><i class="bi bi-box-arrow-right"></i> 로그아웃</a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </div>
+    <jsp:include page="../include/partner/top.jsp"/>
     <!-- ============================================================== -->
     <!-- end navbar -->
     <!-- ============================================================== -->
     <!-- ============================================================== -->
     <!-- left sidebar -->
     <!-- ============================================================== -->
-    <div class="nav-left-sidebar sidebar-dark">
-        <div class="menu-list">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <a class="d-xl-none d-lg-none" href="#">Dashboard</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarNav">
-                    <ul class="navbar-nav flex-column">
-                        <li class="nav-divider">
-                            Menu
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
-                               data-target="#submenu-1" aria-controls="submenu-1">공연</a>
-                            <div id="submenu-1" class="collapse submenu" style="">
-                                <ul class="nav flex-column">
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="performanceEnroll.html">공연등록</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="nav-link" href="pages/data-tables.html">티켓예매 현황</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">정산</a>
-                            <div id="submenu-2" class="collapse submenu" style="">
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">후기 관리</a>
-                            <div id="submenu-3" class="collapse submenu" style="">
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">1:1 문의</a>
-                            <div id="submenu-4" class="collapse submenu" style="">
-                            </div>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
-    </div>
+    <jsp:include page="../include/partner/sidebar.jsp"/>
     <!-- ============================================================== -->
     <!-- end left sidebar -->
     <!-- ============================================================== -->
@@ -114,9 +55,11 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title">신규등록</h2>
+                            <h2 class="pageheader-title">공연수정</h2>
                             <div class="m-2 bg-white form-body">
-                                <form action="" method="post">
+                                <form action="${pageContext.request.contextPath}/partner/status" method="get">
+<!--                                 프론트작업때문에 메소드 겟으로 잠시 변경 나중에 포스트로 바꿔야함 -->
+                                <div class="p-3 mb-2 bg-body-tertiary">
                                     <div class="form-group col">
                                         <label class=" col-form-label">공연명</label>
                                         <input type="text" class="form-control"
@@ -296,30 +239,30 @@
                                         <input type="number">
                                         <!-- 0이하로 안떨어지게 js로 구현-->
                                     </div>
-                         <!--           <div class="form-group col" id="discount-input">
-                                        <label class="col-form-label">할인정보</label>
-                                        <div>
-                                            <div id="discount-date">
-                                                <label for="discount-start-date" class="col-form-label">시작일</label>
-                                                <input type="date" id="discount-start-date" class="form-control">
-                                                <label for="discount-end-date" class="col-form-label">종료일</label>
-                                                <input type="date" id="discount-end-date" class="form-control">
-                                            </div>
-                                            <div class="input-group">
-                                                <span class="input-group-text">할인율</span>
-                                                <input type="number" id="rate-input" class="form-control p-0">
-                                            </div>
-                                        </div>
-                                        0이하로 안떨어지게 js로 구현
-                                    </div>-->
+                                    <!--           <div class="form-group col" id="discount-input">
+                                                   <label class="col-form-label">할인정보</label>
+                                                   <div>
+                                                       <div id="discount-date">
+                                                           <label for="discount-start-date" class="col-form-label">시작일</label>
+                                                           <input type="date" id="discount-start-date" class="form-control">
+                                                           <label for="discount-end-date" class="col-form-label">종료일</label>
+                                                           <input type="date" id="discount-end-date" class="form-control">
+                                                       </div>
+                                                       <div class="input-group">
+                                                           <span class="input-group-text">할인율</span>
+                                                           <input type="number" id="rate-input" class="form-control p-0">
+                                                       </div>
+                                                   </div>
+                                                   0이하로 안떨어지게 js로 구현
+                                               </div>-->
                                     <div class="form-group col" id="detail-info">
                                         <label class="col-form-label">공연상세정보</label>
                                         <div class="detail-info">
-                                            <div class="musicalImage">
+                                            <div class="poster-image">
                                                 <p>포스터 이미지 :</p>
                                                 <input type="file" class="form-control">
                                             </div>
-                                            <div class="musicalDescriptionImage">
+                                            <div class="description-image">
                                                 <p>상세설명 이미지 :</p>
                                                 <input type="file" class="form-control">
                                             </div>
@@ -348,9 +291,9 @@
                                     </div>
                                     <div class="form-group col">
                                         <label></label>
-                                        <input type="submit" value="등록신청" class="btn btn-primary" Style="color: white">
+                                        <input type="submit" value="수정완료" class="btn btn-primary" Style="color: white">
                                     </div>
-
+</div>
 
                                 </form>
                             </div>
@@ -372,9 +315,9 @@
 <!-- ============================================================== -->
 <!-- Optional JavaScript -->
 <!-- jquery 3.3.1 -->
-<script src="assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
 <!-- bootstap bundle js -->
-<script src="assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>

@@ -10,17 +10,20 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/support/*")
 public class SupportController {
 
-    @GetMapping("/faq")
-    public String faq() {
-        log.info("faq success");
-
-        return "/support/frequentQuestion";
-    }
-
-    @GetMapping("/notice/")
+    @GetMapping("/notice")
     public String notice() {
         log.info("notice success");
 
-        return "/notice/notice";
+        return "/support/notice";
     }
+    
+    
+    
+
+//    @GetMapping("/notice/")
+//    public String notice() {
+//        log.info("notice success");
+//
+//        return "/notice/notice";
+//    }
 }

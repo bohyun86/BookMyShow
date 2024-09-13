@@ -27,21 +27,27 @@
 <body id="board-body">
 <jsp:include page="../include/top.jsp"/>
 
-<main class="row d-flex justify-content-between align-items-center" id="board-main">
 
+
+<main class="row d-flex justify-content-between align-items-center" id="board-main">
+ <ul class="list-group list-group-flush">
+  <li class="list-group-item">An item</li>
+  <li class="list-group-item">A second item</li>
+  <li class="list-group-item">A third item</li>
+  <li class="list-group-item">A fourth item</li>
+  <li class="list-group-item">And a fifth one</li>
+</ul>   
+  
     <jsp:include page="../include/support/aside.jsp"/>
 
-    <section class="h-100" id="board-content">
-        <div class="title">
-            Title
-            <ul class="notice-header">
-                <li style="width:35px;">번호</li>
-                <li style="width:570px;">제목</li>
-                <li style="width:80px">작성일</li>
-            </ul>
-        </div>
-    </section>
+
+   
+   
 </main>
+
+
+   
+
 
 <div id="noticenum">
     <span onclick="location.reload();" style="cursor:pointer"><b class="now">1</b></span>

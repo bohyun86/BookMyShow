@@ -32,7 +32,7 @@
           href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/c3charts/c3.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
-    <title >예매하다. 관리자 페이지</title>
+    <title>예매하다. 관리자 페이지</title>
 </head>
 
 <body>
@@ -54,11 +54,11 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title" >관리자메인페이지 </h2>
+                            <h2 class="pageheader-title">파트너요청승인페이지</h2>
                             <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel
                                 mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
                         </div>
-                    </div>
+                   </div>
                 </div>
                 <!-- ============================================================== -->
                 <!-- end pageheader  -->
@@ -66,16 +66,41 @@
                  
 <!-- ==================================================== -->
 
-
-
-			<h2><span class="name">${sessionScope.userName}</span>관리자님 환영합니다.</h2>
-			
 				
-				  </div>
-                </div>
+<div class="list-group">
+
+  <button type="button" class="list-group-item list-group-item-action " aria-current="true">
+   파트너 요청
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  <a class="btn btn-outline-primary btn-sm" href="${pageContext.request.contextPath}/admin/partner" role="button">승인</a> &nbsp;&nbsp;
+  <form action="${pageContext.request.contextPath}/admin/partner">
+  		<a class="btn btn-outline-danger" type="submit" onclick="deleteok()" >삭제</a>
+  </form>
+  
+  </div>
+  </button>
+ 
+  
+
+</div>
 
 
 
+
+
+
+<script>
+
+
+function deleteok(){
+    if(!confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')){
+        return false;
+    }
+}
+
+</script>
+
+<!-- 					
 <!-- 바텀 밑으로 내려야함 -->
 <%--         <jsp:include page="../include/adminBottom.jsp"/> --%>
 
