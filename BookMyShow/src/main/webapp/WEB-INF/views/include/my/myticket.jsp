@@ -1,3 +1,10 @@
+<%-- <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%> --%>
+<%-- <c:if test="${! empty sessionScope.id }"> --%>
+<%-- 	<c:if test="${sessionScope.id eq 'admin'}"> --%>
+								
+<%-- 	</c:if>						 --%>
+<%-- </c:if> --%>
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <div class="container-fluid my-ticket-header-container px-0">
     <div class="my-ticket-header">

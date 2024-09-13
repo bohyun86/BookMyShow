@@ -41,5 +41,10 @@
     <select id="loginPro" resultType="com.itwillbs.domain.UserDTO" resultMap="userResultMap">
         select * from User where user_name = #{userName} and password = #{password}
     </select>
+
+<!-- 	<update id="updateUser"> -->
+<!-- 		update  -->
+<!-- 	</update> -->
+
 </mapper>
   

@@ -1,15 +1,24 @@
 package com.itwillbs.controller;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.itwillbs.domain.UserDTO;
+import com.itwillbs.service.UserServiceImpl;
 
 @Controller
 @Log4j2
 @RequestMapping("/my/*")
+@AllArgsConstructor
 public class MypageController {
+	
+	private UserServiceImpl userServiceImpl;
 
 	@GetMapping("/bookings")
     public String bookings() {
@@ -52,11 +61,29 @@ public class MypageController {
         log.info("refund detail");
         return "/my/refund-detail";
     }
+    
 
     @GetMapping("/profile-edit")
-    public String profileEdit() {
+    public String profileEdit(UserDTO userDTO, Model model) {
         log.info("profile edit");
+        userDTO = userServiceImpl.getUser(userDTO);
+        model.addAttribute("userDTO", userDTO);
+        
         return "/my/profile-edit";
+    }
+    
+    @PostMapping("/profile-editPro")
+    public String profileEditPro(UserDTO userDTO, @RequestParam String newPassword) {
+        log.info("withdrawal");
+        userDTO = userServiceImpl.loginPro(userDTO);
+        if(userDTO != null) {
+        	userDTO.setPassword(newPassword);
+        	if(userServiceImpl.updateUser(userDTO)) {
+        		return "redirect:/my/bookings";
+        	}
+        }
+        
+        return "/my/withdrawal";
     }
 
     @GetMapping("/withdrawal")

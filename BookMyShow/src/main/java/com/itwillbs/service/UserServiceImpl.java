@@ -44,4 +44,12 @@ public class UserServiceImpl implements UserService {
     public UserDTO checkEmail(UserDTO userDTO) {
         return userMapper.getUserByEmail(userDTO);
     }
+    
+    @Override
+    public Boolean updateUser(UserDTO userDTO) {
+        userMapper.updateUser(userDTO);
+        return true;
+    }
+    
+    
 }
