@@ -13,13 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/main/*")
 public class MainController {
 
-    @RequestMapping("")
+    @RequestMapping("/main")
     public String home() {
         log.info("main success");
 
         return "/main/main";
     }
-
-  
-    
 }

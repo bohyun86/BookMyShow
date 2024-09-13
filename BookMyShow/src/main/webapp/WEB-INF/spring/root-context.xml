@@ -12,6 +12,10 @@
 		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 공연 정보 등록 Service Key 등록 -->
+	<bean id="serviceKey" class="java.lang.String">
+		<constructor-arg value="a85b154a49f4403da522aba1e732569f" />
+	</bean>
 
 	<bean id="mysqlCleanup" class="com.itwillbs.common.MySQLCleanup" destroy-method="cleanup"/>
 
