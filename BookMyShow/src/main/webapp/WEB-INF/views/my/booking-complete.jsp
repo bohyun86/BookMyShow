@@ -22,7 +22,6 @@
 				<p class="text-center mb-2">결제가 정상적으로 완료되었습니다.</p>
 				<p class="text-center mb-4">하단의 티켓 배부 및 좌석 배정 방식을 확인해주세요.</p>
 
-				<!-- 예매 정보 카드 -->
 				<div class="booking-card mb-4">
 					<div class="card-body">
 						<div class="row h-100 no-gutters">
@@ -92,7 +91,6 @@
 					</div>
 				</div>
 
-				<!-- 티켓 배부 및 좌석 배정 안내 -->
 				<div class="ticket-info bg-secondary bg-opacity-25 p-4 rounded">
 					<h3 class="mb-3">티켓 배부 및 좌석 배정 안내</h3>
 					<ul>
