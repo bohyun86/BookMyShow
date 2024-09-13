@@ -11,6 +11,8 @@
 <html lang="UTF-8">
 
 <head>
+<!-- jquery 3.3.1 -->
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -68,21 +70,18 @@
 
 			
 				
-<%-- <h1 class="text-center m-3">[검색어:<%=findKeyword %> ] 검색 결과</h1>				 --%>
-<form name="findF" action="#" class="form-inline">
 
-	<select name="findType" class="form-control mr-2">
+	<select name="findType" class="form-control mr-2" style="width: 100px;">
 		<option value="">::검색 유형::</option>
 		<option value="1">이름</option>
 		<option value="2">아이디</option>
 		<option value="3">이메일</option>
 	</select>
-		<input type="text" name="findKeyword" placeholder="검색어를 입력하세요" class="form-control mr-2">
-			<button class="btn btn-success">검 색</button>
-</form>
+		<input type="text" name="findKeyword" placeholder="검색어를 입력하세요" class="form-control mr-2"  style="width: 200px;">
+			<button class="btn btn-success" id="memberSearch" type="button">검 색</button>
 
-<ul class="list-group">
-  <li class="list-group-item">검색된 회원 정보 띄우기</li>
+<ul class="list-group" id="result">
+  <li class="list-group-item" ></li>
 </ul>
 
 <p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -100,9 +99,48 @@
   </div>
                 </div>
 
+<script>
 
-<!-- 바텀 밑으로 내려야함 -->
-<%--         <jsp:include page="../include/adminBottom.jsp"/> --%>
+$(function(){
+	$('#memberSearch').click(function(){
+// 		alert("notice 클릭");
+// 		console.log("notice 클릭");
+	$.ajax({
+		url:"${pageContext.request.contextPath}/admin/result",
+		dataType:"jason",
+		success:function(result){
+// 		alert("notice 클릭");
+		if(result=='noInfo'){
+			$('#result').html("회원정보가 없습니다");
+		alert("notice 클릭");
+		console.log("notice 클릭");
+			
+		}	else {
+			$('#result');		
+		alert("notice 클릭");
+		console.log("notice 클릭");
+		}
+			
+		}
+	});
+
+	});
+});
+
+
+
+
+
+
+
+
+</script>
+
+
+
+
+
+
 
     </div>
     <!-- ============================================================== -->
@@ -113,8 +151,6 @@
 <!-- end main wrapper  -->
 <!-- ============================================================== -->
 <!-- Optional JavaScript -->
-<!-- jquery 3.3.1 -->
-<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
 <!-- bootstap bundle js -->
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 <!-- slimscroll js -->
