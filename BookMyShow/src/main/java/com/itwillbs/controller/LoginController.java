@@ -32,7 +32,7 @@ public class LoginController {
         log.info("loginPro: {}", userDTO);
         UserDTO getUser = userServiceImpl.loginPro(userDTO);
         if (getUser == null) {
-            return "redirect:/login/";
+            return "redirect:/login/login";
         } else {
             log.info(getUser);
             session.setAttribute("userId", getUser.getUserId());

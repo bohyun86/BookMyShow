@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.JsonObject;
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.UserDTO;
 import com.itwillbs.service.MemberService;
 
 @RestController
@@ -20,11 +21,11 @@ public class AdminAjaxController {
 	@GetMapping("/admin/result")
 	public String result(HttpServletRequest request) {
 		System.out.println("AdminAjaxController result" );
-		String id = request.getParameter("member_id");
-		MemberDTO memberDTO=memberService.getMember(id);
+		String id = request.getParameter("user_name");
+		UserDTO userDTO=memberService.getMember(id);
 		JsonObject jsonObject = new JsonObject();
 		String result="";
-		if(memberDTO!=null) {
+		if(userDTO!=null) {
 			result="noInfo";
 		}else {
 			result="okInfo";

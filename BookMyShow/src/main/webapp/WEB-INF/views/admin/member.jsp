@@ -70,15 +70,16 @@
 
 			
 				
-
-	<select name="findType" class="form-control mr-2" style="width: 100px;">
+<form name="findF" action="#" class="form-inline">
+	<select name="findType" class="form-control mr-2" >
 		<option value="">::검색 유형::</option>
 		<option value="1">이름</option>
 		<option value="2">아이디</option>
 		<option value="3">이메일</option>
 	</select>
-		<input type="text" name="findKeyword"  placeholder="검색어를 입력하세요" class="form-control mr-2"  style="width: 200px;">
+		<input type="text" name="findKeyword"  placeholder="검색어를 입력하세요" class="form-control mr-2"  s>
 			<button class="btn btn-success"  type="button" id="memberSearch">검 색</button>
+			</form>
 
 <!-- <div class="bbs_line"> -->
 <!-- <li><a href="javascript:;">이번 여름 휴가 제주 갈까? 미션 투어 (여행경비 50만원 지원)</a></li> --> 
@@ -111,8 +112,8 @@ $(function(){
 // 		console.log("notice 클릭");
 	$.ajax({
 		url:"${pageContext.request.contextPath}/admin/result",
-		data:{'memberSearch':$('#memberSearch').val()},
-// 		dataType:"jason",
+// 		data:{'memberSearch':$('#memberSearch').val()},
+		dataType:"jason",
 		error:function(err){
 			
 		alert("error");
@@ -128,8 +129,8 @@ $(function(){
 		}	else {
 		alert($('#result'));
 		console.log("okinfo");
-		$("#result").text(jsonData.id);
-// 		$('.list-group11').html('<li class="list-group-item"><a href="javascript:;">'+item.member_id +'</a></li>');
+// 		$("#result").text(jsonData.id);
+		$('#result').html('<li class="list-group-item"><a href="javascript:;">'+item.user_name +'</a></li>');
 // 		result=$('#result');
 		}
 			

@@ -5,11 +5,21 @@
   
 <mapper namespace="com.itwillbs.mapper.MemberMapper">
 
+ <resultMap id="memberResultMap" type="com.itwillbs.domain.MemberDTO">
+        <id property="memberId" column="member_id"/>
+        <result property="address" column="address"/>
+        <result property="birthdate" column="birthdate"/>
+        <result property="gender" column="gender"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="userId" column="user_id"/>
+    </resultMap>
 
 	
-	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO">
-		select * from Member
-		where member_id = #{member_id}
+	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO" resultMap="memberResultMap">
+    SELECT  U.user_name, U.email, U.phone_number,U.name
+    FROM Member M JOIN User U 
+    ON (M.user_id = U.user_id)
 	</select>
 	
 	

@@ -68,7 +68,7 @@ public class AdminController {
         log.info("admin logout success");
         session.invalidate();
 
-        return "/admin/login";
+        return "/main/main";
     }
 
     
