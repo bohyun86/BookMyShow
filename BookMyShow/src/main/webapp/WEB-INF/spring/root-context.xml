@@ -52,9 +52,6 @@
 	</bean>
 
 
-
-
-
 	<mybatis-spring:scan base-package="com.itwillbs.mapper" />
 
 	<!-- root-context에서는 @Service, @Repository, @Configuration, @Component 같은 빈을 스캔 -->

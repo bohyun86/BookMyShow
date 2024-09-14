@@ -1,11 +1,12 @@
-package com.itwillbs.domain.musical;
+package com.itwillbs.domain.Performance;
 
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 
 @Data
-public class MusicalDTO {
+public class PerformanceRegistrationDTO {
 
     // musical 테이블
     private int musicalId;
@@ -20,10 +21,11 @@ public class MusicalDTO {
     private String totalTime; //
     private String intervalTime; //
     private int genreId; // 1
-    private File musicalImage; // 1
-    private File musicalDescriptionImage; // 1
+    private MultipartFile musicalPost; // 1
+    private MultipartFile[] musicalImages; // 1
     private String musicalStaff;
     private String request; // 1
+    private int perTicket;
 
     // Actor 테이블
     private int actorId;
@@ -32,7 +34,8 @@ public class MusicalDTO {
     //TicketPrice 테이블
     private int ticketPriceId;
     private int[] price; // 1
-    private String[] capacity; // 1
+    private String[] classes; // 1
+    private String[] numberOfSeats; // 1
     private String[] seatClassId; // 1
 
 
@@ -47,7 +50,7 @@ public class MusicalDTO {
     private String postCode; //
     private String basicAddress; // 1
     private String detailAddress; //
-    private String region;
+    private String regionName;
     private int totalSeat; //
 
 
