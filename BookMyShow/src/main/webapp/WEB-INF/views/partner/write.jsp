@@ -183,7 +183,10 @@
                                                 </div>
                                                 <div class="total-seat">
                                                     <p>총 좌석 수 :</p>
+                                                    <div class="input-group">
                                                     <input type="text" class="form-control number" name="totalSeat" readonly>
+                                                        <span class="input-group-text signal">석</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>

@@ -113,7 +113,7 @@
     color: #777;
 }
 
-.show-time p, .detail-info p, .total-seat p {
+.show-time p, .detail-info p {
     margin: 0;
     font-size: 13px;
     color: #777;
@@ -374,5 +374,16 @@ form .bg-body-tertiary .musical-images#detail-info .img-container p {
 
 .input-group-text.signal {
     color: black;
+}
+
+.total-seat input[name=totalSeat] {
+    width: 80px;
+}
+
+.total-seat p {
+    margin: 0;
+    font-size: 13px;
+    color: #777;
+    width: 100px;
 }
 
