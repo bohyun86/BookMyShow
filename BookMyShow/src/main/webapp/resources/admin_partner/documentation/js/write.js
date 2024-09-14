@@ -1,3 +1,7 @@
+
+
+
+
 const reservedSeat = document.getElementById('reserved-seat');
 const unreservedSeat = document.getElementById('unreserved-seat');
 const totalSeat = document.querySelector('.total-seat input');
@@ -231,3 +235,76 @@ function checkExtension(fileName, fileSize) {
 
 }
 
+// 웹페이지를 불러왔을때, input file에 파일이 있는 경우 썸네일 생성
+document.addEventListener('DOMContentLoaded', () => {
+    if (inputMusicalPoster.files.length > 0) {
+        addImageThumbnail({ target: { files: inputMusicalPoster.files } }, 1, imgContainer1);
+    }
+    if (inputMusicalImages.files.length > 0) {
+        addImageThumbnail({ target: { files: inputMusicalImages.files } }, 5, imgContainer2);
+    }
+});
+
+// 배우이름 쉽표로 구분하기
+const inputActor = document.querySelector('input[name="actors"]');
+const actorList = document.querySelector('.actor-list');
+const actorName = document.querySelector('.actor-name');
+
+inputActor.addEventListener('blur', () => {
+    if (inputActor.value.trim() === '') {
+        actorName.innerHTML = '';
+        return;
+    }
+    const actors = inputActor.value.split(',');
+    for (let i = 0; i < actors.length; i++) {
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'actorList';
+        input.value = actors[i].trim();
+        actorList.appendChild(input);
+        actorName.innerHTML += `배우${i + 1}: ${actors[i].trim()} | ` ;
+    }
+    // 뒤에서 3글자 제거
+    actorName.innerHTML = actorName.innerHTML.slice(0, -3);
+});
+
+inputActor.addEventListener('focus', () => {
+    actorName.innerHTML = '';
+});
+
+
+// discount 입력 시 discountPercent 자동 계산 및 유효성 검사
+const discountPercent = document.querySelector('#rate-input');
+const discount = document.querySelector('#discount-rate');
+
+discountPercent.addEventListener('input', () => {
+    if (discountPercent.value.trim() === '') {
+        return;
+    }
+
+    let discountValue = parseFloat(discountPercent.value.replace(/,/g, '')); // 쉼표 제거 후 숫자 변환
+
+    if (discountValue > 100) {
+        discountValue = 100;
+        discountPercent.value = discountValue.toLocaleString(); // 천 단위 구분자 추가
+    } else if (discountValue < 0) {
+        discountValue = 0;
+        discountPercent.value = discountValue.toLocaleString();
+    } else {
+        discountPercent.value = discountValue.toLocaleString();
+    }
+
+    discount.value = discountValue / 100; // 할인율 필드에 100으로 나눈 값 설정
+});
+
+
+// input type number에 천단위 구분기호 추가
+document.querySelectorAll('input[type=text].number').forEach(input => {
+    input.addEventListener('input', () => {
+        let value = input.value.replace(/[^0-9]/g, ''); // 숫자가 아닌 값 제거
+        if (value < 0) {
+            value = 0;
+        }
+        input.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 천 단위 구분자 추가
+    });
+});

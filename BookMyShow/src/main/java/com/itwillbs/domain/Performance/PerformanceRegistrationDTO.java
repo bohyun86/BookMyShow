@@ -26,10 +26,14 @@ public class PerformanceRegistrationDTO {
     private String musicalStaff;
     private String request; // 1
     private int perTicket;
+    private int totalTicket;
+    private String discountStartDate;
+    private String discountEndDate;
+    private String discountRate;
 
     // Actor 테이블
     private int actorId;
-    private String Name; // 1
+    private String[] actorList; // 1
 
     //TicketPrice 테이블
     private int ticketPriceId;

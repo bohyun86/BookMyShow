@@ -342,4 +342,37 @@ form .bg-body-tertiary .musical-images#detail-info .img-container p {
     text-overflow: ellipsis; /* 넘치는 글자는 말줄임표(...)로 표시 */
 }
 
+.actor-menu {
+    height: 70px;
+}
+
+.actor-menu .actor-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 500px;
+    padding: 0;
+}
+
+.actor-menu .actor-container .actor-name {
+    font-size: 13px;
+    color: #777;
+    text-align: left;
+    width: 500px;
+    padding: 10px 0 10px;
+
+}
+
+#discount-input {
+    margin: 20px 0;
+}
+
+#discount-input #rate-input {
+    text-align: center;
+}
+
+.input-group-text.signal {
+    color: black;
+}
 
