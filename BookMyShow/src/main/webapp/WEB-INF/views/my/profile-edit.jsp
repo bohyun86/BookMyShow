@@ -29,10 +29,12 @@
 		<section id="board-content">
 			<h1 class="title">프로필 수정</h1>
 			<form class="p-4" id="profile-edit-form"
-				action="${pageContext.request.contextPath}/my/profile-update" method="post">
+				action="${pageContext.request.contextPath}/my/profile-editPro" method="post">
 				
 				<div class="form-group pb-2 d-flex row align-items-stretch justify-content-center">
-
+					
+					<input type="hidden" name="userId" value="${userDTO.userId}">
+					
 					<!-- 사용자 ID 필드 -->
 					<div class="input-group px-0" id="id-input">
 						<div class="input-group-prepend">
@@ -90,7 +92,7 @@
 							</span>
 						</div>
 						<input type="password" class="form-control border-0"
-							name="currentPassword" placeholder="현재 비밀번호">
+							name="password" placeholder="현재 비밀번호">
 					</div>
 					<div class="input-alert-current-pass input-alert"></div>
 
@@ -102,7 +104,7 @@
 							</span>
 						</div>
 						<input type="password" class="form-control border-0"
-							name="confirmCurrentPassword" placeholder="현재 비밀번호 확인">
+							name="confirmPassword" placeholder="현재 비밀번호 확인">
 					</div>
 					<div class="input-alert-confirm-current-pass input-alert"></div>
 

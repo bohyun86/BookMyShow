@@ -77,20 +77,19 @@ public class MypageController {
 	}
 
 	@PostMapping("/profile-editPro")
-	public String profileEditPro(UserDTO userDTO,  @RequestParam(required = false) String newPassword) {
-		log.info("profileEditPro");
-		try {
-			UserDTO dbUserDTO = userServiceImpl.loginPro(userDTO);
-			if (dbUserDTO != null) {
-				boolean result = userServiceImpl.updateUser(dbUserDTO, newPassword);
-				log.info("프로필 업데이트 결과: {}", result ? "성공" : "실패");
-			} else {
-				log.warn("사용자 인증 실패: {}", userDTO.getUserId());
-			}
-		} catch (Exception e) {
-			log.error("프로필 업데이트 중 오류 발생", e);
-		}
-		return "redirect:/my/bookings";
+	public String profileEditPro(UserDTO userDTO, @RequestParam(required = false) String newPassword) {
+	    log.info("profileEditPro");
+	    try {
+	        if(userServiceImpl.loginPro(userDTO) != null) {
+	        	 boolean result = userServiceImpl.updateUser(userDTO, newPassword);
+		            log.info("프로필 업데이트 결과: {}", result ? "성공" : "실패");
+	        }else {
+	            log.warn("사용자 인증 실패: {}", userDTO.getUserId());
+	        }
+	    } catch (Exception e) {
+	        log.error("프로필 업데이트 중 오류 발생", e);
+	    }
+	    return "redirect:/my/bookings";
 	}
 
 	@GetMapping("/withdrawal")
