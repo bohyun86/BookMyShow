@@ -62,6 +62,7 @@ public class PartnerController {
         }
     }
 
+
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
