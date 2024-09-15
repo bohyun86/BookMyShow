@@ -111,17 +111,17 @@ public class PartnerController {
     }
 
     @GetMapping("/main")
-    public String main() {
+    public String partnerMain() {
         return "/partner/main";
     }
 
-    @PostMapping(value = "/UploadImages", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public ResponseEntity<List<AttachFileDTO>> uploadImages(PerformanceRegistrationDTO performanceRegistrationDTO) {
+
+    @PostMapping(value = "/writePro")
+    public void writePro(PerformanceRegistrationDTO performanceRegistrationDTO) {
         log.info("writePro: {}", performanceRegistrationDTO);
 
         List<AttachFileDTO> list = new ArrayList<>();
-        String uploadFolder = "C:\\upload";
+        String uploadFolder = System.getProperty("user.home") + File.separator + "upload";
 
         File uploadPath = new File(uploadFolder, getFolder());
         log.info("uploadPath: {}", uploadPath);
@@ -134,66 +134,44 @@ public class PartnerController {
         MultipartFile[] musicalImages = performanceRegistrationDTO.getMusicalImages();
 
         for (MultipartFile musicalImage : musicalImages) {
-
-            AttachFileDTO attachFileDTO = new AttachFileDTO();
-
-            log.info("musicalImage: {}", musicalImage);
-            String musicalImageFileName = musicalImage.getOriginalFilename();
-            log.info("musicalImageFilename: {}", musicalImageFileName);
-            attachFileDTO.setFileName(musicalImageFileName);
-            musicalImageFileName.substring(musicalImageFileName.lastIndexOf("\\") + 1);
-            UUID uuids = UUID.randomUUID();
-            musicalImageFileName = uuids.toString() + "_" + musicalImageFileName;
-
-            log.info("only file name: {}", musicalImageFileName);
-
-            try {
-                File saveFile = new File(uploadPath, musicalImageFileName);
-                musicalImage.transferTo(saveFile);
-
-                attachFileDTO.setUuid(uuids.toString());
-                attachFileDTO.setUploadPath(getFolder());
-                attachFileDTO.setImage(true);
-
-                FileOutputStream thumbnailMusical = new FileOutputStream(
-                        new File(uploadPath, "s_" + musicalImageFileName));
-                Thumbnailator.createThumbnail(musicalImage.getInputStream(), thumbnailMusical, 100, 100);
-                thumbnailMusical.close();
-
-                list.add(attachFileDTO);
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+            uploadImages(musicalImage, uploadPath, list, false);
         }
 
+        // 공연 포스터 이미지 처리
+        MultipartFile musicalPost = performanceRegistrationDTO.getMusicalPost();
+        uploadImages(musicalPost, uploadPath, list, true);
 
-        imageProcess(performanceRegistrationDTO, uploadPath);
-
-        return ResponseEntity.ok(list);
     }
 
-    private static void imageProcess(PerformanceRegistrationDTO performanceRegistrationDTO, File uploadPath) {
-        // 포스터 이미지 처리
-        MultipartFile musicalPost = performanceRegistrationDTO.getMusicalPost();
+    private void uploadImages(MultipartFile musicalImage, File uploadPath, List<AttachFileDTO> list, boolean isPoster) {
+        AttachFileDTO attachFileDTO = new AttachFileDTO();
 
-        String musicalPostFileName = musicalPost.getOriginalFilename();
-        musicalPostFileName = musicalPostFileName.substring(musicalPostFileName.lastIndexOf("\\") + 1);
-        UUID uuid = UUID.randomUUID();
-        musicalPostFileName = uuid.toString() + "_" + musicalPostFileName;
+        log.info("musicalImage: {}", musicalImage);
+        String musicalImageFileName = musicalImage.getOriginalFilename();
+        log.info("musicalImageFilename: {}", musicalImageFileName);
+        attachFileDTO.setFileName(musicalImageFileName);
+        musicalImageFileName.substring(musicalImageFileName.lastIndexOf("\\") + 1);
+        UUID uuids = UUID.randomUUID();
+        musicalImageFileName = uuids + "_" + musicalImageFileName;
 
-        File saveFile = new File(uploadPath, musicalPostFileName);
+        log.info("only file name: {}", musicalImageFileName);
 
         try {
-            musicalPost.transferTo(saveFile);
-            FileOutputStream thumbnailMusical = new FileOutputStream(
-                    new File(uploadPath, "s_" + musicalPostFileName));
-            Thumbnailator.createThumbnail(musicalPost.getInputStream(), thumbnailMusical, 100, 100);
-            thumbnailMusical.close();
+            File saveFile = new File(uploadPath, musicalImageFileName);
+            musicalImage.transferTo(saveFile);
+
+            attachFileDTO.setUuid(uuids.toString());
+            attachFileDTO.setUploadPath(getFolder());
+            attachFileDTO.setPoster(isPoster);
+
+            list.add(attachFileDTO);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
+
 
 
     private String getFolder() {
@@ -204,16 +182,6 @@ public class PartnerController {
         String str = sdf.format(date);
 
         return str.replace("-", File.separator);
-    }
-
-    private boolean checkImageType(File file) {
-        String contentType = null;
-        try {
-            contentType = Files.probeContentType(file.toPath());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return contentType != null && contentType.startsWith("image");
     }
 
 }

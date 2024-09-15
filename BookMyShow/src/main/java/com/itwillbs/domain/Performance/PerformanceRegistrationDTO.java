@@ -57,8 +57,6 @@ public class PerformanceRegistrationDTO {
     private String regionName;
     private int totalSeat; //
 
-
-    private int UserId;
     private boolean reserved; //
 
 

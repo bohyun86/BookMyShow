@@ -1,7 +1,4 @@
 
-
-
-
 const reservedSeat = document.getElementById('reserved-seat');
 const unreservedSeat = document.getElementById('unreserved-seat');
 const totalSeat = document.querySelector('.total-seat input');

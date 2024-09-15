@@ -359,6 +359,7 @@
                                             <label class="col-form-label">요청사항</label>
                                             <input type="text" name="request">
                                         </div>
+                                        <input type="hidden" name="userId" value="${sessionScope.userId}">
                                         <div class="form-group col">
                                             <label></label>
                                             <input type="submit" value="등록신청" class="btn btn-primary"
