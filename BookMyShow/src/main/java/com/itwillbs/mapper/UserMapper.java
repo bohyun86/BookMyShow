@@ -15,6 +15,8 @@ public interface UserMapper {
 
     UserDTO getUserByEmail(UserDTO userDTO);
 
+    UserDTO getUserById(UserDTO userDTO);
+    
 	int updateUser(UserDTO userDTO);
-
+	
 }

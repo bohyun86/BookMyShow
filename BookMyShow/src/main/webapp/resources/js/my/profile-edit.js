@@ -46,34 +46,41 @@ let debounceTimer2;
 function checkEmail() {
     const emailValue = document.querySelector('input[name="email"]').value;
     const emailRegExp = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
+    const currentUserEmail = document.querySelector('input[name="email"]').dataset.currentEmail; // 현재 사용자의 이메일
 
     clearTimeout(debounceTimer2);
     debounceTimer2 = setTimeout(() => {
         if (emailRegExp.test(emailValue)) {
-            fetch(`checkUserEmail?email=${emailValue}`, {
-                method: 'get',
-                headers: { 'Accept': 'application/json' }
-            })
-            .then(response => {
-                if (response.ok) {
-                    return response.json();
-                } else {
-                    throw new Error('네트워크 반응이 없습니다.');
-                }
-            })
-            .then(result => {
-                if (result.result) {
-                    emailAlert.innerText = '이미 사용중인 이메일입니다.';
+            if (emailValue === currentUserEmail) {
+                // 현재 사용자의 이메일과 동일한 경우
+                emailAlert.innerText = '현재 사용 중인 이메일입니다.';
+                emailAlert.style.color = 'blue';
+            } else {
+                fetch(`/i5/login/checkUserEmail?email=${emailValue}`, {
+                    method: 'get',
+                    headers: { 'Accept': 'application/json' }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('네트워크 반응이 없습니다.');
+                    }
+                })
+                .then(result => {
+                    if (result.result) {
+                        emailAlert.innerText = '이미 사용중인 이메일입니다.';
+                        emailAlert.style.color = 'red';
+                    } else {
+                        emailAlert.innerText = '사용가능한 이메일입니다.';
+                        emailAlert.style.color = 'blue';
+                    }
+                })
+                .catch(_ => {
+                    emailAlert.innerText = '에러가 발생했습니다.';
                     emailAlert.style.color = 'red';
-                } else {
-                    emailAlert.innerText = '사용가능한 이메일입니다.';
-                    emailAlert.style.color = 'blue';
-                }
-            })
-            .catch(_ => {
-                emailAlert.innerText = '에러가 발생했습니다.';
-                emailAlert.style.color = 'red';
-            });
+                });
+            }
         } else {
             emailAlert.innerText = '이메일 형식을 확인해주세요.';
             emailAlert.style.color = 'red';
@@ -199,11 +206,11 @@ function blurEvent(email, name, phone, currentPassword, confirmCurrentPassword, 
 const submitBtn = document.querySelector('#update-button');
 submitBtn.addEventListener('click', function (e) {
     e.preventDefault();
-    if (emailAlert.innerText === '사용가능한 이메일입니다.' &&
+    if ((emailAlert.innerText === '사용가능한 이메일입니다.' || emailAlert.innerText === '현재 사용 중인 이메일입니다.') &&
         nameAlert.innerText === '' &&
         phoneAlert.innerText === '사용가능한 전화번호입니다.' &&
         confirmCurrentPwAlert.innerText === '비밀번호가 일치합니다.' &&
-        (newPwAlert.innerText === '' || newPwAlert.innerText === '사용가능한 비밀번호입니다.') &&
+        (newPwAlert.innerText === '' || newPwAlert.innerText === '사용가능한 비밀번호입니다.' || '비밀번호를 변경하려면 새 비밀번호를 입력하세요.') &&
         (confirmNewPwAlert.innerText === '' || confirmNewPwAlert.innerText === '비밀번호가 일치합니다.')) {
         
         // 현재 비밀번호 확인을 위한 서버 요청

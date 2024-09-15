@@ -31,7 +31,6 @@
 			<form class="p-4" id="profile-edit-form"
 				action="${pageContext.request.contextPath}/my/profile-update" method="post">
 				
-				<c:set var="userDTO" value="${requestScope.userDTO }"></c:set>
 				<div class="form-group pb-2 d-flex row align-items-stretch justify-content-center">
 
 					<!-- 사용자 ID 필드 -->
@@ -54,7 +53,7 @@
 							</span>
 						</div>
 						<input type="email" class="form-control border-0" name="email"
-							value="${userDTO.email}" placeholder="이메일">
+							value="${userDTO.email}" data-current-email="${userDTO.email}" placeholder="이메일">
 					</div>
 					<div class="input-alert-email input-alert"></div>
 
