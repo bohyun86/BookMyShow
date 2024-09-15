@@ -5,7 +5,7 @@
 
 <mapper namespace="com.itwillbs.mapper.MemberMapper">
 
-    <resultMap id="partnerResultMap" type="com.itwillbs.domain.PartnerDTO">
+    <resultMap id="partnerResultMap" type="com.itwillbs.domain.Partner">
         <result property="partner_id" column="partnerId"/>
         <result property="company_name" column="companyName"/>
         <result property="business_id" column="businessId"/>
@@ -18,7 +18,7 @@
         <result property="account_owner" column="accountOwner"/>
     </resultMap>
 
-    <select id="getMember" resultType="com.itwillbs.domain.partnerDTO" resultMap="partnerResultMap">
+    <select id="getPartner" resultType="com.itwillbs.domain.Partner" resultMap="partnerResultMap">
         select * from partner where user_id = #{userId}
     </select>
 

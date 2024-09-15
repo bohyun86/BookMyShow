@@ -1,8 +1,8 @@
 package com.itwillbs.mapper;
 
-import com.itwillbs.domain.PartnerDTO;
+import com.itwillbs.domain.Partner;
 
 public interface PartnerMapper {
 
-    PartnerDTO getPartner(PartnerDTO partnerDTO);
+    Partner getPartner(Partner partner);
 }

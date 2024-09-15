@@ -113,7 +113,7 @@
     color: #777;
 }
 
-.show-time p, .detail-info p {
+.show-time p, .detail-info p{
     margin: 0;
     font-size: 13px;
     color: #777;
@@ -382,8 +382,27 @@ form .bg-body-tertiary .musical-images#detail-info .img-container p {
 
 .total-seat p {
     margin: 0;
-    font-size: 13px;
-    color: #777;
-    width: 100px;
 }
 
+.request {
+    height: 170px;
+}
+
+textarea[name=request] {
+    height: 150px;
+    width: 500px;
+    resize: none;
+}
+
+.region-p {
+    font-size: 10px;
+    color: #777;
+    width: 300px;
+}
+
+.region {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

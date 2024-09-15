@@ -72,7 +72,7 @@
                                     <div class="p-3 mb-2 bg-body-tertiary">
                                         <div class="form-group col">
                                             <label class=" col-form-label">공연명</label>
-                                            <input type="text" class="form-control"
+                                            <input type="text" class="form-control required-field"
                                                    placeholder="상품명을 입력해주세요." name="title">
 
                                         </div>
@@ -81,7 +81,7 @@
                                             <label class="col-form-label">장르</label>
                                             <select class="form-select" name="genreId"
                                                     aria-label="Default select example">
-                                                <option selected>장르를 선택해주세요</option>
+                                                <option selected value="0">장르를 선택해주세요</option>
                                                 <option name="genreId" value="1">로맨틱코미디</option>
                                                 <option name="genreId" value="2">코믹</option>
                                                 <option name="genreId" value="3">드라마</option>
@@ -95,7 +95,7 @@
                                             <label class="col-form-label">관람등급</label>
                                             <select class="form-select" name="ageLimit"
                                                     aria-label="Default select example">
-                                                <option selected>관람등급을 선택해주세요</option>
+                                                <option selected value="0">관람등급을 선택해주세요</option>
                                                 <option name="ageLimit" value="1">전체관람가</option>
                                                 <option name="ageLimit" value="2">12세이상관람가</option>
                                                 <option name="ageLimit" value="3">15세이상관람가</option>
@@ -106,25 +106,32 @@
                                         <div class="form-group col" id="venue">
                                             <label class="col-form-label">공연장</label>
                                             <div class="venue-sub-menu">
-                                                <input type="text" class="form-control"
-
+                                                <input type="text" class="form-control required-field"
                                                        placeholder="공연장 명을 작성해주세요." id="search" name="venueTitle"
                                                        autocomplete="off">
                                                 <ul id="results" style="width: 500px"></ul>
-                                                <input type="hidden" class="region-name" name="regionName">
+                                                <div class="region">
+                                                    <div class="input-group" style="width: 160px">
+                                                        <span class="input-group-text">지역명</span>
+                                                        <input type="text" class="region-name" name="regionName"
+                                                               style="width: 100px">
+                                                    </div>
+                                                    <p class="region-p">※ 공연장이 대학로인 경우 "대학로"라고 직접 기입해주세요.</p>
+                                                </div>
+
                                                 <input type="hidden" class="theater-id" name="publicVenueId">
 
                                                 <div class="input-group" id="address-detail">
                                                     <div class="address-first-line">
-
-                                                        <input type="text" class="post-address form-control"
+                                                        <input type="text"
+                                                               class="post-address form-control required-field"
                                                                placeholder="우편번호" name="postCode">
-
                                                         <button type="button" class="btn btn-primary btn-address">주소검색
                                                         </button>
                                                     </div>
 
-                                                    <input type="text" class="basic-address form-control" placeholder="기본주소"
+                                                    <input type="text" class="basic-address form-control required-field"
+                                                           placeholder="기본주소"
                                                            style="border-radius: 5px; margin-top: 5px;"
                                                            name="basicAddress">
                                                     <input type="text" class="detail-address" placeholder="상세주소"
@@ -140,12 +147,12 @@
                                             <div id="perform-date">
                                                 <label for="start-date" class="col-form-label">시작일</label>
 
-                                                <input type="date" id="start-date" class="form-control"
+                                                <input type="date" id="start-date" class="form-control required-field"
                                                        name="startDate">
 
                                                 <label for="end-date" class="col-form-label">종료일</label>
 
-                                                <input type="date" id="end-date" class="form-control"
+                                                <input type="date" id="end-date" class="form-control required-field"
                                                        name="endDate">
 
                                             </div>
@@ -155,11 +162,15 @@
                                             <div class="show-time">
                                                 <div class="total-time">
                                                     <p>총 공연시간 :</p>
-                                                    <input type="text" class="form-control number" name="totalTime">
+                                                    <input type="text"
+                                                           class="form-control number required-field thousand-separator"
+                                                           name="totalTime">
                                                 </div>
                                                 <div class="interval-time">
                                                     <p>인터벌 시간 :</p>
-                                                    <input type="text" class="form-control number" name="intervalTime">
+                                                    <input type="text"
+                                                           class="form-control number required-field thousand-separator"
+                                                           name="intervalTime">
                                                 </div>
                                             </div>
                                         </div>
@@ -184,7 +195,9 @@
                                                 <div class="total-seat">
                                                     <p>총 좌석 수 :</p>
                                                     <div class="input-group">
-                                                    <input type="text" class="form-control number" name="totalSeat" readonly>
+                                                        <input type="text"
+                                                               class="form-control number thousand-separator"
+                                                               name="totalSeat" readonly>
                                                         <span class="input-group-text signal">석</span>
                                                     </div>
                                                 </div>
@@ -201,13 +214,16 @@
                                                     <div class="input-group-parent">
                                                         <div class="input-group" style="width: 190px">
                                                             <span class="input-group-text">가격</span>
-                                                            <input type="text" class="form-control number" name="price"
+                                                            <input type="text"
+                                                                   class="form-control number thousand-separator"
+                                                                   name="price"
                                                                    disabled>
                                                             <span class="input-group-text signal">원</span>
                                                         </div>
                                                         <div class="input-group" style="width: 190px">
                                                             <span class="input-group-text">좌석수</span>
-                                                            <input type="text" class="form-control number"
+                                                            <input type="text"
+                                                                   class="form-control number thousand-separator"
                                                                    name="numberOfSeats" disabled>
                                                             <span class="input-group-text signal">석</span>
                                                         </div>
@@ -222,13 +238,15 @@
                                                     <div class="input-group-parent">
                                                         <div class="input-group" style="width: 190px">
                                                             <span class="input-group-text">가격</span>
-                                                            <input type="text" class="form-control r-grade number"
+                                                            <input type="text"
+                                                                   class="form-control r-grade number thousand-separator"
                                                                    name="price" disabled>
                                                             <span class="input-group-text signal">원</span>
                                                         </div>
                                                         <div class="input-group" style="width: 190px">
                                                             <span class="input-group-text">좌석수</span>
-                                                            <input type="text" class="form-control r-grade number"
+                                                            <input type="text"
+                                                                   class="form-control r-grade number thousand-separator"
                                                                    name="numberOfSeats" disabled>
                                                             <span class="input-group-text signal">석</span>
                                                         </div>
@@ -242,13 +260,15 @@
                                                     <div class="input-group-parent">
                                                         <div class="input-group" style="width: 190px">
                                                             <span class="input-group-text number">가격</span>
-                                                            <input type="text" class="form-control number" name="price"
+                                                            <input type="text"
+                                                                   class="form-control number thousand-separator"
+                                                                   name="price"
                                                                    disabled>
                                                             <span class="input-group-text signal">원</span>
                                                         </div>
                                                         <div class="input-group" style="width: 190px">
                                                             <span class="input-group-text">좌석수</span>
-                                                            <input type="text" class="form-control"
+                                                            <input type="text" class="form-control thousand-separator"
                                                                    name="numberOfSeats" disabled>
                                                             <span class="input-group-text signal">석</span>
                                                         </div>
@@ -262,13 +282,16 @@
                                                     <div class="input-group-parent">
                                                         <div class="input-group" style="width: 190px">
                                                             <span class="input-group-text">가격</span>
-                                                            <input type="text" class="form-control number" name="price"
+                                                            <input type="text"
+                                                                   class="form-control number thousand-separator"
+                                                                   name="price"
                                                                    disabled>
                                                             <span class="input-group-text signal">원</span>
                                                         </div>
                                                         <div class="input-group" style="width: 190px">
                                                             <span class="input-group-text">좌석수</span>
-                                                            <input type="text" class="form-control number"
+                                                            <input type="text"
+                                                                   class="form-control number thousand-separator"
                                                                    name="numberOfSeats" disabled>
                                                             <span class="input-group-text signal">석</span>
                                                         </div>
@@ -282,14 +305,17 @@
                                                     </div>
                                                     <div class="input-group-parent">
                                                         <div class="input-group" style="width: 190px">
-                                                            <span class="input-group-text">가격</span>
-                                                            <input type="text" class="form-control number" name="price"
+                                                            <span class="input-group-text ">가격</span>
+                                                            <input type="text"
+                                                                   class="form-control number thousand-separator"
+                                                                   name="price"
                                                                    disabled>
                                                             <span class="input-group-text signal">원</span>
                                                         </div>
                                                         <div class="input-group" style="width: 190px">
                                                             <span class="input-group-text">좌석수</span>
-                                                            <input type="text" class="form-control number"
+                                                            <input type="text"
+                                                                   class="form-control number thousand-separator"
                                                                    name="numberOfSeats" disabled>
                                                             <span class="input-group-text signal">석</span>
                                                         </div>
@@ -299,67 +325,66 @@
                                         </div>
                                         <div class="form-group col">
                                             <label class="col-form-label">인당 구매가능수</label>
-                                            <input type="text" class="form-control number" name="perTicket">
+                                            <input type="text" class="form-control number required-field"
+                                                   name="perTicket">
                                             <!-- 0이하로 안떨어지게 js로 구현-->
                                         </div>
                                         <div class="form-group col" id="discount-input">
-                                                       <label class="col-form-label">할인정보</label>
-                                                       <div>
-                                                           <div id="discount-date">
-                                                               <label for="discount-start-date" class="col-form-label">시작일</label>
-                                                               <input type="date" id="discount-start-date" name="discountStartDate" class="form-control">
-                                                               <label for="discount-end-date" class="col-form-label">종료일</label>
-                                                               <input type="date" id="discount-end-date" name="discountEndDate" class="form-control">
-                                                           </div>
-                                                           <div class="input-group">
-                                                               <span class="input-group-text">할인율</span>
-                                                               <input type="number" id="rate-input" class="form-control p-0" name=discountNum">
-                                                               <span class="input-group-text signal">%</span>
-                                                               <input type="hidden" id="discount-rate" name="discountRate">
-                                                           </div>
-                                                       </div>
-                                                   </div>
+                                            <label class="col-form-label">할인정보</label>
+                                            <div>
+                                                <div id="discount-date">
+                                                    <label for="discount-start-date" class="col-form-label">시작일</label>
+                                                    <input type="date" id="discount-start-date" name="discountStartDate"
+                                                           class="form-control required-field">
+                                                    <label for="discount-end-date" class="col-form-label">종료일</label>
+                                                    <input type="date" id="discount-end-date" name="discountEndDate"
+                                                           class="form-control required-field">
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">할인율</span>
+                                                    <input type="number" id="rate-input"
+                                                           class="form-control p-0 required-field thousand-separator"
+                                                           name=discountNum">
+                                                    <span class="input-group-text signal">%</span>
+                                                    <input type="hidden" id="discount-rate" name="discountRate">
+                                                </div>
+                                            </div>
+                                        </div>
                                         <div class="form-group col musical-images" id="detail-info">
                                             <label class="col-form-label">공연상세정보</label>
                                             <div class="detail-info">
                                                 <div class="musicalImage">
                                                     <p>포스터 이미지 :</p>
-                                                    <input type="file" class="form-control" name="musicalPost" multiple>
+                                                    <input type="file" class="form-control required-field"
+                                                           name="musicalPost" multiple>
                                                 </div>
                                                 <div class="img-container" id="poster-image"></div>
                                                 <div class="musicalDescriptionImage">
                                                     <p>상세설명 이미지 :</p>
-                                                    <input type="file" class="form-control"
+                                                    <input type="file" class="form-control required-field"
                                                            name="musicalImages" multiple>
                                                 </div>
                                                 <div class="img-container" id="description-image"></div>
                                             </div>
                                         </div>
                                         <div class="form-group col actor-menu">
-                                            <label class="col-form-label" >주요배우</label>
+                                            <label class="col-form-label">주요배우</label>
                                             <div class="actor-container">
-                                                <input type="text" class="form-control" placeholder='배우 이름은 쉼표(",")로 구분해주세요.' name="actors">
+                                                <input type="text" class="form-control required-field"
+                                                       placeholder='배우 이름은 쉼표(",")로 구분해주세요.' name="actors">
                                                 <div class="actor-list"></div>
                                                 <div class="actor-name"></div>
                                             </div>
                                         </div>
                                         <div class="form-group col">
-                                            <label class="col-form-label">제작진</label>
-                                            <input type="text" name="musicalStaff">
-                                        </div>
-                                        <div class="form-group col">
                                             <label class="col-form-label">주최주관</label>
-                                            <input type="text" name="">
+                                            <input type="text" name="musicalSponsor">
                                         </div>
-                                        <div class="form-group col inquire">
-                                            <label class="col-form-label">기획제작</label>
-                                            <input type="text" name="">
-                                        </div>
-                                        <div class="form-group col">
+                                        <div class="form-group col request">
                                             <label class="col-form-label">요청사항</label>
-                                            <input type="text" name="request">
+                                            <textarea type="text" name="request"></textarea>
                                         </div>
-                                        <input type="hidden" name="userId" value="${sessionScope.userId}">
+                                        <input type="hidden" name="partnerId" value="${sessionScope.partnerId}">
                                         <div class="form-group col">
                                             <label></label>
                                             <input type="submit" value="등록신청" class="btn btn-primary"
@@ -413,31 +438,6 @@
                 detailAddress.focus();
             }
         });
-
-
-        //startDate 오늘날짜 가져옴
-        //endDate는 startDate 전날짜 못가져옴
-        $(function () {
-            var today = new Date();
-            var dd = today.getDate();
-            var mm = today.getMonth() + 1;
-
-            var yyyy = today.getFullYear();
-            if (dd < 10) {
-                dd = '0' + dd
-            }
-            if (mm < 10) {
-                mm = '0' + mm
-            }
-            today = yyyy + '-' + mm + '-' + dd;
-
-            document.getElementById("startDate").setAttribute("min", today);
-        })
-
-
-        function setendmin(e) {
-            document.getElementById("endDate").setAttribute("min", e);
-        }
     </script>
 </body>
 

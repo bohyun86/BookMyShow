@@ -1,45 +1,37 @@
 package com.itwillbs.controller;
 
+import com.itwillbs.domain.Partner;
 import com.itwillbs.domain.Performance.AttachFileDTO;
 import com.itwillbs.domain.Performance.PerformanceRegistrationDTO;
 import com.itwillbs.domain.UserDTO;
+import com.itwillbs.service.PartnerService;
 import com.itwillbs.service.UserServiceImpl;
+import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import net.coobird.thumbnailator.Thumbnailator;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
-import java.awt.*;
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.UUID;
 
 @Controller
 @Log4j2
 @RequestMapping("/partner/*")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
+@AllArgsConstructor
 public class PartnerController {
 
-    private final UserServiceImpl userServiceImpl;
-
-    public PartnerController(UserServiceImpl userServiceImpl) {
-        this.userServiceImpl = userServiceImpl;
-    }
+    private UserServiceImpl userServiceImpl;
+    private PartnerService partnerService;
 
     @GetMapping("/login")
     public String login() {
@@ -58,6 +50,9 @@ public class PartnerController {
             session.setAttribute("userId", getUser.getUserId());
             session.setAttribute("userRole", getUser.getUserRole());
             session.setAttribute("userName", getUser.getUserName());
+            Partner partner = partnerService.getPartner2(getUser.getUserId());
+            log.info("partner {}", partner);
+            session.setAttribute("partnerId", partner.getPartnerId());
             return "redirect:/partner/main/";
         }
     }
@@ -118,7 +113,7 @@ public class PartnerController {
 
 
     @PostMapping(value = "/writePro")
-    public void writePro(PerformanceRegistrationDTO performanceRegistrationDTO) {
+    public String writePro(PerformanceRegistrationDTO performanceRegistrationDTO) {
         log.info("writePro: {}", performanceRegistrationDTO);
 
         List<AttachFileDTO> list = new ArrayList<>();
@@ -142,6 +137,7 @@ public class PartnerController {
         MultipartFile musicalPost = performanceRegistrationDTO.getMusicalPost();
         uploadImages(musicalPost, uploadPath, list, true);
 
+        return "redirect:/partner/status";
     }
 
     private void uploadImages(MultipartFile musicalImage, File uploadPath, List<AttachFileDTO> list, boolean isPoster) {

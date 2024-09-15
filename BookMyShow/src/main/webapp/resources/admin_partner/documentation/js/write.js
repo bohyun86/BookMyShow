@@ -1,4 +1,3 @@
-
 const reservedSeat = document.getElementById('reserved-seat');
 const unreservedSeat = document.getElementById('unreserved-seat');
 const totalSeat = document.querySelector('.total-seat input');
@@ -235,10 +234,10 @@ function checkExtension(fileName, fileSize) {
 // 웹페이지를 불러왔을때, input file에 파일이 있는 경우 썸네일 생성
 document.addEventListener('DOMContentLoaded', () => {
     if (inputMusicalPoster.files.length > 0) {
-        addImageThumbnail({ target: { files: inputMusicalPoster.files } }, 1, imgContainer1);
+        addImageThumbnail({target: {files: inputMusicalPoster.files}}, 1, imgContainer1);
     }
     if (inputMusicalImages.files.length > 0) {
-        addImageThumbnail({ target: { files: inputMusicalImages.files } }, 5, imgContainer2);
+        addImageThumbnail({target: {files: inputMusicalImages.files}}, 5, imgContainer2);
     }
 });
 
@@ -259,7 +258,7 @@ inputActor.addEventListener('blur', () => {
         input.name = 'actorList';
         input.value = actors[i].trim();
         actorList.appendChild(input);
-        actorName.innerHTML += `배우${i + 1}: ${actors[i].trim()} | ` ;
+        actorName.innerHTML += `배우${i + 1}: ${actors[i].trim()} | `;
     }
     // 뒤에서 3글자 제거
     actorName.innerHTML = actorName.innerHTML.slice(0, -3);
@@ -296,7 +295,8 @@ discountPercent.addEventListener('input', () => {
 
 
 // input type number에 천단위 구분기호 추가
-document.querySelectorAll('input[type=text].number').forEach(input => {
+const thousandSeparator = document.querySelectorAll('.thousand-separator')
+thousandSeparator.forEach(input => {
     input.addEventListener('input', () => {
         let value = input.value.replace(/[^0-9]/g, ''); // 숫자가 아닌 값 제거
         if (value < 0) {
@@ -305,3 +305,92 @@ document.querySelectorAll('input[type=text].number').forEach(input => {
         input.value = value.replace(/\B(?=(\d{3})+(?!\d))/g, ','); // 천 단위 구분자 추가
     });
 });
+
+const submitBtn = document.querySelector('input[type=submit]');
+const requiredFiled = document.querySelectorAll('.required-field');
+const numberInput = document.querySelectorAll('.number');
+const ageLimit = document.querySelector('select[name="ageLimit"]');
+const genreId = document.querySelector('select[name="genreId"]');
+const inputPrice = document.querySelector('input[name="price"]');
+const inputNumberOfSeats = document.querySelector('input[name="numberOfSeats"]');
+
+submitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    let isValid = true; // 유효성 검사를 통과했는지 확인하는 플래그
+
+    // 필수 항목 체크
+    for (let input of requiredFiled) {
+        if (input.value.trim() === '') {
+            alert('체크표시된 항목은 필수입력사항입니다.');
+            input.focus();
+            isValid = false;
+            break; // 유효성 검사를 통과하지 못한 경우 루프 종료
+        }
+    }
+
+    if (!isValid) {
+        return; // 필수 항목 유효성 검사를 통과하지 못하면 폼 제출을 중단
+    }
+
+    // 나이 제한 체크
+    if (ageLimit.value === '0') {
+        alert('나이 제한을 선택해주세요.');
+        ageLimit.focus();
+        isValid = false;
+    }
+
+    if (!isValid) {
+        return; // 나이 제한 유효성 검사를 통과하지 못하면 폼 제출을 중단
+    }
+
+    // 장르 체크
+    if (genreId.value === '0') {
+        alert('장르를 선택해주세요.');
+        genreId.focus();
+        isValid = false;
+    }
+
+    if (!isValid) {
+        return; // 장르 유효성 검사를 통과하지 못하면 폼 제출을 중단
+    }
+
+    // 가격 체크
+    let numberOfPrices = 0;
+    for (let input of requiredFiled) {
+        if (input.value !== '') {
+            numberOfPrices++;
+            break;
+        }
+    }
+
+    if (numberOfPrices === 0) {
+        alert('하나 이상의 가격을 설정해주세요.');
+        inputPrice.focus();
+        return; // 유효성 검사를 통과하지 못하면 폼 제출을 중단
+    }
+
+    // 좌석수 체크
+    let numberOfSeats = 0;
+    if (inputNumberOfSeats.value !== '') {
+        numberOfSeats++;
+    }
+
+    if (numberOfSeats === 0) {
+        alert('좌석수를 설정해주세요.');
+        inputNumberOfSeats.focus();
+        return; // 유효성 검사를 통과하지 못하면 폼 제
+    }
+
+    // input 천단위 구분기호 제거
+    thousandSeparator.forEach(input => {
+        if (input.type !== 'file') {
+            input.value = input.value.replace(/,/g, '');
+        }
+    });
+
+    // 유효성 검사를 모두 통과했을 때 폼을 제출
+    document.querySelector('form').submit();  // 이 부분에서 폼을 제출
+});
+
+

@@ -1,7 +1,8 @@
 package com.itwillbs.service;
 
-import com.itwillbs.domain.PartnerDTO;
+import com.itwillbs.domain.Partner;
 import com.itwillbs.mapper.PartnerMapper;
+import com.itwillbs.repository.PartnerRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
@@ -12,12 +13,17 @@ import org.springframework.stereotype.Service;
 public class PartnerService implements PartnerMapper {
 
     private final PartnerMapper partnerMapper;
+    private final PartnerRepository partnerRepository;
 
     @Override
-    public PartnerDTO getPartner(PartnerDTO partnerDTO) {
-        log.info("getPartner: {}", partnerDTO);
-        return partnerMapper.getPartner(partnerDTO);
+    public Partner getPartner(Partner partner) {
+        log.info("getPartner: {}", partner);
+        return partnerMapper.getPartner(partner);
     }
 
+    public Partner getPartner2(int userId) {
+        log.info("userId: {}", userId);
+        return partnerRepository.findPartnerByUserId(userId);
+    }
 
 }

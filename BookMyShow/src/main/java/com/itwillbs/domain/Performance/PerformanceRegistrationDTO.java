@@ -7,27 +7,29 @@ import org.springframework.web.multipart.MultipartFile;
 public class PerformanceRegistrationDTO {
 
     // musical 테이블
-    private int musicalId;
-    private int memberId;
+    private int musicalId; // 1
+    private int partnerId; // 1
     private String title; // 1
-    private String description;
-    private String startDate; //
-    private String endDate; //
+    private String description; // 1
+    private String startDate; // 1
+    private String endDate; // 1
     private int ageLimit; // 1
-    private String createdAt; //
-    private String updatedAt; //
-    private String totalTime; //
-    private String intervalTime; //
+    private String createdAt; // 1
+    private String updatedAt; // 1
+    private String totalTime; // x
+    private String intervalTime; // x
     private int genreId; // 1
-    private MultipartFile musicalPost; // 1
-    private MultipartFile[] musicalImages; // 1
-    private String musicalStaff;
-    private String request; // 1
-    private int perTicket;
-    private int totalTicket;
-    private String discountStartDate;
-    private String discountEndDate;
-    private String discountRate;
+    private int perTicket; // x
+    private int totalTicket; // x 없어도 될듯
+    private String discountStartDate; // x
+    private String discountEndDate; // x
+    private String discountRate; // x
+    private String musicalSponsor; // x
+    private String request; // x
+
+    // AttachFile 테이블
+    private MultipartFile musicalPost; // 테이블로 관리
+    private MultipartFile[] musicalImages; // 테이블로 관리
 
     // Actor 테이블
     private int actorId;
