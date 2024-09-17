@@ -5,12 +5,11 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class CouponDTO {
-	private Integer couponId;
-	private String code;
-	private Integer couponAmount;
-	private LocalDateTime expiryDate;
-	private String status;
+public class PerformanceDTO {
+	private Integer performanceId;
+	private LocalDateTime performanceDate;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;
+	private Integer musicalId;
+	private Integer venueId;
 }
