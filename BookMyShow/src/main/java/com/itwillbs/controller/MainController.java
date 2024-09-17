@@ -27,15 +27,3 @@ public class MainController {
         return "/main/main";
     }
 
-//    @GetMapping(value = "/newCarousel", produces = MediaType.APPLICATION_JSON_VALUE)
-//    public List<MainNewCarouselDTO> newCarousel() {
-//        try {
-//            log.info("newCarousel success");
-//            return mainService.getMainNewCarouselDTOs();
-//        } catch (Exception e) {
-//            log.error("Error while fetching new carousel data", e);
-//            // 예외 처리 (예: 빈 리스트 반환 또는 적절한 에러 응답 처리)
-//            return new ArrayList<>();
-//        }
-//    }
-}
