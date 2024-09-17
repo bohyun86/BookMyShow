@@ -72,8 +72,8 @@
   <button type="button" class="list-group-item list-group-item-action " aria-current="true">
    파트너 요청
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <a class="btn btn-outline-primary btn-sm" href="${pageContext.request.contextPath}/admin/partner" role="button">승인</a> &nbsp;&nbsp;
-  <form action="${pageContext.request.contextPath}/admin/partner">
+  <a class="btn btn-outline-primary btn-sm" href="${pageContext.request.contextPath}/admin/partnerDTO" role="button">승인</a> &nbsp;&nbsp;
+  <form action="${pageContext.request.contextPath}/admin/partnerDTO">
   		<a class="btn btn-outline-danger" type="submit" onclick="deleteok()" >삭제</a>
   </form>
   

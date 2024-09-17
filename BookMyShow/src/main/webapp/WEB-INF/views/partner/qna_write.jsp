@@ -64,7 +64,7 @@
 		</div>
                             <div class="m-2 bg-white form-body">
                             
-                                <form action="${pageContext.request.contextPath}/partner/qna" method="get"> 
+                                <form action="${pageContext.request.contextPath}/partner/qna" method="get">
 <!--                                 프론트작업 편하게 페이지 이동을 위해 메소드 겟으로 해놓음  -->
                                     <div class="input-group mb-3 " >
   <span class="input-group-text" id="inputGroup-sizing-default">제목</span>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.mapper.MemberMapper">
+
+    <resultMap id="partnerResultMap" type="com.itwillbs.domain.PartnerDTO">
+        <result property="partner_id" column="partnerId"/>
+        <result property="company_name" column="companyName"/>
+        <result property="business_id" column="businessId"/>
+        <result property="account_number" column="accountNumber"/>
+        <result property="created_at" column="createdAt"/>
+        <result property="updated_at" column="updatedAt"/>
+        <result property="user_id" column="userId"/>
+        <result property="partner_status" column="partnerStatus"/>
+        <result property="bank_name" column="bankName"/>
+        <result property="account_owner" column="accountOwner"/>
+    </resultMap>
+
+    <select id="getPartner" resultType="com.itwillbs.domain.PartnerDTO" resultMap="partnerResultMap">
+        select * from partnerDTO where user_id = #{userId}
+    </select>
+
+
+</mapper>

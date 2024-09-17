@@ -5,11 +5,13 @@
 	   xmlns:aop="http://www.springframework.org/schema/aop"
 	   xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
-		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
+		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/data/jpa https://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- 공연 정보 등록 Service Key 등록 -->
@@ -25,21 +27,13 @@
 		<property name="jdbcUrl" value="jdbc:mysql://itwillbs.com:3306/c1d2405t1?serverTimezone=Asia/Seoul" />
 		<property name="username" value="c1d2405t1" />
 		<property name="password" value="1234" />
-
-		<!-- 추가 HikariCP 설정 (선택 사항) -->
-		<!--		<property name="maximumPoolSize" value="10" />-->
-		<!--		<property name="minimumIdle" value="5" />-->
-		<!--		<property name="idleTimeout" value="30000" />-->
-		<!--		<property name="connectionTimeout" value="20000" />-->
 	</bean>
 
-	<!-- 트랜잭션 관리자 설정 -->
+	<!--트랜잭션 관리자 설정-->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 
-	<!-- 트랜잭션 어노테이션 활성화 -->
-	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 	<!-- MyBatis 설정 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -51,14 +45,52 @@
 		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
 	</bean>
 
-
-
-
-
 	<mybatis-spring:scan base-package="com.itwillbs.mapper" />
 
-	<!-- root-context에서는 @Service, @Repository, @Configuration, @Component 같은 빈을 스캔 -->
+	<!-- JPA 및 Hibernate 설정 추가 -->
+	<!-- JPA Vendor Adapter 설정 (Hibernate 사용) -->
+	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="generateDdl" value="true" />
+		<property name="showSql" value="true" />
+	</bean>
 
+	<!-- EntityManagerFactory 설정 -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+		<property name="packagesToScan" value="com.itwillbs.domain" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
+				<prop key="hibernate.id.new_generator_mappings">true</prop> <!-- JPA 2.0 이상 사용 시 -->
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
+			</props>
+		</property>
+	</bean>
+
+	<!-- JPA 트랜잭션 관리자 설정 -->
+	<bean id="jpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<bean id="chainedTransactionManager" class="org.springframework.data.transaction.ChainedTransactionManager">
+		<constructor-arg>
+			<list>
+				<ref bean="jpaTransactionManager"/>
+				<ref bean="transactionManager"/> <!-- DataSourceTransactionManager -->
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<!-- 트랜잭션 어노테이션 활성화 -->
+	<tx:annotation-driven transaction-manager="chainedTransactionManager"/>
+
+	<!-- Spring Data JPA Repository 설정 -->
+	<jpa:repositories base-package="com.itwillbs.repository" />
+
+	<!-- root-context에서는 @Service, @Repository, @Configuration, @Component 같은 빈을 스캔 -->
 	<context:component-scan base-package="com.itwillbs.aop" />
 	<context:component-scan base-package="com.itwillbs.dao" />
 	<context:component-scan base-package="com.itwillbs.service" />

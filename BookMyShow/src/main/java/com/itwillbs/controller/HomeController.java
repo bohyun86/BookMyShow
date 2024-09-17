@@ -1,18 +1,30 @@
 package com.itwillbs.controller;
 
+import com.itwillbs.service.main.MainService;
+import jdk.jfr.Label;
+import lombok.AllArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping(value = "/", method = RequestMethod.GET)
+@Log4j2
+@AllArgsConstructor
 public class HomeController {
 
-    @GetMapping("")
-    public String home() {
+    private MainService mainService;
 
-        return "/main/main";
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String home(Model model) {
+
+        log.info("main 호출");
+
+        model.addAttribute("newCarouselDTOS", mainService.getMainNewCarouselDTOs());
+
+        return "main/main";
     }
 
 }

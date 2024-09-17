@@ -170,7 +170,7 @@
 
 
 											<p><div class="d-grid gap-2 col-6 mx-auto">
-											  <button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/partner'">돌아가기</button>
+											  <button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/partnerDTO'">돌아가기</button>
 											</div></p>
 
     </div>
