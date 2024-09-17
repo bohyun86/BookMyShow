@@ -9,7 +9,6 @@ public class CouponDTO {
 	private Integer couponId;
 	private String code;
 	private Integer couponAmount;
-	private LocalDateTime expiryDate;
 	private String status;
 	private LocalDateTime createdAt;
 	private LocalDateTime updatedAt;

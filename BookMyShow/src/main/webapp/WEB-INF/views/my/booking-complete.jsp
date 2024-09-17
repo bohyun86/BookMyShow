@@ -1,6 +1,11 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ page import="java.time.format.DateTimeFormatter"%>
+<%
+DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+pageContext.setAttribute("formatter", formatter);
+%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -27,17 +32,18 @@
 						<div class="row h-100 no-gutters">
 							<div
 								class="col-md-3 h-100 d-flex align-items-center justify-content-start">
-								<a href="<c:url value='/musical/detail/${booking.musicalId}'/>"
-									class="img-container"> <img
-									src="<c:url value='/resources/images/poster/${booking.musical.posterImage}'/>"
-									class="poster-img" alt="${booking.musical.title} 포스터">
+								<a href="<c:url value='/musical/detail/${musical.musicalId}'/>"
+									class="img-container"> <!--                                     musical.image -->
+									<img
+									src="<c:url value='/resources/images/poster/${attachFile.fileName}'/>"
+									class="poster-img" alt="${musical.title} 포스터">
 								</a>
 							</div>
 							<div class="col-md-9 d-flex flex-column h-100 pl-3">
 								<div class="booking-info mb-2">
-									<span class="status">예매완료${booking.status}</span> <span
-										class="booking-date">yyyy-MM-dd<fmt:formatDate
-											value="${booking.bookingDate}" pattern="yyyy-MM-dd" /></span>
+									<span class="status">${booking.status}</span> <span
+										class="booking-date"> ${booking.bookingDate.format(formatter)}
+									</span>
 								</div>
 								<div
 									class="content-wrapper d-flex flex-column justify-content-between flex-grow-1">
@@ -45,8 +51,8 @@
 										<div class="col-8 pr-2">
 											<h5 class="card-title mb-0">
 												<a
-													href="<c:url value='/musical/detail/${booking.musicalId}'/>"
-													class="card-title-link"> ${booking.musical.title}뮤지컬명 </a>
+													href="<c:url value='/musical/detail/${musical.musicalId}'/>"
+													class="card-title-link">${musical.title}</a>
 											</h5>
 										</div>
 										<div class="col-4 pl-2">
@@ -60,9 +66,7 @@
 									<div class="row align-items-center no-gutters mb-2">
 										<div class="col-8 pr-2">
 											<p class="card-text mb-0">
-												공연일: yyyy-MM-dd
-												<fmt:formatDate value="${booking.performanceDate}"
-													pattern="yyyy-MM-dd HH:mm" />
+												${performance.performanceDate.format(DateTimeFormatter.ofPattern('yyyy-MM-dd HH:mm'))}
 											</p>
 										</div>
 										<div class="col-4 pl-2">
@@ -74,14 +78,14 @@
 									<div class="row align-items-center no-gutters">
 										<div class="col-8 pr-2">
 											<p class="card-text mb-0 ticket-amount">
-												총 2${booking.ticketCount}매 / 20,000원
-												<fmt:formatNumber value="${booking.totalAmount}"
+												총 ${booking.ticketCount}매 /
+												<fmt:formatNumber value="${payment.paymentAmount}"
 													type="currency" currencySymbol="₩" />
 											</p>
 										</div>
 										<div class="col-4 pl-2">
 											<button
-												onclick="location.href='<c:url value='/my/refund'/>';"
+												onclick="location.href='<c:url value='/my/refund/${booking.bookingId}'/>';"
 												class="btn btn-outline-danger w-100">환불신청</button>
 										</div>
 									</div>
@@ -113,27 +117,23 @@
 	</main>
 
 	<!-- 좌석 확인 모달 -->
-	<div class="modal fade" id="seatModal${booking.bookingId}"
-		tabindex="-1" aria-labelledby="seatModalLabel${booking.bookingId}"
-		aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="seatModalLabel${booking.bookingId}">좌석
-						정보</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<ul id="seatList${booking.bookingId}">
-						<!-- 좌석 정보가 여기에 동적으로 추가됩니다 -->
-						<li>a열 10번</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
-
+<div class="modal fade" id="seatModal${booking.bookingId}"
+    tabindex="-1" aria-labelledby="seatModalLabel${booking.bookingId}"
+    aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="seatModalLabel${booking.bookingId}">좌석 정보</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <ul id="seatList${booking.bookingId}">
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
 	<jsp:include page="../include/bottom.jsp" />
 
@@ -143,5 +143,6 @@
 		crossorigin="anonymous"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/my/common.js"></script>
+		
 </body>
 </html>

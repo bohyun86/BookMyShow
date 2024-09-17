@@ -55,26 +55,47 @@ function initSeatCheck() {
     seatCheckButtons.forEach(button => {
         button.addEventListener('click', function() {
             const bookingId = this.getAttribute('data-booking-id');
-            showSeats(bookingId);
+            const modalId = `seatModal${bookingId}`;
+            const modal = document.getElementById(modalId);
+            
+            // 모달이 열릴 때 좌석 정보를 가져옵니다.
+            modal.addEventListener('show.bs.modal', function (event) {
+                showSeats(bookingId);
+            }, { once: true }); // 이벤트 리스너를 한 번만 실행합니다.
+
+            // 모달을 엽니다.
+            new bootstrap.Modal(modal).show();
         });
     });
 }
 
 function showSeats(bookingId) {
     const seatList = document.getElementById(`seatList${bookingId}`);
-    seatList.innerHTML = ''; // 기존 내용 초기화
+    seatList.innerHTML = '<li>좌석 정보를 불러오는 중...</li>'; // 로딩 메시지
 
-    // 예시 데이터 (실제로는 서버에서 가져와야 함)
-    const seats = [
-        { seat_number: 'A10', seat_class: '일반' },
-        { seat_number: 'A11', seat_class: '일반' }
-    ];
-
-    seats.forEach(seat => {
-        const li = document.createElement('li');
-        li.textContent = `${seat.seat_number} (${seat.seat_class})`;
-        seatList.appendChild(li);
-    });
+    fetch(`/i5/my/${bookingId}/seats`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+            return response.json();
+        })
+        .then(seats => {
+            seatList.innerHTML = ''; // 기존 내용 초기화
+            if (seats.length === 0) {
+                seatList.innerHTML = '<li>예약된 좌석이 없습니다.</li>';
+            } else {
+                seats.forEach(seat => {
+                    const li = document.createElement('li');
+                    li.textContent = `${seat.seatNumber} (${seat.seatClassId})`;
+                    seatList.appendChild(li);
+                });
+            }
+        })
+        .catch(error => {
+            console.error('좌석 정보를 가져오는 중 오류 발생:', error);
+            seatList.innerHTML = '<li>좌석 정보를 불러오는 데 실패했습니다.</li>';
+        });
 }
 
 function initReviewWriting() {
@@ -89,16 +110,17 @@ function initReviewWriting() {
 }
 
 function writeReview(bookingId, hasReview) {
-    if (hasReview) {
-        window.location.href = `${contextPath}/my/review-edit/${bookingId}`;
-    } else {
-        window.location.href = `${contextPath}/my/review-write/${bookingId}`;
-    }
+     const url = hasReview ? `/my/review-edit/${bookingId}` : `/my/review-write/${bookingId}`;
+    window.location.href = url;
 }
 
 function initBookingComplete() {
     console.log('예매 완료 페이지 초기화');
-    // 예매 완료 페이지에 특화된 기능을 여기에 추가
+    // 티켓 정보 표시 버튼 이벤트 리스너 추가
+    const ticketInfoButton = document.getElementById('ticketInfoButton');
+    if (ticketInfoButton) {
+        ticketInfoButton.addEventListener('click', showTicketInfo);
+    }
 }
 
 function showTicketInfo() {

@@ -12,7 +12,6 @@ public class ReviewDTO {
     private String content;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private String comment;
     private Integer memberId;
     private Integer musicalId;
 }

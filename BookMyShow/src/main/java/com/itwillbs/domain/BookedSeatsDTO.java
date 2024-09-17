@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import lombok.Data;
 
 @Data
-public class BookSeatDTO {
+public class BookedSeatsDTO {
 	private Integer bookedSeatId;
     private String seatNumber;
     private LocalDateTime createdAt;
