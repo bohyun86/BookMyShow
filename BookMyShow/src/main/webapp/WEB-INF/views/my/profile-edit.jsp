@@ -13,7 +13,8 @@
 #confirm-current-pass-input,
 #new-pass-input,
 #confirm-new-pass-input,
-#update-button {
+#update-button,
+#withdrawal-button {
     height: 57px;
     width: 422px;
 }
@@ -132,9 +133,12 @@
 					</div>
 					<div class="input-alert-confirm-new-pass input-alert"></div>
 
-					<!-- 프로필 수정 버튼 -->
+					<!-- 버튼 -->
 					<button type="submit" class="btn btn-primary fw-bolder my-2 mt-4"
 						id="update-button">프로필 수정</button>
+					<!-- 회원탈퇴 버튼 -->
+					<button type="button" class="btn btn-danger fw-bolder my-2 mt-4"
+						id="withdrawal-button">회원탈퇴</button>
 				</div>
 			</form>
 		</section>

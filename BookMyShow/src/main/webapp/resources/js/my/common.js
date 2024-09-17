@@ -110,18 +110,22 @@ function initWithdrawal() {
     const cancelButton = document.getElementById('cancelButton');
 
     if (withdrawalButton) {
-        withdrawalButton.addEventListener('click', function(event) {
-            event.preventDefault();
-            if (confirm('정말로 탈퇴하시겠습니까? 이 작업은 취소할 수 없습니다.')) {
-                document.getElementById('withdrawalForm').submit();
-            }
-        });
+        withdrawalButton.addEventListener('click', handleWithdrawal);
     }
 
     if (cancelButton) {
-        cancelButton.addEventListener('click', function(event) {
-            event.preventDefault();
-            history.back();
-        });
+        cancelButton.addEventListener('click', handleCancel);
     }
+}
+
+function handleWithdrawal(e) {
+    e.preventDefault();
+    if (confirm('정말로 회원탈퇴를 진행하시겠습니까? 이 작업은 취소할 수 없습니다.')) {
+        document.getElementById('withdrawalForm').submit();
+    }
+}
+
+function handleCancel(event) {
+    event.preventDefault();
+    window.location.href = '/i5/my/profile-edit';
 }

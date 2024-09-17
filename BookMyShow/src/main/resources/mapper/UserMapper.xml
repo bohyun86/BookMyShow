@@ -56,5 +56,11 @@
 		where user_id = #{userId}
 	</update>
 	
+<!-- 	on delete cascade Member table 자동 삭제-->
+    <delete id="deleteUser">
+    DELETE FROM User
+    WHERE user_id = #{userId}
+	</delete>
+    
 </mapper>
   

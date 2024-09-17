@@ -15,5 +15,7 @@ public interface UserService {
     UserDTO checkEmail(UserDTO userDTO);
     
     Boolean updateUser(UserDTO userDTO, String newPassword );
+
+	void deleteUser(UserDTO userDTO);
     
 }

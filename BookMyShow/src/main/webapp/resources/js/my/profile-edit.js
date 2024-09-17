@@ -38,6 +38,8 @@ function initialValidation() {
     checkEmail();
     checkName();
     checkPhone();
+    checkPassword();
+    checkConfirmPassword();
 }
 
 // 입력 필드 alert
@@ -196,14 +198,22 @@ function blurEvent(email, name, phone, password, confirmPassword, newPassword, c
     });
 }
 
-const submitBtn = document.querySelector('#update-button');
-submitBtn.addEventListener('click', function (e) {
-    e.preventDefault();
-    if (checkValidForm()) {
-        document.getElementById('profile-edit-form').submit();
-    } else {
-        alert('입력값을 확인해주세요.');
-    }
+document.addEventListener('DOMContentLoaded', function () {
+    const submitBtn = document.querySelector('#update-button');
+    submitBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        if (checkValidForm()) {
+            document.getElementById('profile-edit-form').submit();
+        } else {
+            alert('입력값을 확인해주세요.');
+        }
+    });
+
+    const withdrawalBtn = document.querySelector('#withdrawal-button');
+    withdrawalBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        window.location.href = '/i5/my/withdrawal';
+    });
 });
 
 function checkValidForm() {

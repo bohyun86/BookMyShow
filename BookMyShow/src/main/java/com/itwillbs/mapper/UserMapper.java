@@ -18,5 +18,7 @@ public interface UserMapper {
     UserDTO getUserById(UserDTO userDTO);
     
 	int updateUser(UserDTO userDTO);
+
+	int deleteUser(int userId);
 	
 }
