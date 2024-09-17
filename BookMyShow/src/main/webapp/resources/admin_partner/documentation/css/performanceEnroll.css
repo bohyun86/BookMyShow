@@ -382,6 +382,9 @@ form .bg-body-tertiary .musical-images#detail-info .img-container p {
 
 .total-seat p {
     margin: 0;
+    font-size: 10px;
+    color: #777;
+    width: 100px;
 }
 
 .request {

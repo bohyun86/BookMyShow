@@ -1,6 +1,6 @@
 package com.itwillbs.controller;
 
-import com.itwillbs.domain.Partner;
+import com.itwillbs.domain.PartnerDTO;
 import com.itwillbs.domain.Performance.AttachFileDTO;
 import com.itwillbs.domain.Performance.PerformanceRegistrationDTO;
 import com.itwillbs.domain.UserDTO;
@@ -42,7 +42,7 @@ public class PartnerController {
     public String loginPro(UserDTO userDTO, HttpSession session) {
         log.info("loginPro: {}", userDTO);
         UserDTO getUser = userServiceImpl.loginPro(userDTO);
-        log.info(getUser);
+        log.info("getUser: {}", getUser);
         if (getUser == null) {
             return "redirect:/partner/login";
         } else {
@@ -50,9 +50,9 @@ public class PartnerController {
             session.setAttribute("userId", getUser.getUserId());
             session.setAttribute("userRole", getUser.getUserRole());
             session.setAttribute("userName", getUser.getUserName());
-            Partner partner = partnerService.getPartner2(getUser.getUserId());
-            log.info("partner {}", partner);
-            session.setAttribute("partnerId", partner.getPartnerId());
+            PartnerDTO partnerDTO = partnerService.getPartner2(getUser.getUserId());
+            log.info("partner {}", partnerDTO);
+            session.setAttribute("partnerId", partnerDTO.getPartnerId());
             return "redirect:/partner/main/";
         }
     }
@@ -136,6 +136,8 @@ public class PartnerController {
         // 공연 포스터 이미지 처리
         MultipartFile musicalPost = performanceRegistrationDTO.getMusicalPost();
         uploadImages(musicalPost, uploadPath, list, true);
+
+        partnerService.registerPerformance(performanceRegistrationDTO, list);
 
         return "redirect:/partner/status";
     }

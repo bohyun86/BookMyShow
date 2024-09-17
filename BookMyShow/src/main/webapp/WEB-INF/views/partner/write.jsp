@@ -96,10 +96,12 @@
                                             <select class="form-select" name="ageLimit"
                                                     aria-label="Default select example">
                                                 <option selected value="0">관람등급을 선택해주세요</option>
-                                                <option name="ageLimit" value="1">전체관람가</option>
-                                                <option name="ageLimit" value="2">12세이상관람가</option>
-                                                <option name="ageLimit" value="3">15세이상관람가</option>
-                                                <option name="ageLimit" value="4">18세이상관람가</option>
+                                                <option name="ageLimit" value="0">전체관람가</option>
+                                                <option name="ageLimit" value="1">12개월이상관람가</option>
+                                                <option name="ageLimit" value="7">7세이상관람가</option>
+                                                <option name="ageLimit" value="12">12세이상관람가</option>
+                                                <option name="ageLimit" value="15">15세이상관람가</option>
+                                                <option name="ageLimit" value="18">18세이상관람가</option>
                                             </select>
 
                                         </div>
@@ -326,7 +328,7 @@
                                         <div class="form-group col">
                                             <label class="col-form-label">인당 구매가능수</label>
                                             <input type="text" class="form-control number required-field"
-                                                   name="perTicket">
+                                                   name="ticketsPerPerson">
                                             <!-- 0이하로 안떨어지게 js로 구현-->
                                         </div>
                                         <div class="form-group col" id="discount-input">
@@ -394,6 +396,11 @@
                                         <input type="hidden" name="UserId" value="${sessionScope.userId}">
                                     </div>
                                 </form>
+                                <%-- 프로그래스바 생성 --%>
+                                <div id="progress-bar" style="display: none; margin-top: 20px;">
+                                    <progress id="progress" value="0" max="100" style="width: 100%;"></progress>
+                                    <span id="progress-percent">0%</span>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -59,13 +59,10 @@ const handleReservedSeatClick = () => {
 const handleUnreservedSeatClick = () => {
     resetFields();
     checkboxGrades.forEach((grade, index) => {
-        if (!grade.classList.contains('r-grade')) {
-            grade.disabled = true;
-        } else {
-            grade.disabled = true;
-            grade.checked = true;
-            priceOfGrades[index].disabled = false;
-        }
+        grade.disabled = false;
+        grade.checked = false;
+        priceOfGrades[index].disabled = true;
+
     });
 };
 
@@ -274,23 +271,21 @@ const discountPercent = document.querySelector('#rate-input');
 const discount = document.querySelector('#discount-rate');
 
 discountPercent.addEventListener('input', () => {
-    if (discountPercent.value.trim() === '') {
-        return;
+    // 입력된 값을 숫자로 변환
+    let percentValue = parseFloat(discountPercent.value);
+
+    // 유효성 검사: 값이 0~100 사이여야 함
+    if (percentValue > 100) {
+        percentValue = 100;
+    } else if (percentValue < 0 || isNaN(percentValue)) {
+        percentValue = 0;
     }
 
-    let discountValue = parseFloat(discountPercent.value.replace(/,/g, '')); // 쉼표 제거 후 숫자 변환
+    // 다시 할당하여 입력 필드에 반영
+    discountPercent.value = percentValue;
 
-    if (discountValue > 100) {
-        discountValue = 100;
-        discountPercent.value = discountValue.toLocaleString(); // 천 단위 구분자 추가
-    } else if (discountValue < 0) {
-        discountValue = 0;
-        discountPercent.value = discountValue.toLocaleString();
-    } else {
-        discountPercent.value = discountValue.toLocaleString();
-    }
-
-    discount.value = discountValue / 100; // 할인율 필드에 100으로 나눈 값 설정
+    // 할인율을 계산해서 0.00 ~ 1.00 범위로 설정
+    discount.value = (percentValue / 100).toFixed(2); // 소수점 두 자리까지 계산
 });
 
 
@@ -308,11 +303,10 @@ thousandSeparator.forEach(input => {
 
 const submitBtn = document.querySelector('input[type=submit]');
 const requiredFiled = document.querySelectorAll('.required-field');
-const numberInput = document.querySelectorAll('.number');
 const ageLimit = document.querySelector('select[name="ageLimit"]');
 const genreId = document.querySelector('select[name="genreId"]');
-const inputPrice = document.querySelector('input[name="price"]');
-const inputNumberOfSeats = document.querySelector('input[name="numberOfSeats"]');
+const inputPrice = document.querySelectorAll('input[name="price"]');
+const inputNumberOfSeats = document.querySelectorAll('input[name="numberOfSeats"]');
 
 submitBtn.addEventListener('click', (e) => {
     e.preventDefault();
@@ -357,7 +351,7 @@ submitBtn.addEventListener('click', (e) => {
 
     // 가격 체크
     let numberOfPrices = 0;
-    for (let input of requiredFiled) {
+    for (let input of inputPrice) {
         if (input.value !== '') {
             numberOfPrices++;
             break;
@@ -366,19 +360,21 @@ submitBtn.addEventListener('click', (e) => {
 
     if (numberOfPrices === 0) {
         alert('하나 이상의 가격을 설정해주세요.');
-        inputPrice.focus();
+        inputPrice[0].focus();
         return; // 유효성 검사를 통과하지 못하면 폼 제출을 중단
     }
 
     // 좌석수 체크
     let numberOfSeats = 0;
-    if (inputNumberOfSeats.value !== '') {
-        numberOfSeats++;
+    for (let input of inputNumberOfSeats) {
+        if (input.value !== '') {
+            numberOfSeats++;
+        }
     }
 
     if (numberOfSeats === 0) {
         alert('좌석수를 설정해주세요.');
-        inputNumberOfSeats.focus();
+        inputNumberOfSeats[0].focus();
         return; // 유효성 검사를 통과하지 못하면 폼 제
     }
 

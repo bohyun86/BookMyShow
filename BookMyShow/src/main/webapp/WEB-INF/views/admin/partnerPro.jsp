@@ -86,7 +86,7 @@
         							<h4 class="card-title">파트너 정보</h4>
        									 <p class="card-text">
        									 	
-       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/partner">
+       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/partnerDTO">
        									 	<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">파트너ID</span>
   													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
@@ -173,7 +173,7 @@
   															<button class="btn btn-primary me-md-2" type="submit" >수정완료</button> &nbsp; &nbsp;
 														</form>
 														
-  															<form action="${pageContext.request.contextPath}/admin/partner">
+  															<form action="${pageContext.request.contextPath}/admin/partnerDTO">
   																<button class="btn btn-primary" type="submit" onclick="deleteok()">삭제</button>
   																</form>
 														</div>
@@ -186,7 +186,7 @@
  									 
  									 
 									<div class="d-grid gap-2 col-6 mx-auto">
-  										<button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/partner'" >취소</button>
+  										<button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/partnerDTO'" >취소</button>
  									 </div>
  									 
  									 </div>

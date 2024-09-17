@@ -29,13 +29,11 @@
 		<property name="password" value="1234" />
 	</bean>
 
-	<!-- 트랜잭션 관리자 설정 -->
+	<!--트랜잭션 관리자 설정-->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 
-	<!-- 트랜잭션 어노테이션 활성화 -->
-	<tx:annotation-driven transaction-manager="transactionManager"/>
 
 	<!-- MyBatis 설정 -->
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
@@ -66,6 +64,8 @@
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
 				<prop key="hibernate.id.new_generator_mappings">true</prop> <!-- JPA 2.0 이상 사용 시 -->
+				<prop key="hibernate.show_sql">true</prop>
+				<prop key="hibernate.format_sql">true</prop>
 			</props>
 		</property>
 	</bean>
@@ -75,8 +75,17 @@
 		<property name="entityManagerFactory" ref="entityManagerFactory" />
 	</bean>
 
+	<bean id="chainedTransactionManager" class="org.springframework.data.transaction.ChainedTransactionManager">
+		<constructor-arg>
+			<list>
+				<ref bean="jpaTransactionManager"/>
+				<ref bean="transactionManager"/> <!-- DataSourceTransactionManager -->
+			</list>
+		</constructor-arg>
+	</bean>
+
 	<!-- 트랜잭션 어노테이션 활성화 -->
-	<tx:annotation-driven transaction-manager="jpaTransactionManager"/>
+	<tx:annotation-driven transaction-manager="chainedTransactionManager"/>
 
 	<!-- Spring Data JPA Repository 설정 -->
 	<jpa:repositories base-package="com.itwillbs.repository" />
