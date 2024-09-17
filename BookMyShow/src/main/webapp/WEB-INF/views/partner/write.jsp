@@ -395,12 +395,15 @@
 
                                         <input type="hidden" name="UserId" value="${sessionScope.userId}">
                                     </div>
+                                    <!-- 프로그래스 바 추가 -->
+                                    <div id="progress-bar" style="display: none; margin-top: 20px;">
+                                        <progress id="progress" value="0" max="100" style="width: 100%;"></progress>
+                                        <span id="progress-percent">0%</span>
+                                    </div>
                                 </form>
                                 <%-- 프로그래스바 생성 --%>
-                                <div id="progress-bar" style="display: none; margin-top: 20px;">
-                                    <progress id="progress" value="0" max="100" style="width: 100%;"></progress>
-                                    <span id="progress-percent">0%</span>
-                                </div>
+                                <!-- 보이지 않는 iframe 추가 -->
+                                <iframe name="upload_iframe" style="display:none;"></iframe>
                             </div>
                         </div>
                     </div>

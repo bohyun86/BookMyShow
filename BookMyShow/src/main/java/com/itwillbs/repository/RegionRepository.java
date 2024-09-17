@@ -6,5 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface RegionRepository extends JpaRepository<RegionDTO, Integer> {
 
     RegionDTO findRegionByRegionName(String regionName);
+    RegionDTO findByRegionId(String regionId);
 
 }

@@ -308,9 +308,9 @@ const genreId = document.querySelector('select[name="genreId"]');
 const inputPrice = document.querySelectorAll('input[name="price"]');
 const inputNumberOfSeats = document.querySelectorAll('input[name="numberOfSeats"]');
 
-submitBtn.addEventListener('click', (e) => {
-    e.preventDefault();
+const form = document.querySelector('form');
 
+form.addEventListener('submit', (e) => {
     let isValid = true; // 유효성 검사를 통과했는지 확인하는 플래그
 
     // 필수 항목 체크
@@ -324,6 +324,7 @@ submitBtn.addEventListener('click', (e) => {
     }
 
     if (!isValid) {
+        e.preventDefault();
         return; // 필수 항목 유효성 검사를 통과하지 못하면 폼 제출을 중단
     }
 
@@ -335,6 +336,7 @@ submitBtn.addEventListener('click', (e) => {
     }
 
     if (!isValid) {
+        e.preventDefault();
         return; // 나이 제한 유효성 검사를 통과하지 못하면 폼 제출을 중단
     }
 
@@ -346,6 +348,7 @@ submitBtn.addEventListener('click', (e) => {
     }
 
     if (!isValid) {
+        e.preventDefault();
         return; // 장르 유효성 검사를 통과하지 못하면 폼 제출을 중단
     }
 
@@ -361,6 +364,7 @@ submitBtn.addEventListener('click', (e) => {
     if (numberOfPrices === 0) {
         alert('하나 이상의 가격을 설정해주세요.');
         inputPrice[0].focus();
+        e.preventDefault();
         return; // 유효성 검사를 통과하지 못하면 폼 제출을 중단
     }
 
@@ -375,7 +379,8 @@ submitBtn.addEventListener('click', (e) => {
     if (numberOfSeats === 0) {
         alert('좌석수를 설정해주세요.');
         inputNumberOfSeats[0].focus();
-        return; // 유효성 검사를 통과하지 못하면 폼 제
+        e.preventDefault();
+        return; // 유효성 검사를 통과하지 못하면 폼 제출을 중단
     }
 
     // input 천단위 구분기호 제거
@@ -385,8 +390,35 @@ submitBtn.addEventListener('click', (e) => {
         }
     });
 
-    // 유효성 검사를 모두 통과했을 때 폼을 제출
-    document.querySelector('form').submit();  // 이 부분에서 폼을 제출
+    // 프로그래스 바 표시
+    document.getElementById('progress-bar').style.display = 'block';
+
+    // 업로드 진행 상태를 업데이트하는 함수 호출
+    updateProgressBar();
 });
 
+// 업로드 진행 상태를 업데이트하는 함수
+function updateProgressBar() {
+    let progressBar = document.getElementById('progress');
+    let progressPercent = document.getElementById('progress-percent');
+    let percent = 0;
 
+    let interval = setInterval(() => {
+        if (percent < 98) {
+            percent += 1;
+            progressBar.value = percent;
+            progressPercent.textContent = percent + '%';
+        } else {
+            clearInterval(interval);
+        }
+    }, 100); // 진행 속도 조절 (100ms마다 1% 증가)
+}
+
+// iframe의 로드 완료 이벤트를 통해 업로드 완료 시 프로그래스 바를 숨기고 페이지를 이동합니다.
+const iframe = document.querySelector('iframe[name="upload_iframe"]');
+iframe.addEventListener('load', () => {
+    // 프로그래스 바 숨기기
+    document.getElementById('progress-bar').style.display = 'none';
+    // 업로드 완료 후 서버에서 리다이렉트된 페이지로 이동
+    window.location.href = iframe.contentWindow.location.href;
+});

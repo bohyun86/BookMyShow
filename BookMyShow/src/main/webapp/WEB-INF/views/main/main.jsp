@@ -105,7 +105,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="card new-open">
+                    <%--<div class="card new-open">
                         <img src="${pageContext.request.contextPath}/resources/images/poster/newopen2.jpg" class="card-img-top" alt="...">
                         <div class="card-body w-100">
                             <p class="area">경상/대구</p>
@@ -202,7 +202,7 @@
                                 <p class="price">15,900원</p>
                             </div>
                         </div>
-                    </div>
+                    </div>--%>
 
                 </div>
             </div>

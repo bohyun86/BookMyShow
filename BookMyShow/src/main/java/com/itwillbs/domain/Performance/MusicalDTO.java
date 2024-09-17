@@ -8,6 +8,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @Entity(name = "Musical")
@@ -20,11 +21,12 @@ public class MusicalDTO {
 
     @ManyToOne
     @JoinColumn(name = "partner_id")
-    private PartnerDTO partnerId; // Partner 엔티티와의 관계 설정
+    private PartnerDTO partnerId;// Partner 엔티티와의 관계 설정
 
-    @Column(name = "title")
+
+    @Column(name = "approved", columnDefinition = "TINYINT(1) DEFAULT 0")
+    private boolean approved; // 1
     private String title; // 1
-    @Column(name = "description")
     private String description; // 1
     @Column(name = "start_date")
     private Date startDate; // 1
@@ -66,5 +68,9 @@ public class MusicalDTO {
     private String request; // x
     @Column(name = "reserved")
     private boolean reserved; //
+
+
+    @OneToMany(mappedBy = "musicalId", cascade = CascadeType.ALL)  // 양방향 관계 설정
+    private List<PerformanceDTO> performances;  // 일대다 관계
 
 }
