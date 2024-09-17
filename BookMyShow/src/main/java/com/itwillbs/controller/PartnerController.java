@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -32,6 +33,7 @@ public class PartnerController {
 
     private UserServiceImpl userServiceImpl;
     private PartnerService partnerService;
+    private final ServletContext servletContext; // ServletContext를 주입받아 사용
 
     @GetMapping("/login")
     public String login() {
@@ -117,7 +119,7 @@ public class PartnerController {
         log.info("writePro: {}", performanceRegistrationDTO);
 
         List<AttachFileDTO> list = new ArrayList<>();
-        String uploadFolder = System.getProperty("user.home") + File.separator + "upload";
+        String uploadFolder = servletContext.getRealPath("/resources/upload");
 
         File uploadPath = new File(uploadFolder, getFolder());
         log.info("uploadPath: {}", uploadPath);

@@ -27,6 +27,10 @@ document.addEventListener('keydown', (e) => {
     });
 });
 
+
+// 새로운 캐러셀 데이터 가져오기
+
+
 window.addEventListener(`DOMContentLoaded`, () => {
 
 });
