@@ -67,21 +67,20 @@
 <!-- ==================================================== -->
 
 <%-- 				<h1 class="text-center m-3">[검색어:<%=findKeyword %> ] 검색 결과</h1>				 --%>
-<form name="findF" action="#" class="form-inline">
+<form name="findF" class="form-inline">
 
-	<select name="findType" class="form-control mr-2">
+	<select  class="form-control mr-2">
 		<option value="">::검색 유형::</option>
-		<option value="1">이름</option>
+		<option value="1" >이름</option>
 		<option value="2">아이디</option>
 	</select>
-	<input type="text" name="findKeyword" placeholder="검색어를 입력하세요" 
-	class="form-control mr-2">
-	<button class="btn btn-success">검 색</button>
+	<input type="text" placeholder="검색어를 입력하세요" class="form-control mr-2">
+	<button class="btn btn-success" id="search" >검 색</button>
 </form>
 				
 				
 				<ul class="list-group">
-					  <li class="list-group-item">검색된 파트너 정보 띄우기</li>
+					  <li class="list-group-item" id="result"></li>
 					  </ul>
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -96,6 +95,27 @@
 					  <button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/partner_qna'">1:1문의</button>
 					</div></p>
 
+
+
+<script>
+
+$(function(){
+	$('#search').click(function(){
+		
+// 		 $.ajax({
+			 
+// 			 url: "${pageContext.request.contextPath}/admin/result",
+// 			 dataType:"json",
+//              success: function(result) {
+//             	 result="dd"
+// 				}
+// 		 result="dd"
+            	 
+// 	             }
+     });
+});
+
+</script>
   </div>
                 </div>
 
