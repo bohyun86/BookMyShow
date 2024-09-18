@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 
 @ExtendWith(SpringExtension.class)
@@ -81,14 +82,14 @@ public class PartnerServiceTests {
         performanceRegistrationDTO.setMusicalId(0);
         performanceRegistrationDTO.setPartnerId(1);
         performanceRegistrationDTO.setTitle("썸데이");
-        performanceRegistrationDTO.setStartDate(java.sql.Date.valueOf("2024-09-16"));
-        performanceRegistrationDTO.setEndDate(java.sql.Date.valueOf("2024-10-09"));
+        performanceRegistrationDTO.setStartDate(LocalDate.of(2024, 9, 16));
+        performanceRegistrationDTO.setEndDate(LocalDate.of(2024, 10, 9));
         performanceRegistrationDTO.setAgeLimit(7);
         performanceRegistrationDTO.setTotalTime("100");
         performanceRegistrationDTO.setGenreId(3);
         performanceRegistrationDTO.setTicketsPerPerson(10);
-        performanceRegistrationDTO.setDiscountStartDate(java.sql.Date.valueOf("2024-09-20"));
-        performanceRegistrationDTO.setDiscountEndDate(java.sql.Date.valueOf("2024-10-05"));
+        performanceRegistrationDTO.setDiscountStartDate(LocalDate.of(2024, 9, 20));
+        performanceRegistrationDTO.setDiscountEndDate(LocalDate.of(2024, 10, 5));
         performanceRegistrationDTO.setDiscountRate("0.30");
         performanceRegistrationDTO.setMusicalSponsor("극단 무하");
         performanceRegistrationDTO.setActorList(new String[]{"김서별", "김여진", "윤환호", "윤진웅", "고샛별", "김지후", "임재혁", "박중리"});

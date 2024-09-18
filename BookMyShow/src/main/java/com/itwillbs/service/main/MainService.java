@@ -8,10 +8,12 @@ import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.servlet.ServletContext;
 import java.io.File;
 import java.text.DecimalFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -29,11 +31,29 @@ public class MainService {
 
         List<MainNewCarouselDTO> mainNewCarouselDTOs = new ArrayList<>();
 
-        // 가격이 가장 낮은 티켓 가격을 가져온다.
+        insertCarouselData(musicalDTOs, mainNewCarouselDTOs, "mainNewCarouselDTOs");
+
+        return mainNewCarouselDTOs;
+    }
+
+    @Transactional
+    public List<MainNewCarouselDTO> timeSaleCarouselDTOs() {
+        LocalDate currentDate = LocalDate.now();
+        List<MusicalDTO> musicalDTOs = musicalRepository.findTop8ByApprovedAndDiscountEndDateAfterOrderByDiscountEndDateDesc(true, currentDate);
+
+        List<MainNewCarouselDTO> timeSaleCarouselDTOs = new ArrayList<>();
+
+        insertCarouselData(musicalDTOs, timeSaleCarouselDTOs, "timeSaleCarouselDTOs");
+
+        return timeSaleCarouselDTOs;
+    }
+
+    private void insertCarouselData(List<MusicalDTO> musicalDTOs, List<MainNewCarouselDTO> carouselDTOS, String keyName) {
         for (MusicalDTO musicalDTO : musicalDTOs) {
             MainNewCarouselDTO mainNewCarouselDTO = new MainNewCarouselDTO();
             AttachFileDTO attachFileDTO = attachFileRepository.findByMusicalIdAndIsPoster(musicalDTO, true);
 
+            // 가격이 가장 낮은 티켓 가격을 가져온다.
             int price = musicalDTO.getPerformances().get(0).getTicketPriceList().stream().map(TicketPriceDTO::getPrice).min(Integer::compareTo).orElse(0);
             String region = musicalDTO.getVenueId().getRegionId().getRegionName();
             log.info("price, region: {}, {}", price, region);
@@ -64,12 +84,10 @@ public class MainService {
             mainNewCarouselDTO.setDiscountRate(intDiscountRate + "");
             mainNewCarouselDTO.setPrice(formattedPrice);
 
-            log.info("mainNewCarouselDTO: {}", mainNewCarouselDTO);
-            mainNewCarouselDTOs.add(mainNewCarouselDTO);
+
+            log.info("{}: {}",keyName, mainNewCarouselDTO);
+            carouselDTOS.add(mainNewCarouselDTO);
         }
-
-
-        return mainNewCarouselDTOs;
     }
 
 }

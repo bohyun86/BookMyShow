@@ -130,166 +130,28 @@
             <!-- 카드 래퍼 추가 -->
             <div class="cards-wrapper overflow-hidden position-relative" style="width: 1100px;">
                 <div class="cards time-sale d-flex mt-2" style="width: 2200px;">
-                    <div class="card time-sale">
-                        <img src="${pageContext.request.contextPath}/resources/images/poster/newopen1.jpg" class="card-img-top" alt="...">
-                        <div class="card-body w-100">
-                            <p class="area">경상/대구</p>
-                            <p class="category">
-                                🗂️로맨틱코미디</p>
-                            <h6 class="title">내 모든걸(대구)</h6>
-                            <div class="ticket-price d-flex justify-content-between">
-                                <div class="rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    4.5
-                                    <span>(15)</span>
-                                </div>
-                                <div class="d-flex">
-                                    <p class="discount me-2">60%</p>
-                                    <p class="price">15,900원</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card time-sale">
-                        <img src="${pageContext.request.contextPath}/resources/images/poster/newopen2.jpg" class="card-img-top" alt="...">
-                        <div class="card-body w-100">
-                            <p class="area">경상/대구</p>
-                            <p class="category">
-                                🗂️로맨틱코미디</p>
-                            <h6 class="title">내 모든걸(대구)</h6>
-                            <div class="ticket-price d-flex justify-content-between">
-                                <div class="rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    4.5
-                                    <span>(15)</span>
-                                </div>
-                                <div class="d-flex">
-                                    <p class="discount me-2">60%</p>
-                                    <p class="price">15,900원</p>
+                    <c:forEach var="timeSaleCarousel" items="${timeSaleCarouselDTOS}">
+                        <div class="card time-sale">
+                            <img src="${pageContext.request.contextPath}/${timeSaleCarousel.postFilePath}" class="card-img-top" alt="...">
+                            <div class="card-body w-100">
+                                <p class="area">${timeSaleCarousel.area}</p>
+                                <p class="category">
+                                    🗂️${timeSaleCarousel.category}</p>
+                                <p class="title new-carousel">${timeSaleCarousel.title}</p>
+                                <div class="ticket-price d-flex justify-content-between">
+                                    <div class="rating">
+                                        <i class="bi bi-star-fill"></i>
+                                        <c:if test="${timeSaleCarousel.rating} != 0">${timeSaleCarousel.rating}</c:if>
+                                        <span><c:if test="${timeSaleCarousel.reviewCount} != 0">(${timeSaleCarousel.reviewCount})</c:if></span>
+                                    </div>
+                                    <div class="d-flex">
+                                        <p class="discount me-2">${timeSaleCarousel.discountRate}%</p>
+                                        <p class="price">${timeSaleCarousel.price}원</p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card time-sale">
-                        <img src="${pageContext.request.contextPath}/resources/images/poster/newopen3.jpg" class="card-img-top" alt="...">
-                        <div class="card-body w-100">
-                            <p class="area">경상/대구</p>
-                            <p class="category">
-                                🗂️로맨틱코미디</p>
-                            <h6 class="title">내 모든걸(대구)</h6>
-                            <div class="ticket-price d-flex justify-content-between">
-                                <div class="rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    4.5
-                                    <span>(15)</span>
-                                </div>
-                                <div class="d-flex">
-                                    <p class="discount me-2">60%</p>
-                                    <p class="price">15,900원</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card time-sale">
-                        <img src="${pageContext.request.contextPath}/resources/images/poster/newopen4.jpg" class="card-img-top" alt="...">
-                        <div class="card-body w-100">
-                            <p class="area">경상/대구</p>
-                            <p class="category">
-                                🗂️로맨틱코미디</p>
-                            <h6 class="title">내 모든걸(대구)</h6>
-                            <div class="ticket-price d-flex justify-content-between">
-                                <div class="rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    4.5
-                                    <span>(15)</span>
-                                </div>
-                                <div class="d-flex">
-                                    <p class="discount me-2">60%</p>
-                                    <p class="price">15,900원</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card time-sale">
-                        <img src="${pageContext.request.contextPath}/resources/images/poster/newopen5.jpg" class="card-img-top" alt="...">
-                        <div class="card-body w-100">
-                            <p class="area">경상/대구</p>
-                            <p class="category">
-                                🗂️로맨틱코미디</p>
-                            <h6 class="title">내 모든걸(대구)</h6>
-                            <div class="ticket-price d-flex justify-content-between">
-                                <div class="rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    4.5
-                                    <span>(15)</span>
-                                </div>
-                                <div class="d-flex">
-                                    <p class="discount me-2">60%</p>
-                                    <p class="price">15,900원</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card time-sale">
-                        <img src="${pageContext.request.contextPath}/resources/images/poster/newopen6.jpg" class="card-img-top" alt="...">
-                        <div class="card-body w-100">
-                            <p class="area">경상/대구</p>
-                            <p class="category">
-                                🗂️로맨틱코미디</p>
-                            <h6 class="title">내 모든걸(대구)</h6>
-                            <div class="ticket-price d-flex justify-content-between">
-                                <div class="rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    4.5
-                                    <span>(15)</span>
-                                </div>
-                                <div class="d-flex">
-                                    <p class="discount me-2">60%</p>
-                                    <p class="price">15,900원</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card time-sale">
-                        <img src="${pageContext.request.contextPath}/resources/images/poster/newopen7.jpg" class="card-img-top" alt="...">
-                        <div class="card-body w-100">
-                            <p class="area">경상/대구</p>
-                            <p class="category">
-                                🗂️로맨틱코미디</p>
-                            <h6 class="title">내 모든걸(대구)</h6>
-                            <div class="ticket-price d-flex justify-content-between">
-                                <div class="rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    4.5
-                                    <span>(15)</span>
-                                </div>
-                                <div class="d-flex">
-                                    <p class="discount me-2">60%</p>
-                                    <p class="price">15,900원</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card time-sale">
-                        <img src="${pageContext.request.contextPath}/resources/images/poster/newopen8.jpg" class="card-img-top" alt="...">
-                        <div class="card-body w-100">
-                            <p class="area">경상/대구</p>
-                            <p class="category">
-                                🗂️로맨틱코미디</p>
-                            <h6 class="title">내 모든걸(대구)</h6>
-                            <div class="ticket-price d-flex justify-content-between">
-                                <div class="rating">
-                                    <i class="bi bi-star-fill"></i>
-                                    4.5
-                                    <span>(15)</span>
-                                </div>
-                                <div class="d-flex">
-                                    <p class="discount me-2">60%</p>
-                                    <p class="price">15,900원</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
 
                 </div>
             </div>

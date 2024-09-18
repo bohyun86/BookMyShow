@@ -113,17 +113,15 @@ public class PartnerService implements PartnerMapper {
         // 5. 티켓가격 테이블 저장
 
         // startDate와 endDate를 LocalDate로 변환
-        Date startDate = performanceRegistrationDTO.getStartDate();
-        Date endDate = performanceRegistrationDTO.getEndDate();
-        LocalDate startDateLocale = startDate.toLocalDate();
-        LocalDate endDateLocale = endDate.toLocalDate();
+        LocalDate startDate = performanceRegistrationDTO.getStartDate();
+        LocalDate endDate = performanceRegistrationDTO.getEndDate();
 
 
         // 공연 일정을 하루씩 증가시키면서 저장
-        for (LocalDate date = startDateLocale; date.isBefore(endDateLocale); date = date.plusDays(1)) {
+        for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
             // 각 날짜별로 공연 저장 로직 추가
             PerformanceDTO performance = new PerformanceDTO();
-            performance.setPerformanceDate(Date.valueOf(date)); // 날짜 설정
+            performance.setPerformanceDate(date); // 날짜 설정
             performance.setMusicalId(musicalDTO); // 저장된 musicalId 사용
             performance.setVenueId(venueDTO); // 저장된 venueId 사용
 

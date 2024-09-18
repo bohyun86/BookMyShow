@@ -17,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.sql.Date;
+import java.time.LocalDate;
 
 @ExtendWith(SpringExtension.class)
 @Log4j2
@@ -45,16 +46,16 @@ public class MusicalServiceTests {
         musicalDTO.setPartnerId(partnerDTO);
         musicalDTO.setTitle("썸데이");
         musicalDTO.setDescription("썸데이 뮤지컬");
-        musicalDTO.setStartDate(Date.valueOf("2024-09-16"));
-        musicalDTO.setEndDate(Date.valueOf("2024-10-09"));
+        musicalDTO.setStartDate(LocalDate.of(2024, 9, 20));
+        musicalDTO.setEndDate(LocalDate.of(2024, 10, 5));
         musicalDTO.setAgeLimit(7);
         musicalDTO.setTotalTime("100");
         musicalDTO.setIntervalTime("0");
         musicalDTO.setGenreId(genreDTO);
         musicalDTO.setVenueId(venueDTO);
         musicalDTO.setTicketsPerPerson(10);
-        musicalDTO.setDiscountStartDate(Date.valueOf("2024-09-20"));
-        musicalDTO.setDiscountEndDate(Date.valueOf("2024-10-05"));
+        musicalDTO.setDiscountStartDate(LocalDate.of(2024, 9, 20));
+        musicalDTO.setDiscountEndDate(LocalDate.of(2024, 9, 30));
         musicalDTO.setDiscountRate("0.30");
         musicalDTO.setMusicalSponsor("극단 무하");
         musicalDTO.setRequest("");

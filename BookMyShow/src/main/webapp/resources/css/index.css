@@ -266,10 +266,13 @@ a:hover, card:hover, .btn:hover {
     font-weight: bold;
 }
 
-#new-open .title.new-carousel {
+#new-open .title.new-carousel, #time-sale .title.new-carousel {
     white-space: nowrap; /* 텍스트를 한 줄로 유지 */
     overflow: hidden; /* 넘치는 텍스트를 숨김 */
     text-overflow: ellipsis; /* 넘치는 텍스트를 ...으로 표시 */
     width: 100%; /* 너비를 적절히 설정 (필요에 따라 지정) */
-    margin: 0;
+    margin: 5px 0;
+    font-size: 15px;
+    font-weight: bold;
 }
+

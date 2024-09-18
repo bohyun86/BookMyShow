@@ -28,32 +28,4 @@ document.addEventListener('keydown', (e) => {
 });
 
 
-// 새로운 캐러셀 데이터 가져오기
-
-
-window.addEventListener(`DOMContentLoaded`, () => {
-
-});
-
-// carousel 데이터 백엔드에서 가져오기
-async function getNewCarouselData() {
-    try {
-        let response = await fetch('/main/newCarousel');
-        let data = await response.json();
-        updateNewCarousel(data);
-    } catch (error) {
-        console.error(error);
-    }
-}
-
-function updateNewCarousel(data) {
-    const newCarousel = document.querySelector('.new-carousel');
-    newCarousel.innerHTML = data.map((item) => {
-        return `
-            <div class="slide">
-                <img src="${item.imgSrc}" alt="${item.alt}" />
-            </div>
-        `;
-    }).join('');
-}
 

@@ -23,6 +23,7 @@ public class HomeController {
         log.info("main 호출");
 
         model.addAttribute("newCarouselDTOS", mainService.getMainNewCarouselDTOs());
+        model.addAttribute("timeSaleCarouselDTOS", mainService.timeSaleCarouselDTOs());
 
         return "main/main";
     }

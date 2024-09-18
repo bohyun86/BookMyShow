@@ -8,11 +8,13 @@ import com.itwillbs.service.PartnerService;
 import com.itwillbs.service.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
@@ -28,12 +30,23 @@ import java.util.UUID;
 @Log4j2
 @RequestMapping("/partner/*")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@AllArgsConstructor
-public class PartnerController {
+public class PartnerController implements ServletContextAware {
 
-    private UserServiceImpl userServiceImpl;
-    private PartnerService partnerService;
-    private final ServletContext servletContext; // ServletContext를 주입받아 사용
+    private final UserServiceImpl userServiceImpl;
+    private final PartnerService partnerService;
+    private ServletContext servletContext;
+
+    @Autowired
+    public PartnerController(UserServiceImpl userServiceImpl, PartnerService partnerService) {
+        this.userServiceImpl = userServiceImpl;
+        this.partnerService = partnerService;
+    }
+
+    @Override
+    public void setServletContext(ServletContext servletContext) {
+        this.servletContext = servletContext;
+    }
+
 
     @GetMapping("/login")
     public String login() {
