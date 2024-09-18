@@ -15,9 +15,9 @@ import com.itwillbs.domain.Performance.VenueDTO;
 public interface MypageService {
 
 	Integer getMemberId(Integer userId);
-	
+
 	UserDTO getUser(Integer userId);
-	
+
 	List<BookingDTO> getBookings(Integer memberId, Integer bookingId, int page, int size);
 
 	List<MusicalDTO> getMusicals(List<Integer> bookingIds);
@@ -29,9 +29,18 @@ public interface MypageService {
 	List<PaymentDTO> getPayments(List<Integer> bookingIds);
 
 	Map<Integer, List<BookedSeatsDTO>> getBookedSeats(List<Integer> bookingIds);
-	
+
 	List<VenueDTO> getVenues(List<Integer> bookingIds);
 
 	int getTotalBookingsCount(Integer memberId);
 
+	List<BookingDTO> getRefundBookings(Integer memberId, int page, int size);
+
+	int getTotalRefundsCount(Integer memberId);
+
+	boolean processRefund(Integer bookingId, Integer userId);
+
+	int getUserPoint(Integer userId);
+
+	int getUsableTicketCount(Integer userId);
 }

@@ -65,7 +65,6 @@
 		<result property="status" column="status" />
 		<result property="createdAt" column="created_at" />
 		<result property="updatedAt" column="updated_at" />
-		<result property="musicalId" column="musical_id" />
 		<result property="memberId" column="member_id" />
 		<result property="ticketCount" column="ticket_count" />
 		<result property="performanceId" column="performance_id" />
@@ -106,6 +105,16 @@
 		<result property="detailAddress" column="detail_address" />
 		<result property="publicVenueId" column="public_venue_id" />
 	</resultMap>
+	<resultMap id="memberResultMap"
+		type="com.itwillbs.domain.MemberDTO">
+		<id property="memberId" column="member_id" />
+		<result property="address" column="address" />
+		<result property="birthdate" column="birthdate" />
+		<result property="gender" column="gender" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="userId" column="user_id" />
+	</resultMap>
 
 
 	<select id="getMemberId" resultType="java.lang.Integer">
@@ -114,7 +123,8 @@
 		WHERE user_id = #{userId}
 	</select>
 
-	<select id="getUser" resultType="com.itwillbs.domain.UserDTO" resultMap="userResultMap">
+	<select id="getUser" resultType="com.itwillbs.domain.UserDTO"
+		resultMap="userResultMap">
 		SELECT * FROM User
 		WHERE user_id
 		= #{userId}
@@ -212,16 +222,52 @@
 		WHERE member_id = #{memberId}
 	</select>
 
-	<select id="getVenues" resultMap="venueResultMap">
+	<select id="getVenues" resultType="com.itwillbs.domain.VenueDTO"
+		resultMap="venueResultMap">
 		SELECT DISTINCT v.*
 		FROM Venue v
-		JOIN Performance p ON v.venue_id = p.venue_id
+		JOIN Performance p ON v.venue_id =
+		p.venue_id
 		JOIN Booking b ON p.performance_id = b.performance_id
-		WHERE b.booking_id IN
+		WHERE
+		b.booking_id IN
 		<foreach item="bookingId" collection="list" open="("
 			separator="," close=")">
 			#{bookingId}
 		</foreach>
+	</select>
+
+	<select id="getRefundBookings"
+		resultType="com.itwillbs.domain.BookingDTO"
+		resultMap="bookingResultMap">
+		SELECT *
+		FROM Booking
+		WHERE member_id = #{memberId} AND
+		(status = '환불완료' OR status = '취소됨')
+		ORDER BY booking_date DESC
+		LIMIT
+		#{offset}, #{limit}
+	</select>
+
+	<select id="getTotalRefundsCount" resultType="int">
+		SELECT COUNT(*)
+		FROM Booking
+		WHERE member_id = #{memberId} AND (status = '환불완료' OR
+		status = '취소됨')
+	</select>
+
+	<update id="processRefund">
+		UPDATE Booking SET status = '환불완료'
+		WHERE booking_id = #{bookingId} AND user_id = #{userId}
+	</update>
+
+	<select id="getUserPoint" resultType="Integer">
+		SELECT balance FROM Point WHERE user_id = #{userId}
+	</select>
+
+	<select id="getUsableTicketCount" resultType="Integer">
+		SELECT COUNT(*) FROM Booking
+		WHERE user_id = #{userId} AND status = '예매완료'
 	</select>
 
 </mapper>

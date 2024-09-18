@@ -11,7 +11,6 @@ public class BookingDTO {
     private String status;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-    private Integer musicalId;
     private Integer memberId;
     private Integer ticketCount;
     private Integer performanceId;

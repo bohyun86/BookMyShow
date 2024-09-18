@@ -90,4 +90,35 @@ public class MypageServiceImpl implements MypageService {
 				+ File.separator + attachFile.getUuid() + "_" + attachFile.getFileName());
 	}
 
+	@Override
+	public List<BookingDTO> getRefundBookings(Integer memberId, int page, int size) {
+		return mypageDAO.getRefundBookings(memberId, page * size, size);
+	}
+
+	@Override
+	public int getTotalRefundsCount(Integer memberId) {
+		return mypageDAO.getTotalRefundsCount(memberId);
+	}
+
+	@Override
+	public boolean processRefund(Integer bookingId, Integer userId) {
+		// 환불 처리 로직 구현
+		// 1. 예매 정보 확인
+		// 2. 환불 가능 여부 확인
+		// 3. 환불 처리
+		// 4. 예매 상태 업데이트
+		// 5. 결제 정보 업데이트
+		// 구체적인 로직은 비즈니스 요구사항에 따라 구현
+		return mypageDAO.processRefund(bookingId, userId);
+	}
+
+	@Override
+	public int getUserPoint(Integer userId) {
+		return mypageDAO.getUserPoint(userId);
+	}
+
+	@Override
+	public int getUsableTicketCount(Integer userId) {
+		return mypageDAO.getUsableTicketCount(userId);
+	}
 }

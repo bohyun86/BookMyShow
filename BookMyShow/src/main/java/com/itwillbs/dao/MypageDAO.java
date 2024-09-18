@@ -64,12 +64,40 @@ public class MypageDAO {
 	public List<BookedSeatsDTO> getBookedSeats(List<Integer> bookingIds) {
 		return sqlSession.selectList(NAMESPACE + ".getBookedSeats", bookingIds);
 	}
-	
+
 	public List<VenueDTO> getVenues(List<Integer> bookingIds) {
-	    return sqlSession.selectList(NAMESPACE + ".getVenues", bookingIds);
+		return sqlSession.selectList(NAMESPACE + ".getVenues", bookingIds);
 	}
 
 	public int getTotalBookingsCount(Integer memberId) {
 		return sqlSession.selectOne(NAMESPACE + ".getTotalBookingsCount", memberId);
+	}
+
+	public List<BookingDTO> getRefundBookings(Integer memberId, Integer offset, Integer limit) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("memberId", memberId);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return sqlSession.selectList(NAMESPACE + ".getRefundBookings", params);
+	}
+
+	public int getTotalRefundsCount(Integer memberId) {
+		return sqlSession.selectOne(NAMESPACE + ".getTotalRefundsCount", memberId);
+	}
+
+	public boolean processRefund(Integer bookingId, Integer userId) {
+		// 환불 처리 로직 구현
+		// SQL 쿼리를 통해 데이터베이스 업데이트
+		int updatedRows = sqlSession.update(NAMESPACE + ".processRefund",
+				Map.of("bookingId", bookingId, "userId", userId));
+		return updatedRows > 0;
+	}
+
+	public int getUserPoint(Integer userId) {
+		return sqlSession.selectOne(NAMESPACE + ".getUserPoint", userId);
+	}
+
+	public int getUsableTicketCount(Integer userId) {
+		return sqlSession.selectOne(NAMESPACE + ".getUsableTicketCount", userId);
 	}
 }
