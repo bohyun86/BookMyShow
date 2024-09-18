@@ -4,6 +4,7 @@ import lombok.extern.log4j.Log4j2;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -90,14 +91,28 @@ public class AdminController {
     	System.out.println("AdminController searchType::"+searchType);
     	System.out.println("AdminController findKeyword::"+findKeyword);
     	
-    	MusicalDTO musicalDTO= new MusicalDTO();
     	if ("1".equals(searchType)) {
             // 파트너 ID로 검색
-//            musicalDTO = musicalService.getMusicalByPartnerId(keyword);
+//    		MusicalDTO musicalDTO = new MusicalDTO();
+    		List<MusicalDTO> musicalList = musicalService.getMusicalByPartnerId(findKeyword);
+    		if (musicalList != null && !musicalList.isEmpty()) {
+                // 리스트의 첫 번째 항목의 정보를 URL 파라미터로 사용
+                System.out.println("musicalList"+musicalList);
+
+                return "redirect:/admin/submit?user_name=" + musicalList;
+            } else {
+                // 리스트가 비어있을 경우 처리
+                return "redirect:/admin/submit?message=NoResults";
+            }
+//            model.addAttribute("submit", musicalList);
+//            return "redirect:/admin/submit?user_name";
+//            return "redirect:/admin/submit?user_name=" +musicalList.getMusical();
+            
         } else if ("2".equals(searchType)) {
+        	MusicalDTO musicalDTO2 = new MusicalDTO();
             // 뮤지컬 제목으로 검색
-        	musicalDTO = musicalService.getMusicalByTitle(findKeyword);
-            return "redirect:/admin/submit?title=" + musicalDTO.getMusical();
+        	musicalDTO2 = musicalService.getMusicalByTitle(findKeyword);
+            return "redirect:/admin/submit?title=" + musicalDTO2.getMusical();
         }
     	
     	// 검색 결과가 있는지 확인

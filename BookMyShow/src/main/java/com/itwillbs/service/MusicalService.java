@@ -1,5 +1,7 @@
 package com.itwillbs.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +19,15 @@ public class MusicalService {
     	System.out.println("musicalDAO::"+approved);
         musicalDAO.updateMusicalApproval(approved);
     }
-
+//뮤지컬이름으로 검색
 	public MusicalDTO getMusicalByTitle(String findKeyword) {
 		System.out.println("musicalDAO::"+findKeyword);
 		return musicalDAO.getMusicalByTitle(findKeyword);
+	}
+//파트ㅏ너아이디로 검색
+	public List<MusicalDTO> getMusicalByPartnerId(String findKeyword) {
+		System.out.println("musicalDAO::"+findKeyword);
+		return musicalDAO.getMusicalByPartnerId(findKeyword);
 	}
 
 	

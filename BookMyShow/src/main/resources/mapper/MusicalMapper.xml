@@ -16,17 +16,23 @@
    
 
    <!-- 파트너 ID로 뮤지컬 검색 -->
-<!--     <select id="getMusicalByPartnerId" parameterType="string" resultType="com.itwillbs.domain.MusicalDTO"> -->
-<!--         SELECT musical_id, partner_id, title  -->
-<!--         FROM musical  -->
-<!--         WHERE partner_id = #{partnerId} -->
-<!--     </select> -->
+<!--    아이디로 검색 안됌 수정해야함 -->
+    <select id="getMusicalByPartnerId" resultType="com.itwillbs.domain.MusicalDTO">
+        SELECT  U.user_name 
+           FROM Partner P
+       JOIN User U ON  P.user_id = U.user_id
+         JOIN Musical M ON M.partner_id = P.partner_id
+        WHERE U.user_name = #{user_name} and M.approved=0
+        
+
+    </select>
+    
 
     <!-- 뮤지컬 제목으로 검색 -->
     <select id="getMusicalByTitle"  resultType="com.itwillbs.domain.MusicalDTO">
-        SELECT title
+        SELECT title 
         FROM Musical 
-        WHERE title = #{title}
+        WHERE title = #{title} and approved=0
     </select>
 
 </mapper>

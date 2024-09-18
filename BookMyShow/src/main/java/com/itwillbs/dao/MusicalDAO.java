@@ -1,5 +1,7 @@
 package com.itwillbs.dao;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -21,9 +23,10 @@ public class MusicalDAO {
     }
 	
 //	 // 파트너 ID로 뮤지컬 검색
-//    public MusicalDTO getMusicalByPartnerId(String partnerId) {
-//        return musicalMapper.getMusicalByPartnerId(partnerId);
-//    }
+    public List<MusicalDTO> getMusicalByPartnerId(String findKeyword) {
+    	System.out.println("MusicalDAO::"+findKeyword);
+        return sqlSession.selectList(namespace+ ".getMusicalByPartnerId", findKeyword);
+    }
 
     // 뮤지컬 제목으로 검색
     public MusicalDTO getMusicalByTitle(String findKeyword) {
