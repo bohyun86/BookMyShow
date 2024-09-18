@@ -1,12 +1,11 @@
 package com.itwillbs.domain.Performance;
 
-import com.itwillbs.domain.PartnerDTO;
+import com.itwillbs.domain.partner.PartnerDTO;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.util.List;

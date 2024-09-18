@@ -1,19 +1,23 @@
 package com.itwillbs.controller;
 
-import com.itwillbs.domain.PartnerDTO;
+import com.itwillbs.domain.Performance.MusicalDTO;
+import com.itwillbs.domain.partner.PartnerDTO;
 import com.itwillbs.domain.Performance.AttachFileDTO;
 import com.itwillbs.domain.Performance.PerformanceRegistrationDTO;
 import com.itwillbs.domain.UserDTO;
+import com.itwillbs.domain.partner.PartnerStatusDTO;
 import com.itwillbs.service.PartnerService;
 import com.itwillbs.service.UserServiceImpl;
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -86,7 +90,18 @@ public class PartnerController implements ServletContextAware {
     }
 
     @GetMapping("/status")
-    public String status() {
+    public String status(HttpSession session, Model model,
+                         @RequestParam(defaultValue = "1") int page,
+                         @RequestParam(defaultValue = "5") int size) {
+
+        int partnerId = (int) session.getAttribute("partnerId");
+
+        Page<PartnerStatusDTO> musicalPage = partnerService.getMusicalsByPartnerId(partnerId, page - 1, size);
+        model.addAttribute("musicalPage", musicalPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", musicalPage.getTotalPages());
+
+
         return "/partner/status";
     }
 

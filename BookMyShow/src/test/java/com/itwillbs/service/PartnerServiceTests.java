@@ -4,6 +4,7 @@ import com.itwillbs.domain.Performance.AttachFileDTO;
 import com.itwillbs.domain.Performance.PerformanceRegistrationDTO;
 import com.itwillbs.domain.Performance.RegionDTO;
 import com.itwillbs.domain.Performance.VenueDTO;
+import com.itwillbs.domain.partner.PartnerStatusDTO;
 import com.itwillbs.repository.VenueRepository;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -18,6 +19,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @ExtendWith(SpringExtension.class)
@@ -106,6 +110,13 @@ public class PartnerServiceTests {
         performanceRegistrationDTO.setMusicalImages(null);
 
         partnerService.registerPerformance(performanceRegistrationDTO, list);
+
+
+    }
+
+    @Test
+    public void getMusicalListForStatusTest() {
+
 
 
     }

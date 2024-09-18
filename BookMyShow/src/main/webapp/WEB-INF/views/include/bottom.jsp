@@ -18,10 +18,10 @@
 
         </div>
         <div class="col-3" id="introduction">
-            <a>회사소개</a>
-            <a>이용약관</a>
-            <a>개인정보처리방침</a>
-            <a>제휴문의</a>
+            <a href="${pageContext.request.contextPath}/main/about/">회사소개</a>
+            <a href="${pageContext.request.contextPath}/main/terms/">이용약관</a>
+            <a href="${pageContext.request.contextPath}/main/privacy/">개인정보처리방침</a>
+            <a href="${pageContext.request.contextPath}/main/partnership/">제휴문의</a>
             <a href="${pageContext.request.contextPath}/partner/login/">파트너 페이지</a>
         </div>
         <div class="col-6" id="introduction-detail">

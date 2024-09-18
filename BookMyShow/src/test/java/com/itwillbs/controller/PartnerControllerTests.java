@@ -1,7 +1,6 @@
 package com.itwillbs.controller;
 
 import com.itwillbs.service.PartnerService;
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -24,4 +23,6 @@ public class PartnerControllerTests {
     public void getPartnerTest() {
         log.info(partnerService.getPartner2(2));
     }
+
+
 }

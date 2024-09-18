@@ -1,6 +1,6 @@
 package com.itwillbs.service;
 
-import com.itwillbs.domain.PartnerDTO;
+import com.itwillbs.domain.partner.PartnerDTO;
 import com.itwillbs.domain.Performance.GenreDTO;
 import com.itwillbs.domain.Performance.MusicalDTO;
 import com.itwillbs.domain.Performance.VenueDTO;
@@ -16,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.sql.Date;
 import java.time.LocalDate;
 
 @ExtendWith(SpringExtension.class)

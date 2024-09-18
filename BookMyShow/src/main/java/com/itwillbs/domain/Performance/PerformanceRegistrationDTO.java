@@ -1,10 +1,8 @@
 package com.itwillbs.domain.Performance;
 
-import com.itwillbs.domain.PartnerDTO;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 

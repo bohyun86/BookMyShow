@@ -86,7 +86,7 @@
                         <label class="form-check-label" for="terms-check">이용약관 동의 <span>(필수)</span></label>
                     </div>
                     <div class="check-detail">
-                        <a href="#">내용보기</a>
+                        <a href="${pageContext.request.contextPath}/main/terms/">내용보기</a>
                     </div>
                 </div>
                 <div class="form-check form-switch my-1 px-0">
@@ -95,7 +95,7 @@
                         <label class="form-check-label" for="privacy-check">개인정보 수집 이용 동의 <span>(필수)</span></label>
                     </div>
                     <div class="check-detail">
-                        <a href="#">내용보기</a>
+                        <a href="${pageContext.request.contextPath}/main/privacy/">내용보기</a>
                     </div>
                 </div>
             </div>
