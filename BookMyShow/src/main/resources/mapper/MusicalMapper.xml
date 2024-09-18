@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.itwillbs.mapper.MusicalMapper">
+    <select id="getMusical" resultType="com.itwillbs.domain.MusicalDTO">
+       select m.*, a.*
+		from Musical m join AttachFile a
+		on m.musical_id = a.musical_id
+		where a.is_poster = 1
+    </select>
+    
+    <select id="getGenre" resultType="com.itwillbs.domain.GenreDTO">
+    	select *
+    	from Genre
+    
+    </select>
+    
+</mapper>
