@@ -2,27 +2,27 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="com.itwillbs.mapper.MemberMapper">
 
- <resultMap id="memberResultMap" type="com.itwillbs.domain.MemberDTO">
-        <id property="memberId" column="member_id"/>
-        <result property="address" column="address"/>
-        <result property="birthdate" column="birthdate"/>
-        <result property="gender" column="gender"/>
-        <result property="updatedAt" column="updated_at"/>
+ 
+    <resultMap id="userResultMap" type="com.itwillbs.domain.UserDTO">
+        <id property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="email" column="email"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="name" column="name"/>
+        <result property="userRole" column="user_role"/>
         <result property="createdAt" column="created_at"/>
-        <result property="userId" column="user_id"/>
+        <result property="updatedAt" column="updated_at"/>
     </resultMap>
 
-	
-	<select id="getMember" resultType="com.itwillbs.domain.MemberDTO" resultMap="memberResultMap">
-  SELECT  U.user_name, U.email, U.phone_number,U.name
-    FROM Member M JOIN User U 
-    ON (M.user_id = U.user_id)
-    where U.user_name='?';
-	</select>
-	
-	
-  
+    <select id="getMember" resultType="com.itwillbs.domain.UserDTO" resultMap="userResultMap">
+        SELECT U.user_id, U.user_name, U.password, U.email, U.phone_number, U.name, U.user_role, U.created_at, U.updated_at
+        FROM Member M
+        JOIN User U ON M.user_id = U.user_id
+        WHERE U.user_name = #{id}
+    </select>
+
 </mapper>

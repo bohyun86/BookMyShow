@@ -1,5 +1,7 @@
 package com.itwillbs.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,22 +21,27 @@ public class AdminAjaxController {
 	private MemberService memberService;
 	
 	@GetMapping("/admin/result")
-	public String result(HttpServletRequest request) {
+	public UserDTO result(HttpServletRequest request) {
 		System.out.println("AdminAjaxController result" );
 		String id = request.getParameter("user_name");
-		UserDTO userDTO=memberService.getMember(id);
-		System.out.println(userDTO);
-		JsonObject jsonObject = new JsonObject();
-		String result="";
-		if(userDTO!=null) {
-			result="noInfo";
-		}else {
-			result="okInfo";
-//			jsonObject.put("id", id);
-//			json.put("name", id+"회원명");
-//			json.put("age", id+"회원나이");
-		}
-		return result;
+		String email = request.getParameter("eamil");
+		String phoneNumber = request.getParameter("phone_number");
+		String name = request.getParameter("name");
+		String createdAt = request.getParameter("createdAt");
+		String password = request.getParameter("password");
+		UserDTO userDTO = memberService.getMember(id,email,phoneNumber,name,password,createdAt);
+		System.out.println("AdminAjaxController::"+email);
+		System.out.println("AdminAjaxController::"+password);
+		System.out.println("AdminAjaxController::"+createdAt);
+		System.out.println("AdminAjaxController::"+name);
+		System.out.println("AdminAjaxController::"+phoneNumber);
+		System.out.println("AdminAjaxController::"+id);
+		System.out.println("AdminAjaxController::"+userDTO);
+//		JsonObject jsonObject = new JsonObject();
+		//result="okinfo";
+		
+		return userDTO;
+		
 	}
 	
 	

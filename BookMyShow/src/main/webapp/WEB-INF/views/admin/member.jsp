@@ -71,13 +71,13 @@
 			
 				
 <form name="findF" action="#" class="form-inline">
-	<select name="findType" class="form-control mr-2" >
+	<select name="findType" class="form-control mr-2" onchange="changeSearch(this)" >
 		<option value="">::검색 유형::</option>
 		<option value="1">이름</option>
 		<option value="2">아이디</option>
 		<option value="3">이메일</option>
 	</select>
-		<input type="text" name="findKeyword"  placeholder="검색어를 입력하세요" class="form-control mr-2"  s>
+		<input type="text" name="findKeyword"  placeholder="검색어를 입력하세요" class="form-control mr-2" id ="searchText">
 			<button class="btn btn-success"  type="button" id="memberSearch">검 색</button>
 			</form>
 
@@ -106,41 +106,32 @@
 
 <script>
 
-$(function(){
-	$('#memberSearch').click(function(){
-// 		alert("notice 클릭");
-// 		console.log("notice 클릭");
-	$.ajax({
-		url:"${pageContext.request.contextPath}/admin/result",
-// 		data:{'memberSearch':$('#memberSearch').val()},
-		dataType:"jason",
-		error:function(err){
-			
-		alert("error");
-			console.log("error")
-		},
-		success:function(result){
-// 		alert("notice 클릭");
-		if(result=='noInfo'){
-			$('#result').html("회원정보가 없습니다");
-		alert("noInfo");
-		console.log("noInfo");
-			
-		}	else {
-		alert($('#result'));
-		console.log("okinfo");
-// 		$("#result").text(jsonData.id);
-		$('#result').html('<li class="list-group-item"><a href="javascript:;">'+item.user_name +'</a></li>');
-// 		result=$('#result');
-		}
-			
-		}
-	});
-
-	});
+$(function() {
+    $('#memberSearch').click(function() {
+        $.ajax({
+            url: "${pageContext.request.contextPath}/admin/result",
+            data: {'user_name': $('#searchText').val()},
+            dataType: "json",
+            success: function(userDTO) {
+                if (userDTO) {
+                    $('#result').html('<li class="list-group-item"><a href="javascript:;">' + "아이디:"+userDTO.userName+",이메일:"+ userDTO.email+",연락처:"+userDTO.phoneNumber+",이름:"+userDTO.name+",비밀번호:"+userDTO.password+",회원가입일:"+userDTO.createdAt+ '</a></li>');
+                } else {
+                    $('#result').html("회원정보가 없습니다");
+                }
+            },
+            error: function(err) {
+                alert("error");
+                console.log("error");
+            }
+        });
+    });
 });
 
 
+	function changeSearch(obj) {
+		let key = $(obj).val();
+		$('#searchText').attr('name', key);
+	}
 
 
 
