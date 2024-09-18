@@ -67,16 +67,29 @@
 <!-- ==================================================== -->
 
 <%-- 				<h1 class="text-center m-3">[검색어:<%=findKeyword %> ] 검색 결과</h1>				 --%>
-				<form name="findF" action="${pageContext.request.contextPath}/admin/submit" class="form-inline">
-									<select name="findType" class="form-control mr-2">
+				<form name="findF"  class="form-inline">
+									<select name="findType" class="form-control mr-2" onchange="changeSearch(this)">
 										<option value="">::검색 유형::</option>
 										<option value="1">파트너ID</option>
 										<option value="2">뮤지컬제목</option>
 									</select>
-				<input type="text" name="findKeyword" placeholder="검색어를 입력하세요"class="form-control mr-2">
-					<button class="btn btn-success" >검 색</button>
+				<input type="text" name="findKeyword" placeholder="검색어를 입력하세요"class="form-control mr-2" id ="searchText">
+					<button class="btn btn-success" type="submit" id="musicalSearch">검 색</button>
 					</form>
 				
+<script>
+
+
+		
+
+
+
+
+</script>
+
+
+
+
 
   </div>
                 </div>

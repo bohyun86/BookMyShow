@@ -12,13 +12,16 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.MusicalDTO;
 import com.itwillbs.domain.UserDTO;
+import com.itwillbs.service.MusicalService;
 import com.itwillbs.service.UserServiceImpl;
 
 @Controller
@@ -29,7 +32,11 @@ public class AdminController {
 	
 	@Autowired
 	private UserServiceImpl userServiceImpl;
-
+	
+	@Autowired
+	private MusicalService musicalService;
+	
+	
     @GetMapping("/main")
     public String home() {
         log.info("admin main success");
@@ -76,8 +83,33 @@ public class AdminController {
 
 
     @GetMapping("/search")
-    public String search() {
-    	log.info("admin search success");
+    public String search(HttpServletRequest request,Model model) {
+    	log.info("admin search:: success");
+    	 String searchType = request.getParameter("findType");
+         String findKeyword = request.getParameter("findKeyword");
+    	System.out.println("AdminController searchType::"+searchType);
+    	System.out.println("AdminController findKeyword::"+findKeyword);
+    	
+    	MusicalDTO musicalDTO= new MusicalDTO();
+    	if ("1".equals(searchType)) {
+            // 파트너 ID로 검색
+//            musicalDTO = musicalService.getMusicalByPartnerId(keyword);
+        } else if ("2".equals(searchType)) {
+            // 뮤지컬 제목으로 검색
+        	musicalDTO = musicalService.getMusicalByTitle(findKeyword);
+            return "redirect:/admin/submit?title=" + musicalDTO.getMusical();
+        }
+    	
+    	// 검색 결과가 있는지 확인
+//        if (musicalDTO != null) {
+//            // 검색된 뮤지컬의 승인 페이지로 리다이렉트
+//            return "redirect:/musical/sumbit?title=" + musicalDTO.getMusical();
+//        } else {
+//            // 검색 결과가 없을 경우 검색 페이지로 다시 리다이렉트
+//            model.addAttribute("message", "해당 뮤지컬을 찾을 수 없습니다.");
+//            return "redirect:/admin/search";
+//        }
+//    	
     	return "/admin/search";
     }
 
@@ -87,7 +119,10 @@ public class AdminController {
 
     @GetMapping("/submit")
     public String submit() {
-    	log.info("admin submit success");
+    	log.info("admin submit:: success");
+    	
+    	
+    	
     	return "/admin/submit";
     }
 
