@@ -33,41 +33,61 @@ public class MypageController {
 	private MypageService mypageService;
 	private UserService userService;
 
-	@GetMapping("/booking-detail/{bookingId}")
-	public String bookingDetail() {
-		log.info("booking detail");
-		return "/my/booking-detail";
-	}
-
 	@GetMapping("/bookings")
 	public String getBookings(Model model, @RequestParam(defaultValue = "0") int page,
-	        @RequestParam(defaultValue = "10") int size, HttpSession session) {
-	    Integer userId = (Integer) session.getAttribute("userId");
-	    Integer memberId = mypageService.getMemberId(userId);
-	    
-	    List<BookingDTO> bookings = mypageService.getBookings(memberId, null, page, size);
-	    List<Integer> bookingIds = bookings.stream().map(BookingDTO::getBookingId).collect(Collectors.toList());
+			@RequestParam(defaultValue = "10") int size, HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		Integer memberId = mypageService.getMemberId(userId);
 
-	    model.addAttribute("bookings", bookings);
-	    model.addAttribute("musicals", mypageService.getMusicals(bookingIds));
-	    model.addAttribute("attachFiles", mypageService.getAttachFiles(bookingIds));
-	    model.addAttribute("performances", mypageService.getPerformances(bookingIds));
-	    model.addAttribute("payments", mypageService.getPayments(bookingIds));
-	    model.addAttribute("bookedSeatsMap", mypageService.getBookedSeats(bookingIds));
+		List<BookingDTO> bookings = mypageService.getBookings(memberId, null, page, size);
+		List<Integer> bookingIds = bookings.stream().map(BookingDTO::getBookingId).collect(Collectors.toList());
 
-	    int totalElements = mypageService.getTotalBookingsCount(memberId);
-	    MyPageDTO pageDTO = new MyPageDTO(page, size, totalElements);
-	    model.addAttribute("pageDTO", pageDTO);
+		model.addAttribute("bookings", bookings);
+		model.addAttribute("musicals", mypageService.getMusicals(bookingIds));
+		model.addAttribute("attachFiles", mypageService.getAttachFiles(bookingIds));
+		model.addAttribute("performances", mypageService.getPerformances(bookingIds));
+		model.addAttribute("payments", mypageService.getPayments(bookingIds));
+		model.addAttribute("bookedSeatsMap", mypageService.getBookedSeats(bookingIds));
 
-	    return "my/bookings";
+		int totalElements = mypageService.getTotalBookingsCount(memberId);
+		MyPageDTO pageDTO = new MyPageDTO(page, size, totalElements);
+		model.addAttribute("pageDTO", pageDTO);
+
+		return "my/bookings";
 	}
 
 	@GetMapping("/booking-complete/{bookingId}")
 	public String bookingComplete(@PathVariable Integer bookingId, Model model, HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		Integer memberId = mypageService.getMemberId(userId);
+
+		List<BookingDTO> bookings = mypageService.getBookings(memberId, bookingId, 0, 1);
+		BookingDTO booking = bookings.get(0);
+		List<Integer> bookingIds = Collections.singletonList(bookingId);
+
+		model.addAttribute("booking", booking);
+		model.addAttribute("musical", mypageService.getMusicals(bookingIds).get(0));
+		model.addAttribute("attachFile", mypageService.getAttachFiles(bookingIds).get(0));
+		model.addAttribute("performance", mypageService.getPerformances(bookingIds).get(0));
+		model.addAttribute("payment", mypageService.getPayments(bookingIds).get(0));
+		model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingIds).get(bookingId));
+
+		return "my/booking-complete";
+	}
+
+	@GetMapping("/booking-detail/{bookingId}")
+	public String bookingDetail(@PathVariable Integer bookingId, Model model, HttpSession session) {
 	    Integer userId = (Integer) session.getAttribute("userId");
+	    if (userId == null) {
+	        return "redirect:/login";
+	    }
+
 	    Integer memberId = mypageService.getMemberId(userId);
-	    
+
 	    List<BookingDTO> bookings = mypageService.getBookings(memberId, bookingId, 0, 1);
+	    if (bookings.isEmpty()) {
+	        return "redirect:/error";
+	    }
 	    BookingDTO booking = bookings.get(0);
 	    List<Integer> bookingIds = Collections.singletonList(bookingId);
 
@@ -77,8 +97,10 @@ public class MypageController {
 	    model.addAttribute("performance", mypageService.getPerformances(bookingIds).get(0));
 	    model.addAttribute("payment", mypageService.getPayments(bookingIds).get(0));
 	    model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingIds).get(bookingId));
+	    model.addAttribute("user", mypageService.getUser(userId));
+	    model.addAttribute("venue", mypageService.getVenues(bookingIds).get(0));
 
-	    return "my/booking-complete";
+	    return "my/booking-detail";
 	}
 
 	@GetMapping("/refund/{bookingId}")
@@ -165,7 +187,7 @@ public class MypageController {
 		return "/my/reviews";
 	}
 
-	@GetMapping("/review-write")
+	@GetMapping("/review-write/{bookingId}")
 	public String reviewWrite() {
 		log.info("review write");
 		return "/my/review-write";

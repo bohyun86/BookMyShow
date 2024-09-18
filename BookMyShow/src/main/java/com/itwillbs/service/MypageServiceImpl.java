@@ -7,6 +7,9 @@ import com.itwillbs.domain.BookingDTO;
 import com.itwillbs.domain.MusicalDTO;
 import com.itwillbs.domain.PaymentDTO;
 import com.itwillbs.domain.PerformanceDTO;
+import com.itwillbs.domain.UserDTO;
+import com.itwillbs.domain.Performance.VenueDTO;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
@@ -27,6 +30,11 @@ public class MypageServiceImpl implements MypageService {
 	@Override
 	public Integer getMemberId(Integer userId) {
 		return mypageDAO.getMemberId(userId);
+	}
+
+	@Override
+	public UserDTO getUser(Integer userId) {
+		return mypageDAO.getUser(userId);
 	}
 
 	@Override
@@ -59,6 +67,11 @@ public class MypageServiceImpl implements MypageService {
 	public Map<Integer, List<BookedSeatsDTO>> getBookedSeats(List<Integer> bookingIds) {
 		List<BookedSeatsDTO> allSeats = mypageDAO.getBookedSeats(bookingIds);
 		return allSeats.stream().collect(Collectors.groupingBy(BookedSeatsDTO::getBookingId));
+	}
+
+	@Override
+	public List<VenueDTO> getVenues(List<Integer> bookingIds) {
+		return mypageDAO.getVenues(bookingIds);
 	}
 
 	@Override

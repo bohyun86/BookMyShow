@@ -73,7 +73,6 @@ function writeReview(bookingId, hasReview) {
 }
 
 function initBookingComplete() {
-    console.log('예매 완료 페이지 초기화');
     // 티켓 정보 표시 버튼 이벤트 리스너 추가
     const ticketInfoButton = document.getElementById('ticketInfoButton');
     if (ticketInfoButton) {

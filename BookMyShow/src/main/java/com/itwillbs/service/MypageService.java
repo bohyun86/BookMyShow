@@ -9,10 +9,14 @@ import com.itwillbs.domain.BookingDTO;
 import com.itwillbs.domain.MusicalDTO;
 import com.itwillbs.domain.PaymentDTO;
 import com.itwillbs.domain.PerformanceDTO;
+import com.itwillbs.domain.UserDTO;
+import com.itwillbs.domain.Performance.VenueDTO;
 
 public interface MypageService {
 
 	Integer getMemberId(Integer userId);
+	
+	UserDTO getUser(Integer userId);
 	
 	List<BookingDTO> getBookings(Integer memberId, Integer bookingId, int page, int size);
 
@@ -25,6 +29,8 @@ public interface MypageService {
 	List<PaymentDTO> getPayments(List<Integer> bookingIds);
 
 	Map<Integer, List<BookedSeatsDTO>> getBookedSeats(List<Integer> bookingIds);
+	
+	List<VenueDTO> getVenues(List<Integer> bookingIds);
 
 	int getTotalBookingsCount(Integer memberId);
 

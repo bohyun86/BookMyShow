@@ -1,11 +1,13 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
 <%@ include file="../include/my/header.jsp"%>
-<link rel="stylesheet" href="<c:url value='/resources/css/my/detail.css'/>">
+<link rel="stylesheet"
+	href="<c:url value='/resources/css/my/detail.css'/>">
 </head>
 <body id="board-body">
 	<jsp:include page="../include/top.jsp" />
@@ -18,62 +20,59 @@
 			<div class="detail-card">
 				<div class="detail-row">
 					<span class="detail-label">티켓명</span> <span class="detail-value">
-						<a href="<c:url value='/musical/detail/${booking.musicalId}'/>"
-						class="musical-title-link"> 사랑에 빠지기까지 디마이너스백
-							${booking.musical.title} </a>
+						<a href="<c:url value='/musical/detail/${musical.musicalId}'/>"
+						class="musical-title-link"> ${musical.title} </a>
 					</span>
 				</div>
 				<div class="detail-row">
 					<span class="detail-label">예매상태</span> <span
-						class="detail-value status">예매완료 ${booking.status}</span>
+						class="detail-value status">${booking.status}</span>
 				</div>
 				<div class="detail-row">
-					<span class="detail-label">장소</span> <span class="detail-value">아루소극장
-						${booking.musical.venue.venueName}</span>
+					<span class="detail-label">장소</span> <span class="detail-value">${venue.venueName}</span>
 				</div>
 				<div class="detail-row">
 					<span class="detail-label">주소</span> <span class="detail-value"
-						data-address="서울특별시 종로구 대학로8가길 50, 4층 아루소극장"> 서울특별시 종로구
-						대학로8가길 50, 4층 아루소극장 ${booking.musical.venue.address}
+						data-address="${venue.address}"> ${venue.address}
 						<button
 							class="btn btn-sm btn-outline-danger action-button copy-address">주소복사</button>
 					</span>
 				</div>
-				<div class="detail-row">
-					<span class="detail-label">연락처</span> <span class="detail-value">02-6012-1512
-						${booking.musical.venue.phoneNumber}</span>
-				</div>
 				<div class="detail-row divider"></div>
 				<div class="detail-row">
 					<span class="detail-label">예매옵션</span> <span class="detail-value">
-						10.30[월] 17:00 1인권 (1매)<br> 11,000원 * 1매 = 11,000원<br>
-						${booking.ticketCount}인권<br> * ${booking.ticketCount}매 =<br>
-						11,000원 * 1매 = 11,000원
+						${fn:substring(performance.performanceDate, 0, 16)}
+						${booking.ticketCount}인권<br> <fmt:formatNumber
+							value="${payment.paymentAmount / booking.ticketCount}"
+							type="currency" currencySymbol="₩" /> * ${booking.ticketCount}매
+						= <fmt:formatNumber value="${payment.paymentAmount}"
+							type="currency" currencySymbol="₩" />
 					</span>
 				</div>
 				<div class="detail-row">
-					<span class="detail-label">예매번호</span> <span class="detail-value">114-4755-884
-						${booking.bookingId}</span>
+					<span class="detail-label">예매번호</span> <span class="detail-value">${booking.bookingId}</span>
 				</div>
 				<div class="detail-row">
-					<span class="detail-label">이용자</span> <span class="detail-value">김유저(010-1111-2222)
-						${booking.user.name}(${booking.user.phoneNumber})</span>
+					<span class="detail-label">이용자</span> <span class="detail-value">${user.name}(${user.phoneNumber})</span>
 				</div>
 				<div class="detail-row divider"></div>
 				<div class="detail-row">
-					<span class="detail-label">결제금액</span> <span class="detail-value">11,000원</span>
-				</div>
-				<div class="detail-row">
-					<span class="detail-label">결제수단</span> <span class="detail-value">
-						네이버페이 ${booking.payment.paymentMethod}
-						<button
-							class="btn btn-sm btn-outline-danger action-button receipt-button"
-							data-payment-id="${booking.payment.paymentId}">영수증 조회</button>
+					<span class="detail-label">결제금액</span> <span class="detail-value">
+						<fmt:formatNumber value="${payment.paymentAmount}" type="currency"
+							currencySymbol="₩" />
 					</span>
 				</div>
 				<div class="detail-row">
-					<span class="detail-label">결제일시</span> <span class="detail-value">2024-08-30
-						23:58:38</span>
+					<span class="detail-label">결제수단</span> <span class="detail-value">
+						${payment.paymentMethod}
+						<button
+							class="btn btn-sm btn-outline-danger action-button receipt-button"
+							data-payment-id="${payment.paymentId}">영수증 조회</button>
+					</span>
+				</div>
+				<div class="detail-row">
+					<span class="detail-label">결제일시</span> <span class="detail-value">
+						${fn:substring(payment.paymentDate, 0, 19)} </span>
 				</div>
 				<div class="detail-row divider"></div>
 				<div class="detail-row">
@@ -81,7 +80,8 @@
 						이용 1일 전 자정까지 신청 가능
 						<button
 							class="btn btn-sm btn-outline-danger action-button refund-policy-btn"
-							data-bs-toggle="modal" data-bs-target="#refundPolicyModal">환불 규정</button>
+							data-bs-toggle="modal" data-bs-target="#refundPolicyModal">환불
+							규정</button>
 					</span>
 				</div>
 			</div>

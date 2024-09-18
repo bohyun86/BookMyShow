@@ -18,7 +18,7 @@
             <li class="nav-item">
                 <div class="nav-link d-flex flex-column align-items-center">
                     <span>나의 포인트</span>
-                    <a href="${pageContext.request.contextPath}/my/points" class="my-point">${user.points}P</a>
+                    <a href="${pageContext.request.contextPath}/my/points" class="my-point">${point.balance}P</a>
                 </div>
             </li>
             <li class="nav-item">

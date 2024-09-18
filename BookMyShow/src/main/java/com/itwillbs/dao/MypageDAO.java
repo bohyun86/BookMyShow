@@ -1,6 +1,5 @@
 package com.itwillbs.dao;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,6 +13,8 @@ import com.itwillbs.domain.BookingDTO;
 import com.itwillbs.domain.MusicalDTO;
 import com.itwillbs.domain.PaymentDTO;
 import com.itwillbs.domain.PerformanceDTO;
+import com.itwillbs.domain.UserDTO;
+import com.itwillbs.domain.Performance.VenueDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -29,6 +30,10 @@ public class MypageDAO {
 
 	public Integer getMemberId(Integer userId) {
 		return sqlSession.selectOne(NAMESPACE + ".getMemberId", userId);
+	}
+
+	public UserDTO getUser(Integer userId) {
+		return sqlSession.selectOne(NAMESPACE + ".getUser", userId);
 	}
 
 	public List<BookingDTO> getBookings(Integer memberId, Integer bookingId, Integer offset, Integer limit) {
@@ -58,6 +63,10 @@ public class MypageDAO {
 
 	public List<BookedSeatsDTO> getBookedSeats(List<Integer> bookingIds) {
 		return sqlSession.selectList(NAMESPACE + ".getBookedSeats", bookingIds);
+	}
+	
+	public List<VenueDTO> getVenues(List<Integer> bookingIds) {
+	    return sqlSession.selectList(NAMESPACE + ".getVenues", bookingIds);
 	}
 
 	public int getTotalBookingsCount(Integer memberId) {

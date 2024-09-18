@@ -113,6 +113,7 @@
 						href="<c:url value='/my/bookings'/>"
 						class="btn btn-outline-dark flex-grow-1">예매 내역 확인</a>
 				</div>
+			</div>
 		</section>
 	</main>
 
@@ -138,6 +139,7 @@
 			</div>
 		</div>
 	</div>
+
 
 	<jsp:include page="../include/bottom.jsp" />
 

@@ -1,7 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -166,7 +165,7 @@
         var contextPath = '${pageContext.request.contextPath}';
         
         function writeReview(bookingId) {
-            window.location.href = contextPath + '/review/write/' + bookingId;
+            window.location.href = contextPath + '/my/review-write/' + bookingId;
         }
     </script>
 	<script
