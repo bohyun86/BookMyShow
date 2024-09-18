@@ -1,11 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ page import="java.time.format.DateTimeFormatter"%>
-<%
-DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-pageContext.setAttribute("formatter", formatter);
-%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -33,16 +28,18 @@ pageContext.setAttribute("formatter", formatter);
 							<div
 								class="col-md-3 h-100 d-flex align-items-center justify-content-start">
 								<a href="<c:url value='/musical/detail/${musical.musicalId}'/>"
-									class="img-container"> <!--                                     musical.image -->
-									<img
-										src="${pageContext.request.contextPath}/${attachFile.postFilePath}"
+									class="img-container"> <img
+									src="${pageContext.request.contextPath}/${attachFile.postFilePath}"
 									class="poster-img" alt="${musical.title} 포스터">
 								</a>
 							</div>
 							<div class="col-md-9 d-flex flex-column h-100 pl-3">
 								<div class="booking-info mb-2">
 									<span class="status">${booking.status}</span> <span
-										class="booking-date"> ${booking.bookingDate.format(formatter)}
+										class="booking-date"> <fmt:parseDate
+											value="${booking.bookingDate}" pattern="yyyy-MM-dd'T'HH:mm"
+											var="parsedDate" type="both" /> <fmt:formatDate
+											value="${parsedDate}" pattern="yyyy-MM-dd" />
 									</span>
 								</div>
 								<div
@@ -66,7 +63,11 @@ pageContext.setAttribute("formatter", formatter);
 									<div class="row align-items-center no-gutters mb-2">
 										<div class="col-8 pr-2">
 											<p class="card-text mb-0">
-												${performance.performanceDate.format(DateTimeFormatter.ofPattern('yyyy-MM-dd HH:mm'))}
+												<fmt:parseDate value="${performance.performanceDate}"
+													pattern="yyyy-MM-dd'T'HH:mm" var="parsedPerformanceDate"
+													type="both" />
+												<fmt:formatDate value="${parsedPerformanceDate}"
+													pattern="yyyy-MM-dd HH:mm" />
 											</p>
 										</div>
 										<div class="col-4 pl-2">
@@ -112,28 +113,31 @@ pageContext.setAttribute("formatter", formatter);
 						href="<c:url value='/my/bookings'/>"
 						class="btn btn-outline-dark flex-grow-1">예매 내역 확인</a>
 				</div>
-			</div>
 		</section>
 	</main>
 
 	<!-- 좌석 확인 모달 -->
-<div class="modal fade" id="seatModal${booking.bookingId}"
-    tabindex="-1" aria-labelledby="seatModalLabel${booking.bookingId}"
-    aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="seatModalLabel${booking.bookingId}">좌석 정보</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                    aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <ul id="seatList${booking.bookingId}">
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
+	<div class="modal fade" id="seatModal${booking.bookingId}"
+		tabindex="-1" aria-labelledby="seatModalLabel${booking.bookingId}"
+		aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="seatModalLabel${booking.bookingId}">좌석
+						정보</h5>
+					<button type="button" class="btn-close" data-bs-dismiss="modal"
+						aria-label="Close"></button>
+				</div>
+				<div class="modal-body">
+					<ul>
+						<c:forEach var="seat" items="${bookedSeats}">
+							<li>${seat.seatNumber}</li>
+						</c:forEach>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
 
 	<jsp:include page="../include/bottom.jsp" />
 
@@ -143,6 +147,5 @@ pageContext.setAttribute("formatter", formatter);
 		crossorigin="anonymous"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/my/common.js"></script>
-		
 </body>
 </html>

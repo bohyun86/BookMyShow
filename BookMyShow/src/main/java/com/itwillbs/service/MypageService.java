@@ -1,6 +1,7 @@
 package com.itwillbs.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.itwillbs.domain.AttachFileDTO;
 import com.itwillbs.domain.BookedSeatsDTO;
@@ -11,11 +12,20 @@ import com.itwillbs.domain.PerformanceDTO;
 
 public interface MypageService {
 
-	BookingDTO getBooking(Integer bookingId);
-    MusicalDTO getMusical(Integer bookingId);
-    AttachFileDTO getAttachFile(Integer bookingId);
-    PerformanceDTO getPerformance(Integer bookingId);
-    PaymentDTO getPayment(Integer bookingId);
-    List<BookedSeatsDTO> getBookedSeats(Integer bookingId);
-    
+	Integer getMemberId(Integer userId);
+	
+	List<BookingDTO> getBookings(Integer memberId, Integer bookingId, int page, int size);
+
+	List<MusicalDTO> getMusicals(List<Integer> bookingIds);
+
+	List<AttachFileDTO> getAttachFiles(List<Integer> bookingIds);
+
+	List<PerformanceDTO> getPerformances(List<Integer> bookingIds);
+
+	List<PaymentDTO> getPayments(List<Integer> bookingIds);
+
+	Map<Integer, List<BookedSeatsDTO>> getBookedSeats(List<Integer> bookingIds);
+
+	int getTotalBookingsCount(Integer memberId);
+
 }

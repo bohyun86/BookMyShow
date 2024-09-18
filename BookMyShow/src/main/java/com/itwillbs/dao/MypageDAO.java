@@ -1,6 +1,9 @@
 package com.itwillbs.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
@@ -24,29 +27,40 @@ public class MypageDAO {
 
 	private static final String NAMESPACE = "com.itwillbs.mapper.MypageMapper";
 
-	public BookingDTO getBooking(Integer bookingId) {
-		BookingDTO result = sqlSession.selectOne(NAMESPACE + ".getBooking", bookingId);
-	    log.info("getBooking result: " + result);
-	    return result;
+	public Integer getMemberId(Integer userId) {
+		return sqlSession.selectOne(NAMESPACE + ".getMemberId", userId);
 	}
 
-	public MusicalDTO getMusical(Integer bookingId) {
-		return sqlSession.selectOne(NAMESPACE + ".getMusical", bookingId);
+	public List<BookingDTO> getBookings(Integer memberId, Integer bookingId, Integer offset, Integer limit) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("memberId", memberId);
+		params.put("bookingId", bookingId);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return sqlSession.selectList(NAMESPACE + ".getBookings", params);
 	}
 
-	public AttachFileDTO getAttachFile(Integer bookingId) {
-		return sqlSession.selectOne(NAMESPACE + ".getAttachFile", bookingId);
+	public List<MusicalDTO> getMusicals(List<Integer> bookingIds) {
+		return sqlSession.selectList(NAMESPACE + ".getMusicals", bookingIds);
 	}
 
-	public PerformanceDTO getPerformance(Integer bookingId) {
-		return sqlSession.selectOne(NAMESPACE + ".getPerformance", bookingId);
+	public List<AttachFileDTO> getAttachFiles(List<Integer> bookingIds) {
+		return sqlSession.selectList(NAMESPACE + ".getAttachFiles", bookingIds);
 	}
 
-	public PaymentDTO getPayment(Integer bookingId) {
-		return sqlSession.selectOne(NAMESPACE + ".getPayment", bookingId);
+	public List<PerformanceDTO> getPerformances(List<Integer> bookingIds) {
+		return sqlSession.selectList(NAMESPACE + ".getPerformances", bookingIds);
 	}
 
-	public List<BookedSeatsDTO> getBookedSeats(Integer bookingId) {
-		return sqlSession.selectList(NAMESPACE + ".getBookedSeats", bookingId);
+	public List<PaymentDTO> getPayments(List<Integer> bookingIds) {
+		return sqlSession.selectList(NAMESPACE + ".getPayments", bookingIds);
+	}
+
+	public List<BookedSeatsDTO> getBookedSeats(List<Integer> bookingIds) {
+		return sqlSession.selectList(NAMESPACE + ".getBookedSeats", bookingIds);
+	}
+
+	public int getTotalBookingsCount(Integer memberId) {
+		return sqlSession.selectOne(NAMESPACE + ".getTotalBookingsCount", memberId);
 	}
 }

@@ -2,10 +2,16 @@ document.addEventListener('DOMContentLoaded', function() {
     initAddressCopy();
     initReceiptLookup();
     initRefundProcess();
-    initSeatCheck();
     initReviewWriting();
     initBookingComplete();
     initWithdrawal();
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var myModals = document.querySelectorAll('.modal');
+    myModals.forEach(function(modal) {
+        new bootstrap.Modal(modal);
+    });
 });
 
 function initAddressCopy() {
@@ -48,54 +54,6 @@ function initRefundProcess() {
             }
         });
     }
-}
-
-function initSeatCheck() {
-    const seatCheckButtons = document.querySelectorAll('.seat-check-button');
-    seatCheckButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            const bookingId = this.getAttribute('data-booking-id');
-            const modalId = `seatModal${bookingId}`;
-            const modal = document.getElementById(modalId);
-            
-            // 모달이 열릴 때 좌석 정보를 가져옵니다.
-            modal.addEventListener('show.bs.modal', function (event) {
-                showSeats(bookingId);
-            }, { once: true }); // 이벤트 리스너를 한 번만 실행합니다.
-
-            // 모달을 엽니다.
-            new bootstrap.Modal(modal).show();
-        });
-    });
-}
-
-function showSeats(bookingId) {
-    const seatList = document.getElementById(`seatList${bookingId}`);
-    seatList.innerHTML = '<li>좌석 정보를 불러오는 중...</li>'; // 로딩 메시지
-
-    fetch(`/i5/my/${bookingId}/seats`)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.json();
-        })
-        .then(seats => {
-            seatList.innerHTML = ''; // 기존 내용 초기화
-            if (seats.length === 0) {
-                seatList.innerHTML = '<li>예약된 좌석이 없습니다.</li>';
-            } else {
-                seats.forEach(seat => {
-                    const li = document.createElement('li');
-                    li.textContent = `${seat.seatNumber} (${seat.seatClassId})`;
-                    seatList.appendChild(li);
-                });
-            }
-        })
-        .catch(error => {
-            console.error('좌석 정보를 가져오는 중 오류 발생:', error);
-            seatList.innerHTML = '<li>좌석 정보를 불러오는 데 실패했습니다.</li>';
-        });
 }
 
 function initReviewWriting() {

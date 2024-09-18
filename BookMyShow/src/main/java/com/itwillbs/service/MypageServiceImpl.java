@@ -12,6 +12,8 @@ import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -23,49 +25,56 @@ public class MypageServiceImpl implements MypageService {
 	private MypageDAO mypageDAO;
 
 	@Override
-    public BookingDTO getBooking(Integer bookingId) {
-		return mypageDAO.getBooking(bookingId);
-    }
+	public Integer getMemberId(Integer userId) {
+		return mypageDAO.getMemberId(userId);
+	}
 
-    @Override
-    public MusicalDTO getMusical(Integer bookingId) {
-        return mypageDAO.getMusical(bookingId);
-    }
-    
-    @Override
-    public AttachFileDTO getAttachFile(Integer bookingId) {
-    	AttachFileDTO attachFileDTO = mypageDAO.getAttachFile(bookingId);
-    	
-    	String uploadPath = attachFileDTO.getUploadPath();
-        log.info("uploadPath: {}", uploadPath);
+	@Override
+	public List<BookingDTO> getBookings(Integer memberId, Integer bookingId, int page, int size) {
+		return mypageDAO.getBookings(memberId, bookingId, page * size, size);
+	}
 
-        // 1. 윈도우에서 저장된 경로인 경우
-        if (attachFileDTO.getUploadPath().contains("\\")) {
-            uploadPath = uploadPath.replace("\\", File.separator);
-            // 2. 리눅스, 맥에서 저장된 경로인 경우
-        } else if (attachFileDTO.getUploadPath().contains("/")) {
-            uploadPath = uploadPath.replace("/", File.separator);
-        }
+	public List<MusicalDTO> getMusicals(List<Integer> bookingIds) {
+		return mypageDAO.getMusicals(bookingIds);
+	}
 
-        attachFileDTO.setPostFilePath("resources" + File.separator + "upload" + File.separator + attachFileDTO.getUploadPath() + File.separator + attachFileDTO.getUuid() + "_" + attachFileDTO.getFileName());
+	@Override
+	public List<AttachFileDTO> getAttachFiles(List<Integer> bookingIds) {
+		List<AttachFileDTO> attachFiles = mypageDAO.getAttachFiles(bookingIds);
+		attachFiles.forEach(this::processAttachFilePath);
+		return attachFiles;
+	}
 
-        return attachFileDTO;
-    }
+	@Override
+	public List<PerformanceDTO> getPerformances(List<Integer> bookingIds) {
+		return mypageDAO.getPerformances(bookingIds);
+	}
 
-    @Override
-    public PerformanceDTO getPerformance(Integer bookingId) {
-        return mypageDAO.getPerformance(bookingId);
-    }
+	@Override
+	public List<PaymentDTO> getPayments(List<Integer> bookingIds) {
+		return mypageDAO.getPayments(bookingIds);
+	}
 
-    @Override
-    public PaymentDTO getPayment(Integer bookingId) {
-        return mypageDAO.getPayment(bookingId);
-    }
+	@Override
+	public Map<Integer, List<BookedSeatsDTO>> getBookedSeats(List<Integer> bookingIds) {
+		List<BookedSeatsDTO> allSeats = mypageDAO.getBookedSeats(bookingIds);
+		return allSeats.stream().collect(Collectors.groupingBy(BookedSeatsDTO::getBookingId));
+	}
 
-    @Override
-    public List<BookedSeatsDTO> getBookedSeats(Integer bookingId) {
-        return mypageDAO.getBookedSeats(bookingId);
-    }
+	@Override
+	public int getTotalBookingsCount(Integer memberId) {
+		return mypageDAO.getTotalBookingsCount(memberId);
+	}
 
+	private void processAttachFilePath(AttachFileDTO attachFile) {
+		String uploadPath = attachFile.getUploadPath();
+		if (uploadPath.contains("\\")) {
+			uploadPath = uploadPath.replace("\\", File.separator);
+		} else if (uploadPath.contains("/")) {
+			uploadPath = uploadPath.replace("/", File.separator);
+		}
+		attachFile.setPostFilePath("resources" + File.separator + "upload" + File.separator + uploadPath
+				+ File.separator + attachFile.getUuid() + "_" + attachFile.getFileName());
+	}
 
 }

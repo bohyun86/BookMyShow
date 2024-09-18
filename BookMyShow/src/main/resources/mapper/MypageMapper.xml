@@ -5,17 +5,17 @@
 
 <mapper namespace="com.itwillbs.mapper.MypageMapper">
 
-	<!-- <resultMap id="userResultMap" -->
-	<!-- type="com.itwillbs.domain.UserDTO"> -->
-	<!-- <id property="userId" column="user_id" /> -->
-	<!-- <result property="password" column="password" /> -->
-	<!-- <result property="email" column="email" /> -->
-	<!-- <result property="phoneNumber" column="phone_number" /> -->
-	<!-- <result property="name" column="name" /> -->
-	<!-- <result property="userRole" column="user_role" /> -->
-	<!-- <result property="createdAt" column="created_at" /> -->
-	<!-- <result property="updatedAt" column="updated_at" /> -->
-	<!-- </resultMap> -->
+	<resultMap id="userResultMap"
+		type="com.itwillbs.domain.UserDTO">
+		<id property="userId" column="user_id" />
+		<result property="password" column="password" />
+		<result property="email" column="email" />
+		<result property="phoneNumber" column="phone_number" />
+		<result property="name" column="name" />
+		<result property="userRole" column="user_role" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
 	<resultMap id="musicalResultMap"
 		type="com.itwillbs.domain.MusicalDTO">
 		<id property="musicalId" column="musical_id" />
@@ -93,66 +93,83 @@
 		<result property="seatClassId" column="seat_class_id" />
 		<result property="bookingId" column="booking_id" />
 	</resultMap>
+	
+		<select id="getMemberId" resultType="java.lang.Integer">
+		    SELECT member_id
+		    FROM Member
+		    WHERE user_id = #{userId}
+		</select>
 
+	  <select id="getBookings" resultType="com.itwillbs.domain.BookingDTO" resultMap="bookingResultMap">
+        SELECT *
+        FROM Booking
+        WHERE member_id = #{memberId}
+        <if test="bookingId != null">
+            AND booking_id = #{bookingId}
+        </if>
+        ORDER BY booking_date DESC
+        <if test="limit != null and offset != null">
+            LIMIT #{offset}, #{limit}
+        </if>
+    </select>
 
-	<select id="getBooking"
-		resultType="com.itwillbs.domain.BookingDTO"
-		resultMap="bookingResultMap">
-		select *
-		from Booking
-		where booking_id = #{bookingId}
-	</select>
+    <select id="getMusicals" resultType="com.itwillbs.domain.MusicalDTO" resultMap="musicalResultMap">
+        SELECT m.*
+        FROM Musical m
+        JOIN Performance p ON m.musical_id = p.musical_id
+        JOIN Booking b ON p.performance_id = b.performance_id
+        WHERE b.booking_id IN
+        <foreach item="item" collection="list" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </select>
 
-	<select id="getMusical"
-		resultType="com.itwillbs.domain.MusicalDTO"
-		resultMap="musicalResultMap">
-		select m.*
-		from Musical m join Performance p
-		on m.musical_id = p.musical_id
-		join Booking b
-		on p.performance_id = b.performance_id
-		where b.booking_id = #{bookingId}
-	</select>
+    <select id="getAttachFiles" resultType="com.itwillbs.domain.AttachFileDTO" resultMap="attachFileResultMap">
+        SELECT af.*
+        FROM AttachFile af
+        JOIN Musical m ON af.musical_id = m.musical_id
+        JOIN Performance p ON m.musical_id = p.musical_id
+        JOIN Booking b ON p.performance_id = b.performance_id
+        WHERE b.booking_id IN
+        <foreach item="bookingId" collection="list" open="(" separator="," close=")">
+            #{bookingId}
+        </foreach>
+        AND af.is_poster = true
+    </select>
 
-	<select id="getAttachFile"
-		resultType="com.itwillbs.domain.AttachFileDTO"
-		resultMap="attachFileResultMap">
-		select af.*
-		from AttachFile af join Musical m
-		on af.musical_id = m.musical_id
-		join Performance p
-		on m.musical_id = p.musical_id
-		join Booking b
-		on p.performance_id = b.performance_id
-		where b.booking_id = #{bookingId}
-		and af.is_poster = true
-		limit 1
-	</select>
+    <select id="getPerformances" resultType="com.itwillbs.domain.PerformanceDTO" resultMap="performanceResultMap">
+        SELECT p.*
+        FROM Performance p
+        JOIN Booking b ON p.performance_id = b.performance_id
+        WHERE b.booking_id IN
+        <foreach item="bookingId" collection="list" open="(" separator="," close=")">
+            #{bookingId}
+        </foreach>
+    </select>
 
-	<select id="getPerformance"
-		resultType="com.itwillbs.domain.PerformanceDTO"
-		resultMap="performanceResultMap">
-		select p.*
-		from Performance p join Booking b
-		on p.performance_id = b.performance_id
-		where b.booking_id = #{bookingId}
-	</select>
+    <select id="getPayments" resultType="com.itwillbs.domain.PaymentDTO" resultMap="paymentResultMap">
+        SELECT *
+        FROM Payment
+        WHERE booking_id IN
+        <foreach item="bookingId" collection="list" open="(" separator="," close=")">
+            #{bookingId}
+        </foreach>
+    </select>
 
-	<select id="getPayment"
-		resultType="com.itwillbs.domain.PaymentDTO"
-		resultMap="paymentResultMap">
-		select *
-		from Payment
-		where booking_id = #{bookingId}
-	</select>
+    <select id="getBookedSeats" resultType="com.itwillbs.domain.BookedSeatsDTO" resultMap="bookedSeatsResultMap">
+        SELECT *
+        FROM BookedSeats
+        WHERE booking_id IN
+        <foreach item="bookingId" collection="list" open="(" separator="," close=")">
+            #{bookingId}
+        </foreach>
+    </select>
 
-	<select id="getBookedSeats"
-		resultType="com.itwillbs.domain.BookedSeatsDTO"
-		resultMap="bookedSeatsResultMap">
-		select *
-		from BookedSeats
-		where booking_id = #{bookingId}
-	</select>
+    <select id="getTotalBookingsCount" resultType="int">
+        SELECT COUNT(*)
+        FROM Booking
+        WHERE member_id = #{memberId}
+    </select>
 
 </mapper>
   

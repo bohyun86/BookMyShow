@@ -3,13 +3,12 @@ package com.itwillbs.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,17 +16,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.itwillbs.domain.AttachFileDTO;
-import com.itwillbs.domain.BookedSeatsDTO;
 import com.itwillbs.domain.BookingDTO;
-import com.itwillbs.domain.MusicalDTO;
-import com.itwillbs.domain.PaymentDTO;
-import com.itwillbs.domain.PerformanceDTO;
+import com.itwillbs.domain.MyPageDTO;
 import com.itwillbs.domain.UserDTO;
-import com.itwillbs.service.UserServiceImpl;
+import com.itwillbs.service.MypageService;
+import com.itwillbs.service.UserService;
 
 @Controller
 @Log4j2
@@ -35,14 +30,8 @@ import com.itwillbs.service.UserServiceImpl;
 @AllArgsConstructor
 public class MypageController {
 
-	private com.itwillbs.service.MypageServiceImpl MypageServiceImpl;
-	private UserServiceImpl userServiceImpl;
-
-	@GetMapping("/bookings")
-	public String bookings() {
-		log.info("bookings list");
-		return "/my/bookings";
-	}
+	private MypageService mypageService;
+	private UserService userService;
 
 	@GetMapping("/booking-detail/{bookingId}")
 	public String bookingDetail() {
@@ -50,38 +39,47 @@ public class MypageController {
 		return "/my/booking-detail";
 	}
 
+	@GetMapping("/bookings")
+	public String getBookings(Model model, @RequestParam(defaultValue = "0") int page,
+	        @RequestParam(defaultValue = "10") int size, HttpSession session) {
+	    Integer userId = (Integer) session.getAttribute("userId");
+	    Integer memberId = mypageService.getMemberId(userId);
+	    
+	    List<BookingDTO> bookings = mypageService.getBookings(memberId, null, page, size);
+	    List<Integer> bookingIds = bookings.stream().map(BookingDTO::getBookingId).collect(Collectors.toList());
+
+	    model.addAttribute("bookings", bookings);
+	    model.addAttribute("musicals", mypageService.getMusicals(bookingIds));
+	    model.addAttribute("attachFiles", mypageService.getAttachFiles(bookingIds));
+	    model.addAttribute("performances", mypageService.getPerformances(bookingIds));
+	    model.addAttribute("payments", mypageService.getPayments(bookingIds));
+	    model.addAttribute("bookedSeatsMap", mypageService.getBookedSeats(bookingIds));
+
+	    int totalElements = mypageService.getTotalBookingsCount(memberId);
+	    MyPageDTO pageDTO = new MyPageDTO(page, size, totalElements);
+	    model.addAttribute("pageDTO", pageDTO);
+
+	    return "my/bookings";
+	}
+
 	@GetMapping("/booking-complete/{bookingId}")
-	public String bookingComplete(@PathVariable Integer bookingId, Model model) {
-		log.info("booking complete");
-		BookingDTO booking = MypageServiceImpl.getBooking(bookingId);
-		MusicalDTO musical = MypageServiceImpl.getMusical(bookingId);
-		AttachFileDTO attachFile = MypageServiceImpl.getAttachFile(bookingId);
-		PerformanceDTO performance = MypageServiceImpl.getPerformance(bookingId);
-		PaymentDTO payment = MypageServiceImpl.getPayment(bookingId);
-		List<BookedSeatsDTO> bookedSeats = MypageServiceImpl.getBookedSeats(bookingId);
+	public String bookingComplete(@PathVariable Integer bookingId, Model model, HttpSession session) {
+	    Integer userId = (Integer) session.getAttribute("userId");
+	    Integer memberId = mypageService.getMemberId(userId);
+	    
+	    List<BookingDTO> bookings = mypageService.getBookings(memberId, bookingId, 0, 1);
+	    BookingDTO booking = bookings.get(0);
+	    List<Integer> bookingIds = Collections.singletonList(bookingId);
 
-		model.addAttribute("booking", booking);
-		model.addAttribute("musical", musical);
-		model.addAttribute("attachFile", attachFile);
-		model.addAttribute("performance", performance);
-		model.addAttribute("payment", payment);
-		model.addAttribute("bookedSeats", bookedSeats);
+	    model.addAttribute("booking", booking);
+	    model.addAttribute("musical", mypageService.getMusicals(bookingIds).get(0));
+	    model.addAttribute("attachFile", mypageService.getAttachFiles(bookingIds).get(0));
+	    model.addAttribute("performance", mypageService.getPerformances(bookingIds).get(0));
+	    model.addAttribute("payment", mypageService.getPayments(bookingIds).get(0));
+	    model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingIds).get(bookingId));
 
-		return "/my/booking-complete";
+	    return "my/booking-complete";
 	}
-	
-	@GetMapping(value = "/{bookingId}/seats", produces = MediaType.APPLICATION_JSON_VALUE)
-	@ResponseBody
-	public ResponseEntity<List<BookedSeatsDTO>> getBookedSeats(@PathVariable Integer bookingId) {
-	    try {
-	        List<BookedSeatsDTO> bookedSeats = MypageServiceImpl.getBookedSeats(bookingId);
-	        return ResponseEntity.ok(bookedSeats);
-	    } catch (Exception e) {
-	        log.error("Error fetching booked seats for booking ID: " + bookingId, e);
-	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-	    }
-	}
-	
 
 	@GetMapping("/refund/{bookingId}")
 	public String refund() {
@@ -113,7 +111,7 @@ public class MypageController {
 		String userName = (String) session.getAttribute("userName");
 		UserDTO userDTO = new UserDTO();
 		userDTO.setUserName(userName);
-		userDTO = userServiceImpl.getUser(userDTO);
+		userDTO = userService.getUser(userDTO);
 		model.addAttribute("userDTO", userDTO);
 		return "/my/profile-edit";
 	}
@@ -122,8 +120,8 @@ public class MypageController {
 	public String profileEditPro(UserDTO userDTO, @RequestParam(required = false) String newPassword) {
 		log.info("profileEditPro");
 		try {
-			if (userServiceImpl.loginPro(userDTO) != null) {
-				boolean result = userServiceImpl.updateUser(userDTO, newPassword);
+			if (userService.loginPro(userDTO) != null) {
+				boolean result = userService.updateUser(userDTO, newPassword);
 				log.info("프로필 업데이트 결과: {}", result ? "성공" : "실패");
 			} else {
 				log.warn("사용자 인증 실패: {}", userDTO.getUserId());
@@ -147,7 +145,7 @@ public class MypageController {
 			try {
 				UserDTO userDTO = new UserDTO();
 				userDTO.setUserName(userName);
-				userServiceImpl.deleteUser(userDTO);
+				userService.deleteUser(userDTO);
 				session.invalidate();
 				redirectAttributes.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다.");
 				return "redirect:/main/main"; // 탈퇴 후 메인 페이지로 리다이렉션
