@@ -13,7 +13,7 @@ public interface MypageService {
 
 	BookingDTO getBooking(Integer bookingId);
     MusicalDTO getMusical(Integer bookingId);
-//    AttachFileDTO getAttachFile(Integer bookingId);
+    AttachFileDTO getAttachFile(Integer bookingId);
     PerformanceDTO getPerformance(Integer bookingId);
     PaymentDTO getPayment(Integer bookingId);
     List<BookedSeatsDTO> getBookedSeats(Integer bookingId);

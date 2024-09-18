@@ -34,9 +34,9 @@ public class MypageDAO {
 		return sqlSession.selectOne(NAMESPACE + ".getMusical", bookingId);
 	}
 
-//	public AttachFileDTO getAttachFile(Integer bookingId) {
-//		return sqlSession.selectOne(NAMESPACE + ".getAttachFile", bookingId);
-//	}
+	public AttachFileDTO getAttachFile(Integer bookingId) {
+		return sqlSession.selectOne(NAMESPACE + ".getAttachFile", bookingId);
+	}
 
 	public PerformanceDTO getPerformance(Integer bookingId) {
 		return sqlSession.selectOne(NAMESPACE + ".getPerformance", bookingId);

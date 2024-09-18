@@ -9,4 +9,8 @@ public class AttachFileDTO {
 	private String uuid;
 	private Boolean isPoster;
 	private Integer musicalId;
+	
+	// postFilePath = "resources" + File.separator + "upload" + File.separator + attachFileDTO.getUploadPath()
+	// + File.separator + attachFileDTO.getUuid() + "_" + attachFileDTO.getFileName());
+	private String postFilePath;
 }

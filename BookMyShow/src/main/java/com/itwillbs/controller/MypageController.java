@@ -55,14 +55,14 @@ public class MypageController {
 		log.info("booking complete");
 		BookingDTO booking = MypageServiceImpl.getBooking(bookingId);
 		MusicalDTO musical = MypageServiceImpl.getMusical(bookingId);
-//		AttachFileDTO attachFile = MypageServiceImpl.getAttachFile(bookingId);
+		AttachFileDTO attachFile = MypageServiceImpl.getAttachFile(bookingId);
 		PerformanceDTO performance = MypageServiceImpl.getPerformance(bookingId);
 		PaymentDTO payment = MypageServiceImpl.getPayment(bookingId);
 		List<BookedSeatsDTO> bookedSeats = MypageServiceImpl.getBookedSeats(bookingId);
 
 		model.addAttribute("booking", booking);
 		model.addAttribute("musical", musical);
-//		model.addAttribute("attachFile", attachFile);
+		model.addAttribute("attachFile", attachFile);
 		model.addAttribute("performance", performance);
 		model.addAttribute("payment", payment);
 		model.addAttribute("bookedSeats", bookedSeats);

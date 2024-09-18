@@ -41,14 +41,14 @@
 		<result property="reserved" column="reserved" />
 		<result property="ticketsPerPerson" column="tickets_per_person" />
 	</resultMap>
-<!-- 	<resultMap id="attachFileResultMap" -->
-<!-- 		type="com.itwillbs.domain.AttachFileDTO"> -->
-<!-- 		<result property="fileName" column="file_name" /> -->
-<!-- 		<result property="uploadPath" column="upload_path" /> -->
-<!-- 		<result property="uuid" column="uuid" /> -->
-<!-- 		<result property="isPoster" column="is_poster" /> -->
-<!-- 		<result property="musicalId" column="musical_id" /> -->
-<!-- 	</resultMap> -->
+	<resultMap id="attachFileResultMap"
+		type="com.itwillbs.domain.AttachFileDTO">
+		<result property="fileName" column="file_name" />
+		<result property="uploadPath" column="upload_path" />
+		<result property="uuid" column="uuid" />
+		<result property="isPoster" column="is_poster" />
+		<result property="musicalId" column="musical_id" />
+	</resultMap>
 	<resultMap id="performanceResultMap"
 		type="com.itwillbs.domain.PerformanceDTO">
 		<id property="performanceId" column="performance_id" />
@@ -114,20 +114,20 @@
 		where b.booking_id = #{bookingId}
 	</select>
 
-<!-- 	<select id="getAttachFile" -->
-<!-- 		resultType="com.itwillbs.domain.AttachFileDTO" -->
-<!-- 		resultMap="attachFileResultMap"> -->
-<!-- 		select af.* -->
-<!-- 		from AttachFile af join Musical m -->
-<!-- 		on af.musical_id = m.musical_id -->
-<!-- 		join Performance p -->
-<!-- 		on m.musical_id = p.musical_id -->
-<!-- 		join Booking b -->
-<!-- 		on p.performance_id = b.performance_id -->
-<!-- 		where b.booking_id = #{bookingId} -->
-<!-- 		and af.is_poster = true -->
-<!-- 		limit 1 -->
-<!-- 	</select> -->
+	<select id="getAttachFile"
+		resultType="com.itwillbs.domain.AttachFileDTO"
+		resultMap="attachFileResultMap">
+		select af.*
+		from AttachFile af join Musical m
+		on af.musical_id = m.musical_id
+		join Performance p
+		on m.musical_id = p.musical_id
+		join Booking b
+		on p.performance_id = b.performance_id
+		where b.booking_id = #{bookingId}
+		and af.is_poster = true
+		limit 1
+	</select>
 
 	<select id="getPerformance"
 		resultType="com.itwillbs.domain.PerformanceDTO"

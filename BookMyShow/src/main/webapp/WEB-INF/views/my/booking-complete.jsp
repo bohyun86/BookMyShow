@@ -35,7 +35,7 @@ pageContext.setAttribute("formatter", formatter);
 								<a href="<c:url value='/musical/detail/${musical.musicalId}'/>"
 									class="img-container"> <!--                                     musical.image -->
 									<img
-									src="<c:url value='/resources/images/poster/${attachFile.fileName}'/>"
+										src="${pageContext.request.contextPath}/${attachFile.postFilePath}"
 									class="poster-img" alt="${musical.title} 포스터">
 								</a>
 							</div>

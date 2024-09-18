@@ -95,7 +95,7 @@
      <input type="text" name="answer" placeholder="기존답변 ---">&nbsp;
   <button class="btn btn-primary me-md-2" type="sumit" href="#" >수정완료</button> &nbsp;&nbsp;
 </form>
-  <form action="${pageContext.request.contextPath}/admin/partner">
+  <form action="${pageContext.request.contextPath}/admin/partnerDTO">
   	<button class="btn btn-primary" type="submit" onclick="deleteok()">삭제</button>
   	</form>
   </div>
@@ -103,7 +103,7 @@
 </div>
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/partner'" >돌아가기</button>&nbsp;&nbsp;
+  <button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/partnerDTO'" >돌아가기</button>&nbsp;&nbsp;
 </div>
 
    </div>
