@@ -10,9 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itwillbs.domain.PageDTO;
+import com.itwillbs.domain.SupportNoticeDTO;
 import com.itwillbs.service.SupportService;
 
 @Controller
@@ -30,15 +32,23 @@ public class SupportController {
         return "/support/frequentQuestion";
     }
     
-    @GetMapping("/support/notice")
-	public String notice() {
-    	log.info("notice success");
+    @GetMapping("/support/ntwrite")
+	public String ntwrite() {
+    	log.info("ntwrite success");
 
-		return "/support/notice";
+		return "/support/ntwrite";
+	}
+    
+    @PostMapping("/ntwritePro")
+	public String ntwritePro(SupportNoticeDTO supportNoticeDTO) {
+		System.out.println("SupportController ntwritePro()");
+		System.out.println(supportNoticeDTO);
+		supportService.insertNotice(supportNoticeDTO);
+		return "redirect:/support/notice";
 	}
     
     @GetMapping("/notice")
-	public String list(HttpServletRequest request, Model model) {
+	public String notice(HttpServletRequest request, Model model) {
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) {
 			pageNum = "1";
@@ -52,26 +62,9 @@ public class SupportController {
 		pageDTO.setCurrentPage(currentPage);
 		pageDTO.setPageSize(pageSize);
 		
-		List<PageDTO> supportList = supportService.getSupportList(pageDTO);
-
-		int count = supportService.getSupportCount(pageDTO);
-
-		int pageBlock = 5;
-
-		int startPage = (currentPage - 1) / pageBlock * pageBlock + 1;
-
-		int endPage = startPage + pageBlock - 1;
-		int pageCount = count / pageSize + (count % pageSize==0?0:1);
-		if(endPage > pageCount) {
-			endPage = pageCount;
-		}
-		pageDTO.setCount(count);
-		pageDTO.setPageBlock(pageBlock);
-		pageDTO.setStartPage(startPage);
-		pageDTO.setEndPage(endPage);
-		pageDTO.setPageCount(pageCount);
+		List<SupportNoticeDTO> noticeList = supportService.getNoticeList(pageDTO);
 				
-		model.addAttribute("supportList", supportList);
+		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("pageDTO", pageDTO);
 		
 		return "/support/notice";

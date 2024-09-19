@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css">
     <!-- Bootstrap icons  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/support.css">
+    <link rel="stylesheet" href="supcss/support.css">
         <style>
         .site-logo {
             text-decoration: none;
@@ -50,6 +50,11 @@
 		<li style="width:35px;">번호</li>
 		<li style="width:570px;">제목</li>
 		<li style="width:80px">작성일</li>
+	</ul>
+	<ul class="notice-header">
+		<li style="width:35px;">${supportNoticeDTO.num }</li>
+		<li style="width:570px;">${supportNoticeDTO.title }</li>
+		<li style="width:80px">${supportNoticeDTO.created_at }</li>
 	</ul>
             
         </div>

@@ -1,0 +1,70 @@
+#noticenum {
+    text-align: center;
+    padding: 0 0 30px 220px;
+}
+
+.pgnum, .now, .next {
+    width: 70px;
+    padding-right: 5px; 
+    color: #000;
+    font-size: 14px;
+    padding: 5px 10px;
+    margin: 0 2px;
+    background: #eee;
+    border:2px solid #fff;
+    text-decoration: none;
+    border-radius: 5px; 
+}
+
+.next {
+	font-weight: bold;
+	color: #242244;
+}
+
+.notice-header {
+	list-style: none;
+    margin-top: 24px;
+    height: 40px;
+    background: #dbdbff;
+    border-radius: 8px;
+}
+
+.notice-header li {
+    float: left;
+    padding-top: 11px;
+    text-align: center;
+    font-size: 15px;
+    color: #333;
+    font-weight: 600;
+}
+
+a{
+	color: #000;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #000;
+	text-decoration: none;
+}
+
+.noticelist{
+	font-weight: bold;
+	font-size: 22px;
+	color: #8080c0;
+	text-decoration: none;
+}
+
+.fqlist{
+	font-weight: bold;
+	font-size: 22px;
+	color: #8080c0;
+	text-decoration: none;
+}
+
+.iqlist{
+	font-weight: bold;
+	font-size: 22px;
+	color: #8080c0;
+	text-decoration: none;
+}
