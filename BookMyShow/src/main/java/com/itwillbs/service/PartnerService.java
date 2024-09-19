@@ -1,17 +1,18 @@
 package com.itwillbs.service;
 
-import com.itwillbs.domain.PartnerDTO;
+import com.itwillbs.domain.partner.PartnerDTO;
 import com.itwillbs.domain.Performance.*;
+import com.itwillbs.domain.partner.PartnerStatusDTO;
 import com.itwillbs.mapper.PartnerMapper;
 import com.itwillbs.repository.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -113,17 +114,15 @@ public class PartnerService implements PartnerMapper {
         // 5. 티켓가격 테이블 저장
 
         // startDate와 endDate를 LocalDate로 변환
-        Date startDate = performanceRegistrationDTO.getStartDate();
-        Date endDate = performanceRegistrationDTO.getEndDate();
-        LocalDate startDateLocale = startDate.toLocalDate();
-        LocalDate endDateLocale = endDate.toLocalDate();
+        LocalDate startDate = performanceRegistrationDTO.getStartDate();
+        LocalDate endDate = performanceRegistrationDTO.getEndDate();
 
 
         // 공연 일정을 하루씩 증가시키면서 저장
-        for (LocalDate date = startDateLocale; date.isBefore(endDateLocale); date = date.plusDays(1)) {
+        for (LocalDate date = startDate; date.isBefore(endDate); date = date.plusDays(1)) {
             // 각 날짜별로 공연 저장 로직 추가
             PerformanceDTO performance = new PerformanceDTO();
-            performance.setPerformanceDate(Date.valueOf(date)); // 날짜 설정
+            performance.setPerformanceDate(date); // 날짜 설정
             performance.setMusicalId(musicalDTO); // 저장된 musicalId 사용
             performance.setVenueId(venueDTO); // 저장된 venueId 사용
 
@@ -165,6 +164,78 @@ public class PartnerService implements PartnerMapper {
         }
 
         actorRepository.saveAll(actorList);
+    }
+/*
+    public List<PartnerStatusDTO> getMusicalsByPartnerId(int partnerId) {
+
+        PartnerDTO partnerDTO = partnerRepository.findPartnerByPartnerId(partnerId);
+
+        List<MusicalDTO> musicalDTOList = musicalRepository.findMusicalsByPartnerIdOrderByCreatedAtDesc(partnerDTO);
+        List<PartnerStatusDTO> partnerStatusDTOList = new ArrayList<>();
+
+        if (musicalDTOList != null) {
+            for (MusicalDTO musicalDTO : musicalDTOList) {
+                PartnerStatusDTO partnerStatusDTO = new PartnerStatusDTO();
+                partnerStatusDTO.setMusicalId(musicalDTO.getMusicalId());
+                partnerStatusDTO.setMusicalName(musicalDTO.getTitle());
+                partnerStatusDTO.setStartDate(musicalDTO.getStartDate());
+                partnerStatusDTO.setEndDate(musicalDTO.getEndDate());
+
+                //
+
+                String createAt = musicalDTO.getCreatedAt().toString();
+                String createdAt2 = createAt.substring(0, createAt.length() - 2);
+
+                partnerStatusDTO.setCreatedAt(createdAt2);
+                partnerStatusDTO.setApprovalStatus(musicalDTO.isApproved());
+
+                partnerStatusDTOList.add(partnerStatusDTO);
+            }
+        }
+
+        return partnerStatusDTOList;
+    }*/
+
+    public Page<PartnerStatusDTO> getMusicalsByPartnerId(int partnerId, int page, int size) {
+        PartnerDTO partnerDTO = partnerRepository.findPartnerByPartnerId(partnerId);
+
+        // Pageable 객체 생성: 페이지 번호와 크기, 정렬 기준을 설정
+        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+
+        // 페이지네이션된 MusicalDTO 리스트 가져오기
+        Page<MusicalDTO> musicalDTOPage = musicalRepository.findMusicalsByPartnerId(partnerDTO, pageable);
+
+        // PartnerStatusDTO 리스트 생성
+        List<PartnerStatusDTO> partnerStatusDTOList = new ArrayList<>();
+
+        // musicalNumber 계산: 전체 개수에서 현재 페이지의 첫 번째 항목 번호 계산
+        int totalElements = (int) musicalDTOPage.getTotalElements();
+        int musicalNumber = totalElements - (page * size); // 현재 페이지의 시작 번호 계산
+
+        // 페이지 내의 MusicalDTO 데이터를 PartnerStatusDTO로 변환
+        for (MusicalDTO musicalDTO : musicalDTOPage.getContent()) {
+            PartnerStatusDTO partnerStatusDTO = new PartnerStatusDTO();
+            partnerStatusDTO.setMusicalId(musicalDTO.getMusicalId());
+            partnerStatusDTO.setMusicalNumber(musicalNumber--);
+            partnerStatusDTO.setMusicalName(musicalDTO.getTitle());
+            partnerStatusDTO.setStartDate(musicalDTO.getStartDate());
+            partnerStatusDTO.setEndDate(musicalDTO.getEndDate());
+
+            // createdAt 포맷팅 처리
+            String createdAt = musicalDTO.getCreatedAt().toString();
+            String formattedCreatedAt = createdAt.substring(0, createdAt.length() - 2);
+            partnerStatusDTO.setCreatedAt(formattedCreatedAt);
+
+            partnerStatusDTO.setApprovalStatus(musicalDTO.isApproved());
+
+            // 리스트에 추가
+            partnerStatusDTOList.add(partnerStatusDTO);
+        }
+
+        // PartnerStatusDTO 리스트를 페이지 객체로 변환
+        Page<PartnerStatusDTO> partnerStatusDTOPage = new PageImpl<>(partnerStatusDTOList, pageable, musicalDTOPage.getTotalElements());
+
+        return partnerStatusDTOPage;
     }
 }
 

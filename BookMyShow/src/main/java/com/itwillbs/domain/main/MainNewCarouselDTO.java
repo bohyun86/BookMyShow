@@ -11,5 +11,8 @@ public class MainNewCarouselDTO {
     private String title;
     private String discountRate;
     private String price;
+    // 평점, 리뷰수
+    private String rating;
+    private String reviewCount;
 
 }

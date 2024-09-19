@@ -6,13 +6,31 @@
 	   xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	   xmlns:tx="http://www.springframework.org/schema/tx"
 	   xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	   xmlns:cache="http://www.springframework.org/schema/cache"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
 		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd
-        http://www.springframework.org/schema/data/jpa https://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
+        http://www.springframework.org/schema/data/jpa https://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+	<!-- 캐싱 기능 활성화 -->
+	<cache:annotation-driven cache-manager="cacheManager"/>
+
+	<!-- 캐시 관리자 설정 -->
+	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+		<property name="caches">
+			<set>
+				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+					<property name="name" value="mainNewCarousel"/>
+				</bean>
+				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+					<property name="name" value="timeSaleCarousel"/>
+				</bean>
+			</set>
+		</property>
+	</bean>
+
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- 공연 정보 등록 Service Key 등록 -->
@@ -67,7 +85,7 @@
 	<!-- JPA Vendor Adapter 설정 (Hibernate 사용) -->
 	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 		<property name="generateDdl" value="true" />
-		<property name="showSql" value="true" />
+<!--		<property name="showSql" value="true" />-->
 	</bean>
 	
 	<!-- EntityManagerFactory 설정 -->
@@ -80,8 +98,8 @@
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
 				<prop key="hibernate.id.new_generator_mappings">true</prop> <!-- JPA 2.0 이상 사용 시 -->
-				<prop key="hibernate.show_sql">true</prop>
-				<prop key="hibernate.format_sql">true</prop>
+<!--				<prop key="hibernate.show_sql">true</prop>-->
+<!--				<prop key="hibernate.format_sql">true</prop>-->
 			</props>
 		</property>
 	</bean>

@@ -7,6 +7,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 import javax.persistence.*;
 import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -19,7 +20,7 @@ public class PerformanceDTO {
     private int performanceId;
 
     @Column(name = "performance_date")
-    private Date performanceDate;
+    private LocalDate performanceDate;
 
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp // Hibernate가 자동으로 현재 타임스탬프를 할당

@@ -1,11 +1,10 @@
 package com.itwillbs.domain.Performance;
 
-import com.itwillbs.domain.PartnerDTO;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Data
 public class PerformanceRegistrationDTO {
@@ -15,8 +14,8 @@ public class PerformanceRegistrationDTO {
     private int partnerId; // 1
     private String title; // 1
     private String description; // 1
-    private Date startDate; // 1
-    private Date endDate; // 1
+    private LocalDate startDate; // 1
+    private LocalDate endDate; // 1
     private int ageLimit; // 1
     private Timestamp createdAt; // 1
     private Timestamp updatedAt; // 1
@@ -24,8 +23,8 @@ public class PerformanceRegistrationDTO {
     private String intervalTime; // x
     private int genreId; // 1
     private int ticketsPerPerson; // x
-    private Date discountStartDate; // x
-    private Date discountEndDate; // x
+    private LocalDate discountStartDate; // x
+    private LocalDate discountEndDate; // x
     private String discountRate; // x
     private String musicalSponsor; // x
     private String request; // x
