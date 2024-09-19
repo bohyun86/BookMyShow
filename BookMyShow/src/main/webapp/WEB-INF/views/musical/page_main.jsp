@@ -74,7 +74,7 @@
                 <div class="card new-open" 
                      style="width: 100%; margin-bottom: 60px; display: flex; flex-direction: column;">
                     <a href="${pageContext.request.contextPath}/musical/page_detail">
-                        <img src="${pageContext.request.contextPath}/resources/upload/${MusicalDTO.upload_path }/${MusicalDTO.uuid}+${MusicalDTO.file_name}"
+                        <img src="${pageContext.request.contextPath}/resources/upload/${MusicalDTO.upload_path }/${MusicalDTO.uuid}_${MusicalDTO.file_name}"
                             class="card-img-top" alt="..." style="width: 100%; height: auto;">
                     </a>
                     <!-- 카드 바디가 콘텐츠에 맞춰 자연스럽게 확장되도록 설정 -->
