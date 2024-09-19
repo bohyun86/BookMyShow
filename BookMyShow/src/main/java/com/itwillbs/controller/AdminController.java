@@ -21,7 +21,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.MusicalDTO;
-import com.itwillbs.domain.PartnerDTO;
 import com.itwillbs.domain.UserDTO;
 import com.itwillbs.service.MusicalService;
 import com.itwillbs.service.UserServiceImpl;
