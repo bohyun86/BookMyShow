@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @Log4j2
@@ -23,7 +24,56 @@ public class MainController {
         log.info("main success");
 
         model.addAttribute("newCarouselDTOS", mainService.getMainNewCarouselDTOs());
+        model.addAttribute("timeSaleCarouselDTOS", mainService.timeSaleCarouselDTOs());
 
         return "/main/main";
+    }
+
+    @GetMapping("/terms")
+    public String term() {
+        log.info("term success");
+
+        return "/main/terms";
+    }
+
+    @GetMapping("/privacy")
+    public String privacy() {
+        log.info("privacy success");
+
+        return "/main/privacy";
+    }
+
+    @GetMapping("/about")
+    public String about() {
+        log.info("about success");
+
+        return "/main/about";
+    }
+
+    @GetMapping("/partnership")
+    public String partnership() {
+        log.info("partnership success");
+
+        return "/main/partnership";
+    }
+
+    @GetMapping("/search")
+    public String search(@RequestParam(required = false) String searching, Model model) {
+        log.info("search request success");
+
+        if (searching != null && !searching.isEmpty()) {
+            model.addAttribute("searchingResult", mainService.getSearchingCards(searching));
+        }
+
+        return "/main/search";
+    }
+
+    @GetMapping("/timeSale")
+    public String timeSale(Model model) {
+        log.info("timeSale success");
+
+        model.addAttribute("timeSaleCarouselDTOS", mainService.getTimeSaleCarouselDTOs());
+
+        return "/main/timeSale";
     }
 }

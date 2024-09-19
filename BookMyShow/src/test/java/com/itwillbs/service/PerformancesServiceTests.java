@@ -47,7 +47,7 @@ public class PerformancesServiceTests {
         for (LocalDate date = startDateLocale; date.isBefore(endDateLocale); date = date.plusDays(1)) {
             PerformanceDTO performanceDTO = new PerformanceDTO();
             performanceDTO.setMusicalId(musicalDTO);
-            performanceDTO.setPerformanceDate(Date.valueOf(date));
+            performanceDTO.setPerformanceDate(date);
             performanceDTO.setVenueId(venueDTO);
             performanceRepository.save(performanceDTO);
             log.info("performanceDTO: {}", performanceDTO);

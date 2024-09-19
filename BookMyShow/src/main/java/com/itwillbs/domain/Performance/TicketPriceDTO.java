@@ -5,8 +5,8 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 
 @Data
 @Entity(name = "TicketPrice")
@@ -30,7 +30,7 @@ public class TicketPriceDTO {
     @Column(name = "settlement_amo")
     private long settlementAmo;
     @Column(name = "settlement_date")
-    private Date settlementDate;
+    private LocalDate settlementDate;
     @Column(name = "created_at", nullable = false, updatable = false)
     @CreationTimestamp // Hibernate가 자동으로 현재 타임스탬프를 할당
     private Timestamp createdAt;
