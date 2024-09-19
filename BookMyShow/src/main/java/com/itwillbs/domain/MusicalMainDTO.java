@@ -11,7 +11,7 @@ public class MusicalMainDTO {
 	private String upload_path;
 	private int venue_id;
 	private String region_name;
-	private int price;
+	private String price;
 	
 	
 	/**
@@ -125,15 +125,16 @@ public class MusicalMainDTO {
 	/**
 	 * @return the price
 	 */
-	public int getPrice() {
+	public String getPrice() {
 		return price;
 	}
 	/**
 	 * @param price the price to set
 	 */
-	public void setPrice(int price) {
+	public void setPrice(String price) {
 		this.price = price;
 	}
+
 	
 	
 	

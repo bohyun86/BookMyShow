@@ -6,12 +6,12 @@
 
 <mapper namespace="com.itwillbs.mapper.MusicalMapper">
     <select id="getMusical" resultType="com.itwillbs.domain.MusicalMainDTO">
-    select m.musical_id , m.title, floor(m.discount_rate * 100) AS discount_rate,
+   select m.musical_id , m.title, floor(m.discount_rate * 100) AS discount_rate,
 		g.genre_name,
 		a.file_name, a.uuid, a.upload_path,
         v.venue_id,
         r.region_name,
-        min(t.price) as price
+       concat( substr(floor(min(t.price)*(1- m.discount_rate)), 1, 2),',', substr(round(min(t.price)*(1- m.discount_rate), -2), -3, 4))as price
 from Musical m join Genre g
 		on m.genre_id = g.genre_id
         join AttachFile a
@@ -29,7 +29,7 @@ group by m.musical_id , m.title, m.discount_rate,
 		g.genre_name,
 		a.file_name, a.uuid, a.upload_path,
         v.venue_id,
-        r.region_name
+        r.region_name;
     </select>
     
     
