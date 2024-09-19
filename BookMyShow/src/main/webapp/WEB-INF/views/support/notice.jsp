@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -10,7 +11,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css">
     <!-- Bootstrap icons  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    <link rel="stylesheet" href="supcss/support.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/support.css">
         <style>
         .site-logo {
             text-decoration: none;
@@ -45,13 +46,17 @@
         <div class="title">
             공지사항
             
-         <a href="${pageContext.request.contextPath}/support/ntwrite" class="btn_srch">글쓰기</a>
+            <c:if test="${ ! empty sessionScope.userName }">
+		    <c:if test="${sessionScope.userName eq 'admin'}">
+         <a href="${pageContext.request.contextPath}/support/ntwrite" class="btn_srch">공지사항 작성</a>
+            </c:if>
+            </c:if>
     <ul class="notice-header">
 		<li style="width:35px;">번호</li>
 		<li style="width:570px;">제목</li>
 		<li style="width:80px">작성일</li>
 	</ul>
-	<ul class="notice-header">
+	<ul class="notice-body">
 		<li style="width:35px;">${supportNoticeDTO.num }</li>
 		<li style="width:570px;">${supportNoticeDTO.title }</li>
 		<li style="width:80px">${supportNoticeDTO.created_at }</li>
