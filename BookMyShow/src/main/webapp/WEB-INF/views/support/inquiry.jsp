@@ -57,13 +57,12 @@
 
 <div id="noticenum">
 <span onclick="location.reload();" style="cursor:pointer"><b class="now">
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${i}">이전</a></b></span><b>..</b>
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${1}" class="pgnum">1</a>
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${2}" class="pgnum">2</a>
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${3}" class="pgnum">3</a>
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${4}" class="pgnum">4</a>
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${5}" class="pgnum">5</a>
-<b>..</b><a href="${pageContext.request.contextPath}/support/notice?pageNum=${i}" class="next">다음</a></div>
+<a href="${pageContext.request.contextPath}/support/inquiry?pageNum=${1}">1</a></b></span>
+<a href="${pageContext.request.contextPath}/support/inquiry?pageNum=${2}" class="pgnum">2</a>
+<a href="${pageContext.request.contextPath}/support/inquiry?pageNum=${3}" class="pgnum">3</a>
+<a href="${pageContext.request.contextPath}/support/inquiry?pageNum=${4}" class="pgnum">4</a>
+<a href="${pageContext.request.contextPath}/support/inquiry?pageNum=${5}" class="pgnum">5</a>
+<b>>></b><a href="${pageContext.request.contextPath}/support/inquiry?pageNum=${i}" class="next">다음</a></div>
 
 <jsp:include page="../include/bottom.jsp"/>
 

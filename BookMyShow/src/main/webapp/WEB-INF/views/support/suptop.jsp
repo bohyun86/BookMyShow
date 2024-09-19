@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<header class="w-100 bg-white sticky-top border-bottom">
 
+<header class="w-100 bg-white sticky-top border-bottom">
     <div class="d-flex row p-0" id="sticky">
         <ul class="nav justify-content-end pt-3" id="top-nav">
             <li class="nav-item" >
@@ -31,5 +31,3 @@
                 </form>
             </li>
         </ul>
-   </div>
-</header>

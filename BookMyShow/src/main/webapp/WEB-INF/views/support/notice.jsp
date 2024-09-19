@@ -11,7 +11,7 @@
     <!-- Bootstrap icons  -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/support.css">
-    <style>
+        <style>
         .site-logo {
             text-decoration: none;
             color: #ff4b4b;
@@ -23,15 +23,6 @@
         #extra-info {
             background-color: white;
         }
-    </style>
-    <style>
-    .ntwrite {
-    margin: 0 0 0 503px;
-    padding: 3px 8px;
-    font-size: 16px;
-    background: #dfdfdf;
-    border-radius: 5px;
-    }
     </style>
 </head>
 <body id="board-body">
@@ -54,7 +45,7 @@
         <div class="title">
             공지사항
             
-    <a href="${pageContext.request.contextPath}/support/ntwrite" class="ntwrite">공지사항 작성</a>
+         <a href="${pageContext.request.contextPath}/support/ntwrite" class="btn_srch">글쓰기</a>
     <ul class="notice-header">
 		<li style="width:35px;">번호</li>
 		<li style="width:570px;">제목</li>
@@ -67,13 +58,12 @@
 
 <div id="noticenum">
 <span onclick="location.reload();" style="cursor:pointer"><b class="now">
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${i}">이전</a></b></span><b>..</b>
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${1}" class="pgnum">1</a>
+<a href="${pageContext.request.contextPath}/support/notice?pageNum=${1}">1</a></b></span>
 <a href="${pageContext.request.contextPath}/support/notice?pageNum=${2}" class="pgnum">2</a>
 <a href="${pageContext.request.contextPath}/support/notice?pageNum=${3}" class="pgnum">3</a>
 <a href="${pageContext.request.contextPath}/support/notice?pageNum=${4}" class="pgnum">4</a>
 <a href="${pageContext.request.contextPath}/support/notice?pageNum=${5}" class="pgnum">5</a>
-<b>..</b><a href="${pageContext.request.contextPath}/support/notice?pageNum=${i}" class="next">다음</a></div>
+<b>>></b><a href="${pageContext.request.contextPath}/support/notice?pageNum=${i}" class="next">다음</a></div>
 
 <jsp:include page="../include/bottom.jsp"/>
 
