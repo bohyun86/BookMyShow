@@ -24,8 +24,7 @@
     
 <!--     소연이한거 -->
 <select id="getPartnersy" resultType="com.itwillbs.domain.PartnerDTO" resultMap="partnerResultMap">
-        select * 
-        from  where user_id = #{userId}
+
     </select>
 
 
