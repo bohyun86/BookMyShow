@@ -85,51 +85,100 @@ public class AdminController {
 
     @GetMapping("/search")
     public String search(HttpServletRequest request,Model model) {
-    	log.info("admin search:: success");
-    	 String searchType = request.getParameter("findType");
-         String findKeyword = request.getParameter("findKeyword");
-    	System.out.println("AdminController searchType::"+searchType);
-    	System.out.println("AdminController findKeyword::"+findKeyword);
-    	
-    	if ("1".equals(searchType)) {
-            // ÆÄÆ®³Ê ID·Î °Ë»ö
-//    		MusicalDTO musicalDTO = new MusicalDTO();
-    		List<MusicalDTO> musicalList = musicalService.getMusicalByPartnerId(findKeyword);
-    		if (musicalList != null && !musicalList.isEmpty()) {
-                // ¸®½ºÆ®ÀÇ Ã¹ ¹øÂ° Ç×¸ñÀÇ Á¤º¸¸¦ URL ÆÄ¶ó¹ÌÅÍ·Î »ç¿ë
-                System.out.println("musicalList"+musicalList);
-
-                return "redirect:/admin/submit?user_name=" + musicalList;
-            } else {
-                // ¸®½ºÆ®°¡ ºñ¾îÀÖÀ» °æ¿ì Ã³¸®
-                return "redirect:/admin/submit?message=NoResults";
-            }
-//            model.addAttribute("submit", musicalList);
-//            return "redirect:/admin/submit?user_name";
-//            return "redirect:/admin/submit?user_name=" +musicalList.getMusical();
-            
-        } else if ("2".equals(searchType)) {
-        	MusicalDTO musicalDTO2 = new MusicalDTO();
-            // ¹ÂÁöÄÃ Á¦¸ñÀ¸·Î °Ë»ö
-        	musicalDTO2 = musicalService.getMusicalByTitle(findKeyword);
-            return "redirect:/admin/submit?title=" + musicalDTO2.getMusical();
-        }
-    	
-    	// °Ë»ö °á°ú°¡ ÀÖ´ÂÁö È®ÀÎ
-//        if (musicalDTO != null) {
-//            // °Ë»öµÈ ¹ÂÁöÄÃÀÇ ½ÂÀÎ ÆäÀÌÁö·Î ¸®´ÙÀÌ·ºÆ®
-//            return "redirect:/musical/sumbit?title=" + musicalDTO.getMusical();
-//        } else {
-//            // °Ë»ö °á°ú°¡ ¾øÀ» °æ¿ì °Ë»ö ÆäÀÌÁö·Î ´Ù½Ã ¸®´ÙÀÌ·ºÆ®
-//            model.addAttribute("message", "ÇØ´ç ¹ÂÁöÄÃÀ» Ã£À» ¼ö ¾ø½À´Ï´Ù.");
-//            return "redirect:/admin/search";
-//        }
+//    	log.info("admin search:: success");
+//    	 String searchType = request.getParameter("findType");
+//         String findKeyword = request.getParameter("findKeyword");
+//    	System.out.println("AdminController searchType::"+searchType);
+//    	System.out.println("AdminController findKeyword::"+findKeyword);
 //    	
-    	return "/admin/search";
+//    	if ("1".equals(searchType)) {
+//            // ï¿½ï¿½Æ®ï¿½ï¿½ IDï¿½ï¿½ ï¿½Ë»ï¿½
+////    		MusicalDTO musicalDTO = new MusicalDTO();
+//    		List<MusicalDTO> musicalList = musicalService.getMusicalByPartnerId(findKeyword);
+//    		if (musicalList != null && !musicalList.isEmpty()) {
+//                // ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã¹ ï¿½ï¿½Â° ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ URL ï¿½Ä¶ï¿½ï¿½ï¿½Í·ï¿½ ï¿½ï¿½ï¿½
+//    			model.addAttribute("musicalList", musicalList);
+//                System.out.println("musicalList"+musicalList);
+//                
+//
+//                return "redirect:/admin/submit";
+//            } else {
+////            	model.addAttribute("msg", "ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤");
+//                // ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+////            	model.addAttribute("url", "/admin/search");
+//                return "redirect:/admin/search";
+//            }
+//            
+//        } 
+    	
+//    	if ("2".equals(searchType)) {
+//    		MusicalDTO musicalDTO = musicalService.getMusicalByTitle(findKeyword);
+//    	if(musicalDTO!= null){
+//            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
+////        	musicalDTO = musicalService.getMusicalByTitle(findKeyword);
+//    		System.out.println("getMusicalByTitle findKeyword::"+musicalDTO);
+//            return "redirect:/admin/submit";
+//            
+//        }
+//    	else {
+//			
+//    		return "redirect:/admin/search";
+//    	}
+//    	}
+		return "/admin/search";
+    	
+    	
     }
 
+    @PostMapping("/searchBy")
+    public String searchBy(HttpServletRequest request,Model model) {
+    
+    log.info("admin search:: success");
+	 String searchType = request.getParameter("findType");
+    String findKeyword = request.getParameter("findKeyword");
+	System.out.println("AdminController searchType::"+searchType);
+	System.out.println("AdminController findKeyword::"+findKeyword);
+	List<MusicalDTO> musicalList = musicalService.getMusicalByPartnerId(findKeyword);
+	
+	if ("1".equals(searchType)) {
+       // ï¿½ï¿½Æ®ï¿½ï¿½ IDï¿½ï¿½ ï¿½Ë»ï¿½
+//		MusicalDTO musicalDTO = new MusicalDTO();
+		if (musicalList != null && !musicalList.isEmpty()) {
+           // ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ Ã¹ ï¿½ï¿½Â° ï¿½×¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ URL ï¿½Ä¶ï¿½ï¿½ï¿½Í·ï¿½ ï¿½ï¿½ï¿½
+			model.addAttribute("musicalList", musicalList);
+           System.out.println("musicalList"+musicalList);
+           
 
+           return "redirect:/admin/submit";
+       } else {
+//       	model.addAttribute("msg", "ë‚´ì—­ì´ ì—†ìŠµë‹ˆë‹¤");
+           // ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ Ã³ï¿½ï¿½
+//       	model.addAttribute("url", "/admin/search");
+           return "redirect:/admin/search";
+       }
+	}
+	else if ("2".equals(searchType)) {
+    		MusicalDTO musicalDTO = musicalService.getMusicalByTitle(findKeyword);
+    	if(musicalDTO!= null){
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
+//        	musicalDTO = musicalService.getMusicalByTitle(findKeyword);
+    		System.out.println("getMusicalByTitle findKeyword::"+musicalDTO);
+            return "redirect:/admin/submit";
+            
+        }
+    	else {
+			
+    		return "redirect:/admin/search";
+    	}
+    	}
+       
+   
+//	return musicalList; 
+	return null;
+    }
 
+    
+    
 
 
     @GetMapping("/submit")

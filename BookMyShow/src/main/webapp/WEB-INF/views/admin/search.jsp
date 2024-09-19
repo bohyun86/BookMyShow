@@ -67,7 +67,7 @@
 <!-- ==================================================== -->
 
 <%-- 				<h1 class="text-center m-3">[검색어:<%=findKeyword %> ] 검색 결과</h1>				 --%>
-				<form name="findF"  class="form-inline">
+				<form name="findF"  class="form-inline" method="post" action="${pageContext.request.contextPath}/admin/searchBy">
 									<select name="findType" class="form-control mr-2" onchange="changeSearch(this)">
 										<option value="">::검색 유형::</option>
 										<option value="1">파트너ID</option>
@@ -79,7 +79,8 @@
 				
 <script>
 
-
+	
+	
 		
 
 

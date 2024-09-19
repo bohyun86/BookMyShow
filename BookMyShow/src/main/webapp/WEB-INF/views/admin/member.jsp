@@ -133,7 +133,8 @@ $(function() {
                 }
             },
             error: function(err) {
-                alert("검색어를 입력해주세요");
+//                 alert("회원정보가 없습니다");
+ $('#result').html("회원정보가 없습니다");
                 console.log("error");
             }
         });

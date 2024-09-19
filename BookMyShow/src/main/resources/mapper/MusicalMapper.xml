@@ -18,7 +18,7 @@
    <!-- 파트너 ID로 뮤지컬 검색 -->
 <!--    아이디로 검색 안됌 수정해야함 -->
     <select id="getMusicalByPartnerId" resultType="com.itwillbs.domain.MusicalDTO">
-        SELECT  U.user_name 
+        SELECT  U.user_name, M.title
            FROM Partner P
        JOIN User U ON  P.user_id = U.user_id
          JOIN Musical M ON M.partner_id = P.partner_id
