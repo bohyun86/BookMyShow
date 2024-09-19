@@ -7,7 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,20 +18,61 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.UserDTO;
+import com.itwillbs.service.UserServiceImpl;
 
 @Controller
 @Log4j2
 @RequestMapping("/admin")
+@EnableAspectJAutoProxy(proxyTargetClass = true)
 public class AdminController {
+	
+	@Autowired
+	private UserServiceImpl userServiceImpl;
 
     @GetMapping("/main")
     public String home() {
         log.info("admin main success");
 
-
-
         return "/admin/main";
     }
+    
+    @GetMapping("/login")
+    public String login() {
+        log.info("admin login success");
+
+        return "/admin/login";
+    }
+    
+    @PostMapping("/loginPro")
+    public String loginPro(UserDTO userDTO , HttpSession session) {
+        log.info("admin loginPro success");
+        UserDTO getUser = userServiceImpl.loginPro(userDTO);
+        log.info(getUser);
+        if (getUser == null) {
+            return "redirect:/admin/login";
+        } else {
+            log.info(getUser);
+            session.setAttribute("userId", getUser.getUserId());
+            session.setAttribute("userRole", getUser.getUserRole());
+            session.setAttribute("userName", getUser.getUserName());
+            return "redirect:/admin/main/";
+        }
+        
+    }
+    
+    
+    
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        log.info("admin logout success");
+        session.invalidate();
+
+        return "/main/main";
+    }
+
+    
+    
 
 
     @GetMapping("/search")
@@ -74,9 +118,13 @@ public class AdminController {
     	log.info("admin partner success");
     	return "/admin/partner";
     }
-    //寃��깋�쓣 �늻瑜대㈃ 諛묒뿉 �젙蹂닿� �뼚�빞�븿 由ъ뒪�듃以�  �꽑�깮�빐�빞 �뙆�듃�꼫 �닔�젙�럹�씠吏��뒗 �럹�씠吏�寃곌낵 �돺寃� 蹂대젮怨� �엫�떆濡� 寃쎈줈�꽕�젙
-    //�옄諛붿뒪�겕由쏀듃 �뜥�빞�븷�벏
 
+    @GetMapping("/partner_submit")
+    public String partner_submit() {
+    	log.info("admin partner_submit success");
+    	return "/admin/partner_submit";
+    }
+    
     @GetMapping("/partnerPro")
     public String partnerPro() {
     	log.info("admin partnerPro success");
@@ -103,9 +151,7 @@ public class AdminController {
     	return "/admin/member";
     }
 
- //寃��깋�쓣 �늻瑜대㈃ 諛묒뿉 �젙蹂닿� �쑉怨� 由ъ뒪�듃以� �쉶�썝�쓣 �꽑�깮�빐�빞 �쉶�썝 �닔�젙�럹�씠吏��뒗 �럹�씠吏�寃곌낵 �돺寃� 蹂대젮怨� �엫�떆濡� 寃쎈줈�꽕�젙
-  //�옄諛붿뒪�겕由쏀듃 �뜥�빞�븷�벏
-
+    
     @GetMapping("/memberPro")
     public String memberPro() {
     	log.info("admin memberPro success");

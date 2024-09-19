@@ -11,6 +11,8 @@
 <html lang="UTF-8">
 
 <head>
+<!-- jquery 3.3.1 -->
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -68,22 +70,24 @@
 
 			
 				
-<%-- <h1 class="text-center m-3">[검색어:<%=findKeyword %> ] 검색 결과</h1>				 --%>
 <form name="findF" action="#" class="form-inline">
-
-	<select name="findType" class="form-control mr-2">
+	<select name="findType" class="form-control mr-2" >
 		<option value="">::검색 유형::</option>
 		<option value="1">이름</option>
 		<option value="2">아이디</option>
 		<option value="3">이메일</option>
 	</select>
-		<input type="text" name="findKeyword" placeholder="검색어를 입력하세요" class="form-control mr-2">
-			<button class="btn btn-success">검 색</button>
-</form>
+		<input type="text" name="findKeyword"  placeholder="검색어를 입력하세요" class="form-control mr-2"  s>
+			<button class="btn btn-success"  type="button" id="memberSearch">검 색</button>
+			</form>
 
-<ul class="list-group">
-  <li class="list-group-item">검색된 회원 정보 띄우기</li>
-</ul>
+<!-- <div class="bbs_line"> -->
+<!-- <li><a href="javascript:;">이번 여름 휴가 제주 갈까? 미션 투어 (여행경비 50만원 지원)</a></li> --> 
+ 						<ul class="list-group">
+
+					  <li class="list-group-item" id="result"></li>
+					  </ul>
+<!-- </div> -->
 
 <p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
   <button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/memberPro'">정보 조회 및 수정</button>
@@ -100,206 +104,56 @@
   </div>
                 </div>
 
-<!-- 					<div class="ecommerce-widget">  -->
+<script>
 
-<!--                     <div class="row"> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Total Revenue</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">$12099</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-success font-weight-bold"> -->
-<!--                                         <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Affiliate Revenue</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">$12099</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-success font-weight-bold"> -->
-<!--                                         <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue2"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Refunds</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">0.00</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-primary font-weight-bold"> -->
-<!--                                         <span>N/A</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue3"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Avg. Revenue Per User</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">$28000</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-secondary font-weight-bold"> -->
-<!--                                         <span>-2.00%</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue4"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                     </div> -->
-<!--                     <div class="row"> -->
-<!--                         ============================================================== -->
+$(function(){
+	$('#memberSearch').click(function(){
+// 		alert("notice 클릭");
+// 		console.log("notice 클릭");
+	$.ajax({
+		url:"${pageContext.request.contextPath}/admin/result",
+// 		data:{'memberSearch':$('#memberSearch').val()},
+		dataType:"jason",
+		error:function(err){
+			
+		alert("error");
+			console.log("error")
+		},
+		success:function(result){
+// 		alert("notice 클릭");
+		if(result=='noInfo'){
+			$('#result').html("회원정보가 없습니다");
+		alert("noInfo");
+		console.log("noInfo");
+			
+		}	else {
+		alert($('#result'));
+		console.log("okinfo");
+// 		$("#result").text(jsonData.id);
+		$('#result').html('<li class="list-group-item"><a href="javascript:;">'+item.user_name +'</a></li>');
+// 		result=$('#result');
+		}
+			
+		}
+	});
 
-<!--                         ============================================================== -->
-
-<!--                         recent orders  -->
-<!--                         ============================================================== -->
-<!--                         <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <h5 class="card-header">Recent Orders</h5> -->
-<!--                                 <div class="card-body p-0"> -->
-<!--                                     <div class="table-responsive"> -->
-<!--                                         <table class="table"> -->
-<!--                                             <thead class="bg-light"> -->
-<!--                                             <tr class="border-0"> -->
-<!--                                                 <th class="border-0">#</th> -->
-<!--                                                 <th class="border-0">Image</th> -->
-<!--                                                 <th class="border-0">Product Name</th> -->
-<!--                                                 <th class="border-0">Product Id</th> -->
-<!--                                                 <th class="border-0">Quantity</th> -->
-<!--                                                 <th class="border-0">Price</th> -->
-<!--                                                 <th class="border-0">Order Time</th> -->
-<!--                                                 <th class="border-0">Customer</th> -->
-<!--                                                 <th class="border-0">Status</th> -->
-<!--                                             </tr> -->
-<!--                                             </thead> -->
-<!--                                             <tbody> -->
-<!--                                             <tr> -->
-<!--                                                 <td>1</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #1</td> -->
-<!--                                                 <td>id000001</td> -->
-<!--                                                 <td>20</td> -->
-<!--                                                 <td>$80.00</td> -->
-<!--                                                 <td>27-08-2018 01:22:12</td> -->
-<!--                                                 <td>Patricia J. King</td> -->
-<!--                                                 <td><span class="badge-dot badge-brand mr-1"></span>InTransit</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td>2</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic-2.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #2</td> -->
-<!--                                                 <td>id000002</td> -->
-<!--                                                 <td>12</td> -->
-<!--                                                 <td>$180.00</td> -->
-<!--                                                 <td>25-08-2018 21:12:56</td> -->
-<!--                                                 <td>Rachel J. Wicker</td> -->
-<!--                                                 <td><span class="badge-dot badge-success mr-1"></span>Delivered</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td>3</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic-3.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #3</td> -->
-<!--                                                 <td>id000003</td> -->
-<!--                                                 <td>23</td> -->
-<!--                                                 <td>$820.00</td> -->
-<!--                                                 <td>24-08-2018 14:12:77</td> -->
-<!--                                                 <td>Michael K. Ledford</td> -->
-<!--                                                 <td><span class="badge-dot badge-success mr-1"></span>Delivered</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td>4</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic-4.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #4</td> -->
-<!--                                                 <td>id000004</td> -->
-<!--                                                 <td>34</td> -->
-<!--                                                 <td>$340.00</td> -->
-<!--                                                 <td>23-08-2018 09:12:35</td> -->
-<!--                                                 <td>Michael K. Ledford</td> -->
-<!--                                                 <td><span class="badge-dot badge-success mr-1"></span>Delivered</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td colspan="9"><a href="#" class="btn btn-outline-light float-right">View -->
-<!--                                                     Details</a></td> -->
-<!--                                             </tr> -->
-<!--                                             </tbody> -->
-<!--                                         </table> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         ============================================================== -->
-<!--                         end recent orders  -->
+	});
+});
 
 
-<!--                         ============================================================== -->
-<!--                         ============================================================== -->
-<!--                         customer acquistion  -->
-<!--                         ============================================================== -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <h5 class="card-header">Customer Acquisition</h5> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <div class="ct-chart ct-golden-section" style="height: 354px;"></div> -->
-<!--                                     <div class="text-center"> -->
-<!--                                             <span class="legend-item mr-2"> -->
-<!--                                                     <span class="fa-xs text-primary mr-1 legend-tile"><i -->
-<!--                                                             class="fa fa-fw fa-square-full"></i></span> -->
-<!--                                             <span class="legend-text">Returning</span> -->
-<!--                                             </span> -->
-<!--                                         <span class="legend-item mr-2"> -->
 
-<!--                                                     <span class="fa-xs text-secondary mr-1 legend-tile"><i -->
-<!--                                                             class="fa fa-fw fa-square-full"></i></span> -->
-<!--                                             <span class="legend-text">First Time</span> -->
-<!--                                             </span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         ============================================================== -->
-<!--                         end customer acquistion  -->
-<!--                         ============================================================== -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
 
-<!-- 바텀 밑으로 내려야함 -->
-<%--         <jsp:include page="../include/adminBottom.jsp"/> --%>
+
+
+
+
+</script>
+
+
+
+
+
+
 
     </div>
     <!-- ============================================================== -->
@@ -310,8 +164,6 @@
 <!-- end main wrapper  -->
 <!-- ============================================================== -->
 <!-- Optional JavaScript -->
-<!-- jquery 3.3.1 -->
-<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
 <!-- bootstap bundle js -->
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 <!-- slimscroll js -->

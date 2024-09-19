@@ -46,7 +46,7 @@
 				<div class="detail-row divider"></div>
 				<div class="detail-row">
 					<span class="detail-label">예매옵션</span> <span class="detail-value">
-						10.30[월] 17:00 1인권,일반권 (1매)<br> 11,000원 * 1매 = 11,000원<br>
+						10.30[월] 17:00 1인권 (1매)<br> 11,000원 * 1매 = 11,000원<br>
 						${booking.ticketCount}인권<br> * ${booking.ticketCount}매 =<br>
 						11,000원 * 1매 = 11,000원
 					</span>

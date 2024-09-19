@@ -266,3 +266,30 @@ a:hover, card:hover, .btn:hover {
     font-weight: bold;
 }
 
+#new-open .title.new-carousel, #time-sale .title.new-carousel, #sub-page .title.new-carousel {
+    white-space: nowrap; /* 텍스트를 한 줄로 유지 */
+    overflow: hidden; /* 넘치는 텍스트를 숨김 */
+    text-overflow: ellipsis; /* 넘치는 텍스트를 ...으로 표시 */
+    width: 100%; /* 너비를 적절히 설정 (필요에 따라 지정) */
+    margin: 5px 0;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.btn-search {
+    background: none; /* 버튼 배경 제거 */
+    border: none;     /* 버튼 테두리 제거 */
+    padding: 0;       /* 여백 제거 */
+    cursor: pointer;  /* 클릭할 때 포인터 커서 */
+}
+
+.btn-search i {
+    color: gray;  /* 아이콘 색상 */
+    font-size: 1.25rem; /* 아이콘 크기 */
+    padding: 0.5rem;  /* 아이콘 주변 패딩 */
+}
+
+
+.time-sale-container .card.time-sale {
+    margin: 40px 20px 0 0;
+}
