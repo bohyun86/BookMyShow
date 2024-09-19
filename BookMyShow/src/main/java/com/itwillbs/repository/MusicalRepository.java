@@ -14,9 +14,15 @@ public interface MusicalRepository extends JpaRepository<MusicalDTO, Integer> {
     // findTop8ByApprovedAndOrderByCreatedAtDesc
     List<MusicalDTO> findTop8ByApprovedOrderByCreatedAtDesc(boolean approved);
 
-    List<MusicalDTO> findTop8ByApprovedAndDiscountEndDateAfterOrderByDiscountEndDateDesc(boolean approved, LocalDate now);
+    List<MusicalDTO> findTop8ByApprovedAndDiscountEndDateAfterOrderByDiscountEndDate(boolean approved, LocalDate now);
 
-    List<MusicalDTO> findMusicalsByPartnerIdOrderByCreatedAtDesc(PartnerDTO partnerId);
+    List<MusicalDTO> findByApprovedAndDiscountEndDateAfterOrderByDiscountEndDate(boolean approved, LocalDate now);
 
     Page<MusicalDTO> findMusicalsByPartnerId(PartnerDTO partnerDTO, Pageable pageable);
+
+    List<MusicalDTO> findMusicalsByTitleContaining(String keyword);
+
+
+
+
 }

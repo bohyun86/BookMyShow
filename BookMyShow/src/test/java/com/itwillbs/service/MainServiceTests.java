@@ -46,4 +46,18 @@ public class MainServiceTests {
 
         log.info("timeSaleCarouselDTOs: {}", timeSaleCarouselDTOs);
     }
+
+    @Test
+    public void testGetSearchingCards() {
+        // mainService가 null이 아닌지 확인 (주입 확인)
+        assertNotNull(mainService, "mainService should not be null");
+
+        // 검색어로 카드 로드
+        var searchingCards = mainService.getSearchingCards("선녀");
+
+        // 데이터가 올바르게 로드되었는지 확인
+        assertNotNull(searchingCards, "searchingCards should not be null");
+
+        log.info("searchingCards: {}", searchingCards);
+    }
 }

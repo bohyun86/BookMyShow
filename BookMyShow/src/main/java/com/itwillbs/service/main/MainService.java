@@ -43,7 +43,30 @@ public class MainService {
     @Cacheable("timeSaleCarousel") // 캐시 이름 설정
     public List<MainNewCarouselDTO> timeSaleCarouselDTOs() {
         LocalDate currentDate = LocalDate.now();
-        List<MusicalDTO> musicalDTOs = musicalRepository.findTop8ByApprovedAndDiscountEndDateAfterOrderByDiscountEndDateDesc(true, currentDate);
+        List<MusicalDTO> musicalDTOs = musicalRepository.findTop8ByApprovedAndDiscountEndDateAfterOrderByDiscountEndDate(true, currentDate);
+
+        List<MainNewCarouselDTO> timeSaleCarouselDTOs = new ArrayList<>();
+
+        insertCarouselData(musicalDTOs, timeSaleCarouselDTOs, "timeSaleCarouselDTOs");
+
+        return timeSaleCarouselDTOs;
+    }
+
+    @Transactional
+    public List<MainNewCarouselDTO> getSearchingCards(String keyword) {
+        List<MusicalDTO> musicalDTOs = musicalRepository.findMusicalsByTitleContaining(keyword);
+
+        List<MainNewCarouselDTO> mainNewCarouselDTOs = new ArrayList<>();
+
+        insertCarouselData(musicalDTOs, mainNewCarouselDTOs, "mainNewCarouselDTOs");
+
+        return mainNewCarouselDTOs;
+    }
+
+    @Transactional
+    public List<MainNewCarouselDTO> getTimeSaleCarouselDTOs() {
+        LocalDate currentDate = LocalDate.now();
+        List<MusicalDTO> musicalDTOs = musicalRepository.findByApprovedAndDiscountEndDateAfterOrderByDiscountEndDate(true, currentDate);
 
         List<MainNewCarouselDTO> timeSaleCarouselDTOs = new ArrayList<>();
 

@@ -130,23 +130,23 @@
             <!-- 카드 래퍼 추가 -->
             <div class="cards-wrapper overflow-hidden position-relative" style="width: 1100px;">
                 <div class="cards time-sale d-flex mt-2" style="width: 2200px;">
-                    <c:forEach var="timeSaleCarousel" items="${timeSaleCarouselDTOS}">
+                    <c:forEach var="card" items="${timeSaleCarouselDTOS}">
                         <div class="card time-sale">
-                            <img src="${pageContext.request.contextPath}/${timeSaleCarousel.postFilePath}" class="card-img-top" alt="...">
+                            <img src="${pageContext.request.contextPath}/${card.postFilePath}" class="card-img-top" alt="...">
                             <div class="card-body w-100">
-                                <p class="area">${timeSaleCarousel.area}</p>
+                                <p class="area">${card.area}</p>
                                 <p class="category">
-                                    🗂️${timeSaleCarousel.category}</p>
-                                <p class="title new-carousel">${timeSaleCarousel.title}</p>
+                                    🗂️${card.category}</p>
+                                <p class="title new-carousel">${card.title}</p>
                                 <div class="ticket-price d-flex justify-content-between">
                                     <div class="rating">
                                         <i class="bi bi-star-fill"></i>
-                                        <c:if test="${timeSaleCarousel.rating} != 0">${timeSaleCarousel.rating}</c:if>
-                                        <span><c:if test="${timeSaleCarousel.reviewCount} != 0">(${timeSaleCarousel.reviewCount})</c:if></span>
+                                        <c:if test="${card.rating} != 0">${card.rating}</c:if>
+                                        <span><c:if test="${card.reviewCount} != 0">(${card.reviewCount})</c:if></span>
                                     </div>
                                     <div class="d-flex">
-                                        <p class="discount me-2">${timeSaleCarousel.discountRate}%</p>
-                                        <p class="price">${timeSaleCarousel.price}원</p>
+                                        <p class="discount me-2">${card.discountRate}%</p>
+                                        <p class="price">${card.price}원</p>
                                     </div>
                                 </div>
                             </div>
