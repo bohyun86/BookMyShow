@@ -81,8 +81,6 @@
 			<button class="btn btn-success"  type="button" id="memberSearch">검 색</button>
 			</form>
 
-<!-- <div class="bbs_line"> -->
-<!-- <li><a href="javascript:;">이번 여름 휴가 제주 갈까? 미션 투어 (여행경비 50만원 지원)</a></li> --> 
  						<ul class="list-group">
 
 					  <li class="list-group-item" id="result"></li>

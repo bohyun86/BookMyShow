@@ -67,20 +67,20 @@
 <!-- ==================================================== -->
 
 <%-- 				<h1 class="text-center m-3">[검색어:<%=findKeyword %> ] 검색 결과</h1>				 --%>
-<form name="findF" class="form-inline">
+<form name="findF" action="#" class="form-inline">
 
-	<select  class="form-control mr-2" onchange="changeSearch(this)">
+	<select name="findType" class="form-control mr-2" onchange="changeSearch(this)">
 		<option value="">::검색 유형::</option>
 		<option value="1" >이름</option>
 		<option value="2">아이디</option>
 	</select>
-	<input type="text" placeholder="검색어를 입력하세요" class="form-control mr-2" id ="searchText">
+	<input type="text" name="findKeyword" placeholder="검색어를 입력하세요" class="form-control mr-2" id ="searchText">
 	<button class="btn btn-success" type="button"  id="partnerSearch" >검 색</button>
 </form>
 				
 				
 				<ul class="list-group">
-					  <li class="list-group-item" id="result"></li>
+					  <li class="list-group-item" id="partnerresult"></li>
 					  </ul>
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -88,67 +88,15 @@
 					</div></p> 
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" type="button"  id="bookingButton" disabled>정산내역</button>
+					  <button class="btn btn-primary" type="button"  id="paymentButton" disabled>정산내역</button>
 					</div></p>
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" type="button"  id="paymentutton" disabled>1:1문의</button>
+					  <button class="btn btn-primary" type="button"  id="qnaButton" disabled>1:1문의</button>
 					</div></p>
 
 
 
-<script>
-
-$(function() {
-    $('#partnerSearch').click(function() {
-    	
-    	
-        
-        $.ajax({
-            url: "${pageContext.request.contextPath}/admin/result",
-            data: {'user_name': $('#searchText').val()},
-            dataType: "json",
-            success: function(userDTO) {
-                if (userDTO) {
-                    $('#result').html('<li class="list-group-item"><a href="javascript:;">' + "아이디:"+userDTO.userName+",이메일:"+ userDTO.email+",연락처:"+userDTO.phoneNumber+",이름:"+userDTO.name+",비밀번호:"+userDTO.password+",회원가입일:"+userDTO.createdAt+ '</a></li>');
-                    
-                    $('#editButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/memberPro?userName=' + userDTO.userName + '"').prop('disabled', false);
-                    $('#bookingButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/booking?userName=' + userDTO.userName + '"').prop('disabled', false);
-                    $('#paymentutton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/payment?userName=' + userDTO.userName + '"').prop('disabled', false);
-                } else {
-                    $('#result').html("파트너정보가 없습니다");
-                    $('#editButton').prop('disabled', true);
-                    $('#bookingButton').prop('disabled', true);
-                    $('#paymentutton').prop('disabled', true);
-                    
-                }
-            },
-            error: function(err) {
-//                 alert("회원정보가 없습니다");
- $('#result').html("파트너정보가 없습니다");
-                console.log("error");
-            }
-        });
-    });
-});
-
-
-	function changeSearch(obj) {
-		let key = $(obj).val();
-			
-		$('#searchText').attr('name', key);
-		
-			
-		}
-		
-		
-
-
-
-
-
-
-</script>
 
   </div>
                 </div>
@@ -185,6 +133,57 @@ $(function() {
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/c3charts/C3chartjs.js"></script>
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/libs/js/dashboard-ecommerce.js"></script>
+<script>
+$(function() {
+// 	alert("d");
+    $('#partnerSearch').click(function() {
+//     	alert("DD");
+    	  $.ajax({
+              url: "${pageContext.request.contextPath}/admin/partnerresult",
+              data: {'user_name': $('#searchText').val()},
+              dataType: "json",
+              success: function(userDTO) {
+                  if (userDTO) {
+                      $('#partnerresult').html('<li class="list-group-item"><a href="javascript:;">' + "아이디:"+userDTO.userName+",이메일:"+ userDTO.email+",연락처:"+userDTO.phoneNumber+",이름:"+userDTO.name+",비밀번호:"+userDTO.password+",회원가입일:"+userDTO.createdAt+ '</a></li>');
+                      
+                      $('#editButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partnerPro?userName=' + userDTO.userName + '"').prop('disabled', false);
+                      $('#qnaButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_qna?userName=' + userDTO.userName + '"').prop('disabled', false);
+                      $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?userName=' + userDTO.userName + '"').prop('disabled', false);
+                  } else {
+                      $('#partnerresult').html("회원정보가 없습니다");
+                      $('#editButton').prop('disabled', true);
+                      $('#qnaButton').prop('disabled', true);
+                      $('#paymentButton').prop('disabled', true);
+                      
+                  },
+             
+              error: function(err) {
+//                   alert("회원정보가 없습니다");
+   $('#partnerresult').html("회원정보가 없습니다");
+                  console.log("error");
+              };
+          });
+      });
+  });
+});
+  
+  
+
+function changeSearch(obj) {
+	let key = $(obj).val();
+		
+	$('#searchText').attr('name', key);
+	
+		
+	}
+		
+
+
+
+
+
+
+</script>
 </body>
 
 </html>

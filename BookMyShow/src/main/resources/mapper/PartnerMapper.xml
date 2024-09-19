@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.itwillbs.mapper.MemberMapper">
+<mapper namespace="com.itwillbs.mapper.PartnerMapper">
 
     <resultMap id="partnerResultMap" type="com.itwillbs.domain.partner.PartnerDTO">
         <result property="partner_id" column="partnerId"/>
@@ -22,9 +22,12 @@
         select * from partnerDTO where user_id = #{userId}
     </select>
     
-<!--     소연이한거 -->
-<select id="getPartnersy" resultType="com.itwillbs.domain.PartnerDTO" resultMap="partnerResultMap">
-
+<!--     getPartnersy 소연이한거 -->
+<select id="getPartnersy" resultType="com.itwillbs.domain.partner.PartnerDTO" resultMap="partnerResultMap">
+ SELECT U.user_id, U.user_name, U.password, U.email, U.phone_number, U.name, U.user_role, U.created_at
+        FROM Partner P
+        JOIN User U ON P.user_id = U.user_id
+        WHERE U.user_name = #{id}
     </select>
 
 
