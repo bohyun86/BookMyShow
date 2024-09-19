@@ -16,23 +16,30 @@ public class MusicalDAO {
 	
 	private static final String namespace="com.itwillbs.mapper.MusicalMapper";
 	
-	// ¹ÂÁöÄÃ ½ÂÀÎ »óÅÂ ¾÷µ¥ÀÌÆ®
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
     public void updateMusicalApproval(int approved) {
-    	System.out.println("MusicalDAO::"+approved);
-    	sqlSession.update(namespace+".updateMusicalApproval",approved);
+    	System.out.println("---MusicalDAO updateMusicalApproval::"+approved);
+    	 sqlSession.update(namespace+".updateMusicalApproval",approved);
+		 
+		 
     }
 	
-//	 // ÆÄÆ®³Ê ID·Î ¹ÂÁöÄÃ °Ë»ö
+//	 // ï¿½ï¿½Æ®ï¿½ï¿½ IDï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
     public List<MusicalDTO> getMusicalByPartnerId(String findKeyword) {
-    	System.out.println("MusicalDAO::"+findKeyword);
+    	System.out.println("---MusicalDAO getMusicalByPartnerId::"+findKeyword);
         return sqlSession.selectList(namespace+ ".getMusicalByPartnerId", findKeyword);
     }
 
-    // ¹ÂÁöÄÃ Á¦¸ñÀ¸·Î °Ë»ö
+    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»ï¿½
     public MusicalDTO getMusicalByTitle(String findKeyword) {
-    	System.out.println("MusicalDAO::"+findKeyword);
+    	System.out.println("---MusicalDAO getMusicalByTitle::"+findKeyword);
     	return sqlSession.selectOne(namespace+ ".getMusicalByTitle", findKeyword);
     }
+
+	public MusicalDTO getMusical(String title) {
+		// TODO Auto-generated method stub
+		return  sqlSession.selectOne(namespace + ".getMusical", title);
+	}
 	
 	
 	

@@ -4,14 +4,19 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.itwillbs.mapper.MusicalMapper">
+<!-- <resultMap id="MusicalWithUserMap" type="com.itwillbs.domain.MusicalDTO"> -->
+<!--     <association property="User" javaType="UserDTO"> -->
+<!--         <result property="userName" column="user_name"/> -->
+<!--     </association> -->
+<!-- </resultMap> -->
 
  
  
   <!-- 뮤지컬 승인 상태 업데이트 -->
     <update id="updateMusicalApproval" >
-        UPDATE musical
-        SET approved = #{approved}
-        WHERE title = #{title}
+     UPDATE Musical
+SET approved = 1
+WHERE title = #{title} AND approved = 0;
     </update>
    
 
@@ -30,9 +35,20 @@
 
     <!-- 뮤지컬 제목으로 검색 -->
     <select id="getMusicalByTitle"  resultType="com.itwillbs.domain.MusicalDTO">
-        SELECT title 
-        FROM Musical 
-        WHERE title = #{title} and approved=0
+    SELECT  U.user_name, M.title
+           FROM Partner P
+       JOIN User U ON  P.user_id = U.user_id
+         JOIN Musical M ON M.partner_id = P.partner_id
+        WHERE M.title = #{title} and M.approved=0
     </select>
+    
+    <select id="getMusical" resultType="com.itwillbs.domain.MusicalDTO">
+		select * 
+		from Partner P
+		JOIN User U ON  P.user_id = U.user_id
+         JOIN Musical M ON M.partner_id = P.partner_id
+		WHERE M.title = #{title}
+		
+	</select>
 
 </mapper>

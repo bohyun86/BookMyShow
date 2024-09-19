@@ -75,22 +75,21 @@
 
 
 
-				${musicalDTO.user_name}파트너님이 승인 요청중인 뮤지컬입니다.<br>
 				
-			<form action="${pageContext.request.contextPath}/admin/edit">	
-<%--   				<c:forEach var="musicalDTO" items="${musicalList}"> --%>
+			<form action="${pageContext.request.contextPath}/admin/updateMusicalApproval" method="post">	
 					<div class="card mb-3" style="max-width: 540px;">
   						<div class="row g-0">
    							 <div class="col-md-4">
-     							 <img src="${pageContext.request.contextPath}/resources/images/poster/newopen1.jpg" class="img-fluid rounded-start" alt="...">
+     							 <img src="${pageContext.request.contextPath}/resources/upload/2024/newopen1.jpg" class="img-fluid rounded-start" alt="...">
    							 </div>
     						<div class="col-md-8">
       							<div class="card-body">
-        							<h4 class="card-title">승인 요청중인 뮤지컬</h4>
+      							<span class="name" id="partnerid">${userDTO.userName}</span>파트너님이 승인 요청중인 뮤지컬입니다.
+        							<h4 class="card-title"><c:forEach var="musicalDTO" items="${musicalList}" /></h4>
+  				
        									 <p class="card-text">
        									 	
        									 	
-<!--        									textarea / 파트너가 요청한 뮤지컬 정보가 나왕함 여기선 텍스트 입력 불가 -->
        										 
        										 
 
@@ -98,14 +97,14 @@
 				 										
 				 										<div class="d-grid gap-2 d-md-flex justify-content-md-end">
   															<button class="btn btn-primary me-md-2"  type="submit" id="submitMusical" >등록승인</button> &nbsp; &nbsp;
-  																<button class="btn btn-primary" onclick = "location.href='${pageContext.request.contextPath}/admin/editPro'"type="button"  >수정</button>
+  																<input type="button" class="btn btn-primary"  name="editMusical" id="editMusical"   value="수정">
 									
 														</div>
+<%--   									</c:forEach>	 --%>
 														</div>
 														</div>
 														</div>
     												</div>
-<%--   									</c:forEach>	 --%>
   									
 									</form>
   												</div>

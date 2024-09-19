@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.MusicalDTO;
+import com.itwillbs.domain.PartnerDTO;
 import com.itwillbs.domain.UserDTO;
 import com.itwillbs.service.MusicalService;
 import com.itwillbs.service.UserServiceImpl;
@@ -85,68 +86,30 @@ public class AdminController {
 
     @GetMapping("/search")
     public String search(HttpServletRequest request,Model model) {
-//    	log.info("admin search:: success");
-//    	 String searchType = request.getParameter("findType");
-//         String findKeyword = request.getParameter("findKeyword");
-//    	System.out.println("AdminController searchType::"+searchType);
-//    	System.out.println("AdminController findKeyword::"+findKeyword);
 //    	
-//    	if ("1".equals(searchType)) {
-//            // ��Ʈ�� ID�� �˻�
-////    		MusicalDTO musicalDTO = new MusicalDTO();
-//    		List<MusicalDTO> musicalList = musicalService.getMusicalByPartnerId(findKeyword);
-//    		if (musicalList != null && !musicalList.isEmpty()) {
-//                // ����Ʈ�� ù ��° �׸��� ������ URL �Ķ���ͷ� ���
-//    			model.addAttribute("musicalList", musicalList);
-//                System.out.println("musicalList"+musicalList);
-//                
-//
-//                return "redirect:/admin/submit";
-//            } else {
-////            	model.addAttribute("msg", "내역이 없습니다");
-//                // ����Ʈ�� ������� ��� ó��
-////            	model.addAttribute("url", "/admin/search");
-//                return "redirect:/admin/search";
-//            }
-//            
-//        } 
     	
-//    	if ("2".equals(searchType)) {
-//    		MusicalDTO musicalDTO = musicalService.getMusicalByTitle(findKeyword);
-//    	if(musicalDTO!= null){
-//            // ������ �������� �˻�
-////        	musicalDTO = musicalService.getMusicalByTitle(findKeyword);
-//    		System.out.println("getMusicalByTitle findKeyword::"+musicalDTO);
-//            return "redirect:/admin/submit";
-//            
-//        }
-//    	else {
-//			
-//    		return "redirect:/admin/search";
-//    	}
-//    	}
 		return "/admin/search";
     	
     	
     }
 
+    
     @PostMapping("/searchBy")
     public String searchBy(HttpServletRequest request,Model model) {
     
-    log.info("admin search:: success");
+    log.info("admin searchBy:: success");
 	 String searchType = request.getParameter("findType");
     String findKeyword = request.getParameter("findKeyword");
 	System.out.println("AdminController searchType::"+searchType);
 	System.out.println("AdminController findKeyword::"+findKeyword);
-	List<MusicalDTO> musicalList = musicalService.getMusicalByPartnerId(findKeyword);
 	
 	if ("1".equals(searchType)) {
+		List<MusicalDTO> musicalList = musicalService.getMusicalByPartnerId(findKeyword);
        // ��Ʈ�� ID�� �˻�
-//		MusicalDTO musicalDTO = new MusicalDTO();
 		if (musicalList != null && !musicalList.isEmpty()) {
            // ����Ʈ�� ù ��° �׸��� ������ URL �Ķ���ͷ� ���
 			model.addAttribute("musicalList", musicalList);
-           System.out.println("musicalList"+musicalList);
+           System.out.println("AdminController searchBy1::"+musicalList);
            
 
            return "redirect:/admin/submit";
@@ -159,10 +122,12 @@ public class AdminController {
 	}
 	else if ("2".equals(searchType)) {
     		MusicalDTO musicalDTO = musicalService.getMusicalByTitle(findKeyword);
+//    		UserDTO userDTO = 
+//    		System.out.println("userDTO"+userDTO);
     	if(musicalDTO!= null){
             // ������ �������� �˻�
 //        	musicalDTO = musicalService.getMusicalByTitle(findKeyword);
-    		System.out.println("getMusicalByTitle findKeyword::"+musicalDTO);
+    		System.out.println("AdminController searchBy2::"+musicalDTO);
             return "redirect:/admin/submit";
             
         }
@@ -174,7 +139,7 @@ public class AdminController {
        
    
 //	return musicalList; 
-	return null;
+	return findKeyword;
     }
 
     
@@ -182,14 +147,21 @@ public class AdminController {
 
 
     @GetMapping("/submit")
-    public String submit() {
+    public String submit(HttpServletRequest request,Model model) {
     	log.info("admin submit:: success");
     	
+    		return "/admin/submit";
     	
     	
-    	return "/admin/submit";
     }
 
+    
+    
+    
+    
+    
+    
+    
 
 
 

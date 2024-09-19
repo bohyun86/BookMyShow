@@ -21,6 +21,12 @@
     <select id="getPartner" resultType="com.itwillbs.domain.PartnerDTO" resultMap="partnerResultMap">
         select * from partnerDTO where user_id = #{userId}
     </select>
+    
+<!--     소연이한거 -->
+<select id="getPartnersy" resultType="com.itwillbs.domain.PartnerDTO" resultMap="partnerResultMap">
+        select * 
+        from  where user_id = #{userId}
+    </select>
 
 
 </mapper>

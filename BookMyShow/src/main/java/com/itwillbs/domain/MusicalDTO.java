@@ -7,6 +7,8 @@ import lombok.Data;
 @Data
 public class MusicalDTO {
 	
+	
+	
 	 	private int userId;
 	    private String title;
 	    private String description;
@@ -33,8 +35,10 @@ public class MusicalDTO {
 			// TODO Auto-generated method stub
 			return null;
 		}
+		
+		
 
-	
+		
 	
 	
 	

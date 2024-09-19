@@ -69,13 +69,13 @@
 <%-- 				<h1 class="text-center m-3">[검색어:<%=findKeyword %> ] 검색 결과</h1>				 --%>
 <form name="findF" class="form-inline">
 
-	<select  class="form-control mr-2">
+	<select  class="form-control mr-2" onchange="changeSearch(this)">
 		<option value="">::검색 유형::</option>
 		<option value="1" >이름</option>
 		<option value="2">아이디</option>
 	</select>
-	<input type="text" placeholder="검색어를 입력하세요" class="form-control mr-2">
-	<button class="btn btn-success" id="search" >검 색</button>
+	<input type="text" placeholder="검색어를 입력하세요" class="form-control mr-2" id ="searchText">
+	<button class="btn btn-success" type="button"  id="partnerSearch" >검 색</button>
 </form>
 				
 				
@@ -84,38 +84,72 @@
 					  </ul>
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" onclick = "location.href='${pageContext.request.contextPath}/admin/partnerPro'" type="button">정보 조회 및 수정</button>
+					  <button class="btn btn-primary" type="button" id="editButton" disabled>정보 조회 및 수정</button>
 					</div></p> 
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/partner_settlement'">정산내역</button>
+					  <button class="btn btn-primary" type="button"  id="bookingButton" disabled>정산내역</button>
 					</div></p>
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/partner_qna'">1:1문의</button>
+					  <button class="btn btn-primary" type="button"  id="paymentutton" disabled>1:1문의</button>
 					</div></p>
 
 
 
 <script>
 
-$(function(){
-	$('#search').click(function(){
-		
-// 		 $.ajax({
-			 
-// 			 url: "${pageContext.request.contextPath}/admin/result",
-// 			 dataType:"json",
-//              success: function(result) {
-//             	 result="dd"
-// 				}
-// 		 result="dd"
-            	 
-// 	             }
-     });
+$(function() {
+    $('#partnerSearch').click(function() {
+    	
+    	
+        
+        $.ajax({
+            url: "${pageContext.request.contextPath}/admin/result",
+            data: {'user_name': $('#searchText').val()},
+            dataType: "json",
+            success: function(userDTO) {
+                if (userDTO) {
+                    $('#result').html('<li class="list-group-item"><a href="javascript:;">' + "아이디:"+userDTO.userName+",이메일:"+ userDTO.email+",연락처:"+userDTO.phoneNumber+",이름:"+userDTO.name+",비밀번호:"+userDTO.password+",회원가입일:"+userDTO.createdAt+ '</a></li>');
+                    
+                    $('#editButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/memberPro?userName=' + userDTO.userName + '"').prop('disabled', false);
+                    $('#bookingButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/booking?userName=' + userDTO.userName + '"').prop('disabled', false);
+                    $('#paymentutton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/payment?userName=' + userDTO.userName + '"').prop('disabled', false);
+                } else {
+                    $('#result').html("파트너정보가 없습니다");
+                    $('#editButton').prop('disabled', true);
+                    $('#bookingButton').prop('disabled', true);
+                    $('#paymentutton').prop('disabled', true);
+                    
+                }
+            },
+            error: function(err) {
+//                 alert("회원정보가 없습니다");
+ $('#result').html("파트너정보가 없습니다");
+                console.log("error");
+            }
+        });
+    });
 });
 
+
+	function changeSearch(obj) {
+		let key = $(obj).val();
+			
+		$('#searchText').attr('name', key);
+		
+			
+		}
+		
+		
+
+
+
+
+
+
 </script>
+
   </div>
                 </div>
 

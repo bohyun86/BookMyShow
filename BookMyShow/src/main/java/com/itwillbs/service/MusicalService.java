@@ -14,20 +14,27 @@ public class MusicalService {
 	@Autowired
 	private MusicalDAO musicalDAO;
 	
-	// ¹ÂÁöÄÃ ½ÂÀÎ »óÅÂ ¾÷µ¥ÀÌÆ®
-    public void updateMusicalApproval(int approved) {
-    	System.out.println("musicalDAO::"+approved);
-        musicalDAO.updateMusicalApproval(approved);
-    }
-//¹ÂÁöÄÃÀÌ¸§À¸·Î °Ë»ö
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+   
+//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ë»
 	public MusicalDTO getMusicalByTitle(String findKeyword) {
-		System.out.println("musicalDAO::"+findKeyword);
+		System.out.println("MusicalService getMusicalByTitle::"+findKeyword);
 		return musicalDAO.getMusicalByTitle(findKeyword);
 	}
-//ÆÄÆ®¤¿³Ê¾ÆÀÌµð·Î °Ë»ö
+//ï¿½ï¿½Æ®ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ìµï¿½ï¿½ ï¿½Ë»ï¿½
 	public List<MusicalDTO> getMusicalByPartnerId(String findKeyword) {
-		System.out.println("musicalDAO::"+findKeyword);
+		System.out.println("MusicalService getMusicalByPartnerId::"+findKeyword);
 		return musicalDAO.getMusicalByPartnerId(findKeyword);
+	}
+	public void updateMusicalApproval(int approved) {
+		// TODO Auto-generated method stub
+		System.out.println("MusicalService updateMusicalApproval::"+approved);
+		 musicalDAO.updateMusicalApproval(approved);
+	}
+	public MusicalDTO getMusical(String title) {
+		// TODO Auto-generated method stub
+		System.out.println("MusicalService getMusical::"+title);
+		return musicalDAO.getMusical(title);
 	}
 
 	
