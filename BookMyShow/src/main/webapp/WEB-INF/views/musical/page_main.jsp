@@ -74,19 +74,19 @@
                 <div class="card new-open" 
                      style="width: 100%; margin-bottom: 60px; display: flex; flex-direction: column;">
                     <a href="${pageContext.request.contextPath}/musical/page_detail">
-                        <img src="${pageContext.request.contextPath}/resources/images/poster/newopen1.jpg"
+                        <img src="${pageContext.request.contextPath}/resources/upload/${MusicalDTO.upload_path }/${MusicalDTO.uuid}+${MusicalDTO.file_name}"
                             class="card-img-top" alt="..." style="width: 100%; height: auto;">
                     </a>
                     <!-- 카드 바디가 콘텐츠에 맞춰 자연스럽게 확장되도록 설정 -->
                     <div class="card-body w-100" style="flex-grow: 1;">
-                        <p class="area">경상/대구</p>
+                        <p class="area">${MusicalDTO.region_name}</p>
                         
-                        <p class="category">🗂️로맨틱코미디</p>
+                        <p class="category">🗂️${MusicalDTO.genre_name}</p>
                        
                         <h6 class="title">${MusicalDTO.title}</h6>
                         <div class="ticket-price d-flex justify-content-between">
-                            <p class="discount">60%</p>
-                            <p class="price">15,900원</p>
+                            <p class="discount">${MusicalDTO.discount_rate}%</p>
+                            <p class="price">${MusicalDTO.price }원</p>
                         </div>
                     </div>
                 </div>

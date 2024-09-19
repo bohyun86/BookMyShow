@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.itwillbs.domain.GenreDTO;
+
 import com.itwillbs.domain.MusicalDTO;
 import com.itwillbs.service.MusicalService;
 
@@ -27,19 +27,9 @@ public class MusicalController {
    public String musicalPage_main(Model model) {
 	  log.info("musical page_main success");
       
-	  
-	  List<MusicalDTO> musicalList = musicalService.getMusical();
-	  List<GenreDTO> genreList = musicalService.getGenre();
-	  
-	  for(int i = 0; i < musicalList.size(); i++) { 
-		  
-		  
-		  
-	  }
-	  
+	
 	  
 	  model.addAttribute("getMusical", musicalService.getMusical());
-	  model.addAttribute("genreDTO", musicalService.getGenre());
 	  
 	  
        return "/musical/page_main" ;

@@ -6,8 +6,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.itwillbs.domain.GenreDTO;
-import com.itwillbs.domain.MusicalDTO;
+
+
+import com.itwillbs.domain.MusicalMainDTO;
 
 @Repository
 public class MusicalDAO {
@@ -17,16 +18,12 @@ public class MusicalDAO {
 	private static final String namespace = "com.itwillbs.mapper.MusicalMapper.";
 	
 	
-	public List<MusicalDTO> getMusical() {
+	public List<MusicalMainDTO> getMusical() {
 		
 		
 		return sqlSession.selectList(namespace + "getMusical");
 	}
 
 
-	public List<GenreDTO> getGenre() {
-		
-		return sqlSession.selectList(namespace + "getGenre");
-	}
 
 }

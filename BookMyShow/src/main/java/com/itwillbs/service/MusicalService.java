@@ -7,8 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.MusicalDAO;
-import com.itwillbs.domain.GenreDTO;
-import com.itwillbs.domain.MusicalDTO;
+
+
+import com.itwillbs.domain.MusicalMainDTO;
 
 @Service
 public class MusicalService {
@@ -17,7 +18,7 @@ public class MusicalService {
 	private MusicalDAO musicalDAO;
 	
 	
-	public List<MusicalDTO> getMusical() {
+	public List<MusicalMainDTO> getMusical() {
 		
 		
 		return  musicalDAO.getMusical();
@@ -25,9 +26,6 @@ public class MusicalService {
 	}
 
 
-	public List<GenreDTO> getGenre() {
-		
-		return musicalDAO.getGenre();
-	}
+	
 
 }
