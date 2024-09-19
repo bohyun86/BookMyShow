@@ -3,7 +3,7 @@
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
 <c:set var="viewPath" value="/WEB-INF/views/" />
-<c:set var="currentPath" value="${pageContext.request.servletPath}" />
+<c:set var="currentPath" value="${requestScope['javax.servlet.forward.servlet_path']}" />
 
 <aside class="h-100">
     <div class="title">마이티켓</div>
@@ -21,7 +21,7 @@
                     취소/환불내역
                 </a>
             </li>
-            <li class="list-group-item">
+            <li class="list-group-item">      
                 <a href="${contextPath}/my/reviews" 
                    class="${(currentPath == '/my/reviews' || currentPath == '/my/review-edit' || currentPath == '/my/review-write') ? 'text-danger' : ''}">
                     나의 이용후기
