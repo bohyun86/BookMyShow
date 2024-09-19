@@ -37,9 +37,9 @@
 
 <main class="support-notice-write" id="board-main">
     <section class="h-100" id="board-content">
-    <form action="${pageContext.request.contextPath}/support/writePro" class="supportForm" method="post" name="fr">		
+    <form action="${pageContext.request.contextPath}/support/ntwritePro" class="supportForm" method="post" name="fr">		
 			<ul class="notice-write">
-				<li class="notice_title">글제목 : <input type="text" name="subject"></li>
+				<li class="notice_title">글제목 : <input type="text" name="title"></li>
 				<li class="notice_content">
 					<div class="editer_content">
 					    글내용 : <textarea name="content" rows="10" cols="30"></textarea>

@@ -24,6 +24,7 @@ public Integer getMaxNum() {
 
 public void insertNotice(SupportNoticeDTO supportNoticeDTO) {
 	System.out.println("SupportDAO insertNotice()");
+	System.out.println(supportNoticeDTO);
 	
 	sqlSession.insert(namespace + ".insertNotice", supportNoticeDTO);
 }

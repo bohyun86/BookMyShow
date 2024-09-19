@@ -10,6 +10,13 @@ public class SupportNoticeDTO {
 	private Timestamp created_at;
 	private Timestamp update_at;
 	
+	
+	
+	@Override
+	public String toString() {
+		return "SupportNoticeDTO [notice_id=" + notice_id + ", title=" + title + ", content=" + content
+				+ ", created_at=" + created_at + ", update_at=" + update_at + "]";
+	}
 	public int getNotice_id() {
 		return notice_id;
 	}

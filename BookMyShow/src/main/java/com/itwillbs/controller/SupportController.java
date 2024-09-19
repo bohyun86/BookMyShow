@@ -39,7 +39,7 @@ public class SupportController {
 		return "/support/ntwrite";
 	}
     
-    @PostMapping("/ntwritePro")
+    @PostMapping("support/ntwritePro")
 	public String ntwritePro(SupportNoticeDTO supportNoticeDTO) {
 		System.out.println("SupportController ntwritePro()");
 		System.out.println(supportNoticeDTO);

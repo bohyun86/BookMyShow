@@ -1,4 +1,5 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
@@ -25,6 +26,32 @@
             background-color: white;
         }
     </style>
+    <style>
+    .btn_srch {
+    border: 1px solid black;
+    background-color: #eee;
+    font-size: 16px;
+    margin-left: 510px;
+    border-radius: 5px
+    }
+    </style>
+    <style>
+    .notice-body {
+    list-style: none;
+    margin-top: 24px;
+    height: 40px;
+    border-radius: 8px;
+    }
+    </style>
+     <style>
+    .notice-body li {
+    float: left;
+    padding-top: 11px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    }
+    </style>
 </head>
 <body id="board-body">
 <jsp:include page="../include/top.jsp"/>
@@ -46,21 +73,25 @@
         <div class="title">
             공지사항
             
-            <c:if test="${ ! empty sessionScope.userName }">
-		    <c:if test="${sessionScope.userName eq 'admin'}">
+         <c:if test="${ ! empty sessionScope.userName }">
+         <c:if test="${sessionScope.userName eq 'admin'}">
          <a href="${pageContext.request.contextPath}/support/ntwrite" class="btn_srch">공지사항 작성</a>
-            </c:if>
-            </c:if>
+         </c:if>
+         </c:if>
+         
     <ul class="notice-header">
 		<li style="width:35px;">번호</li>
 		<li style="width:570px;">제목</li>
 		<li style="width:80px">작성일</li>
 	</ul>
+	
+	<c:forEach var="supportNoticeDTO" items="${noticeList }">
 	<ul class="notice-body">
-		<li style="width:35px;">${supportNoticeDTO.num }</li>
-		<li style="width:570px;">${supportNoticeDTO.title }</li>
-		<li style="width:80px">${supportNoticeDTO.created_at }</li>
+		<li style="width:35px;">${supportNoticeDTO.notice_id }</li>
+		<li style="width:570px;"><a href="javascript:;">${supportNoticeDTO.title }</a></li>
+		<li style="width:90px"><fmt:formatDate value="${supportNoticeDTO.created_at }" pattern="yyyy-MM-dd"/></li>
 	</ul>
+	</c:forEach>
             
         </div>
     </section>
