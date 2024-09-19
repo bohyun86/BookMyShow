@@ -72,11 +72,11 @@
     <section class="h-100" id="board-content">
         <div class="title">
             공지사항
-            
+         
          <c:if test="${ ! empty sessionScope.userName }">
-         <c:if test="${sessionScope.userName eq 'admin'}">
-         <a href="${pageContext.request.contextPath}/support/ntwrite" class="btn_srch">공지사항 작성</a>
-         </c:if>
+          <c:if test="${sessionScope.userName eq 'admin'}">
+           <a href="${pageContext.request.contextPath}/support/ntwrite" class="btn_srch">공지사항 작성</a>
+          </c:if>
          </c:if>
          
     <ul class="notice-header">
