@@ -1,4 +1,4 @@
-package com.itwillbs.domain;
+package com.itwillbs.domain.partner;
 
 import lombok.Data;
 

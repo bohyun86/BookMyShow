@@ -1,18 +1,24 @@
 package com.itwillbs.controller;
 
-import com.itwillbs.domain.PartnerDTO;
+import com.itwillbs.domain.Performance.MusicalDTO;
+import com.itwillbs.domain.partner.PartnerDTO;
 import com.itwillbs.domain.Performance.AttachFileDTO;
 import com.itwillbs.domain.Performance.PerformanceRegistrationDTO;
 import com.itwillbs.domain.UserDTO;
+import com.itwillbs.domain.partner.PartnerStatusDTO;
 import com.itwillbs.service.PartnerService;
 import com.itwillbs.service.UserServiceImpl;
-import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.context.ServletContextAware;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.ServletContext;
@@ -28,12 +34,23 @@ import java.util.UUID;
 @Log4j2
 @RequestMapping("/partner/*")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@AllArgsConstructor
-public class PartnerController {
+public class PartnerController implements ServletContextAware {
 
-    private UserServiceImpl userServiceImpl;
-    private PartnerService partnerService;
-    private final ServletContext servletContext; // ServletContext를 주입받아 사용
+    private final UserServiceImpl userServiceImpl;
+    private final PartnerService partnerService;
+    private ServletContext servletContext;
+
+    @Autowired
+    public PartnerController(UserServiceImpl userServiceImpl, PartnerService partnerService) {
+        this.userServiceImpl = userServiceImpl;
+        this.partnerService = partnerService;
+    }
+
+    @Override
+    public void setServletContext(ServletContext servletContext) {
+        this.servletContext = servletContext;
+    }
+
 
     @GetMapping("/login")
     public String login() {
@@ -73,7 +90,18 @@ public class PartnerController {
     }
 
     @GetMapping("/status")
-    public String status() {
+    public String status(HttpSession session, Model model,
+                         @RequestParam(defaultValue = "1") int page,
+                         @RequestParam(defaultValue = "5") int size) {
+
+        int partnerId = (int) session.getAttribute("partnerId");
+
+        Page<PartnerStatusDTO> musicalPage = partnerService.getMusicalsByPartnerId(partnerId, page - 1, size);
+        model.addAttribute("musicalPage", musicalPage);
+        model.addAttribute("currentPage", page);
+        model.addAttribute("totalPages", musicalPage.getTotalPages());
+
+
         return "/partner/status";
     }
 

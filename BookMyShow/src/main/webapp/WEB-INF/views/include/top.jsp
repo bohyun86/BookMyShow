@@ -46,9 +46,11 @@
         <ul class="nav justify-content-start align-items-center">
             <li class="nav-item"><a class="site-logo ms-3" href="${pageContext.request.contextPath}/main/main">예매하다</a></li>
             <li class="nav-item ms-5">
-                <form class="d-flex border border-2 border-gray rounded-5 px-2">
-                    <input class="bg-transparent text-gray border-0" aria-label="Search">
-                    <i class="bi bi-search fs-5 p-2"></i>
+                <form class="d-flex border border-2 border-gray rounded-5 px-2" method="get" action="${pageContext.request.contextPath}/main/search">
+                    <input name="searching" class="bg-transparent text-gray border-0" aria-label="Search">
+                    <button type="submit" class="btn-search">
+                        <i class="bi bi-search fs-5 p-2"></i>
+                    </button>
                 </form>
             </li>
         </ul>
@@ -59,8 +61,8 @@
 
             </li>
             <li class="nav-item d-flex border-start ps-3">
-                <a class="nav-link text-black fw-bold fs-6" href="#">타임세일</a>
-                <a class="nav-link text-black fw-bold fs-6" href="#">이벤트</a>
+                <a class="nav-link text-black fw-bold fs-6" href="${pageContext.request.contextPath}/main/timeSale">타임세일</a>
+                <a class="nav-link text-black fw-bold fs-6" href="${pageContext.request.contextPath}/main/event">이벤트</a>
             </li>
         </ul>
     </div>

@@ -1,13 +1,13 @@
 package com.itwillbs.domain.Performance;
 
-import com.itwillbs.domain.PartnerDTO;
+import com.itwillbs.domain.partner.PartnerDTO;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.sql.Timestamp;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -29,9 +29,9 @@ public class MusicalDTO {
     private String title; // 1
     private String description; // 1
     @Column(name = "start_date")
-    private Date startDate; // 1
+    private LocalDate startDate; // 1
     @Column(name = "end_date")
-    private Date endDate; // 1
+    private LocalDate endDate; // 1
     @Column(name = "age_limit")
     private int ageLimit; // 1
     @Column(name = "created_at", nullable = false, updatable = false)
@@ -57,9 +57,9 @@ public class MusicalDTO {
     @Column(name = "tickets_per_person")
     private int ticketsPerPerson; // x
     @Column(name = "discount_start_date")
-    private Date discountStartDate; // x
+    private LocalDate discountStartDate; // x
     @Column(name = "discount_end_date")
-    private Date discountEndDate; // x
+    private LocalDate discountEndDate; // x
     @Column(name = "discount_rate")
     private String discountRate; // x
     @Column(name = "musical_sponsor")
