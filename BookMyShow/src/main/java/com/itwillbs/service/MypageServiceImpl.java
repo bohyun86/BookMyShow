@@ -8,7 +8,7 @@ import com.itwillbs.domain.MusicalDTO;
 import com.itwillbs.domain.PaymentDTO;
 import com.itwillbs.domain.PerformanceDTO;
 import com.itwillbs.domain.UserDTO;
-import com.itwillbs.domain.Performance.VenueDTO;
+import com.itwillbs.domain.VenueDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -28,28 +28,130 @@ public class MypageServiceImpl implements MypageService {
 
 	private MypageDAO mypageDAO;
 
+	// 단수형 메서드
 	@Override
 	public Integer getMemberId(Integer userId) {
-	    if (userId == null) {
-	        return null;
-	    }
-	    return mypageDAO.getMemberId(userId);
+		if (userId == null) {
+			return null;
+		}
+		return mypageDAO.getMemberId(userId);
 	}
 
 	@Override
 	public UserDTO getUser(Integer userId) {
-	    if (userId == null) {
-	        return null;
-	    }
-	    return mypageDAO.getUser(userId);
+		if (userId == null) {
+			return null;
+		}
+		return mypageDAO.getUser(userId);
 	}
 
 	@Override
+	public BookingDTO getBooking(Integer bookingId, Integer memberId) {
+		if (bookingId == null || memberId == null) {
+			return null;
+		}
+		return mypageDAO.getBooking(bookingId, memberId);
+	}
+
+	@Override
+	public MusicalDTO getMusical(Integer bookingId) {
+		if (bookingId == null) {
+			return null;
+		}
+		return mypageDAO.getMusical(bookingId);
+	}
+
+	@Override
+	public AttachFileDTO getAttachFile(Integer bookingId) {
+		if (bookingId == null) {
+			return null;
+		}
+		AttachFileDTO attachFile = mypageDAO.getAttachFile(bookingId);
+		if (attachFile != null) {
+			processAttachFilePath(attachFile);
+		}
+		return attachFile;
+	}
+
+	@Override
+	public PerformanceDTO getPerformance(Integer bookingId) {
+		if (bookingId == null) {
+			return null;
+		}
+		return mypageDAO.getPerformance(bookingId);
+	}
+
+	@Override
+	public PaymentDTO getPayment(Integer bookingId) {
+		if (bookingId == null) {
+			return null;
+		}
+		return mypageDAO.getPayment(bookingId);
+	}
+
+	@Override
+	public VenueDTO getVenue(Integer bookingId) {
+		if (bookingId == null) {
+			return null;
+		}
+		return mypageDAO.getVenue(bookingId);
+	}
+
+	@Override
+	public List<BookedSeatsDTO> getBookedSeats(Integer bookingId) {
+		if (bookingId == null) {
+			return Collections.emptyList();
+		}
+		return mypageDAO.getBookedSeats(bookingId);
+	}
+
+	@Override
+	public int getTotalBookingsCount(Integer memberId) {
+		if (memberId == null) {
+			return 0;
+		}
+		return mypageDAO.getTotalBookingsCount(memberId);
+	}
+
+	@Override
+	public int getTotalRefundsCount(Integer memberId) {
+		if (memberId == null) {
+			return 0;
+		}
+		return mypageDAO.getTotalRefundsCount(memberId);
+	}
+
+	@Override
+	public boolean processRefund(Integer bookingId, Integer userId) {
+		if (bookingId == null || userId == null) {
+			return false;
+		}
+		return mypageDAO.processRefund(bookingId, userId);
+	}
+
+	@Override
+	public int getUserPoint(Integer userId) {
+		if (userId == null) {
+			return 0;
+		}
+		return mypageDAO.getUserPoint(userId);
+	}
+
+	@Override
+	public int getUsableTicketCount(Integer userId) {
+		if (userId == null) {
+			return 0;
+		}
+		return mypageDAO.getUsableTicketCount(userId);
+	}
+
+	// 복수형 메서드
+	@Override
 	public List<BookingDTO> getBookings(Integer memberId, Integer bookingId, int page, int size) {
-	    if (memberId == null) {
-	        return Collections.emptyList();
-	    }
-	    return mypageDAO.getBookings(memberId, bookingId, page * size, size);
+		if (memberId == null) {
+			return Collections.emptyList();
+		}
+		return mypageDAO.getBookings(memberId, page * size, size);
 	}
 
 	@Override
@@ -72,42 +174,43 @@ public class MypageServiceImpl implements MypageService {
 
 	@Override
 	public List<PerformanceDTO> getPerformances(List<Integer> bookingIds) {
-	    if (bookingIds == null || bookingIds.isEmpty()) {
-	        return Collections.emptyList();
-	    }
-	    return mypageDAO.getPerformances(bookingIds);
+		if (bookingIds == null || bookingIds.isEmpty()) {
+			return Collections.emptyList();
+		}
+		return mypageDAO.getPerformances(bookingIds);
 	}
-
 
 	@Override
 	public List<PaymentDTO> getPayments(List<Integer> bookingIds) {
-	    if (bookingIds == null || bookingIds.isEmpty()) {
-	        return Collections.emptyList();
-	    }
-	    return mypageDAO.getPayments(bookingIds);
+		if (bookingIds == null || bookingIds.isEmpty()) {
+			return Collections.emptyList();
+		}
+		return mypageDAO.getPayments(bookingIds);
 	}
 
 	@Override
-	public Map<Integer, List<BookedSeatsDTO>> getBookedSeats(List<Integer> bookingIds) {
-	    if (bookingIds == null || bookingIds.isEmpty()) {
-	        return Collections.emptyMap();
-	    }
-	    List<BookedSeatsDTO> allSeats = mypageDAO.getBookedSeats(bookingIds);
-	    return allSeats.stream().collect(Collectors.groupingBy(BookedSeatsDTO::getBookingId));
+	public Map<Integer, List<BookedSeatsDTO>> getBookedSeatss(List<Integer> bookingIds) {
+		if (bookingIds == null || bookingIds.isEmpty()) {
+			return Collections.emptyMap();
+		}
+		List<BookedSeatsDTO> allSeats = mypageDAO.getBookedSeatss(bookingIds);
+		return allSeats.stream().collect(Collectors.groupingBy(BookedSeatsDTO::getBookingId));
 	}
 
 	@Override
 	public List<VenueDTO> getVenues(List<Integer> bookingIds) {
-	    if (bookingIds == null || bookingIds.isEmpty()) {
-	        return Collections.emptyList();
-	    }
-	    return mypageDAO.getVenues(bookingIds);
+		if (bookingIds == null || bookingIds.isEmpty()) {
+			return Collections.emptyList();
+		}
+		return mypageDAO.getVenues(bookingIds);
 	}
 
-
 	@Override
-	public int getTotalBookingsCount(Integer memberId) {
-		return mypageDAO.getTotalBookingsCount(memberId);
+	public List<BookingDTO> getRefundBookings(Integer memberId, int page, int size) {
+		if (memberId == null) {
+			return Collections.emptyList();
+		}
+		return mypageDAO.getRefundBookings(memberId, page * size, size);
 	}
 
 	private void processAttachFilePath(AttachFileDTO attachFile) {
@@ -121,41 +224,4 @@ public class MypageServiceImpl implements MypageService {
 				+ File.separator + attachFile.getUuid() + "_" + attachFile.getFileName());
 	}
 
-	@Override
-	public List<BookingDTO> getRefundBookings(Integer memberId, int page, int size) {
-	    if (memberId == null) {
-	        return Collections.emptyList();
-	    }
-	    return mypageDAO.getRefundBookings(memberId, page * size, size);
-	}
-
-	@Override
-	public int getTotalRefundsCount(Integer memberId) {
-		return mypageDAO.getTotalRefundsCount(memberId);
-	}
-
-	@Override
-	public boolean processRefund(Integer bookingId, Integer userId) {
-	    if (bookingId == null || userId == null) {
-	        return false;
-	    }
-		// 환불 처리 로직 구현
-		// 1. 예매 정보 확인
-		// 2. 환불 가능 여부 확인
-		// 3. 환불 처리
-		// 4. 예매 상태 업데이트
-		// 5. 결제 정보 업데이트
-		// 구체적인 로직은 비즈니스 요구사항에 따라 구현
-		return mypageDAO.processRefund(bookingId, userId);
-	}
-
-	@Override
-	public int getUserPoint(Integer userId) {
-		return mypageDAO.getUserPoint(userId);
-	}
-
-	@Override
-	public int getUsableTicketCount(Integer userId) {
-		return mypageDAO.getUsableTicketCount(userId);
-	}
 }
