@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.SupportNoticeDTO;
+import com.itwillbs.domain.SupportinquiryDTO;
 import com.itwillbs.domain.SupportqnaDTO;
 import com.itwillbs.service.SupportService;
 
@@ -64,6 +65,21 @@ public class SupportController {
 		pageDTO.setPageSize(pageSize);
 		
 		List<SupportNoticeDTO> noticeList = supportService.getNoticeList(pageDTO);
+		
+		int count = supportService.getNoticeCount(pageDTO);
+		int pageBlock = 5;
+		int startPage = (currentPage - 1) / pageBlock * pageBlock + 1;
+		int endPage = startPage + pageBlock - 1;
+		int pageCount = count / pageSize + (count % pageSize==0?0:1);
+
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
 				
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("pageDTO", pageDTO);
@@ -112,9 +128,41 @@ public class SupportController {
 	}
     
     @GetMapping("/support/inquiry")
-	public String inquiry() {
+	public String inquiry(HttpServletRequest request, Model model) {
     	log.info("inquiry success");
+       	String pageNum = request.getParameter("pageNum");
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		int currentPage = Integer.parseInt(pageNum);
+		
+		int pageSize = 10;
+		
+		PageDTO pageDTO = new PageDTO();
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		pageDTO.setPageSize(pageSize);
+		
+		List<SupportinquiryDTO> inList = supportService.getInList(pageDTO);
+				
+		model.addAttribute("inList", inList);
+		model.addAttribute("pageDTO", pageDTO);
 
 		return "/support/inquiry";
+	}
+    
+    @GetMapping("/support/inwrite")
+	public String inwrite() {
+    	log.info("inwrite success");
+
+		return "/support/inwrite";
+	}
+    
+    @PostMapping("support/inwritePro")
+	public String inwritePro(SupportinquiryDTO supportinquiryDTO) {
+		System.out.println("SupportController inwritePro()");
+		System.out.println(supportinquiryDTO);
+		supportService.insertInquiry(supportinquiryDTO);
+		return "redirect:/support/inquiry";
 	}
 }

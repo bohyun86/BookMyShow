@@ -19,6 +19,10 @@
 
 	</select>
 	
+	<select id="getNoticeCount" resultType="java.lang.Integer">
+		select count(*) from Notice
+	</select>
+	
 	<insert id="insertQna">
 		insert into FAQ(faq_id,question,answer,created_at)
 		values(#{faq_id},#{question},#{answer},#{created_at})
@@ -30,6 +34,20 @@
 	
 	<select id="getQnaList" resultType="com.itwillbs.domain.SupportqnaDTO">
 		select * from FAQ 
+
+	</select>
+	
+	<insert id="insertInquiry">
+		insert into Inquiry(inquiry_id,inquiry_type,title,content,state,created_at,user_id)
+		values(#{inquiry_id},#{inquiry_type},#{title},#{content},#{state},#{created_at},#{userId})
+	</insert>
+	
+	<select id="getMaxNum2" resultType="java.lang.Integer">
+		select max(inquiry_id) from Inquiry
+	</select>
+	
+	<select id="getInList" resultType="com.itwillbs.domain.SupportinquiryDTO">
+		select * from Inquiry
 
 	</select>
 	   

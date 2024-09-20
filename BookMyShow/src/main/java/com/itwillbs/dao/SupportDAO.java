@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.SupportNoticeDTO;
+import com.itwillbs.domain.SupportinquiryDTO;
 import com.itwillbs.domain.SupportqnaDTO;
 
 @Repository
@@ -36,6 +37,12 @@ public List<SupportNoticeDTO> getNoticeList(PageDTO pageDTO) {
 	return sqlSession.selectList(namespace + ".getNoticeList", pageDTO);
 }
 
+public int getNoticeCount(PageDTO pageDTO) {
+	System.out.println("SupportDAO getNoticeCount()");
+	
+	return sqlSession.selectOne(namespace + ".getNoticeCount",pageDTO);
+}
+
 public Integer getMaxNum1() {
 	System.out.println("SupportDAO getMaxNum1()");
 	return sqlSession.selectOne(namespace + ".getMaxNum1");
@@ -52,6 +59,24 @@ public List<SupportqnaDTO> getQnaList(PageDTO pageDTO) {
 	System.out.println("SupportDAO getQnaList()");
 	
 	return sqlSession.selectList(namespace + ".getQnaList", pageDTO);
+}
+
+public Integer getMaxNum2() {
+	System.out.println("SupportDAO getMaxNum2()");
+	return sqlSession.selectOne(namespace + ".getMaxNum2");
+}
+
+public void insertInquiry(SupportinquiryDTO supportinquiryDTO) {
+	System.out.println("SupportDAO insertInquiry()");
+	System.out.println(supportinquiryDTO);
+	
+	sqlSession.insert(namespace + ".insertInquiry", supportinquiryDTO);
+}
+
+public List<SupportinquiryDTO> getInList(PageDTO pageDTO) {
+	System.out.println("SupportDAO getInList()");
+	
+	return sqlSession.selectList(namespace + ".getInList", pageDTO);
 }
 
 }

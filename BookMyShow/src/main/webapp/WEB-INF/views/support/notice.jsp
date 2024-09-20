@@ -98,13 +98,23 @@
 </main>
 
 <div id="noticenum">
-<span onclick="location.reload();" style="cursor:pointer"><b class="now">
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${1}">1</a></b></span>
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${2}" class="pgnum">2</a>
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${3}" class="pgnum">3</a>
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${4}" class="pgnum">4</a>
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${5}" class="pgnum">5</a>
-<b>>></b><a href="${pageContext.request.contextPath}/support/notice?pageNum=${i}" class="next">다음</a></div>
+<div class="pagination">
+				<c:if test="${pageDTO.currentPage ne 1}">
+					<a href="${pageContext.request.contextPath}/support/notice?pageNum=${pageDTO.currentPage-1}" class="prevpage  pbtn">이전</a>
+				</c:if>
+				
+				<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1">
+					<c:if test="${pageDTO.currentPage eq i}">
+						<a href="${pageContext.request.contextPath}/support/notice?pageNum=${i}"><span class="pagenum currentpage">${i}</span></a>
+					</c:if>
+					<c:if test="${pageDTO.currentPage ne i}">
+						<a href="${pageContext.request.contextPath}/support/notice?pageNum=${i}"><span class="pagenum">${i}</span></a>
+					</c:if>
+				</c:forEach>
+				<c:if test="${pageDTO.currentPage ne pageDTO.pageCount}">
+					<a href="${pageContext.request.contextPath}/support/notice?pageNum=${pageDTO.currentPage+1}" class="nextpage  pbtn">다음</a>
+				</c:if>
+			</div></div>
 
 <jsp:include page="../include/bottom.jsp"/>
 

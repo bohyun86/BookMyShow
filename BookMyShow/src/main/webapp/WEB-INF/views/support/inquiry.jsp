@@ -1,5 +1,7 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -24,6 +26,32 @@
             background-color: white;
         }
     </style>
+    <style>
+    .btn_srch {
+    border: 1px solid black;
+    background-color: #eee;
+    font-size: 16px;
+    margin-left: 560px;
+    border-radius: 5px
+    }
+    </style>
+    <style>
+    .inquiry-body {
+    list-style: none;
+    margin-top: 24px;
+    height: 40px;
+    border-radius: 8px;
+    }
+    </style>
+     <style>
+    .inquiry-body li {
+    float: left;
+    padding-top: 11px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    }
+    </style>
 </head>
 <body id="board-body">
 <jsp:include page="../include/top.jsp"/>
@@ -45,11 +73,21 @@
         <div class="title">
             1:1문의
             
+            <a href="${pageContext.request.contextPath}/support/inwrite" class="btn_srch">문의하기</a>
+            
     <ul class="notice-header">
 		<li style="width:35px;">번호</li>
 		<li style="width:570px;">제목</li>
 		<li style="width:80px">작성일</li>
 	</ul>
+	
+	<c:forEach var="supportinquiryDTO" items="${inList }">
+	<ul class="inquiry-body">
+		<li style="width:35px;">${supportinquiryDTO.inquiry_id }</li>
+		<li style="width:570px;"><a href="javascript:;">${supportinquiryDTO.title }</a></li>
+		<li style="width:90px"><fmt:formatDate value="${supportinquiryDTO.created_at }" pattern="yyyy-MM-dd"/></li>
+	</ul>
+	</c:forEach>
             
         </div>
     </section>
