@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.dao.SupportDAO;
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.SupportNoticeDTO;
+import com.itwillbs.domain.SupportqnaDTO;
 
 @Service
 public class SupportService {
@@ -30,6 +31,22 @@ public class SupportService {
 	public List<SupportNoticeDTO> getNoticeList(PageDTO pageDTO) {
 		System.out.println("SupportService getNoticeList()");
 		return supportDAO.getNoticeList(pageDTO);
+	}
+	
+	public void insertQna(SupportqnaDTO supportqnaDTO) {
+		System.out.println("SupportService insertQna()");
+		if (supportDAO.getMaxNum1() == null) {
+			supportqnaDTO.setFaq_id(1);	
+		}else {
+			supportqnaDTO.setFaq_id(supportDAO.getMaxNum1() + 1);
+		}				
+		supportqnaDTO.setCreated_at(new Timestamp(System.currentTimeMillis()));
+		supportDAO.insertQna(supportqnaDTO);
+	}
+
+	public List<SupportqnaDTO> getQnaList(PageDTO pageDTO) {
+		System.out.println("SupportService getQnaList()");
+		return supportDAO.getQnaList(pageDTO);
 	}
 	
 }

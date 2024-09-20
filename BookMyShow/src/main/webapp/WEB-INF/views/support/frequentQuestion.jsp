@@ -1,12 +1,7 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ITWILL
-  Date: 2024-09-02
-  Time: 오후 4:32
-  To change this template use File | Settings | File Templates.
---%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -31,6 +26,32 @@
             background-color: white;
         }
     </style>
+    <style>
+    .btn_srch {
+    border: 1px solid black;
+    background-color: #eee;
+    font-size: 16px;
+    margin-left: 480px;
+    border-radius: 5px
+    }
+    </style>
+    <style>
+    .qna-body {
+    list-style: none;
+    margin-top: 24px;
+    height: 40px;
+    border-radius: 8px;
+    }
+    </style>
+     <style>
+    .qna-body li {
+    float: left;
+    padding-top: 11px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    }
+    </style>
 </head>
 <body id="board-body">
 <jsp:include page="../include/top.jsp"/>
@@ -52,11 +73,22 @@
         <div class="title">
             자주 묻는 질문
             
+            <a href="${pageContext.request.contextPath}/support/qnawrite" class="btn_srch">qna 작성</a>
+            
     <ul class="notice-header">
 		<li style="width:35px;">번호</li>
 		<li style="width:570px;">제목</li>
 		<li style="width:80px">작성일</li>
 	</ul>
+	
+	<c:forEach var="supportqnaDTO" items="${qnaList }">
+	<ul class="qna-body">
+		<li style="width:35px;">${supportqnaDTO.faq_id }</li>
+		<li style="width:570px;"><a href="javascript:;">${supportqnaDTO.question }</a></li>
+		<li style="width:90px"><fmt:formatDate value="${supportqnaDTO.created_at }" pattern="yyyy-MM-dd"/></li>
+	</ul>
+	</c:forEach>
+	
         </div>
     </section>
 </main>

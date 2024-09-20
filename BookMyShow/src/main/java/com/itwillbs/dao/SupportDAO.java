@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.SupportNoticeDTO;
+import com.itwillbs.domain.SupportqnaDTO;
 
 @Repository
 public class SupportDAO {
@@ -33,6 +34,24 @@ public List<SupportNoticeDTO> getNoticeList(PageDTO pageDTO) {
 	System.out.println("SupportDAO getNoticeList()");
 	
 	return sqlSession.selectList(namespace + ".getNoticeList", pageDTO);
+}
+
+public Integer getMaxNum1() {
+	System.out.println("SupportDAO getMaxNum1()");
+	return sqlSession.selectOne(namespace + ".getMaxNum1");
+}
+
+public void insertQna(SupportqnaDTO supportqnaDTO) {
+	System.out.println("SupportDAO insertQna()");
+	System.out.println(supportqnaDTO);
+	
+	sqlSession.insert(namespace + ".insertQna", supportqnaDTO);
+}
+
+public List<SupportqnaDTO> getQnaList(PageDTO pageDTO) {
+	System.out.println("SupportDAO getQnaList()");
+	
+	return sqlSession.selectList(namespace + ".getQnaList", pageDTO);
 }
 
 }

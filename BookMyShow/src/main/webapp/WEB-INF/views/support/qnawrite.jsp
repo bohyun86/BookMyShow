@@ -5,7 +5,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>예매하다 - 공지사항 글쓰기</title>
+    <title>예매하다 - 자주 묻는 질문 글쓰기</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css">
     <!-- Bootstrap icons  -->
@@ -24,7 +24,7 @@
             background-color: white;
         }
     </style>
-     <style>
+    <style>
     .supportForm input[type=text] {
 	width: 800px;
 	height: 50px;
@@ -41,14 +41,14 @@
     }
     </style>
     <style>
-    .notice_2 {
+    .qna_2 {
     font-weight: bold;
 	font-size: 22px;
     text-decoration: none;
     }
     </style>
     <style>
-    .notice_1 {
+    .qna_1 {
     font-weight: bold;
 	font-size: 22px;
     text-decoration: none;
@@ -81,14 +81,14 @@
 
 <main class="support-notice-write" id="notice-main">
     <section class="h-100" id="board-content">
-    <form action="${pageContext.request.contextPath}/support/ntwritePro" class="supportForm" method="post" name="fr">		
-				<p class="notice_1">공지사항 제목</p> <input type="text" name="title" >				
+    <form action="${pageContext.request.contextPath}/support/qnawritePro" class="supportForm" method="post" name="fr">		
+				<p class="qna_1">qna 제목</p> <input type="text" name="question" >				
 				<div class="editer_content">
-					    <p class="notice_2">공지사항 내용</p> <textarea name="content" rows="10" cols="30"></textarea>
+					    <p class="qna_2">qna 내용</p> <textarea name="answer" rows="10" cols="30"></textarea>
 					    </div>
 					<p class="btn_line txt_right">
-				<a href="javascript:document.fr.submit();" class="btn_bbs1">공지사항 작성</a>
-				<a href="${pageContext.request.contextPath}/support/notice" class="btn_bbs2">돌아가기</a>
+				<a href="javascript:document.fr.submit();" class="btn_bbs1">자주 묻는 질문 작성</a>
+				<a href="${pageContext.request.contextPath}/support/frequentQuestion" class="btn_bbs2">돌아가기</a>
 			</p>
 		</form>
     </section>

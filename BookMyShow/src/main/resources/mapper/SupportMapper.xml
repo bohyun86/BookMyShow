@@ -18,5 +18,19 @@
 		select * from Notice 
 
 	</select>
+	
+	<insert id="insertQna">
+		insert into FAQ(faq_id,question,answer,created_at)
+		values(#{faq_id},#{question},#{answer},#{created_at})
+	</insert>
+	
+	<select id="getMaxNum1" resultType="java.lang.Integer">
+		select max(faq_id) from FAQ
+	</select>
+	
+	<select id="getQnaList" resultType="com.itwillbs.domain.SupportqnaDTO">
+		select * from FAQ 
+
+	</select>
 	   
 </mapper>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.SupportNoticeDTO;
+import com.itwillbs.domain.SupportqnaDTO;
 import com.itwillbs.service.SupportService;
 
 @Controller
@@ -72,11 +73,43 @@ public class SupportController {
 	
     
     @GetMapping("/support/frequentQuestion")
-   	public String frequentQuestion() {
+   	public String frequentQuestion(HttpServletRequest request, Model model) {
        	log.info("frequentQuestion success");
-
+       	String pageNum = request.getParameter("pageNum");
+		if(pageNum == null) {
+			pageNum = "1";
+		}
+		int currentPage = Integer.parseInt(pageNum);
+		
+		int pageSize = 10;
+		
+		PageDTO pageDTO = new PageDTO();
+		pageDTO.setPageNum(pageNum);
+		pageDTO.setCurrentPage(currentPage);
+		pageDTO.setPageSize(pageSize);
+		
+		List<SupportqnaDTO> qnaList = supportService.getQnaList(pageDTO);
+				
+		model.addAttribute("qnaList", qnaList);
+		model.addAttribute("pageDTO", pageDTO);
+		
    		return "/support/frequentQuestion";
    	}
+    
+    @GetMapping("/support/qnawrite")
+	public String qnawrite() {
+    	log.info("qnawrite success");
+
+		return "/support/qnawrite";
+	}
+    
+    @PostMapping("support/qnawritePro")
+	public String qnawritePro(SupportqnaDTO supportqnaDTO) {
+		System.out.println("SupportController ntwritePro()");
+		System.out.println(supportqnaDTO);
+		supportService.insertQna(supportqnaDTO);
+		return "redirect:/support/frequentQuestion";
+	}
     
     @GetMapping("/support/inquiry")
 	public String inquiry() {
