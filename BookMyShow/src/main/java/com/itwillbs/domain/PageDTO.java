@@ -16,6 +16,12 @@ public class PageDTO {
 	private int pageBlock;
 	private int pageCount;
 	
+	@Override
+	public String toString() {
+		return "PageDTO [pageSize=" + pageSize + ", pageNum=" + pageNum + ", currentPage=" + currentPage + ", startRow="
+				+ startRow + ", endRow=" + endRow + ", count=" + count + ", startPage=" + startPage + ", endPage="
+				+ endPage + ", pageBlock=" + pageBlock + ", pageCount=" + pageCount + "]";
+	}
 	public int getStartRow() {
 		return startRow;
 	}

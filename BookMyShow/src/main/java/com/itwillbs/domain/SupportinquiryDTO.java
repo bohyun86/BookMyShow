@@ -8,17 +8,25 @@ public class SupportinquiryDTO {
 	private String inquiry_type;
 	private String title;
 	private String content;
-	private String state ;
 	private Timestamp created_at;
 	private Timestamp update_at;
+	private int answered;
 	
 	@Override
 	public String toString() {
 		return "SupportinquiryDTO [inquiry_id=" + inquiry_id + ", inquiry_type=" + inquiry_type + ", title=" + title
-				+ ", content=" + content + ", state=" + state + ", created_at=" + created_at + ", update_at="
-				+ update_at + "]";
+				+ ", content=" + content + ", created_at=" + created_at + ", update_at="
+				+ update_at + ", answered=" + answered + "]";
 	}
 	
+	public int getAnswered() {
+		return answered;
+	}
+
+	public void setAnswered(int answered) {
+		this.answered = answered;
+	}
+
 	public int getuserId() {
 		return inquiry_id;
 	}
@@ -49,12 +57,6 @@ public class SupportinquiryDTO {
 	}
 	public void setContent(String content) {
 		this.content = content;
-	}
-	public String getState() {
-		return state;
-	}
-	public void setState(String state) {
-		this.state = state;
 	}
 	public Timestamp getCreated_at() {
 		return created_at;

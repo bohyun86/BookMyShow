@@ -19,7 +19,6 @@ import com.itwillbs.domain.SupportNoticeDTO;
 import com.itwillbs.domain.SupportinquiryDTO;
 import com.itwillbs.domain.SupportqnaDTO;
 import com.itwillbs.service.SupportService;
-import com.itwillbs.service.UserServiceImpl;
 
 @Controller
 @Log4j2
@@ -28,9 +27,6 @@ public class SupportController {
 	
 	@Autowired  
 	private SupportService supportService;
-	
-	@Autowired 
-	private UserServiceImpl userServiceImpl;
 
     @GetMapping("/faq")
     public String faq() {
@@ -85,10 +81,6 @@ public class SupportController {
 		pageDTO.setStartPage(startPage);
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
-		
-		int userId = (Integer)session.getAttribute("userId");
-		
-		String userName = (String)session.getAttribute("userName");
 				
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("pageDTO", pageDTO);
@@ -115,20 +107,20 @@ public class SupportController {
 		
 		List<SupportqnaDTO> qnaList = supportService.getQnaList(pageDTO);
 		
-//		int count = supportService.getQnaCount(pageDTO);
-//		int pageBlock = 5;
-//		int startPage = (currentPage - 1) / pageBlock * pageBlock + 1;
-//		int endPage = startPage + pageBlock - 1;
-//		int pageCount = count / pageSize + (count % pageSize==0?0:1);
-//
-//		if(endPage > pageCount) {
-//			endPage = pageCount;
-//		}
-//		pageDTO.setCount(count);
-//		pageDTO.setPageBlock(pageBlock);
-//		pageDTO.setStartPage(startPage);
-//		pageDTO.setEndPage(endPage);
-//		pageDTO.setPageCount(pageCount);
+		int count = supportService.getQnaCount(pageDTO);
+		int pageBlock = 5;
+		int startPage = (currentPage - 1) / pageBlock * pageBlock + 1;
+		int endPage = startPage + pageBlock - 1;
+		int pageCount = count / pageSize + (count % pageSize==0?0:1);
+
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
 				
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("pageDTO", pageDTO);
@@ -168,7 +160,23 @@ public class SupportController {
 		pageDTO.setPageSize(pageSize);
 		
 		List<SupportinquiryDTO> inList = supportService.getInList(pageDTO);
+		
+		int count = supportService.getInCount(pageDTO);
+		int pageBlock = 5;
+		int startPage = (currentPage - 1) / pageBlock * pageBlock + 1;
+		int endPage = startPage + pageBlock - 1;
+		int pageCount = count / pageSize + (count % pageSize==0?0:1);
+
+		if(endPage > pageCount) {
+			endPage = pageCount;
+		}
+		pageDTO.setCount(count);
+		pageDTO.setPageBlock(pageBlock);
+		pageDTO.setStartPage(startPage);
+		pageDTO.setEndPage(endPage);
+		pageDTO.setPageCount(pageCount);
 				
+		System.out.println(pageDTO);
 		model.addAttribute("inList", inList);
 		model.addAttribute("pageDTO", pageDTO);
 

@@ -61,6 +61,12 @@ public List<SupportqnaDTO> getQnaList(PageDTO pageDTO) {
 	return sqlSession.selectList(namespace + ".getQnaList", pageDTO);
 }
 
+public int getQnaCount(PageDTO pageDTO) {
+	System.out.println("SupportDAO getQnaCount()");
+	
+	return sqlSession.selectOne(namespace + ".getQnaCount",pageDTO);
+}
+
 public Integer getMaxNum2() {
 	System.out.println("SupportDAO getMaxNum2()");
 	return sqlSession.selectOne(namespace + ".getMaxNum2");
@@ -77,6 +83,12 @@ public List<SupportinquiryDTO> getInList(PageDTO pageDTO) {
 	System.out.println("SupportDAO getInList()");
 	
 	return sqlSession.selectList(namespace + ".getInList", pageDTO);
+}
+
+public int getInCount(PageDTO pageDTO) {
+	System.out.println("SupportDAO getInCount()");
+	
+	return sqlSession.selectOne(namespace + ".getInCount",pageDTO);
 }
 
 }

@@ -37,9 +37,13 @@
 
 	</select>
 	
+	<select id="getQnaCount" resultType="java.lang.Integer">
+		select count(*) from FAQ
+	</select>
+	
 	<insert id="insertInquiry">
-		insert into Inquiry(inquiry_id,inquiry_type,title,content,state,created_at,user_id)
-		values(#{inquiry_id},#{inquiry_type},#{title},#{content},#{state},#{created_at},#{userId})
+		insert into Inquiry(inquiry_id,inquiry_type,title,content,created_at,user_id,answered)
+		values(#{inquiry_id},#{inquiry_type},#{title},#{content},#{created_at},#{userId},#{answered})
 	</insert>
 	
 	<select id="getMaxNum2" resultType="java.lang.Integer">
@@ -48,7 +52,12 @@
 	
 	<select id="getInList" resultType="com.itwillbs.domain.SupportinquiryDTO">
 		select * from Inquiry
-
+		order by inquiry_id desc
+		limit #{startRow},#{pageSize}
+	</select>
+	
+	<select id="getInCount" resultType="java.lang.Integer">
+		select count(*) from Inquiry
 	</select>
 	   
 </mapper>

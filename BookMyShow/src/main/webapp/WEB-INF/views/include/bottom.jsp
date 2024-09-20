@@ -18,19 +18,11 @@
 
         </div>
         <div class="col-3" id="introduction">
-<<<<<<< HEAD
-            <a>회사소개</a>
-            <a>이용약관</a>
-            <a>개인정보처리방침</a>
-            <a>제휴문의</a>
-            <a>파트너 페이지</a>
-=======
             <a href="${pageContext.request.contextPath}/main/about/">회사소개</a>
             <a href="${pageContext.request.contextPath}/main/terms/">이용약관</a>
             <a href="${pageContext.request.contextPath}/main/privacy/">개인정보처리방침</a>
             <a href="${pageContext.request.contextPath}/main/partnership/">제휴문의</a>
             <a href="${pageContext.request.contextPath}/partner/login/">파트너 페이지</a>
->>>>>>> refs/heads/develop
         </div>
         <div class="col-6" id="introduction-detail">
             <div class="d-flex col-12 justify-content-between">

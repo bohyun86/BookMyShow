@@ -96,8 +96,7 @@
 				<p class="inquiry_3">문의 유형</p> <input type="text" name="inquiry_type" >				
 				<div class="editer_content">
 					    <p class="inquiry_2">문의 할 내용</p> <textarea name="content" rows="10" cols="30"></textarea>
-					    </div>
-					<p class="inquiry_4">문의 상태</p> <input type="text" name="state" value="대기 중">    
+					    </div>  
 					<p class="btn_line txt_right">
 				<a href="javascript:document.fr.submit();" class="btn_bbs1">문의하기</a>
 				<a href="${pageContext.request.contextPath}/support/notice" class="btn_bbs2">돌아가기</a>

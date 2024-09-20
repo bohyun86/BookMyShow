@@ -1,19 +1,17 @@
 #noticenum {
-    text-align: center;
-    padding: 0 0 30px 220px;
+	margin-left: 270px;
 }
 
-.pgnum, .now, .next {
-    width: 70px;
-    padding-right: 5px; 
+#noticenum a{
+    text-align: center;
+    width: 40px;
     color: #000;
     font-size: 14px;
-    padding: 5px 10px;
-    margin: 0 2px;
+    padding: 5px 5px;
     background: #eee;
     border:2px solid #fff;
     text-decoration: none;
-    border-radius: 5px; 
+    border-radius: 5px;
 }
 
 .next {

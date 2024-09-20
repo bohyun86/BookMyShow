@@ -32,7 +32,8 @@
     background-color: #eee;
     font-size: 16px;
     margin-left: 510px;
-    border-radius: 5px
+    border-radius: 5px;
+    font-weight: 600;
     }
     </style>
     <style>
@@ -70,14 +71,18 @@
         </div>
     </aside>
     <section class="h-100" id="board-content">
-        <div class="title">
+    
+    <div class="title">
             공지사항
-         
-<%--          <c:if test="${ ! empty sessionScope.userName }"> --%>
-<%--           <c:if test="${sessionScope.userName eq 'admin'}"> --%>
+    
+       <c:if test="${ ! empty sessionScope.userRole }">
+          <c:if test="${sessionScope.userRole eq 'admin'}">
            <a href="${pageContext.request.contextPath}/support/ntwrite" class="btn_srch">공지사항 작성</a>
-<%--           </c:if> --%>
-<%--          </c:if> --%>
+          </c:if>
+         </c:if>
+         </div>
+    
+        <div class="title">
          
     <ul class="notice-header">
 		<li style="width:35px;">번호</li>

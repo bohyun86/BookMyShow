@@ -70,10 +70,18 @@
         </div>
     </aside>
     <section class="h-100" id="board-content">
-        <div class="title">
+    
+    <div class="title">
             자주 묻는 질문
-            
-            <a href="${pageContext.request.contextPath}/support/qnawrite" class="btn_srch">qna 작성</a>
+    
+       <c:if test="${ ! empty sessionScope.userRole }">
+          <c:if test="${sessionScope.userRole eq 'admin'}">
+           <a href="${pageContext.request.contextPath}/support/qnawrite" class="btn_srch">faq 작성</a>
+          </c:if>
+         </c:if>
+         </div>
+    
+        <div class="title">
             
     <ul class="notice-header">
 		<li style="width:35px;">번호</li>
@@ -94,13 +102,23 @@
 </main>
 
 <div id="noticenum">
-<span onclick="location.reload();" style="cursor:pointer"><b class="now">
-<a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${1}">1</a></b></span>
-<a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${2}" class="pgnum">2</a>
-<a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${3}" class="pgnum">3</a>
-<a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${4}" class="pgnum">4</a>
-<a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${5}" class="pgnum">5</a>
-<b>>></b><a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${i}" class="next">다음</a></div>
+<div class="pagination">
+				<c:if test="${pageDTO.currentPage ne 1}">
+					<a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${pageDTO.currentPage-1}" class="prevpage  pbtn">이전</a>
+				</c:if>
+				
+				<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1">
+					<c:if test="${pageDTO.currentPage eq i}">
+						<a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${i}"><span class="pagenum currentpage">${i}</span></a>
+					</c:if>
+					<c:if test="${pageDTO.currentPage ne i}">
+						<a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${i}"><span class="pagenum">${i}</span></a>
+					</c:if>
+				</c:forEach>
+				<c:if test="${pageDTO.currentPage ne pageDTO.pageCount}">
+					<a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${pageDTO.currentPage+1}" class="nextpage  pbtn">다음</a>
+				</c:if>
+			</div></div>
 
 
 <jsp:include page="../include/bottom.jsp"/>

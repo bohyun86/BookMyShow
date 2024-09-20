@@ -60,8 +60,21 @@ public class SupportService {
 
 	public List<SupportqnaDTO> getQnaList(PageDTO pageDTO) {
 		System.out.println("SupportService getQnaList()");
+		
+		int startRow = (pageDTO.getCurrentPage()-1) * pageDTO.getPageSize() + 1;
+
+		int endRow = startRow + pageDTO.getPageSize() - 1;
+		
+		pageDTO.setStartRow(startRow - 1);
+		pageDTO.setEndRow(endRow);
+		
 		return supportDAO.getQnaList(pageDTO);
 	}
+	
+    public int getQnaCount(PageDTO pageDTO) {
+		
+		return supportDAO.getQnaCount(pageDTO);
+	} 
 	
 	public void insertInquiry(SupportinquiryDTO supportinquiryDTO) {
 		System.out.println("SupportService insertQna()");
@@ -76,7 +89,19 @@ public class SupportService {
 
 	public List<SupportinquiryDTO> getInList(PageDTO pageDTO) {
 		System.out.println("SupportService getInList()");
+		
+		int startRow = (pageDTO.getCurrentPage()-1) * pageDTO.getPageSize() + 1;
+
+		int endRow = startRow + pageDTO.getPageSize() - 1;
+		
+		pageDTO.setStartRow(startRow - 1);
+		pageDTO.setEndRow(endRow);
+		
 		return supportDAO.getInList(pageDTO);
 	}
 	
+    public int getInCount(PageDTO pageDTO) {
+		
+		return supportDAO.getInCount(pageDTO);
+	} 
 }
