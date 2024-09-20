@@ -26,7 +26,6 @@ function initStarRating() {
 
         updateStars(stars, rating);
 
-        // 리뷰 작성/수정 페이지에서만 별점 클릭 이벤트 추가
         if (document.getElementById('reviewForm')) {
             stars.forEach((star, index) => {
                 star.addEventListener('click', function() {
@@ -57,8 +56,8 @@ function editReview(reviewId) {
 
 function deleteReview(reviewId) {
     if (confirm('정말로 이 리뷰를 삭제하시겠습니까?')) {
-        fetch(`${contextPath}/api/reviews/${reviewId}`, {
-            method: 'DELETE',
+        fetch(`${contextPath}/my/review-delete/${reviewId}`, {
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
             },

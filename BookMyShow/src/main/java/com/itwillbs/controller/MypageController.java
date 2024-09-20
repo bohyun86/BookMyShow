@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,8 +20,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.domain.BookingDTO;
 import com.itwillbs.domain.MyPageDTO;
+import com.itwillbs.domain.PerformanceDTO;
+import com.itwillbs.domain.ReviewDTO;
 import com.itwillbs.domain.UserDTO;
 import com.itwillbs.service.MypageService;
+import com.itwillbs.service.ReviewService;
 import com.itwillbs.service.UserService;
 
 @Controller
@@ -31,6 +35,7 @@ public class MypageController {
 
 	private MypageService mypageService;
 	private UserService userService;
+	private ReviewService reviewService;
 
 	private void addCommonAttributes(Model model, HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("userId");
@@ -59,7 +64,7 @@ public class MypageController {
 		model.addAttribute("attachFiles", mypageService.getAttachFiles(bookingIds));
 		model.addAttribute("performances", mypageService.getPerformances(bookingIds));
 		model.addAttribute("payments", mypageService.getPayments(bookingIds));
-	    model.addAttribute("bookedSeatsMap", mypageService.getBookedSeatss(bookingIds));
+		model.addAttribute("bookedSeatsMap", mypageService.getBookedSeatss(bookingIds));
 		int totalElements = mypageService.getTotalBookingsCount(memberId);
 		MyPageDTO pageDTO = new MyPageDTO(page, size, totalElements);
 		model.addAttribute("pageDTO", pageDTO);
@@ -89,8 +94,6 @@ public class MypageController {
 
 		return "my/refunds";
 	}
-	
-	
 
 	// 단수형 메서드
 	@GetMapping("/booking-detail/{bookingId}")
@@ -112,14 +115,12 @@ public class MypageController {
 		model.addAttribute("attachFile", mypageService.getAttachFile(bookingId));
 		model.addAttribute("performance", mypageService.getPerformance(bookingId));
 		model.addAttribute("payment", mypageService.getPayment(bookingId));
-	    model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingId));
+		model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingId));
 		model.addAttribute("user", mypageService.getUser(userId));
 		model.addAttribute("venue", mypageService.getVenue(bookingId));
 
 		return "my/booking-detail";
 	}
-	
-	
 
 	@GetMapping("/refund/{bookingId}")
 	public String refund(@PathVariable Integer bookingId, Model model, HttpSession session) {
@@ -140,7 +141,7 @@ public class MypageController {
 		model.addAttribute("attachFile", mypageService.getAttachFile(bookingId));
 		model.addAttribute("performance", mypageService.getPerformance(bookingId));
 		model.addAttribute("payment", mypageService.getPayment(bookingId));
-	    model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingId));
+		model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingId));
 		model.addAttribute("user", mypageService.getUser(userId));
 		model.addAttribute("venue", mypageService.getVenue(bookingId));
 
@@ -216,9 +217,7 @@ public class MypageController {
 		return "my/refund-complete";
 	}
 
-	
-	
-	//profile
+	// profile
 	@GetMapping("/profile-edit")
 	public String profileEdit(HttpSession session, Model model) {
 		addCommonAttributes(model, session);
@@ -278,38 +277,70 @@ public class MypageController {
 		}
 	}
 
-	
-	//review
 	@GetMapping("/reviews")
 	public String reviews(Model model, HttpSession session) {
 		addCommonAttributes(model, session);
-		log.info("reviews list");
-		return "/my/reviews";
+		Integer userId = (Integer) session.getAttribute("userId");
+		Integer memberId = mypageService.getMemberId(userId);
+		List<ReviewDTO> reviews = reviewService.getReviewsByMemberId(memberId);
+		model.addAttribute("reviews", reviews);
+		return "my/reviews";
 	}
 
-	@GetMapping("/review-write/{bookingId}")
-	public String reviewWrite(Model model, HttpSession session) {
+	@GetMapping("/review-check/{performanceId}")
+	public String reviewCheck(@PathVariable Integer performanceId, Model model, HttpSession session) {
 		addCommonAttributes(model, session);
-		log.info("review write");
-		return "/my/review-write";
+		Integer userId = (Integer) session.getAttribute("userId");
+		ReviewDTO existingReview = reviewService.getReviewByPerf(performanceId, userId);
+
+		if (existingReview != null) {
+			return "redirect:/my/review-form/" + existingReview.getReviewId();
+		} else {
+			return "redirect:/my/review-form?performanceId=" + performanceId;
+		}
 	}
 
-	@GetMapping("/review-edit/{bookingId}")
-	public String reviewEdit(Model model, HttpSession session) {
+	@GetMapping("/review-form")
+	public String reviewForm(@RequestParam(required = false) Integer performanceId,
+			@RequestParam(required = false) Integer reviewId, Model model, HttpSession session) {
 		addCommonAttributes(model, session);
-		log.info("review edit");
-		return "/my/review-edit";
+		if (reviewId != null) {
+			ReviewDTO review = reviewService.getReviewById(reviewId);
+			model.addAttribute("review", review);
+			model.addAttribute("isEdit", true);
+		} else if (performanceId != null) {
+			PerformanceDTO performance = reviewService.getPerformanceById(performanceId);
+			model.addAttribute("performance", performance);
+			model.addAttribute("isEdit", false);
+		} else {
+			return "redirect:/error";
+		}
+		return "my/review-form";
 	}
 
-	@GetMapping("/review-delete")
-	public String reviewDelete(Model model, HttpSession session) {
+	@PostMapping("/review-create")
+	public String createReview(@ModelAttribute ReviewDTO reviewDTO, HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		Integer memberId = mypageService.getMemberId(userId);
+		reviewDTO.setMemberId(memberId);
+		reviewService.createReview(reviewDTO);
+		return "redirect:/my/reviews";
+	}
+
+	@PostMapping("/review-update")
+	public String updateReview(@ModelAttribute ReviewDTO reviewDTO, Model model, HttpSession session) {
 		addCommonAttributes(model, session);
-		log.info("review delete");
-		return "/my/review-delete";
+		reviewService.updateReview(reviewDTO);
+		return "redirect:/my/reviews";
 	}
 
-	
-	//point
+	@PostMapping("/review-delete/{reviewId}")
+	public String reviewDelete(@PathVariable int reviewId, Model model, HttpSession session) {
+	    addCommonAttributes(model, session);
+	    reviewService.deleteReview(reviewId);
+	    return "redirect:/my/reviews";
+	}
+
 	@GetMapping("/points")
 	public String points(Model model, HttpSession session) {
 		addCommonAttributes(model, session);
