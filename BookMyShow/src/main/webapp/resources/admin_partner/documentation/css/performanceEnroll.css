@@ -113,7 +113,7 @@
     color: #777;
 }
 
-.show-time p, .detail-info p, .total-seat p {
+.show-time p, .detail-info p{
     margin: 0;
     font-size: 13px;
     color: #777;
@@ -149,7 +149,7 @@
     padding: 0;
 }
 
-.detail-info .poster-image, .detail-info .description-image {
+.detail-info .musicalImage, .detail-info .musicalDescriptionImage {
     display: flex;
     flex-direction: row;
     width: 500px;
@@ -157,7 +157,7 @@
     align-items: center;
 }
 
-.detail-info .description-image {
+.detail-info .musicalDescriptionImage {
     margin-top: 5px;
 }
 
@@ -167,9 +167,7 @@
     box-shadow: none;
 }
 
-#detail-info {
-    margin-top: 30px;
-}
+
 
 #address-detail {
     margin-top: 10px;
@@ -275,5 +273,139 @@ input[type="date"] {
     border-radius: 0;
 }
 
+/* 검색 결과 리스트 스타일 */
+#results {
+    border: 1px solid #ccc;
+    max-height: 200px;
+    width: 200px;
+    overflow-y: auto;
+    position: absolute;
+    background-color: white;
+    z-index: 1000;
+}
 
+#results li {
+    padding: 8px;
+    cursor: pointer;
+}
 
+#results li:hover {
+    background-color: #f0f0f0;
+}
+
+/* 검색창 위치 설정 */
+.search-container {
+    position: relative;
+    width: 200px;
+}
+
+#results li {
+    list-style-type: none;
+    font-size: 13px;
+    color: #777;
+    width: 400px;
+}
+
+form .bg-body-tertiary .musical-images#detail-info{
+    height: 400px;
+}
+
+form .bg-body-tertiary .musical-images#detail-info .img-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-content: start;
+    width: 500px;
+    height: 140px;
+    object-fit: cover;
+    margin: 10px 0;
+    border: 1px solid #777;
+    background-color: white;
+}
+
+form .bg-body-tertiary .musical-images#detail-info .img-container .img-thumbnail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+    height: 130px;
+    object-fit: cover;
+}
+
+form .bg-body-tertiary .musical-images#detail-info .img-container p {
+    margin: 0;
+    font-size: 13px;
+    color: #777;
+    width: 80px; /* p 태그의 최대 너비 설정 */
+    white-space: nowrap; /* 글자를 한 줄로 처리 (줄바꿈 방지) */
+    overflow: hidden; /* 넘치는 글자는 숨김 */
+    text-overflow: ellipsis; /* 넘치는 글자는 말줄임표(...)로 표시 */
+}
+
+.actor-menu {
+    height: 70px;
+}
+
+.actor-menu .actor-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 500px;
+    padding: 0;
+}
+
+.actor-menu .actor-container .actor-name {
+    font-size: 13px;
+    color: #777;
+    text-align: left;
+    width: 500px;
+    padding: 10px 0 10px;
+
+}
+
+#discount-input {
+    margin: 20px 0;
+}
+
+#discount-input #rate-input {
+    text-align: center;
+}
+
+.input-group-text.signal {
+    color: black;
+}
+
+.total-seat input[name=totalSeat] {
+    width: 80px;
+}
+
+.total-seat p {
+    margin: 0;
+    font-size: 10px;
+    color: #777;
+    width: 100px;
+}
+
+.request {
+    height: 170px;
+}
+
+textarea[name=request] {
+    height: 150px;
+    width: 500px;
+    resize: none;
+}
+
+.region-p {
+    font-size: 10px;
+    color: #777;
+    width: 300px;
+}
+
+.region {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}

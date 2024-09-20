@@ -26,6 +26,21 @@
             <AppenderRef ref="console"/>
         </Logger>
 
+        <!-- Spring Data JPA 관련 로그 -->
+        <Logger name="org.springframework.data.jpa.repository" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <!-- Hibernate SQL 로그 -->
+        <Logger name="org.hibernate.SQL" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
+        <!-- Hibernate 파라미터 바인딩 로그 (매개변수 표시) -->
+        <Logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+        </Logger>
+
         <!-- Root logger 설정 -->
         <Root level="INFO">
             <AppenderRef ref="console"/>

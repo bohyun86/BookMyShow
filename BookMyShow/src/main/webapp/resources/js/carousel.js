@@ -26,3 +26,6 @@ document.addEventListener('keydown', (e) => {
         slide.style.transform = `translateX(-${currentIndex * 100}%)`;
     });
 });
+
+
+

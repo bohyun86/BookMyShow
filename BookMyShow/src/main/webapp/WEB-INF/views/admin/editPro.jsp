@@ -67,7 +67,352 @@
 <!-- ==================================================== -->
 
 
-			
+			<div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                            <h2 class="pageheader-title">신규등록</h2>
+                            <div class="m-2 bg-white form-body">
+                                <form action="${pageContext.request.contextPath}/partner/writePro"
+                                      enctype="multipart/form-data" method="post" class="was-validated">
+                                    <!--                                 프론트작업때문에 메소드 겟으로 잠시 변경 나중에 포스트로 바꿔야함 -->
+                                    <div class="p-3 mb-2 bg-body-tertiary">
+                                        <div class="form-group col">
+                                            <label class=" col-form-label">공연명</label>
+                                            <input type="text" class="form-control required-field"
+                                                   placeholder="상품명을 입력해주세요." name="title">
+
+                                        </div>
+
+                                        <div class="form-group col">
+                                            <label class="col-form-label">장르</label>
+                                            <select class="form-select" name="genreId"
+                                                    aria-label="Default select example">
+                                                <option selected value="0">장르를 선택해주세요</option>
+                                                <option name="genreId" value="1">로맨틱코미디</option>
+                                                <option name="genreId" value="2">코믹</option>
+                                                <option name="genreId" value="3">드라마</option>
+                                                <option name="genreId" value="4">퍼포먼스</option>
+                                                <option name="genreId" value="5">어린이뮤지컬</option>
+                                                <option name="genreId" value="6">기타</option>
+
+                                            </select>
+                                        </div>
+                                        <div class="form-group col">
+                                            <label class="col-form-label">관람등급</label>
+                                            <select class="form-select" name="ageLimit"
+                                                    aria-label="Default select example">
+                                                <option selected value="0">관람등급을 선택해주세요</option>
+                                                <option name="ageLimit" value="0">전체관람가</option>
+                                                <option name="ageLimit" value="1">12개월이상관람가</option>
+                                                <option name="ageLimit" value="7">7세이상관람가</option>
+                                                <option name="ageLimit" value="12">12세이상관람가</option>
+                                                <option name="ageLimit" value="15">15세이상관람가</option>
+                                                <option name="ageLimit" value="18">18세이상관람가</option>
+                                            </select>
+
+                                        </div>
+                                        <div class="form-group col" id="venue">
+                                            <label class="col-form-label">공연장</label>
+                                            <div class="venue-sub-menu">
+                                                <input type="text" class="form-control required-field"
+                                                       placeholder="공연장 명을 작성해주세요." id="search" name="venueTitle"
+                                                       autocomplete="off">
+                                                <ul id="results" style="width: 500px"></ul>
+                                                <div class="region">
+                                                    <div class="input-group" style="width: 160px">
+                                                        <span class="input-group-text">지역명</span>
+                                                        <input type="text" class="region-name" name="regionName"
+                                                               style="width: 100px">
+                                                    </div>
+                                                    <p class="region-p">※ 공연장이 대학로인 경우 "대학로"라고 직접 기입해주세요.</p>
+                                                </div>
+
+                                                <input type="hidden" class="theater-id" name="publicVenueId">
+
+                                                <div class="input-group" id="address-detail">
+                                                    <div class="address-first-line">
+                                                        <input type="text"
+                                                               class="post-address form-control required-field"
+                                                               placeholder="우편번호" name="postCode">
+                                                        <button type="button" class="btn btn-primary btn-address">주소검색
+                                                        </button>
+                                                    </div>
+
+                                                    <input type="text" class="basic-address form-control required-field"
+                                                           placeholder="기본주소"
+                                                           style="border-radius: 5px; margin-top: 5px;"
+                                                           name="basicAddress">
+                                                    <input type="text" class="detail-address" placeholder="상세주소"
+                                                           style="border-radius: 5px; margin-top: 5px;"
+                                                           name="detailAddress">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col">
+                                            <label class="col-form-label">공연일시</label>
+                                            <!--                                        공연일시 시작일, 종료일 -->
+                                            <div id="perform-date">
+                                                <label for="start-date" class="col-form-label">시작일</label>
+
+                                                <input type="date" id="start-date" class="form-control required-field"
+                                                       name="startDate">
+
+                                                <label for="end-date" class="col-form-label">종료일</label>
+
+                                                <input type="date" id="end-date" class="form-control required-field"
+                                                       name="endDate">
+
+                                            </div>
+                                        </div>
+                                        <div class="form-group col">
+                                            <label class="col-form-label">공연시간</label>
+                                            <div class="show-time">
+                                                <div class="total-time">
+                                                    <p>총 공연시간 :</p>
+                                                    <input type="text"
+                                                           class="form-control number required-field thousand-separator"
+                                                           name="totalTime">
+                                                </div>
+                                                <div class="interval-time">
+                                                    <p>인터벌 시간 :</p>
+                                                    <input type="text"
+                                                           class="form-control number required-field thousand-separator"
+                                                           name="intervalTime">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col">
+                                            <label class="col-form-label">좌석판매형태</label>
+                                            <div class="seat-check-box">
+                                                <div class="reservation-check">
+                                                    <!-- 지정석 비지정석 -->
+                                                    <div class="seat-reserved">
+                                                        <label for="reserved-seat">지정석</label>
+                                                        <input type="radio" id="reserved-seat" name="reserved"
+                                                               class="seat"
+                                                               value="true" checked>
+                                                    </div>
+                                                    <div class="seat-unreserved">
+                                                        <label for="unreserved-seat">비지정석</label>
+                                                        <input type="radio" id="unreserved-seat" name="reserved"
+                                                               class="seat"
+                                                               value="false">
+                                                    </div>
+                                                </div>
+                                                <div class="total-seat">
+                                                    <p>총 좌석 수 :</p>
+                                                    <div class="input-group">
+                                                        <input type="text"
+                                                               class="form-control number thousand-separator"
+                                                               name="totalSeat" readonly>
+                                                        <span class="input-group-text signal">석</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col" id="show-class">
+                                            <label class="col-form-label">좌석등급 및 가격</label>
+                                            <div class="classify-grade">
+                                                <div class="sub-group">
+                                                    <div class="check-box">
+                                                        <input type="checkbox" id="grade-vip" name="classes" value="1">
+                                                        <label for="grade-vip">VIP</label>
+                                                    </div>
+                                                    <div class="input-group-parent">
+                                                        <div class="input-group" style="width: 190px">
+                                                            <span class="input-group-text">가격</span>
+                                                            <input type="text"
+                                                                   class="form-control number thousand-separator"
+                                                                   name="price"
+                                                                   disabled>
+                                                            <span class="input-group-text signal">원</span>
+                                                        </div>
+                                                        <div class="input-group" style="width: 190px">
+                                                            <span class="input-group-text">좌석수</span>
+                                                            <input type="text"
+                                                                   class="form-control number thousand-separator"
+                                                                   name="numberOfSeats" disabled>
+                                                            <span class="input-group-text signal">석</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="sub-group">
+                                                    <div class="check-box">
+                                                        <input type="checkbox" id="grade-r" name="classes" value="2"
+                                                               class="r-grade">
+                                                        <label for="grade-r">R</label>
+                                                    </div>
+                                                    <div class="input-group-parent">
+                                                        <div class="input-group" style="width: 190px">
+                                                            <span class="input-group-text">가격</span>
+                                                            <input type="text"
+                                                                   class="form-control r-grade number thousand-separator"
+                                                                   name="price" disabled>
+                                                            <span class="input-group-text signal">원</span>
+                                                        </div>
+                                                        <div class="input-group" style="width: 190px">
+                                                            <span class="input-group-text">좌석수</span>
+                                                            <input type="text"
+                                                                   class="form-control r-grade number thousand-separator"
+                                                                   name="numberOfSeats" disabled>
+                                                            <span class="input-group-text signal">석</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="sub-group">
+                                                    <div class="check-box">
+                                                        <input type="checkbox" id="grade-s" name="classes" value="3">
+                                                        <label for="grade-s">S</label>
+                                                    </div>
+                                                    <div class="input-group-parent">
+                                                        <div class="input-group" style="width: 190px">
+                                                            <span class="input-group-text number">가격</span>
+                                                            <input type="text"
+                                                                   class="form-control number thousand-separator"
+                                                                   name="price"
+                                                                   disabled>
+                                                            <span class="input-group-text signal">원</span>
+                                                        </div>
+                                                        <div class="input-group" style="width: 190px">
+                                                            <span class="input-group-text">좌석수</span>
+                                                            <input type="text" class="form-control thousand-separator"
+                                                                   name="numberOfSeats" disabled>
+                                                            <span class="input-group-text signal">석</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="sub-group">
+                                                    <div class="check-box">
+                                                        <input type="checkbox" id="grade-a" name="classes" value="4">
+                                                        <label for="grade-a">A</label>
+                                                    </div>
+                                                    <div class="input-group-parent">
+                                                        <div class="input-group" style="width: 190px">
+                                                            <span class="input-group-text">가격</span>
+                                                            <input type="text"
+                                                                   class="form-control number thousand-separator"
+                                                                   name="price"
+                                                                   disabled>
+                                                            <span class="input-group-text signal">원</span>
+                                                        </div>
+                                                        <div class="input-group" style="width: 190px">
+                                                            <span class="input-group-text">좌석수</span>
+                                                            <input type="text"
+                                                                   class="form-control number thousand-separator"
+                                                                   name="numberOfSeats" disabled>
+                                                            <span class="input-group-text signal">석</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="sub-group">
+                                                    <div class="check-box">
+                                                        <input type="checkbox" id="grade-b" name="classes" value="5">
+                                                        <label for="grade-b">B</label>
+                                                    </div>
+                                                    <div class="input-group-parent">
+                                                        <div class="input-group" style="width: 190px">
+                                                            <span class="input-group-text ">가격</span>
+                                                            <input type="text"
+                                                                   class="form-control number thousand-separator"
+                                                                   name="price"
+                                                                   disabled>
+                                                            <span class="input-group-text signal">원</span>
+                                                        </div>
+                                                        <div class="input-group" style="width: 190px">
+                                                            <span class="input-group-text">좌석수</span>
+                                                            <input type="text"
+                                                                   class="form-control number thousand-separator"
+                                                                   name="numberOfSeats" disabled>
+                                                            <span class="input-group-text signal">석</span>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col">
+                                            <label class="col-form-label">인당 구매가능수</label>
+                                            <input type="text" class="form-control number required-field"
+                                                   name="ticketsPerPerson">
+                                            <!-- 0이하로 안떨어지게 js로 구현-->
+                                        </div>
+                                        <div class="form-group col" id="discount-input">
+                                            <label class="col-form-label">할인정보</label>
+                                            <div>
+                                                <div id="discount-date">
+                                                    <label for="discount-start-date" class="col-form-label">시작일</label>
+                                                    <input type="date" id="discount-start-date" name="discountStartDate"
+                                                           class="form-control required-field">
+                                                    <label for="discount-end-date" class="col-form-label">종료일</label>
+                                                    <input type="date" id="discount-end-date" name="discountEndDate"
+                                                           class="form-control required-field">
+                                                </div>
+                                                <div class="input-group">
+                                                    <span class="input-group-text">할인율</span>
+                                                    <input type="number" id="rate-input"
+                                                           class="form-control p-0 required-field thousand-separator"
+                                                           name=discountNum">
+                                                    <span class="input-group-text signal">%</span>
+                                                    <input type="hidden" id="discount-rate" name="discountRate">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col musical-images" id="detail-info">
+                                            <label class="col-form-label">공연상세정보</label>
+                                            <div class="detail-info">
+                                                <div class="musicalImage">
+                                                    <p>포스터 이미지 :</p>
+                                                    <input type="file" class="form-control required-field"
+                                                           name="musicalPost" multiple>
+                                                </div>
+                                                <div class="img-container" id="poster-image"></div>
+                                                <div class="musicalDescriptionImage">
+                                                    <p>상세설명 이미지 :</p>
+                                                    <input type="file" class="form-control required-field"
+                                                           name="musicalImages" multiple>
+                                                </div>
+                                                <div class="img-container" id="description-image"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col actor-menu">
+                                            <label class="col-form-label">주요배우</label>
+                                            <div class="actor-container">
+                                                <input type="text" class="form-control required-field"
+                                                       placeholder='배우 이름은 쉼표(",")로 구분해주세요.' name="actors">
+                                                <div class="actor-list"></div>
+                                                <div class="actor-name"></div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col">
+                                            <label class="col-form-label">주최주관</label>
+                                            <input type="text" name="musicalSponsor">
+                                        </div>
+                                        <div class="form-group col request">
+                                            <label class="col-form-label">요청사항</label>
+                                            <textarea type="text" name="request"></textarea>
+                                        </div>
+                                        <input type="hidden" name="partnerId" value="${sessionScope.partnerId}">
+                                        <div class="form-group col">
+                                            <label></label>
+                                            <input type="submit" value="등록신청" class="btn btn-primary"
+                                                   Style="color: white">
+                                        </div>
+
+                                        <input type="hidden" name="UserId" value="${sessionScope.userId}">
+                                    </div>
+                                    <!-- 프로그래스 바 추가 -->
+                                    <div id="progress-bar" style="display: none; margin-top: 20px;">
+                                        <progress id="progress" value="0" max="100" style="width: 100%;"></progress>
+                                        <span id="progress-percent">0%</span>
+                                    </div>
+                                </form>
+                                <%-- 프로그래스바 생성 --%>
+                                <!-- 보이지 않는 iframe 추가 -->
+                                <iframe name="upload_iframe" style="display:none;"></iframe>
+                            </div>
+                        </div>
+                    </div>
 
 			
 	
@@ -87,7 +432,7 @@
         							<h4 class="card-title">뮤지컬 수정</h4>
        									 <p class="card-text">
        									 	
-       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/edit">
+       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/edit" name="fr" method="get">
        									 	<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">뮤지컬 제목</span>
   													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
@@ -98,15 +443,33 @@
 													
 												<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연기간</span>
-  													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" required>
-  													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="endDate" name="daterange" required>
-    													
-    													
+  													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="startDate" onChange="setendmin(this.value)" required>
+  													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="endDate" name="endDate" required>
+    																									
     													<div class="invalid-feedback">
      														 공연 기간을 입력해주세요.
    														 </div>
 													</div> 
-<!-- 													공연기간 종료날짜가 시작날짜보다 전 날짜로 선택 못하게 설정해야함 -->
+													
+													<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연시작시간</span>
+  													<input type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="endTime" name="endTime" required>
+    																									
+    													<div class="invalid-feedback">
+     														 공연 시작시간을 입력해주세요.
+   														 </div>
+													</div> 
+													
+													<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연종료시간</span>
+  													<input type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="endTime" name="endTime" required>
+    																									
+    													<div class="invalid-feedback">
+     														 공연 종료시간을 입력해주세요.
+   														 </div>
+													</div> 
+													
+<!-- 													공연시간 설정 -->
 													
 													<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연장소</span>
@@ -126,7 +489,7 @@
 	 													 
 	 													 <div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">티켓가격</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" onkeyup="realshowMoney2(this.value);" style="border-color: red"required>
     													<div class="invalid-feedback">
      														  티켓가격을 입력해주세요.
    														 </div>
@@ -205,216 +568,74 @@
 
 <script>
 
-document.getElementById('startDate').value = new Date().toISOString().substring(0, 10);;
 
+//startDate 오늘날짜 가져옴
+//endDate는 startDate 전날짜 못가져옴
+$(function(){
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; 
+	  
+	   var yyyy = today.getFullYear();
+	   if(dd<10){
+	     dd='0'+dd
+	   } 
+	   if(mm<10){
+	     mm='0'+mm
+	   } 
+	   today = yyyy+'-'+mm+'-'+dd;
+	
+	   document.getElementById("startDate").setAttribute("min", today);
+	  })
+	     
+	
+	function setendmin(e){
+	   document.getElementById("endDate").setAttribute("min", e);
+	   }  
+	   
+	   
+//티켓가격 숫자만 입력 가능
+	   function realshowMoney2(inMoney, Ev) {
+       var evCode = (window.netscape) ? Ev.which : event.keyCode;
+
+       if (!((evCode >= 37 && evCode <= 57)|| (evCode >= 96 && evCode <= 105)|| evCode == 8 || evCode == 9)) {
+
+             alert("숫자만 입력해주세요. ");
+             event.returnValue = false;
+       }
+       }
+	
+	   
+//삭제컨펌
 function deleteok(){
     if(!confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')){
         return false;
     }
 }
 
+
+
+
+const postAddress = document.querySelector('.post-address');
+const basicAddress = document.querySelector('.basic-address');
+const detailAddress = document.querySelector('.detail-address');
+const btnSearch = document.querySelector('.btn-address');
+
+btnSearch.addEventListener('click', function () {
+    searchPost.open();
+});
+
+const searchPost = new daum.Postcode({
+    oncomplete: function (data) {
+        postAddress.value = data.zonecode;
+        basicAddress.value = data.address;
+        detailAddress.focus();
+    }
+});
 </script>
 
 
 
-
-<!-- 					<div class="ecommerce-widget">  -->
-
-<!--                     <div class="row"> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Total Revenue</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">$12099</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-success font-weight-bold"> -->
-<!--                                         <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Affiliate Revenue</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">$12099</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-success font-weight-bold"> -->
-<!--                                         <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue2"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Refunds</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">0.00</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-primary font-weight-bold"> -->
-<!--                                         <span>N/A</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue3"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Avg. Revenue Per User</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">$28000</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-secondary font-weight-bold"> -->
-<!--                                         <span>-2.00%</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue4"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                     </div> -->
-<!--                     <div class="row"> -->
-<!--                         ============================================================== -->
-
-<!--                         ============================================================== -->
-
-<!--                         recent orders  -->
-<!--                         ============================================================== -->
-<!--                         <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <h5 class="card-header">Recent Orders</h5> -->
-<!--                                 <div class="card-body p-0"> -->
-<!--                                     <div class="table-responsive"> -->
-<!--                                         <table class="table"> -->
-<!--                                             <thead class="bg-light"> -->
-<!--                                             <tr class="border-0"> -->
-<!--                                                 <th class="border-0">#</th> -->
-<!--                                                 <th class="border-0">Image</th> -->
-<!--                                                 <th class="border-0">Product Name</th> -->
-<!--                                                 <th class="border-0">Product Id</th> -->
-<!--                                                 <th class="border-0">Quantity</th> -->
-<!--                                                 <th class="border-0">Price</th> -->
-<!--                                                 <th class="border-0">Order Time</th> -->
-<!--                                                 <th class="border-0">Customer</th> -->
-<!--                                                 <th class="border-0">Status</th> -->
-<!--                                             </tr> -->
-<!--                                             </thead> -->
-<!--                                             <tbody> -->
-<!--                                             <tr> -->
-<!--                                                 <td>1</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #1</td> -->
-<!--                                                 <td>id000001</td> -->
-<!--                                                 <td>20</td> -->
-<!--                                                 <td>$80.00</td> -->
-<!--                                                 <td>27-08-2018 01:22:12</td> -->
-<!--                                                 <td>Patricia J. King</td> -->
-<!--                                                 <td><span class="badge-dot badge-brand mr-1"></span>InTransit</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td>2</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic-2.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #2</td> -->
-<!--                                                 <td>id000002</td> -->
-<!--                                                 <td>12</td> -->
-<!--                                                 <td>$180.00</td> -->
-<!--                                                 <td>25-08-2018 21:12:56</td> -->
-<!--                                                 <td>Rachel J. Wicker</td> -->
-<!--                                                 <td><span class="badge-dot badge-success mr-1"></span>Delivered</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td>3</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic-3.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #3</td> -->
-<!--                                                 <td>id000003</td> -->
-<!--                                                 <td>23</td> -->
-<!--                                                 <td>$820.00</td> -->
-<!--                                                 <td>24-08-2018 14:12:77</td> -->
-<!--                                                 <td>Michael K. Ledford</td> -->
-<!--                                                 <td><span class="badge-dot badge-success mr-1"></span>Delivered</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td>4</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic-4.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #4</td> -->
-<!--                                                 <td>id000004</td> -->
-<!--                                                 <td>34</td> -->
-<!--                                                 <td>$340.00</td> -->
-<!--                                                 <td>23-08-2018 09:12:35</td> -->
-<!--                                                 <td>Michael K. Ledford</td> -->
-<!--                                                 <td><span class="badge-dot badge-success mr-1"></span>Delivered</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td colspan="9"><a href="#" class="btn btn-outline-light float-right">View -->
-<!--                                                     Details</a></td> -->
-<!--                                             </tr> -->
-<!--                                             </tbody> -->
-<!--                                         </table> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         ============================================================== -->
-<!--                         end recent orders  -->
-
-
-<!--                         ============================================================== -->
-<!--                         ============================================================== -->
-<!--                         customer acquistion  -->
-<!--                         ============================================================== -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <h5 class="card-header">Customer Acquisition</h5> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <div class="ct-chart ct-golden-section" style="height: 354px;"></div> -->
-<!--                                     <div class="text-center"> -->
-<!--                                             <span class="legend-item mr-2"> -->
-<!--                                                     <span class="fa-xs text-primary mr-1 legend-tile"><i -->
-<!--                                                             class="fa fa-fw fa-square-full"></i></span> -->
-<!--                                             <span class="legend-text">Returning</span> -->
-<!--                                             </span> -->
-<!--                                         <span class="legend-item mr-2"> -->
-
-<!--                                                     <span class="fa-xs text-secondary mr-1 legend-tile"><i -->
-<!--                                                             class="fa fa-fw fa-square-full"></i></span> -->
-<!--                                             <span class="legend-text">First Time</span> -->
-<!--                                             </span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         ============================================================== -->
-<!--                         end customer acquistion  -->
-<!--                         ============================================================== -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
 
 <!-- 바텀 밑으로 내려야함 -->
 <%--         <jsp:include page="../include/adminBottom.jsp"/> --%>

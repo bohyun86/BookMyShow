@@ -21,24 +21,25 @@
 			<div class="booking-complete-card">
 				<p class="text-center mb-2">결제가 정상적으로 완료되었습니다.</p>
 				<p class="text-center mb-4">하단의 티켓 배부 및 좌석 배정 방식을 확인해주세요.</p>
-
-				<!-- 예매 정보 카드 -->
 				<div class="booking-card mb-4">
 					<div class="card-body">
 						<div class="row h-100 no-gutters">
 							<div
 								class="col-md-3 h-100 d-flex align-items-center justify-content-start">
-								<a href="<c:url value='/musical/detail/${booking.musicalId}'/>"
+								<a href="<c:url value='/musical/detail/${musical.musicalId}'/>"
 									class="img-container"> <img
-									src="<c:url value='/resources/images/poster/${booking.musical.posterImage}'/>"
-									class="poster-img" alt="${booking.musical.title} 포스터">
+									src="${pageContext.request.contextPath}/${attachFile.postFilePath}"
+									class="poster-img" alt="${musical.title} 포스터">
 								</a>
 							</div>
 							<div class="col-md-9 d-flex flex-column h-100 pl-3">
 								<div class="booking-info mb-2">
-									<span class="status">예매완료${booking.status}</span> <span
-										class="booking-date">yyyy-MM-dd<fmt:formatDate
-											value="${booking.bookingDate}" pattern="yyyy-MM-dd" /></span>
+									<span class="status">${booking.status}</span> <span
+										class="booking-date"> <fmt:parseDate
+											value="${booking.bookingDate}" pattern="yyyy-MM-dd'T'HH:mm"
+											var="parsedDate" type="both" /> <fmt:formatDate
+											value="${parsedDate}" pattern="yyyy-MM-dd" />
+									</span>
 								</div>
 								<div
 									class="content-wrapper d-flex flex-column justify-content-between flex-grow-1">
@@ -46,8 +47,8 @@
 										<div class="col-8 pr-2">
 											<h5 class="card-title mb-0">
 												<a
-													href="<c:url value='/musical/detail/${booking.musicalId}'/>"
-													class="card-title-link"> ${booking.musical.title}뮤지컬명 </a>
+													href="<c:url value='/musical/detail/${musical.musicalId}'/>"
+													class="card-title-link">${musical.title}</a>
 											</h5>
 										</div>
 										<div class="col-4 pl-2">
@@ -61,8 +62,10 @@
 									<div class="row align-items-center no-gutters mb-2">
 										<div class="col-8 pr-2">
 											<p class="card-text mb-0">
-												공연일: yyyy-MM-dd
-												<fmt:formatDate value="${booking.performanceDate}"
+												<fmt:parseDate value="${performance.performanceDate}"
+													pattern="yyyy-MM-dd'T'HH:mm" var="parsedPerformanceDate"
+													type="both" />
+												<fmt:formatDate value="${parsedPerformanceDate}"
 													pattern="yyyy-MM-dd HH:mm" />
 											</p>
 										</div>
@@ -75,14 +78,14 @@
 									<div class="row align-items-center no-gutters">
 										<div class="col-8 pr-2">
 											<p class="card-text mb-0 ticket-amount">
-												총 2${booking.ticketCount}매 / 20,000원
-												<fmt:formatNumber value="${booking.totalAmount}"
+												총 ${booking.ticketCount}매 /
+												<fmt:formatNumber value="${payment.paymentAmount}"
 													type="currency" currencySymbol="₩" />
 											</p>
 										</div>
 										<div class="col-4 pl-2">
 											<button
-												onclick="location.href='<c:url value='/my/refund'/>';"
+												onclick="location.href='<c:url value='/my/refund/${booking.bookingId}'/>';"
 												class="btn btn-outline-danger w-100">환불신청</button>
 										</div>
 									</div>
@@ -92,7 +95,6 @@
 					</div>
 				</div>
 
-				<!-- 티켓 배부 및 좌석 배정 안내 -->
 				<div class="ticket-info bg-secondary bg-opacity-25 p-4 rounded">
 					<h3 class="mb-3">티켓 배부 및 좌석 배정 안내</h3>
 					<ul>
@@ -127,9 +129,10 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<ul id="seatList${booking.bookingId}">
-						<!-- 좌석 정보가 여기에 동적으로 추가됩니다 -->
-						<li>a열 10번</li>
+					<ul>
+						<c:forEach var="seat" items="${bookedSeats}">
+							<li>${seat.seatNumber}</li>
+						</c:forEach>
 					</ul>
 				</div>
 			</div>

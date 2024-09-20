@@ -114,6 +114,21 @@ public class SupportController {
 		pageDTO.setPageSize(pageSize);
 		
 		List<SupportqnaDTO> qnaList = supportService.getQnaList(pageDTO);
+		
+//		int count = supportService.getQnaCount(pageDTO);
+//		int pageBlock = 5;
+//		int startPage = (currentPage - 1) / pageBlock * pageBlock + 1;
+//		int endPage = startPage + pageBlock - 1;
+//		int pageCount = count / pageSize + (count % pageSize==0?0:1);
+//
+//		if(endPage > pageCount) {
+//			endPage = pageCount;
+//		}
+//		pageDTO.setCount(count);
+//		pageDTO.setPageBlock(pageBlock);
+//		pageDTO.setStartPage(startPage);
+//		pageDTO.setEndPage(endPage);
+//		pageDTO.setPageCount(pageCount);
 				
 		model.addAttribute("qnaList", qnaList);
 		model.addAttribute("pageDTO", pageDTO);
