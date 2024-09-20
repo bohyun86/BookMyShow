@@ -3,10 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.itwillbs.mapper.MemberMapper">
+<mapper namespace="com.itwillbs.mapper.PartnerAdminMapper">
 
  
-    <resultMap id="userResultMap" type="com.itwillbs.domain.UserDTO">
+   <resultMap id="userResultMap" type="com.itwillbs.domain.UserDTO">
         <id property="userId" column="user_id"/>
         <result property="userName" column="user_name"/>
         <result property="password" column="password"/>
@@ -18,11 +18,11 @@
         <result property="updatedAt" column="updated_at"/>
     </resultMap>
 
-    <select id="getMember" resultType="com.itwillbs.domain.UserDTO" resultMap="userResultMap">
-        SELECT *
-        FROM Member M
-        JOIN User U ON M.user_id = U.user_id
+	<select id="getPartnersy" resultType="com.itwillbs.domain.UserDTO" resultMap="userResultMap" >
+ 		SELECT *
+        FROM Partner P
+        JOIN User U ON P.user_id = U.user_id
         WHERE U.user_name = #{id}
-    </select>
+    </select>	
 
 </mapper>
