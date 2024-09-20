@@ -18,10 +18,10 @@ public class MusicalDAO {
 	private static final String namespace = "com.itwillbs.mapper.MusicalMapper.";
 	
 	
-	public List<MusicalMainDTO> getMusical() {
+	public List<MusicalMainDTO> getMusical(MusicalMainDTO musicalMainDTO) {
 		
 		
-		return sqlSession.selectList(namespace + "getMusical");
+		return sqlSession.selectList(namespace + "getMusical", musicalMainDTO);
 	}
 
 

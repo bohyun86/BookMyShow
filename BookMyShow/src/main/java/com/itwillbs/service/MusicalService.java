@@ -18,10 +18,10 @@ public class MusicalService {
 	private MusicalDAO musicalDAO;
 	
 	
-	public List<MusicalMainDTO> getMusical() {
+	public List<MusicalMainDTO> getMusical(MusicalMainDTO musicalMainDTO) {
 		
 		
-		return  musicalDAO.getMusical();
+		return  musicalDAO.getMusical(musicalMainDTO);
 		
 	}
 

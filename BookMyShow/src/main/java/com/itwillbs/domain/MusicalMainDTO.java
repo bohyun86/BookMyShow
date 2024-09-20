@@ -10,10 +10,90 @@ public class MusicalMainDTO {
 	private String uuid;
 	private String upload_path;
 	private int venue_id;
-	private String region_name;
+	private String region_name1;
+	private String region_name2;
+	private String region_name3;
+	private String region_name4;
 	private String price;
+	private String genreCheck;
+	private String regionCheck;
+	private int review_count;
+	private float rating;
+	private String reviewCheck;
+	private String ratingCheck;
 	
-	
+	/**
+	 * @return the review_count
+	 */
+	public int getReview_count() {
+		return review_count;
+	}
+	/**
+	 * @param review_count the review_count to set
+	 */
+	public void setReview_count(int review_count) {
+		this.review_count = review_count;
+	}
+	/**
+	 * @return the rating
+	 */
+	public float getRating() {
+		return rating;
+	}
+	/**
+	 * @param rating the rating to set
+	 */
+	public void setRating(float rating) {
+		this.rating = rating;
+	}
+	/**
+	 * @return the reviewCheck
+	 */
+	public String getReviewCheck() {
+		return reviewCheck;
+	}
+	/**
+	 * @param reviewCheck the reviewCheck to set
+	 */
+	public void setReviewCheck(String reviewCheck) {
+		this.reviewCheck = reviewCheck;
+	}
+	/**
+	 * @return the ratingCheck
+	 */
+	public String getRatingCheck() {
+		return ratingCheck;
+	}
+	/**
+	 * @param ratingCheck the ratingCheck to set
+	 */
+	public void setRatingCheck(String ratingCheck) {
+		this.ratingCheck = ratingCheck;
+	}
+	/**
+	 * @return the genreCheck
+	 */
+	public String getGenreCheck() {
+		return genreCheck;
+	}
+	/**
+	 * @param genreCheck the genreCheck to set
+	 */
+	public void setGenreCheck(String genreCheck) {
+		this.genreCheck = genreCheck;
+	}
+	/**
+	 * @return the regionCheck
+	 */
+	public String getRegionCheck() {
+		return regionCheck;
+	}
+	/**
+	 * @param regionCheck the regionCheck to set
+	 */
+	public void setRegionCheck(String regionCheck) {
+		this.regionCheck = regionCheck;
+	}
 	/**
 	 * @return the musical_id
 	 */
@@ -111,18 +191,6 @@ public class MusicalMainDTO {
 		this.venue_id = venue_id;
 	}
 	/**
-	 * @return the region_name
-	 */
-	public String getRegion_name() {
-		return region_name;
-	}
-	/**
-	 * @param region_name the region_name to set
-	 */
-	public void setRegion_name(String region_name) {
-		this.region_name = region_name;
-	}
-	/**
 	 * @return the price
 	 */
 	public String getPrice() {
@@ -134,8 +202,54 @@ public class MusicalMainDTO {
 	public void setPrice(String price) {
 		this.price = price;
 	}
-
+	/**
+	 * @return the region_name1
+	 */
+	public String getRegion_name1() {
+		return region_name1;
+	}
+	/**
+	 * @param region_name1 the region_name1 to set
+	 */
+	public void setRegion_name1(String region_name1) {
+		this.region_name1 = region_name1;
+	}
+	/**
+	 * @return the region_name2
+	 */
+	public String getRegion_name2() {
+		return region_name2;
+	}
+	/**
+	 * @param region_name2 the region_name2 to set
+	 */
+	public void setRegion_name2(String region_name2) {
+		this.region_name2 = region_name2;
+	}
+	/**
+	 * @return the region_name3
+	 */
+	public String getRegion_name3() {
+		return region_name3;
+	}
+	/**
+	 * @param region_name3 the region_name3 to set
+	 */
+	public void setRegion_name3(String region_name3) {
+		this.region_name3 = region_name3;
+	}
 	
-	
+	/**
+	 * @return the region_name4
+	 */
+	public String getRegion_name4() {
+		return region_name4;
+	}
+	/**
+	 * @param region_name4 the region_name4 to set
+	 */
+	public void setRegion_name4(String region_name4) {
+		this.region_name4 = region_name4;
+	}
 	
 }

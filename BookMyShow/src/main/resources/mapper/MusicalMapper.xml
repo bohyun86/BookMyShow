@@ -6,30 +6,101 @@
 
 <mapper namespace="com.itwillbs.mapper.MusicalMapper">
     <select id="getMusical" resultType="com.itwillbs.domain.MusicalMainDTO">
-   select m.musical_id , m.title, floor(m.discount_rate * 100) AS discount_rate,
-		g.genre_name,
-		a.file_name, a.uuid, a.upload_path,
-        v.venue_id,
-        r.region_name,
-       concat( substr(floor(min(t.price)*(1- m.discount_rate)), 1, 2),',', substr(round(min(t.price)*(1- m.discount_rate), -2), -3, 4))as price
-from Musical m join Genre g
-		on m.genre_id = g.genre_id
-        join AttachFile a
-        on m.musical_id = a.musical_id
-        join Venue v
-        on m.venue_id = v.venue_id  
-        join Region r
-        on v.region_id = r.region_id
-        join Performance p
-        on m.musical_id = p.musical_id
-        join TicketPrice t
-        on t.performance_id = p.performance_id
-where a.is_poster = 1
-group by m.musical_id , m.title, m.discount_rate,
-		g.genre_name,
-		a.file_name, a.uuid, a.upload_path,
-        v.venue_id,
-        r.region_name;
+		SELECT 
+		    m.musical_id,
+		    m.title, 
+		    FLOOR(m.discount_rate * 100) AS discount_rate, 
+		    m.start_date,
+		    g.genre_name,
+		    a.file_name, 
+		    a.uuid, 
+		    a.upload_path,
+		    v.venue_id,
+		    r.region_name,
+		    CONCAT(
+		        SUBSTR(FLOOR(MIN(t.price) * (1 - m.discount_rate)), 1, 2),
+		        ',',
+		        SUBSTR(ROUND(MIN(t.price) * (1 - m.discount_rate), -2), -3, 4)
+		    ) AS price,
+		    IFNULL(w.review_count, 0) AS review_count,
+		    IFNULL(w.rating, 0) AS rating
+		FROM 
+		    Musical m
+		JOIN 
+		    Genre g ON m.genre_id = g.genre_id
+		JOIN 
+		    AttachFile a ON m.musical_id = a.musical_id
+		JOIN 
+		    Venue v ON m.venue_id = v.venue_id  
+		JOIN 
+		    Region r ON v.region_id = r.region_id
+		JOIN 
+		    Performance p ON m.musical_id = p.musical_id
+		JOIN 
+		    TicketPrice t ON t.performance_id = p.performance_id
+		LEFT JOIN (
+		    SELECT 
+		        musical_id, 
+		        COUNT(review_id) AS review_count,
+		        ROUND(AVG(rating), 1) AS rating
+		    FROM 
+		        Review
+		    GROUP BY 
+		        musical_id
+		) w ON w.musical_id = m.musical_id
+		WHERE 
+		    a.is_poster = 1
+		<if test="genreCheck != null">
+			and g.genre_name = #{genreCheck}
+			<if test="regionCheck != null">
+				and r.region_name = #{region_name1}
+				<if test="region_name2 != null">
+					or r.region_name = #{region_name2}
+					<if test="region_name3 != null">
+						or r.region_name = #{region_name3}
+						<if test="region_name4 != null">
+							or r.region_name = #{region_name4}
+						</if>
+					</if>
+				</if>
+			</if>	
+		</if>
+		
+		<if test="regionCheck != null">
+			and r.region_name = #{region_name1}
+			<if test="genreCheck != null">
+				and g.genre_name = #{genreCheck}
+			</if>
+			<if test="region_name2 != null">
+					or r.region_name = #{region_name2}
+				<if test="region_name3 != null">
+					or r.region_name = #{region_name3}
+					<if test="region_name4 != null">
+						or r.region_name = #{region_name4}
+					</if>
+				</if>
+			</if>
+		</if>    
+		    
+		GROUP BY 
+		    m.musical_id, 
+		    m.title, 
+		    m.discount_rate, 
+		    m.start_date,
+		    g.genre_name,
+		    a.file_name, 
+		    a.uuid, 
+		    a.upload_path,
+		    v.venue_id,
+		    r.region_name
+		ORDER BY 
+		<if test="reviewCheck != null">
+			review_count desc,
+		</if>
+		<if test="ratingCheck != null">
+			 rating desc,
+		</if>
+			m.start_date desc;
     </select>
     
     

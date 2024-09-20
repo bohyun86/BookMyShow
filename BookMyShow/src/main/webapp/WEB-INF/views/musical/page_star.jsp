@@ -52,9 +52,9 @@
 	
 		<!-- 우측 끝에 위치할 컨텐츠 -->
 		<ul class="nav justify-content-end" id="category-sort">
-			<li class="nav-item"><a class="nav-link text-secondary "
+			<li class="nav-item"><a class="nav-link text-secondary  "
 				aria-current="page" href="${pageContext.request.contextPath}/musical/page_pop">인기순</a></li>
-			<li class="nav-item"><a class="nav-link text-secondary text-danger" href="${pageContext.request.contextPath}/musical/page_star">별점순</a></li>
+			<li class="nav-item"><a class="nav-link text-secondary " href="${pageContext.request.contextPath}/musical/page_star">별점순</a></li>
 		</ul>
 	</section>
 	<section class="container-fluid d-flex justify-content-center"
