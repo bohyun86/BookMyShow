@@ -428,16 +428,17 @@
                                             <textarea type="text" name="request"
                                                       value="${performanceTempDTO.request}"></textarea>
                                         </div>
-                                        <input type="hidden" name="partnerId" value="${sessionScope.partnerId}">
                                         <div class="form-group col">
-                                            <label></label>
-                                            <input type="submit" value="수정" class="btn btn-primary"
-                                                   Style="color: white">
-                                            <button class="btn btn-primary"
-                                                    Style="color: white">삭제
-                                            </button>
+                                            <label class="col-form-label"></label>
+                                            <div id="edit-button-group">
+                                                <input type="submit" value="수정" class="btn btn-primary revise-btn"
+                                                       Style="color: white">
+                                                <button class="btn btn-primary delete-btn"
+                                                        Style="color: white">삭제
+                                                </button>
+                                            </div>
                                         </div>
-
+                                        <input type="hidden" name="partnerId" value="${sessionScope.partnerId}">
                                         <input type="hidden" name="UserId" value="${sessionScope.userId}">
                                     </div>
                                     <!-- 프로그래스 바 추가 -->
@@ -571,6 +572,51 @@
                 }
             });
         });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const deleteBtn = document.querySelector('.delete-btn');
+            deleteBtn.addEventListener('click', function () {
+                if (confirm('정말 삭제하시겠습니까?')) {
+                    location.href = '${pageContext.request.contextPath}/partner/delete?musicalId=${performanceTempDTO.musicalId}';
+                }
+            });
+
+            const reviseBtn = document.querySelector('.revise-btn');
+            reviseBtn.addEventListener('click', function () {
+                const progress = document.getElementById('progress');
+                const progressBar = document.getElementById('progress-bar');
+                const progressPercent = document.getElementById('progress-percent');
+                progressBar.style.display = 'block';
+                const form = document.querySelector('form');
+                form.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                    const formData = new FormData(form);
+                    const xhr = new XMLHttpRequest();
+                    xhr.open('POST', '${pageContext.request.contextPath}/partner/writePro', true);
+                    xhr.upload.onprogress = function (e) {
+                        if (e.lengthComputable) {
+                            const percent = (e.loaded / e.total) * 100;
+                            progress.value = percent;
+                            progressPercent.innerText = percent + '%';
+                        }
+                    };
+                    xhr.onload = function () {
+                        if (xhr.status === 200) {
+                            alert('수정이 완료되었습니다.');
+                            location.href = '${pageContext.request.contextPath}/partner/detail?musicalId=${performanceTempDTO.musicalId}';
+                        } else {
+                            alert('수정에 실패하였습니다.');
+                        }
+                    };
+                    xhr.send(formData);
+                });
+            });
+        });
+
+
+
     </script>
 </body>
 

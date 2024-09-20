@@ -15,6 +15,9 @@ public class PartnerStatusDTO {
     private LocalDate endDate;
     private String createdAt;
     private boolean approvalStatus;
+    private String partnerId;
+    private String partnerName;
+    private String phoneNumber;
 
 
 }
