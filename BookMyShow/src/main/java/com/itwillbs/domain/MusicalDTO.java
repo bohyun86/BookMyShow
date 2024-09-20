@@ -8,6 +8,10 @@ import java.time.LocalDateTime;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 public class MusicalDTO {
 	private Integer musicalId;
