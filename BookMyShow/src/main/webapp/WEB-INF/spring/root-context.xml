@@ -8,6 +8,7 @@
 	   xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	   xmlns:cache="http://www.springframework.org/schema/cache"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
@@ -34,17 +35,23 @@
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- 공연 정보 등록 Service Key 등록 -->
 	<bean id="serviceKey" class="java.lang.String">
-		<constructor-arg value="a85b154a49f4403da522aba1e732569f" />
+		<constructor-arg
+			value="a85b154a49f4403da522aba1e732569f" />
 	</bean>
 
-	<bean id="mysqlCleanup" class="com.itwillbs.common.MySQLCleanup" destroy-method="cleanup"/>
+	<bean id="mysqlCleanup" class="com.itwillbs.common.MySQLCleanup"
+		destroy-method="cleanup" />
 
 	<!-- HikariCP 데이터 소스 설정 -->
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://itwillbs.com:3306/c1d2405t1?serverTimezone=Asia/Seoul" />
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver" />
+		<property name="jdbcUrl"
+			value="jdbc:mysql://itwillbs.com:3306/c1d2405t1?serverTimezone=Asia/Seoul" />
 		<property name="username" value="c1d2405t1" />
 		<property name="password" value="1234" />
+
 	</bean>
 
 	<!--트랜잭션 관리자 설정-->
@@ -52,17 +59,26 @@
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 
-
 	<!-- MyBatis 설정 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath:mapper/**/*Mapper.xml" />
+		<property name="mapperLocations"
+			value="classpath:mapper/**/*Mapper.xml" />
+		<property name="typeHandlers">
+			<array>
+				<bean class="com.itwillbs.common.LocalDateTimeTypeHandler" />
+			</array>
+		</property>
 	</bean>
 
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory"
+			ref="sqlSessionFactory" />
 	</bean>
-
+	
 	<mybatis-spring:scan base-package="com.itwillbs.mapper" />
 
 	<!-- JPA 및 Hibernate 설정 추가 -->
@@ -71,7 +87,7 @@
 		<property name="generateDdl" value="true" />
 <!--		<property name="showSql" value="true" />-->
 	</bean>
-
+	
 	<!-- EntityManagerFactory 설정 -->
 	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		<property name="dataSource" ref="dataSource" />
@@ -129,6 +145,7 @@
 
 	<aop:aspectj-autoproxy />
 
-	<!-- 테스트용 빈 스캔 설정-->
-	<context:component-scan base-package="com.itwillbs.controller"/>
+	<!-- 테스트용 빈 스캔 설정 -->
+	<context:component-scan
+		base-package="com.itwillbs.controller" />
 </beans>

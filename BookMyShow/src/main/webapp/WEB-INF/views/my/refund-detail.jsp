@@ -1,84 +1,103 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<%@ include file="../include/my/header.jsp"%>
-<link rel="stylesheet" href="<c:url value='/resources/css/my/detail.css'/>">
+    <%@ include file="../include/my/header.jsp"%>
+    <link rel="stylesheet" href="<c:url value='/resources/css/my/detail.css'/>">
 </head>
 <body id="board-body">
-	<jsp:include page="../include/top.jsp" />
-	<jsp:include page="../include/my/myticket.jsp" />
+    <jsp:include page="../include/top.jsp" />
+    <jsp:include page="../include/my/myticket.jsp" />
 
-	<main id="board-main">
-		<jsp:include page="../include/my/sidebar.jsp" />
-		<section id="board-content">
-			<div class="title">환불 상세내역</div>
-			<div class="detail-card">
+    <main id="board-main">
+        <jsp:include page="../include/my/sidebar.jsp" />
+        <section id="board-content">
+            <div class="title">환불 상세내역</div>
+            <div class="detail-card">
 				<div class="detail-row">
 					<span class="detail-label">티켓명</span> <span class="detail-value">
 						<a
-						href="<c:url value='/musical/detail/${refund.booking.musicalId}'/>"
-						class="musical-title-link"> 썸데이
-							${refund.booking.musical.title} </a>
+						href="<c:url value='/musical/detail/${musical.musicalId}'/>"
+						class="musical-title-link">${musical.title}</a>
 					</span>
 				</div>
 				<div class="detail-row">
 					<span class="detail-label">예매상태</span> <span
-						class="detail-value status">환불완료 ${refund.status}</span>
+						class="detail-value status">${booking.status}</span>
 				</div>
 				<div class="detail-row">
 					<span class="detail-label">옵션</span> <span class="detail-value">
-						10.29[목] 19:30 ★타임세일★ (1매)<br> 8,400원 * 1매 = 8,400원
+						<fmt:parseDate value="${performance.performanceDate}"
+							pattern="yyyy-MM-dd'T'HH:mm" var="parsedPerformanceDate"
+							type="both" /> <fmt:formatDate value="${parsedPerformanceDate}"
+							pattern="MM.dd[E] HH:mm" /> (${booking.ticketCount}매)<br> <fmt:formatNumber
+							value="${payment.paymentAmount / booking.ticketCount}"
+							type="currency" currencySymbol="₩" /> * ${booking.ticketCount}매
+						= <fmt:formatNumber value="${payment.paymentAmount}"
+							type="currency" currencySymbol="₩" />
 					</span>
 				</div>
 				<div class="detail-row">
-					<span class="detail-label">예매번호</span> <span class="detail-value">110-0374-101
-						${refund.booking.bookingId}</span>
+					<span class="detail-label">예매번호</span> <span class="detail-value">${booking.bookingId}</span>
 				</div>
 				<div class="detail-row divider"></div>
 				<div class="detail-row">
-					<span class="detail-label">결제금액</span> <span class="detail-value">8,400원</span>
+					<span class="detail-label">결제금액</span> <span class="detail-value">
+						<fmt:formatNumber value="${payment.paymentAmount}"
+							type="currency" currencySymbol="₩" />
+					</span>
 				</div>
 				<div class="detail-row">
 					<span class="detail-label">결제수단</span> <span class="detail-value">
-						네이버페이 ${refund.booking.payment.paymentMethod}
+						${payment.paymentMethod}
 						<button
 							class="btn btn-sm btn-outline-danger action-button receipt-button"
-							data-payment-id="${refund.booking.payment.paymentId}">영수증
-							조회</button>
+							data-payment-id="${payment.paymentId}">영수증 조회</button>
 					</span>
 				</div>
-				<div class="detail-row">
-					<span class="detail-label">결제일시</span> <span class="detail-value">2024-08-13
-						22:55:31</span>
-				</div>
-				<div class="detail-row divider"></div>
-				<div class="detail-row">
-					<span class="detail-label">환불규정</span> <span class="detail-value">
-						전액 환불 ${refund.refundPolicy}
-						<button
-							class="btn btn-sm btn-outline-danger action-button refund-policy-btn"
-							data-bs-toggle="modal" data-bs-target="#refundPolicyModal">환불
-							규정</button>
-					</span>
-				</div>
-				<div class="detail-row">
-					<span class="detail-label">공제금액</span> <span class="detail-value">0원</span>
-				</div>
-				<div class="detail-row">
-					<span class="detail-label">환불금액</span> <span class="detail-value">8,400원</span>
-				</div>
-				<div class="refund-info">
-					<p>· 환불금액에 대한 네이버페이 결제 취소가 완료되었습니다.</p>
-					<p>· 세부 결제수단에 따라 환불 완료까지 영업일 기준 3~5일 가량 소요될 수 있으며, 네이버페이 포인트로
-						결제한 경우 동일한 포인트로 환불됩니다.</p>
-					<p>· 세부사항은 네이버페이 이용 내역을 확인해주세요.</p>
-				</div>
-			</div>
-		</section>
-	</main>
+				 <div class="detail-row">
+                    <span class="detail-label">결제일시</span>
+                    <span class="detail-value">
+                        ${fn:substring(payment.paymentDate, 0, 19)}
+                    </span>
+                </div>
+                <div class="detail-row divider"></div>
+                <div class="detail-row">
+                    <span class="detail-label">환불규정</span>
+                    <span class="detail-value">
+                        ${payment.refundType}
+                        <button class="btn btn-sm btn-outline-danger action-button refund-policy-btn"
+                                data-bs-toggle="modal" data-bs-target="#refundPolicyModal">환불 규정</button>
+                    </span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">공제금액</span>
+                    <span class="detail-value">
+                        <c:if test="${not empty payment.paymentAmount and not empty payment.refundAmount}">
+                            <fmt:formatNumber value="${payment.paymentAmount - payment.refundAmount}" type="currency" currencySymbol="₩" />
+                        </c:if>
+                    </span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">환불금액</span>
+                    <span class="detail-value">
+                        <c:if test="${not empty payment.refundAmount}">
+                            <fmt:formatNumber value="${payment.refundAmount}" type="currency" currencySymbol="₩" />
+                        </c:if>
+                    </span>
+                </div>
+                <div class="refund-info">
+                    <p>· 환불금액에 대한 ${payment.paymentMethod} 결제 취소가 완료되었습니다.</p>
+                    <p>· 세부 결제수단에 따라 환불 완료까지 영업일 기준 3~5일 가량 소요될 수 있으며,
+                       ${payment.paymentMethod} 포인트로 결제한 경우 동일한 포인트로 환불됩니다.</p>
+                    <p>· 세부사항은 ${payment.paymentMethod} 이용 내역을 확인해주세요.</p>
+                </div>
+            </div>
+        </section>
+    </main>
 
 	<div class="modal fade" id="refundPolicyModal" tabindex="-1"
 		aria-labelledby="refundPolicyModalLabel" aria-hidden="true">

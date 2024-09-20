@@ -1,6 +1,8 @@
 package com.itwillbs.service;
 
 import com.itwillbs.domain.partner.PartnerDTO;
+import com.itwillbs.dao.PartnerDAO;
+import com.itwillbs.domain.UserDTO;
 import com.itwillbs.domain.Performance.*;
 import com.itwillbs.domain.partner.PartnerStatusDTO;
 import com.itwillbs.mapper.PartnerMapper;
@@ -8,6 +10,8 @@ import com.itwillbs.repository.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.hibernate.Hibernate;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,6 +31,8 @@ import java.util.List;
 @AllArgsConstructor
 public class PartnerService implements PartnerMapper {
 
+
+
     private final PartnerMapper partnerMapper;
     private final PartnerRepository partnerRepository;
     private final RegionRepository regionRepository;
@@ -37,7 +43,6 @@ public class PartnerService implements PartnerMapper {
     private final PerformanceRepository performanceRepository;
     private final TicketPriceRepository ticketPriceRepository;
     private final ActorRepository actorRepository;
-    private final PerformanceTempRepository performanceTempRepository;
 
     @PersistenceContext
     private EntityManager entityManager;  // EntityManager 주입
