@@ -31,8 +31,6 @@ import java.util.List;
 @AllArgsConstructor
 public class PartnerService implements PartnerMapper {
 
-
-
     private final PartnerMapper partnerMapper;
     private final PartnerRepository partnerRepository;
     private final RegionRepository regionRepository;
@@ -43,6 +41,7 @@ public class PartnerService implements PartnerMapper {
     private final PerformanceRepository performanceRepository;
     private final TicketPriceRepository ticketPriceRepository;
     private final ActorRepository actorRepository;
+    private final PerformanceTempRepository performanceTempRepository;
 
     @PersistenceContext
     private EntityManager entityManager;  // EntityManager 주입
