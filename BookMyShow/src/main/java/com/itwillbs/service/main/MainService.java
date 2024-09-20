@@ -112,7 +112,7 @@ public class MainService {
             mainNewCarouselDTO.setPrice(formattedPrice);
 
 
-//            log.info("{}: {}",keyName, mainNewCarouselDTO);
+            log.info("{}: {}",keyName, mainNewCarouselDTO);
             carouselDTOS.add(mainNewCarouselDTO);
         }
     }

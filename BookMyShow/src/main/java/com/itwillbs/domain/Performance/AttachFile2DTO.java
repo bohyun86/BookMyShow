@@ -1,27 +1,23 @@
 package com.itwillbs.domain.Performance;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 
 import javax.persistence.*;
 
 @Data
-@Entity(name = "AttachFileTemp")
-public class AttachFileTempDTO {
+public class AttachFile2DTO {
 
-    @Column(name = "file_name")
     private String fileName;
 
-    @Column(name = "upload_path")
     private String uploadPath;
 
-    @Id
     private String uuid;
 
-    @Column(name = "is_poster")
     private boolean isPoster;
 
-    @ManyToOne
-    @JoinColumn(name = "musical_id")
     private MusicalDTO musicalId;
+
+    private String filePath;
 
 }

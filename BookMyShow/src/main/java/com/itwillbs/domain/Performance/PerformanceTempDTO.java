@@ -69,7 +69,6 @@ public class PerformanceTempDTO {
     @Column(name = "discount_end_date")
     private LocalDate discountEndDate; // x
 
-
     @Column(name = "discount_rate")
     private String discountRate; // x
 
