@@ -13,4 +13,9 @@ public interface UserService {
     UserDTO checkId(UserDTO userDTO);
 
     UserDTO checkEmail(UserDTO userDTO);
+    
+    Boolean updateUser(UserDTO userDTO, String newPassword );
+
+	void deleteUser(UserDTO userDTO);
+    
 }

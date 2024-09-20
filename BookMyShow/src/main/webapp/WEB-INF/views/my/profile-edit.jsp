@@ -13,7 +13,8 @@
 #confirm-current-pass-input,
 #new-pass-input,
 #confirm-new-pass-input,
-#update-button {
+#update-button,
+#withdrawal-button {
     height: 57px;
     width: 422px;
 }
@@ -25,14 +26,16 @@
 	<jsp:include page="../include/my/myticket.jsp" />
 	<main id="board-main">
 		<jsp:include page="../include/my/sidebar.jsp" />
+		
 		<section id="board-content">
 			<h1 class="title">프로필 수정</h1>
 			<form class="p-4" id="profile-edit-form"
-				action="${pageContext.request.contextPath}/my/profile-update"
-				method="post">
-				<div
-					class="form-group pb-2 d-flex row align-items-stretch justify-content-center">
-
+				action="${pageContext.request.contextPath}/my/profile-editPro" method="post">
+				
+				<div class="form-group pb-2 d-flex row align-items-stretch justify-content-center">
+					
+					<input type="hidden" name="userId" value="${userDTO.userId}">
+					
 					<!-- 사용자 ID 필드 -->
 					<div class="input-group px-0" id="id-input">
 						<div class="input-group-prepend">
@@ -41,7 +44,7 @@
 							</span>
 						</div>
 						<input type="text" class="form-control border-0" name="userName"
-							value="${user.userName}" readonly>
+							value="${userDTO.userName}" readonly>
 					</div>
 					<div class="input-alert-id input-alert"></div>
 
@@ -53,7 +56,7 @@
 							</span>
 						</div>
 						<input type="email" class="form-control border-0" name="email"
-							value="${user.email}" placeholder="이메일">
+							value="${userDTO.email}" data-current-email="${userDTO.email}" placeholder="이메일">
 					</div>
 					<div class="input-alert-email input-alert"></div>
 
@@ -65,7 +68,7 @@
 							</span>
 						</div>
 						<input type="text" class="form-control border-0" name="name"
-							value="${user.name}" placeholder="이름">
+							value="${userDTO.name}" placeholder="이름">
 					</div>
 					<div class="input-alert-name input-alert"></div>
 
@@ -77,7 +80,7 @@
 							</span>
 						</div>
 						<input type="text" class="form-control border-0"
-							name="phoneNumber" value="${user.phoneNumber}"
+							name="phoneNumber" value="${userDTO.phoneNumber}"
 							placeholder="휴대폰번호">
 					</div>
 					<div class="input-alert-phone input-alert"></div>
@@ -90,7 +93,7 @@
 							</span>
 						</div>
 						<input type="password" class="form-control border-0"
-							name="currentPassword" placeholder="현재 비밀번호">
+							name="password" placeholder="현재 비밀번호">
 					</div>
 					<div class="input-alert-current-pass input-alert"></div>
 
@@ -102,7 +105,7 @@
 							</span>
 						</div>
 						<input type="password" class="form-control border-0"
-							name="confirmCurrentPassword" placeholder="현재 비밀번호 확인">
+							name="confirmPassword" placeholder="현재 비밀번호 확인">
 					</div>
 					<div class="input-alert-confirm-current-pass input-alert"></div>
 
@@ -130,9 +133,12 @@
 					</div>
 					<div class="input-alert-confirm-new-pass input-alert"></div>
 
-					<!-- 프로필 수정 버튼 -->
+					<!-- 버튼 -->
 					<button type="submit" class="btn btn-primary fw-bolder my-2 mt-4"
 						id="update-button">프로필 수정</button>
+					<!-- 회원탈퇴 버튼 -->
+					<button type="button" class="btn btn-danger fw-bolder my-2 mt-4"
+						id="withdrawal-button">회원탈퇴</button>
 				</div>
 			</form>
 		</section>
