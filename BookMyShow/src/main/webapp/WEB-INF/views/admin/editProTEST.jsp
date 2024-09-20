@@ -66,7 +66,7 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title">신규등록</h2>
+                            <h2 class="pageheader-title">뮤지컬 수정</h2>
                             <div class="m-2 bg-white form-body">
                                 <form action="${pageContext.request.contextPath}/partner/writePro"
                                       enctype="multipart/form-data" method="post" class="was-validated">
@@ -151,12 +151,12 @@
                                             <div id="perform-date">
                                                 <label for="start-date" class="col-form-label">시작일</label>
 
-                                                <input type="date" id="start-date" class="form-control required-field"
-                                                       name="startDate">
+                                                <input type="date"  id="startDate" name="startDate" onChange="setendmin(this.value)" class="form-control required-field"
+                                                       >
 
                                                 <label for="end-date" class="col-form-label">종료일</label>
 
-                                                <input type="date" id="end-date" class="form-control required-field"
+                                                <input type="date" id="endDate" name="endDate"class="form-control required-field"
                                                        name="endDate">
 
                                             </div>
