@@ -11,6 +11,8 @@
 <html lang="UTF-8">
 
 <head>
+<!-- jquery 3.3.1 -->
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -69,32 +71,34 @@
 <%-- 				<h1 class="text-center m-3">[검색어:<%=findKeyword %> ] 검색 결과</h1>				 --%>
 <form name="findF" action="#" class="form-inline">
 
-	<select name="findType" class="form-control mr-2">
+	<select name="findType" class="form-control mr-2" onchange="changeSearch(this)">
 		<option value="">::검색 유형::</option>
-		<option value="1">이름</option>
+		<option value="1" >이름</option>
 		<option value="2">아이디</option>
 	</select>
-	<input type="text" name="findKeyword" placeholder="검색어를 입력하세요" 
-	class="form-control mr-2">
-	<button class="btn btn-success">검 색</button>
+	<input type="text" name="findKeyword" placeholder="검색어를 입력하세요" class="form-control mr-2" id ="searchText">
+	<button class="btn btn-success" type="button"  id="partnerSearch" >검 색</button>
 </form>
 				
 				
 				<ul class="list-group">
-					  <li class="list-group-item">검색된 파트너 정보 띄우기</li>
+					  <li class="list-group-item" id="partnerresult"></li>
 					  </ul>
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" onclick = "location.href='${pageContext.request.contextPath}/admin/partnerPro'" type="button">정보 조회 및 수정</button>
+					  <button class="btn btn-primary" type="button" id="editButton" disabled>정보 조회 및 수정</button>
 					</div></p> 
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/partner_settlement'">정산내역</button>
+					  <button class="btn btn-primary" type="button"  id="paymentButton" disabled>정산내역</button>
 					</div></p>
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/partner_qna'">1:1문의</button>
+					  <button class="btn btn-primary" type="button"  id="qnaButton" disabled>1:1문의</button>
 					</div></p>
+
+
+
 
   </div>
                 </div>
@@ -111,8 +115,6 @@
 <!-- end main wrapper  -->
 <!-- ============================================================== -->
 <!-- Optional JavaScript -->
-<!-- jquery 3.3.1 -->
-<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
 <!-- bootstap bundle js -->
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 <!-- slimscroll js -->
@@ -131,6 +133,61 @@
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/c3charts/C3chartjs.js"></script>
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/libs/js/dashboard-ecommerce.js"></script>
+
+<script>
+$(function() {
+// 	alert("d");
+    $('#partnerSearch').click(function() {
+//     	alert("버튼클릭");
+	console.log("버튼클릭");
+    	 
+			$.ajax({
+              url: "${pageContext.request.contextPath}/admin/partnerresult",
+              data: {'user_name': $('#searchText').val()},
+              dataType: "json",
+              success: function(userDTO) {
+                  if (userDTO) {
+                      $('#partnerresult').html('<li class="list-group-item"><a href="javascript:;">' + "아이디:"+userDTO.userName+",이메일:"+ userDTO.email+",연락처:"+userDTO.phoneNumber+",이름:"+userDTO.name+",비밀번호:"+userDTO.password+",회원가입일:"+userDTO.createdAt+",유형:"+userDTO.userRole+ '</a></li>');
+	console.log("요청성공",userDTO);
+                      
+                      $('#editButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partnerPro?userName=' + userDTO.userName + '"').prop('disabled', false);
+                      $('#qnaButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_qna?userName=' + userDTO.userName + '"').prop('disabled', false);
+                      $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?userName=' + userDTO.userName + '"').prop('disabled', false);
+                  } else {
+	console.log("요청실패",userDTO);
+                      $('#partnerresult').html("회원정보가 없습니다");
+                      $('#editButton').prop('disabled', true);
+                      $('#qnaButton').prop('disabled', true);
+                      $('#paymentButton').prop('disabled', true);
+                  }  
+                  },
+             
+              error: function(err) {
+//                   alert("회원정보가 없습니다");
+   $('#partnerresult').html("회원정보가 없습니다");
+                  console.log("error");
+              }
+          });
+      });
+  });
+  
+  
+
+function changeSearch(obj) {
+	let key = $(obj).val();
+		
+	$('#searchText').attr('name', key);
+	
+		
+	}
+		
+
+
+
+
+
+
+</script>
 </body>
 
 </html>
