@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,7 @@ import com.itwillbs.domain.SupportNoticeDTO;
 import com.itwillbs.domain.SupportinquiryDTO;
 import com.itwillbs.domain.SupportqnaDTO;
 import com.itwillbs.service.SupportService;
+import com.itwillbs.service.UserServiceImpl;
 
 @Controller
 @Log4j2
@@ -26,6 +28,9 @@ public class SupportController {
 	
 	@Autowired  
 	private SupportService supportService;
+	
+	@Autowired 
+	private UserServiceImpl userServiceImpl;
 
     @GetMapping("/faq")
     public String faq() {
@@ -50,7 +55,7 @@ public class SupportController {
 	}
     
     @GetMapping("/notice")
-	public String notice(HttpServletRequest request, Model model) {
+	public String notice(HttpServletRequest request, Model model, HttpSession session) {
 		String pageNum = request.getParameter("pageNum");
 		if(pageNum == null) {
 			pageNum = "1";
@@ -80,6 +85,10 @@ public class SupportController {
 		pageDTO.setStartPage(startPage);
 		pageDTO.setEndPage(endPage);
 		pageDTO.setPageCount(pageCount);
+		
+		int userId = (Integer)session.getAttribute("userId");
+		
+		String userName = (String)session.getAttribute("userName");
 				
 		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("pageDTO", pageDTO);

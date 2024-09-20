@@ -73,11 +73,11 @@
         <div class="title">
             공지사항
          
-<%--          <c:if test="${ ! empty sessionScope.userName }"> --%>
-<%--           <c:if test="${sessionScope.userName eq 'admin'}"> --%>
+         <c:if test="${ ! empty sessionScope.userName }">
+          <c:if test="${sessionScope.userName eq 'admin'}">
            <a href="${pageContext.request.contextPath}/support/ntwrite" class="btn_srch">공지사항 작성</a>
-<%--           </c:if> --%>
-<%--          </c:if> --%>
+          </c:if>
+         </c:if>
          
     <ul class="notice-header">
 		<li style="width:35px;">번호</li>
