@@ -1,10 +1,12 @@
 package com.itwillbs.controller;
 
-import com.itwillbs.domain.Performance.MusicalDTO;
-import com.itwillbs.domain.partner.PartnerDTO;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itwillbs.domain.Performance.AttachFile2DTO;
 import com.itwillbs.domain.Performance.AttachFileDTO;
-import com.itwillbs.domain.Performance.PerformanceRegistrationDTO;
+import com.itwillbs.domain.Performance.PerformanceTempDTO;
 import com.itwillbs.domain.UserDTO;
+import com.itwillbs.domain.partner.PartnerDTO;
 import com.itwillbs.domain.partner.PartnerStatusDTO;
 import com.itwillbs.service.PartnerService;
 import com.itwillbs.service.UserServiceImpl;
@@ -13,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -39,6 +42,7 @@ public class PartnerController implements ServletContextAware {
     private final UserServiceImpl userServiceImpl;
     private final PartnerService partnerService;
     private ServletContext servletContext;
+    private ObjectMapper objectMapper;
 
     @Autowired
     public PartnerController(UserServiceImpl userServiceImpl, PartnerService partnerService) {
@@ -106,8 +110,16 @@ public class PartnerController implements ServletContextAware {
     }
 
     @GetMapping("/edit")
-    public String edit() {
-        return "/partner//edit";
+    public String edit(@RequestParam int musicalId, Model model) {
+        PerformanceTempDTO performanceTempDTO = partnerService.getPerformanceTemp(musicalId);
+        List<AttachFile2DTO> attachFileDTO = partnerService.getAttachFileByMusicalId(musicalId);
+
+        log.info("attachFileDTO: {}", attachFileDTO);
+
+        model.addAttribute("performanceTempDTO", performanceTempDTO);
+        model.addAttribute("attachFileDTO", attachFileDTO);
+
+        return "/partner/edit";
     }
 
 
@@ -141,10 +153,17 @@ public class PartnerController implements ServletContextAware {
         return "/partner/main";
     }
 
+    @GetMapping("/deletePro")
+    public String deletePro(@RequestParam int musicalId) {
+        log.info("deletePro: {}", musicalId);
+        partnerService.deletePerformance(musicalId);
+        return "redirect:/partner/status";
+    }
+
 
     @PostMapping(value = "/writePro")
-    public String writePro(PerformanceRegistrationDTO performanceRegistrationDTO) {
-        log.info("writePro: {}", performanceRegistrationDTO);
+    public String writePro(PerformanceTempDTO performancetempDTO) {
+        log.info("writePro: {}", performancetempDTO);
 
         List<AttachFileDTO> list = new ArrayList<>();
         String uploadFolder = servletContext.getRealPath("/resources/upload");
@@ -157,17 +176,19 @@ public class PartnerController implements ServletContextAware {
         }
 
         // 공연 상세정보 이미지 처리
-        MultipartFile[] musicalImages = performanceRegistrationDTO.getMusicalImages();
+        MultipartFile[] musicalImages = performancetempDTO.getMusicalImages();
 
         for (MultipartFile musicalImage : musicalImages) {
             uploadImages(musicalImage, uploadPath, list, false);
         }
 
         // 공연 포스터 이미지 처리
-        MultipartFile musicalPost = performanceRegistrationDTO.getMusicalPost();
+        MultipartFile musicalPost = performancetempDTO.getMusicalPost();
         uploadImages(musicalPost, uploadPath, list, true);
 
-        partnerService.registerPerformance(performanceRegistrationDTO, list);
+        // 임시 공연 등록
+
+        partnerService.registerPerformance(performancetempDTO, list);
 
         return "redirect:/partner/status";
     }

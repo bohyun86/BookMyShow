@@ -1,10 +1,9 @@
 package com.itwillbs.service;
 
 import com.itwillbs.domain.Performance.AttachFileDTO;
-import com.itwillbs.domain.Performance.PerformanceRegistrationDTO;
+import com.itwillbs.domain.Performance.PerformanceTempDTO;
 import com.itwillbs.domain.Performance.RegionDTO;
 import com.itwillbs.domain.Performance.VenueDTO;
-import com.itwillbs.domain.partner.PartnerStatusDTO;
 import com.itwillbs.repository.VenueRepository;
 import lombok.extern.log4j.Log4j2;
 import org.junit.jupiter.api.Test;
@@ -19,7 +18,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -81,35 +79,6 @@ public class PartnerServiceTests {
 
         list.add(attachFileDTO);
 
-
-        PerformanceRegistrationDTO performanceRegistrationDTO = new PerformanceRegistrationDTO();
-        performanceRegistrationDTO.setMusicalId(0);
-        performanceRegistrationDTO.setPartnerId(1);
-        performanceRegistrationDTO.setTitle("썸데이");
-        performanceRegistrationDTO.setStartDate(LocalDate.of(2024, 9, 16));
-        performanceRegistrationDTO.setEndDate(LocalDate.of(2024, 10, 9));
-        performanceRegistrationDTO.setAgeLimit(7);
-        performanceRegistrationDTO.setTotalTime("100");
-        performanceRegistrationDTO.setGenreId(3);
-        performanceRegistrationDTO.setTicketsPerPerson(10);
-        performanceRegistrationDTO.setDiscountStartDate(LocalDate.of(2024, 9, 20));
-        performanceRegistrationDTO.setDiscountEndDate(LocalDate.of(2024, 10, 5));
-        performanceRegistrationDTO.setDiscountRate("0.30");
-        performanceRegistrationDTO.setMusicalSponsor("극단 무하");
-        performanceRegistrationDTO.setActorList(new String[]{"김서별", "김여진", "윤환호", "윤진웅", "고샛별", "김지후", "임재혁", "박중리"});
-        performanceRegistrationDTO.setClasses(new int[]{2});
-        performanceRegistrationDTO.setPrice(new int[]{15000});
-        performanceRegistrationDTO.setNumberOfSeats(new int[]{164});
-        performanceRegistrationDTO.setVenueTitle("대학로 무하아트센터");
-        performanceRegistrationDTO.setPublicVenueId("FC003868");
-        performanceRegistrationDTO.setPostCode("03088");
-        performanceRegistrationDTO.setBasicAddress("서울 종로구 이화장길 72");
-        performanceRegistrationDTO.setRegionName("대학로");
-        performanceRegistrationDTO.setTotalSeat(164);
-        performanceRegistrationDTO.setMusicalPost(null);
-        performanceRegistrationDTO.setMusicalImages(null);
-
-        partnerService.registerPerformance(performanceRegistrationDTO, list);
 
 
     }
