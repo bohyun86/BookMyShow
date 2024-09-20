@@ -13,7 +13,7 @@ public class PartnersServiceAdmin {
 	private PartnerDAO partnerDAO;
 	
 	
-    public UserDTO getPartnersy(String id, String email, String phoneNumber, String name, String password, String createdAt) {
+    public UserDTO getPartnersy(String id, String email, String phoneNumber, String name, String password,String createdAt, String user_role) {
 		System.out.println("partnersServiceAdmin getPartnersy::"+id);
 		System.out.println("partnersServiceAdmin getPartnersy id::"+id);
 		System.out.println("partnersServiceAdmin getPartnersy email::"+email);
@@ -21,8 +21,8 @@ public class PartnersServiceAdmin {
 		System.out.println("partnersServiceAdmin getPartnersy name::"+name);
 		System.out.println("partnersServiceAdmin getPartnersy password::"+password);
 		System.out.println("partnersServiceAdmin getPartnersy createdAt::"+createdAt);
-		PartnerDAO partnerDAO = new PartnerDAO();
-		return partnerDAO.getPartnersy(id,email,phoneNumber,name,password,createdAt);
+		System.out.println("partnersServiceAdmin getPartnersy user_role::"+user_role);
+		return partnerDAO.getPartnersy(id,email,phoneNumber,name,password,createdAt,user_role);
 	}
 	
 	

@@ -27,7 +27,7 @@ public class MemberDAO {
 	
 	private static final String namespace="com.itwillbs.mapper.MemberMapper";
 
-	public UserDTO getMember(String id, String email, String phoneNumber, String name, String password, String createdAt) {
+	public UserDTO getMember(String id, String email, String phoneNumber, String name, String password, String createdAt,String user_role) {
 		System.out.println("MemberDAO getMember");
 		System.out.println("MemberDAO Id :::" + id);
 		System.out.println("MemberDAO email :::" + email);
@@ -35,6 +35,7 @@ public class MemberDAO {
 		System.out.println("MemberDAO name :::" + name);
 		System.out.println("MemberDAO password :::" + password);
 		System.out.println("MemberDAO created_at :::" + createdAt);
+		System.out.println("MemberDAO user_role :::" + user_role);
 		return sqlSession.selectOne(namespace+ ".getMember", id);
 	}
 	

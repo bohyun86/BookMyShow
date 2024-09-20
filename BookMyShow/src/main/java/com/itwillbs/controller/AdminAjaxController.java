@@ -22,6 +22,7 @@ public class AdminAjaxController {
 	@Autowired
 	private MemberService memberService;
 	
+	@Autowired
 	private PartnersServiceAdmin partnersServiceAdmin; 
 	
 	@GetMapping("/admin/result")
@@ -33,13 +34,15 @@ public class AdminAjaxController {
 		String name = request.getParameter("name");
 		String createdAt = request.getParameter("createdAt");
 		String password = request.getParameter("password");
-		UserDTO userDTO = memberService.getMember(id,email,phoneNumber,name,password,createdAt);
+		String user_role = request.getParameter("user_role");
+		UserDTO userDTO = memberService.getMember(id,email,phoneNumber,name,password,createdAt,user_role);
 		System.out.println("AdminAjaxController::"+email);
 		System.out.println("AdminAjaxController::"+password);
 		System.out.println("AdminAjaxController::"+createdAt);
 		System.out.println("AdminAjaxController::"+name);
 		System.out.println("AdminAjaxController::"+phoneNumber);
 		System.out.println("AdminAjaxController::"+id);
+		System.out.println("AdminAjaxController::"+user_role);
 		System.out.println("AdminAjaxController::"+userDTO);
 //		JsonObject jsonObject = new JsonObject();
 		//result="okinfo";
@@ -57,16 +60,18 @@ public class AdminAjaxController {
 		String name = request.getParameter("name");
 		String createdAt = request.getParameter("createdAt");
 		String password = request.getParameter("password");
-		UserDTO userDTO = partnersServiceAdmin.getPartnersy(id,email,phoneNumber,name,password,createdAt);
+		String user_role = request.getParameter("user_role");
+		UserDTO userDTO = partnersServiceAdmin.getPartnersy(id,email,phoneNumber,name,password,createdAt,user_role);
 		System.out.println("AdminAjaxController::"+email);
 		System.out.println("AdminAjaxController::"+password);
 		System.out.println("AdminAjaxController::"+createdAt);
 		System.out.println("AdminAjaxController::"+name);
 		System.out.println("AdminAjaxController::"+phoneNumber);
 		System.out.println("AdminAjaxController::"+id);
+		System.out.println("AdminAjaxController::"+user_role);
 		System.out.println("AdminAjaxController::"+userDTO);
 //		JsonObject jsonObject = new JsonObject();
-		//result="okinfo";
+		
 		
 		return userDTO;
 		

@@ -22,13 +22,7 @@
         select * from partnerDTO where user_id = #{userId}
     </select>
     
-<!--     getPartnersy 소연이한거 -->
-<select id="getPartnersy" resultType="com.itwillbs.domain.partner.PartnerDTO" resultMap="partnerResultMap">
- SELECT U.user_id, U.user_name, U.password, U.email, U.phone_number, U.name, U.user_role, U.created_at
-        FROM Partner P
-        JOIN User U ON P.user_id = U.user_id
-        WHERE U.user_name = #{id}
-    </select>
+
 
 
 </mapper>

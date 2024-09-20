@@ -11,6 +11,8 @@
 <html lang="UTF-8">
 
 <head>
+<!-- jquery 3.3.1 -->
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -113,8 +115,6 @@
 <!-- end main wrapper  -->
 <!-- ============================================================== -->
 <!-- Optional JavaScript -->
-<!-- jquery 3.3.1 -->
-<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
 <!-- bootstap bundle js -->
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 <!-- slimscroll js -->
@@ -133,39 +133,43 @@
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/c3charts/C3chartjs.js"></script>
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/libs/js/dashboard-ecommerce.js"></script>
+
 <script>
 $(function() {
 // 	alert("d");
     $('#partnerSearch').click(function() {
-//     	alert("DD");
-    	  $.ajax({
+//     	alert("버튼클릭");
+	console.log("버튼클릭");
+    	 
+			$.ajax({
               url: "${pageContext.request.contextPath}/admin/partnerresult",
               data: {'user_name': $('#searchText').val()},
               dataType: "json",
               success: function(userDTO) {
                   if (userDTO) {
-                      $('#partnerresult').html('<li class="list-group-item"><a href="javascript:;">' + "아이디:"+userDTO.userName+",이메일:"+ userDTO.email+",연락처:"+userDTO.phoneNumber+",이름:"+userDTO.name+",비밀번호:"+userDTO.password+",회원가입일:"+userDTO.createdAt+ '</a></li>');
+                      $('#partnerresult').html('<li class="list-group-item"><a href="javascript:;">' + "아이디:"+userDTO.userName+",이메일:"+ userDTO.email+",연락처:"+userDTO.phoneNumber+",이름:"+userDTO.name+",비밀번호:"+userDTO.password+",회원가입일:"+userDTO.createdAt+",유형:"+userDTO.userRole+ '</a></li>');
+	console.log("요청성공",userDTO);
                       
                       $('#editButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partnerPro?userName=' + userDTO.userName + '"').prop('disabled', false);
                       $('#qnaButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_qna?userName=' + userDTO.userName + '"').prop('disabled', false);
                       $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?userName=' + userDTO.userName + '"').prop('disabled', false);
                   } else {
+	console.log("요청실패",userDTO);
                       $('#partnerresult').html("회원정보가 없습니다");
                       $('#editButton').prop('disabled', true);
                       $('#qnaButton').prop('disabled', true);
                       $('#paymentButton').prop('disabled', true);
-                      
+                  }  
                   },
              
               error: function(err) {
 //                   alert("회원정보가 없습니다");
    $('#partnerresult').html("회원정보가 없습니다");
                   console.log("error");
-              };
+              }
           });
       });
   });
-});
   
   
 
