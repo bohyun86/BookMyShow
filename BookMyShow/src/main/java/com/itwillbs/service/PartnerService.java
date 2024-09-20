@@ -1,17 +1,12 @@
 package com.itwillbs.service;
 
-import com.itwillbs.domain.partner.PartnerDTO;
-import com.itwillbs.dao.PartnerDAO;
-import com.itwillbs.domain.UserDTO;
 import com.itwillbs.domain.Performance.*;
+import com.itwillbs.domain.partner.PartnerDTO;
 import com.itwillbs.domain.partner.PartnerStatusDTO;
 import com.itwillbs.mapper.PartnerMapper;
 import com.itwillbs.repository.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.hibernate.Hibernate;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
