@@ -144,169 +144,191 @@
 	</resultMap>
 
 
-    <select id="getMemberId" resultType="java.lang.Integer">
-        SELECT member_id
-        FROM Member
-        WHERE user_id = #{userId}
-    </select>
+	<select id="getMemberId" resultType="java.lang.Integer">
+		SELECT member_id
+		FROM Member
+		WHERE user_id = #{userId}
+	</select>
 
-    <select id="getUser" resultType="com.itwillbs.domain.UserDTO" resultMap="userResultMap">
-        SELECT * FROM User
-        WHERE user_id = #{userId}
-    </select>
+	<select id="getUser" resultType="com.itwillbs.domain.UserDTO"
+		resultMap="userResultMap">
+		SELECT * FROM User
+		WHERE user_id = #{userId}
+	</select>
 
-    <select id="getBookings" resultType="com.itwillbs.domain.BookingDTO" resultMap="bookingResultMap">
-        SELECT *
-        FROM Booking
-        WHERE member_id = #{memberId}
-        <if test="bookingId != null">
-            AND booking_id = #{bookingId}
-        </if>
-        ORDER BY booking_date DESC
-        <if test="limit != null and offset != null">
-            LIMIT #{offset}, #{limit}
-        </if>
-    </select>
+	<select id="getBookings"
+		resultType="com.itwillbs.domain.BookingDTO"
+		resultMap="bookingResultMap">
+		SELECT *
+		FROM Booking
+		WHERE member_id = #{memberId} AND status = '예매완료'
+		<if test="bookingId != null">
+			AND booking_id = #{bookingId}
+		</if>
+		ORDER BY booking_id ASC
+		<if test="limit != null and offset != null">
+			LIMIT #{offset}, #{limit}
+		</if>
+	</select>
 
-    <select id="getMusicals" resultType="com.itwillbs.domain.MusicalDTO" resultMap="musicalResultMap">
-        SELECT m.*
-        FROM Musical m
-        JOIN Performance p ON m.musical_id = p.musical_id
-        JOIN Booking b ON p.performance_id = b.performance_id
-        <where>
-            <if test="list != null and list.size() > 0">
-                b.booking_id IN
-                <foreach item="item" collection="list" open="(" separator="," close=")">
-                    #{item}
-                </foreach>
-            </if>
-            <if test="list == null or list.size() == 0">
-                1 = 0
-            </if>
-        </where>
-    </select>
+	<select id="getMusicals"
+		resultType="com.itwillbs.domain.MusicalDTO"
+		resultMap="musicalResultMap">
+		SELECT m.*
+		FROM Musical m
+		JOIN Performance p ON m.musical_id = p.musical_id
+		JOIN Booking b ON p.performance_id = b.performance_id
+		<where>
+			<if test="list != null and list.size() > 0">
+				b.booking_id IN
+				<foreach item="item" collection="list" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="list == null or list.size() == 0">
+				1 = 0
+			</if>
+		</where>
+	</select>
 
-    <select id="getAttachFiles" resultType="com.itwillbs.domain.AttachFileDTO" resultMap="attachFileResultMap">
-        SELECT af.*
-        FROM AttachFile af
-        JOIN Musical m ON af.musical_id = m.musical_id
-        JOIN Performance p ON m.musical_id = p.musical_id
-        JOIN Booking b ON p.performance_id = b.performance_id
-        <where>
-            <if test="list != null and list.size() > 0">
-                b.booking_id IN
-                <foreach item="bookingId" collection="list" open="(" separator="," close=")">
-                    #{bookingId}
-                </foreach>
-            </if>
-            <if test="list == null or list.size() == 0">
-                1 = 0
-            </if>
-            AND af.is_poster = true
-        </where>
-    </select>
+	<select id="getAttachFiles"
+		resultType="com.itwillbs.domain.AttachFileDTO"
+		resultMap="attachFileResultMap">
+		SELECT af.*
+		FROM AttachFile af
+		JOIN Musical m ON af.musical_id = m.musical_id
+		JOIN Performance p ON m.musical_id = p.musical_id
+		JOIN Booking b ON p.performance_id = b.performance_id
+		<where>
+			<if test="list != null and list.size() > 0">
+				b.booking_id IN
+				<foreach item="bookingId" collection="list" open="("
+					separator="," close=")">
+					#{bookingId}
+				</foreach>
+			</if>
+			<if test="list == null or list.size() == 0">
+				1 = 0
+			</if>
+			AND af.is_poster = true
+		</where>
+	</select>
 
-    <select id="getPerformances" resultType="com.itwillbs.domain.PerformanceDTO" resultMap="performanceResultMap">
-        SELECT p.*
-        FROM Performance p
-        JOIN Booking b ON p.performance_id = b.performance_id
-        <where>
-            <if test="list != null and list.size() > 0">
-                b.booking_id IN
-                <foreach item="bookingId" collection="list" open="(" separator="," close=")">
-                    #{bookingId}
-                </foreach>
-            </if>
-            <if test="list == null or list.size() == 0">
-                1 = 0
-            </if>
-        </where>
-    </select>
+	<select id="getPerformances"
+		resultType="com.itwillbs.domain.PerformanceDTO"
+		resultMap="performanceResultMap">
+		SELECT p.*
+		FROM Performance p
+		JOIN Booking b ON p.performance_id = b.performance_id
+		<where>
+			<if test="list != null and list.size() > 0">
+				b.booking_id IN
+				<foreach item="bookingId" collection="list" open="("
+					separator="," close=")">
+					#{bookingId}
+				</foreach>
+			</if>
+			<if test="list == null or list.size() == 0">
+				1 = 0
+			</if>
+		</where>
+	</select>
 
-    <select id="getPayments" resultType="com.itwillbs.domain.PaymentDTO" resultMap="paymentResultMap">
-        SELECT *
-        FROM Payment
-        <where>
-            <if test="list != null and list.size() > 0">
-                booking_id IN
-                <foreach item="bookingId" collection="list" open="(" separator="," close=")">
-                    #{bookingId}
-                </foreach>
-            </if>
-            <if test="list == null or list.size() == 0">
-                1 = 0
-            </if>
-        </where>
-    </select>
+	<select id="getPayments"
+		resultType="com.itwillbs.domain.PaymentDTO"
+		resultMap="paymentResultMap">
+		SELECT *
+		FROM Payment
+		<where>
+			<if test="list != null and list.size() > 0">
+				booking_id IN
+				<foreach item="bookingId" collection="list" open="("
+					separator="," close=")">
+					#{bookingId}
+				</foreach>
+			</if>
+			<if test="list == null or list.size() == 0">
+				1 = 0
+			</if>
+		</where>
+	</select>
 
-    <select id="getBookedSeats" resultType="com.itwillbs.domain.BookedSeatsDTO" resultMap="bookedSeatsResultMap">
-        SELECT *
-        FROM BookedSeats
-        <where>
-            <if test="list != null and list.size() > 0">
-                booking_id IN
-                <foreach item="bookingId" collection="list" open="(" separator="," close=")">
-                    #{bookingId}
-                </foreach>
-            </if>
-            <if test="list == null or list.size() == 0">
-                1 = 0
-            </if>
-        </where>
-    </select>
+	<select id="getBookedSeats"
+		resultType="com.itwillbs.domain.BookedSeatsDTO"
+		resultMap="bookedSeatsResultMap">
+		SELECT *
+		FROM BookedSeats
+		<where>
+			<if test="list != null and list.size() > 0">
+				booking_id IN
+				<foreach item="bookingId" collection="list" open="("
+					separator="," close=")">
+					#{bookingId}
+				</foreach>
+			</if>
+			<if test="list == null or list.size() == 0">
+				1 = 0
+			</if>
+		</where>
+	</select>
 
-    <select id="getTotalBookingsCount" resultType="int">
-        SELECT COUNT(*)
-        FROM Booking
-        WHERE member_id = #{memberId}
-    </select>
+	<select id="getTotalBookingsCount" resultType="int">
+		SELECT COUNT(*)
+		FROM Booking
+		WHERE member_id = #{memberId} AND status = '예매완료'
+	</select>
 
-    <select id="getVenues" resultType="com.itwillbs.domain.VenueDTO" resultMap="venueResultMap">
-        SELECT DISTINCT v.*
-        FROM Venue v
-        JOIN Performance p ON v.venue_id = p.venue_id
-        JOIN Booking b ON p.performance_id = b.performance_id
-        <where>
-            <if test="list != null and list.size() > 0">
-                b.booking_id IN
-                <foreach item="bookingId" collection="list" open="(" separator="," close=")">
-                    #{bookingId}
-                </foreach>
-            </if>
-            <if test="list == null or list.size() == 0">
-                1 = 0
-            </if>
-        </where>
-    </select>
+	<select id="getVenues" resultType="com.itwillbs.domain.VenueDTO"
+		resultMap="venueResultMap">
+		SELECT DISTINCT v.*
+		FROM Venue v
+		JOIN Performance p ON v.venue_id = p.venue_id
+		JOIN Booking b ON p.performance_id = b.performance_id
+		<where>
+			<if test="list != null and list.size() > 0">
+				b.booking_id IN
+				<foreach item="bookingId" collection="list" open="("
+					separator="," close=")">
+					#{bookingId}
+				</foreach>
+			</if>
+			<if test="list == null or list.size() == 0">
+				1 = 0
+			</if>
+		</where>
+	</select>
 
-    <select id="getRefundBookings" resultType="com.itwillbs.domain.BookingDTO" resultMap="bookingResultMap">
-        SELECT *
-        FROM Booking
-        WHERE member_id = #{memberId} AND (status = '환불완료' OR status = '취소됨')
-        ORDER BY booking_date DESC
-        LIMIT #{offset}, #{limit}
-    </select>
+	<select id="getRefundBookings"
+		resultType="com.itwillbs.domain.BookingDTO"
+		resultMap="bookingResultMap">
+		SELECT *
+		FROM Booking
+		WHERE member_id = #{memberId} AND (status = '환불완료' OR status = '취소됨')
+		ORDER BY booking_date DESC
+		LIMIT #{offset}, #{limit}
+	</select>
 
-    <select id="getTotalRefundsCount" resultType="int">
-        SELECT COUNT(*)
-        FROM Booking
-        WHERE member_id = #{memberId} AND (status = '환불완료' OR status = '취소됨')
-    </select>
+	<select id="getTotalRefundsCount" resultType="int">
+		SELECT COUNT(*)
+		FROM Booking
+		WHERE member_id = #{memberId} AND (status = '환불완료' OR status = '취소됨')
+	</select>
 
-    <update id="processRefund">
-        UPDATE Booking SET status = '환불완료'
-        WHERE booking_id = #{bookingId} AND user_id = #{userId}
-    </update>
+	<update id="processRefund">
+		UPDATE Booking SET status = '환불완료'
+		WHERE booking_id = #{bookingId} AND user_id = #{userId}
+	</update>
 
-    <select id="getUserPoint" resultType="java.lang.Integer">
-        SELECT balance FROM Point WHERE user_id = #{userId}
-    </select>
+	<select id="getUserPoint" resultType="java.lang.Integer">
+		SELECT balance FROM Point WHERE user_id = #{userId}
+	</select>
 
-    <select id="getUsableTicketCount" resultType="java.lang.Integer">
-        SELECT COUNT(*)
-        FROM Booking
-        WHERE member_id = #{memberId} AND status = '예매완료'
-    </select>
+	<select id="getUsableTicketCount" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM Booking
+		WHERE member_id = #{memberId} AND status = '예매완료'
+	</select>
 
 </mapper>
   

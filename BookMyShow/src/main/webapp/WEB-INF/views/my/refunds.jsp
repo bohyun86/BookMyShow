@@ -9,15 +9,7 @@
 	href="<c:url value='/resources/css/my/card.css'/>">
 </head>
 <body id="board-body">
-	<!-- 디버그 정보 -->
-	<div style="display: none;">
-		<h3>Debug Info:</h3>
-		<p>Refunds: ${not empty refunds}</p>
-		<p>Musicals: ${not empty musicals}</p>
-		<p>AttachFiles: ${not empty attachFiles}</p>
-		<p>Performances: ${not empty performances}</p>
-		<p>Payments: ${not empty payments}</p>
-	</div>
+	
 	<jsp:include page="../include/top.jsp" />
 	<jsp:include page="../include/my/myticket.jsp" />
 
