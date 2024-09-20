@@ -1,16 +1,15 @@
 package com.itwillbs.domain;
 
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import lombok.Data;
 
 @Data
 public class CouponDTO {
-    private int couponId;
-    private String code;
-    private int couponAmount;
-    private String status;
-    private Timestamp createdAt;
-    private Timestamp updatedAt;
-
+	private Integer couponId;
+	private String code;
+	private Integer couponAmount;
+	private String status;
+	private LocalDateTime createdAt;
+	private LocalDateTime updatedAt;
 }

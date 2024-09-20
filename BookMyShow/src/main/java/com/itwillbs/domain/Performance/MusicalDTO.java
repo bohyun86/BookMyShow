@@ -1,5 +1,6 @@
 package com.itwillbs.domain.Performance;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.itwillbs.domain.partner.PartnerDTO;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
@@ -72,5 +73,11 @@ public class MusicalDTO {
 
     @OneToMany(mappedBy = "musicalId", cascade = CascadeType.ALL)  // 양방향 관계 설정
     private List<PerformanceDTO> performances;  // 일대다 관계
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "musicalId", cascade = CascadeType.ALL)  // 양방향 관계 설정
+    @JsonManagedReference  // 주 엔티티에 붙여줍니다.
+    private List<AttachFileDTO> attachFileDTOList; // 일대다 관계
+
+
 
 }
