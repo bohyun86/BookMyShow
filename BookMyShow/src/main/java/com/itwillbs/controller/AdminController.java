@@ -38,12 +38,7 @@ public class AdminController {
 	private MusicalService musicalService;
 	
 	
-    @GetMapping("/editProTEST")
-    public String editProTEST() {
-        log.info("admin editProTEST success");
-
-        return "/admin/editProTEST";
-    }
+    
     
     @GetMapping("/main")
     public String home() {

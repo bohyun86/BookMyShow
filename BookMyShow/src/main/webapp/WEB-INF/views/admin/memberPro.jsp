@@ -121,11 +121,16 @@
      														  이메일을 입력해주세요.
    														 </div>
 													</div>
+													
+													<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">비밀번호</span>
+  													<input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+    													<div class="invalid-feedback">
+     														  비밀번호를 입력해주세요.
+   														 </div>
+													</div>
 	 													 
-	 													 <div class="input-group input-group-sm mb-3">
- 	 											<span class="input-group-text" id="inputGroup-sizing-sm">성별</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" readonly>
-    													</div>
+	 												
 	 													 
 	 													  <div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">예매한 뮤지컬 내역</span>

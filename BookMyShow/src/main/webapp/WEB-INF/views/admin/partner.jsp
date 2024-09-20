@@ -76,8 +76,8 @@
 		<option value="1" >이름</option>
 		<option value="2">아이디</option>
 	</select>
-	<input type="text" name="findKeyword" placeholder="검색어를 입력하세요" class="form-control mr-2" id ="searchText">
-	<button class="btn btn-success" type="button"  id="partnerSearch" >검 색</button>
+	<input type="text" name="findKeyword" placeholder="검색어를 입력하세요" class="form-control mr-2" id ="searchText"  >
+	<button class="btn btn-success" type="button"  id="partnerSearch"  onkeypress="searchFunction();" >검 색</button>
 </form>
 				
 				
@@ -135,53 +135,137 @@
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/libs/js/dashboard-ecommerce.js"></script>
 
 <script>
-$(function() {
-// 	alert("d");
-    $('#partnerSearch').click(function() {
-//     	alert("버튼클릭");
-	console.log("버튼클릭");
-    	 
-			$.ajax({
-              url: "${pageContext.request.contextPath}/admin/partnerresult",
-              data: {'user_name': $('#searchText').val()},
-              dataType: "json",
-              success: function(userDTO) {
-                  if (userDTO) {
-                      $('#partnerresult').html('<li class="list-group-item"><a href="javascript:;">' + "아이디:"+userDTO.userName+",이메일:"+ userDTO.email+",연락처:"+userDTO.phoneNumber+",이름:"+userDTO.name+",비밀번호:"+userDTO.password+",회원가입일:"+userDTO.createdAt+",유형:"+userDTO.userRole+ '</a></li>');
-	console.log("요청성공",userDTO);
-                      
-                      $('#editButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partnerPro?userName=' + userDTO.userName + '"').prop('disabled', false);
-                      $('#qnaButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_qna?userName=' + userDTO.userName + '"').prop('disabled', false);
-                      $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?userName=' + userDTO.userName + '"').prop('disabled', false);
-                  } else {
-	console.log("요청실패",userDTO);
-                      $('#partnerresult').html("회원정보가 없습니다");
-                      $('#editButton').prop('disabled', true);
-                      $('#qnaButton').prop('disabled', true);
-                      $('#paymentButton').prop('disabled', true);
-                  }  
-                  },
-             
-              error: function(err) {
-//                   alert("회원정보가 없습니다");
-   $('#partnerresult').html("회원정보가 없습니다");
-                  console.log("error");
-              }
-          });
-      });
-  });
-  
-  
 
+  
+  
+//검색유형
 function changeSearch(obj) {
 	let key = $(obj).val();
 		
 	$('#searchText').attr('name', key);
 	
+	if (key === "1") {
+        $('#searchText').attr('name', 'name');  // 이름 검색
+        $('#searchText').attr('placeholder', '이름을 입력하세요');  // 입력 힌트도 변경
+    } else if (key === "2") {
+        $('#searchText').attr('name', 'id');  // 아이디 검색
+        $('#searchText').attr('placeholder', '아이디를 입력하세요');  // 입력 힌트도 변경
+    } else {
+        $('#searchText').attr('name', '');  // 기본값으로 초기화
+        $('#searchText').attr('placeholder', '검색어를 입력하세요');
+    }
 		
 	}
 		
+$(function() {
+    // 검색 버튼 클릭 시 searchFunction 호출
+    $('#partnerSearch').click(function() {
+        searchFunction();  // 버튼 클릭 시 searchFunction 호출
+    });
 
+    // 입력 필드에서 Enter 키 입력 시 searchFunction 호출
+    $('#searchText').on('keypress', function(event) {
+        if (event.key === 'Enter' ) {
+            event.preventDefault();  // 기본 Enter 동작 방지
+            searchFunction();  // Enter 키를 누르면 searchFunction 호출
+        }
+    });
+});
+
+function searchFunction() {
+    let searchValue = $('#searchText').val(); // 검색 필드 값
+    let searchType = $('#searchText').attr('name');  // 현재 검색 유형
+// 	alert("검색"+searchValue);
+
+    // 화면에 출력할 메시지 초기화
+    $('#partnerresult').html("");
+
+    if (searchType === 'name') {
+        if (/^[a-zA-Z가-힣\s]+$/.test(searchValue)) {
+            $(function() {
+//             	alert("d");
+//                 $('#partnerSearch').click(function() {
+//                 	alert("이름버튼클릭");
+                	 
+            			$.ajax({
+                          url: "${pageContext.request.contextPath}/admin/partnerresult",
+                          data: {'user_name': $('#searchText').val()},
+                          dataType: "json",
+                          success: function(userDTO) {
+                              if (userDTO) {
+                                  $('#partnerresult').html('<li class="list-group-item"><a href="javascript:;">' + "아이디:"+userDTO.userName+",이메일:"+ userDTO.email+",연락처:"+userDTO.phoneNumber+",이름:"+userDTO.name+",비밀번호:"+userDTO.password+",회원가입일:"+userDTO.createdAt+",유형:"+userDTO.userRole+ '</a></li>');
+//             	console.log("요청성공",userDTO);
+                                  
+                                  $('#editButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partnerPro?userName=' + userDTO.userName + '"').prop('disabled', false);
+                                  $('#qnaButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_qna?userName=' + userDTO.userName + '"').prop('disabled', false);
+                                  $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?userName=' + userDTO.userName + '"').prop('disabled', false);
+                              } else {
+//             	console.log("요청실패",userDTO);
+                                  $('#partnerresult').html("회원정보가 없습니다");
+                                  $('#editButton').prop('disabled', true);
+                                  $('#qnaButton').prop('disabled', true);
+                                  $('#paymentButton').prop('disabled', true);
+                              }  
+                              },
+                         
+                          error: function(err) {
+//                               alert("회원정보가 없습니다");
+               $('#partnerresult').html("회원정보가 없습니다");
+                              console.log("error");
+                          }
+                      });
+//                   });
+              });
+        } else {
+            $('#partnerresult').html("이름에는 한글, 영어, 공백만 포함될 수 있습니다.");
+            return;
+        }
+    } else if (searchType === 'id') {
+//     	alert("아이디"+searchValue);
+        if (/^[a-zA-Z0-9]+$/.test(searchValue)) {
+            $(function() {
+//                 $('#partnerSearch').click(function() {
+//             	console.log("버튼클릭");
+//             	alert("아이디버튼클릭");
+                	 
+            			$.ajax({
+                          url: "${pageContext.request.contextPath}/admin/partnerresult",
+                          data: {'user_name': $('#searchText').val()},
+                          dataType: "json",
+                          success: function(userDTO) {
+                              if (userDTO) {
+                                  $('#partnerresult').html('<li class="list-group-item"><a href="javascript:;">' + "아이디:"+userDTO.userName+",이메일:"+ userDTO.email+",연락처:"+userDTO.phoneNumber+",이름:"+userDTO.name+",비밀번호:"+userDTO.password+",회원가입일:"+userDTO.createdAt+",유형:"+userDTO.userRole+ '</a></li>');
+//             	console.log("요청성공",userDTO);
+                                  
+                                  $('#editButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partnerPro?userName=' + userDTO.userName + '"').prop('disabled', false);
+                                  $('#qnaButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_qna?userName=' + userDTO.userName + '"').prop('disabled', false);
+                                  $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?userName=' + userDTO.userName + '"').prop('disabled', false);
+                              } else {
+//             	console.log("요청실패",userDTO);
+                                  $('#partnerresult').html("회원정보가 없습니다");
+                                  $('#editButton').prop('disabled', true);
+                                  $('#qnaButton').prop('disabled', true);
+                                  $('#paymentButton').prop('disabled', true);
+                              }  
+                              },
+                         
+                          error: function(err) {
+//                               alert("회원정보가 없습니다");
+               $('#partnerresult').html("회원정보가 없습니다");
+                              console.log("error");
+                          }
+                      });
+//                   });
+              });
+        } else {
+            $('#partnerresult').html("아이디는 영문자와 숫자만 포함될 수 있습니다.");
+            return;
+        }
+    } else {
+        $('#partnerresult').html("검색 유형을 선택하세요.");
+        return;
+    }
+}
 
 
 

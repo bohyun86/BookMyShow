@@ -94,6 +94,14 @@
      														 파트너ID를 입력해주세요.
    														 </div>
 													</div>
+       									 	
+       									 	<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">비밀번호</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+    													<div class="invalid-feedback">
+     														 비밀번호를 입력해주세요.
+   														 </div>
+													</div>
 													
 												<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">이름</span>
@@ -103,7 +111,42 @@
      														 이름을 입력해주세요.
    														 </div>
 													</div> 
-<!-- 													공연기간 종료날짜가 시작날짜보다 전 날짜로 선택 못하게 설정해야함 -->
+													
+												<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">회사명</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" required>
+    													
+    													<div class="invalid-feedback">
+     														 회사명을 입력해주세요.
+   														 </div>
+													</div> 
+												
+												<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">사업자등록번호</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" required>
+    													
+    													<div class="invalid-feedback">
+     														 사업자등록번호를 입력해주세요.
+   														 </div>
+													</div> 
+												
+												<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">계좌번호</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" required>
+    													
+    													<div class="invalid-feedback">
+     														 계좌번호를 입력해주세요.
+   														 </div>
+													</div> 
+												
+												<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">은행</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" required>
+    													
+    													<div class="invalid-feedback">
+     														 은행명을 입력해주세요.
+   														 </div>
+													</div> 
 													
 													<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">연락처</span>

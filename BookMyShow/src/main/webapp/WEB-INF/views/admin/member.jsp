@@ -78,7 +78,7 @@
 		<option value="3">이메일</option>
 	</select>
 		<input type="text" name="findKeyword"  placeholder="검색어를 입력하세요" class="form-control mr-2" id ="searchText">
-			<button class="btn btn-success"  type="button" id="memberSearch">검 색</button>
+			<button class="btn btn-success"  type="button" id="memberSearch" onclick="searchFunction();">검 색</button>
 			</form>
 
  						<ul class="list-group">
@@ -103,7 +103,28 @@
                 </div>
 
 <script>
-
+//검색유형
+function changeSearch(obj) {
+	let key = $(obj).val();
+		
+	$('#searchText').attr('name', key);
+	
+	if (key === "1") {
+        $('#searchText').attr('name', 'name');  // 이름 검색
+        $('#searchText').attr('placeholder', '이름을 입력하세요');  // 입력 힌트도 변경
+    } else if (key === "2") {
+        $('#searchText').attr('name', 'id');  // 아이디 검색
+        $('#searchText').attr('placeholder', '아이디를 입력하세요');  // 입력 힌트도 변경
+    } else if (key === "3") {
+        $('#searchText').attr('name', 'email');  // 아이디 검색
+        $('#searchText').attr('placeholder', '이메일을 입력하세요');  // 입력 힌트도 변경
+		
+	} else {
+        $('#searchText').attr('name', '');  // 기본값으로 초기화
+        $('#searchText').attr('placeholder', '검색어를 입력하세요');
+    }
+		
+	}
 
 
 $(function() {
@@ -140,13 +161,6 @@ $(function() {
 });
 
 
-	function changeSearch(obj) {
-		let key = $(obj).val();
-			
-		$('#searchText').attr('name', key);
-		
-			
-		}
 		
 		
 
