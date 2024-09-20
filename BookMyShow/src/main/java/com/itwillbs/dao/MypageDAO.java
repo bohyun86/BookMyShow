@@ -28,9 +28,11 @@ public class MypageDAO {
 
 	private static final String NAMESPACE = "com.itwillbs.mapper.MypageMapper";
 
-	public Integer getMemberId(Integer userId) {
-		return sqlSession.selectOne(NAMESPACE + ".getMemberId", userId);
+	public Integer getMemberId(int userId) {
+	    Integer memberId = sqlSession.selectOne(NAMESPACE + ".getMemberId", userId);
+	    return memberId;
 	}
+
 
 	public UserDTO getUser(Integer userId) {
 		return sqlSession.selectOne(NAMESPACE + ".getUser", userId);
@@ -94,7 +96,8 @@ public class MypageDAO {
 	}
 
 	public int getUserPoint(Integer userId) {
-		return sqlSession.selectOne(NAMESPACE + ".getUserPoint", userId);
+	    Integer balance = sqlSession.selectOne(NAMESPACE + ".getUserPoint", userId);
+	    return balance != null ? balance : 0;
 	}
 
 	public int getUsableTicketCount(Integer userId) {

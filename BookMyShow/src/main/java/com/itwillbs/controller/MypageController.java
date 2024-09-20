@@ -269,14 +269,16 @@ public class MypageController {
 	}
 
 	private void addCommonAttributes(Model model, HttpSession session) {
-//		Integer userId = (Integer) session.getAttribute("userId");
-//		if (userId != null) {
-//			Integer point = mypageService.getUserPoint(userId);
-//			Integer usableTicketCount = mypageService.getUsableTicketCount(userId);
-//
-//			model.addAttribute("point", point != null ? point : (int) 0);
-//			model.addAttribute("usableTicketCount", usableTicketCount != null ? usableTicketCount : (int) 0);
-//		}
+		Integer userId = (Integer) session.getAttribute("userId");
+		Integer memberID = mypageService.getMemberId(userId);
+		
+		if (userId != null) {
+			Integer point = mypageService.getUserPoint(userId);
+			Integer usableTicketCount = mypageService.getUsableTicketCount(memberID);
+
+			model.addAttribute("point", point);
+			model.addAttribute("usableTicketCount", usableTicketCount);
+		}
 	}
 
 	@GetMapping("/reviews")
