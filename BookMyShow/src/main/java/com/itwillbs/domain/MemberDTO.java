@@ -1,6 +1,5 @@
 package com.itwillbs.domain;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 

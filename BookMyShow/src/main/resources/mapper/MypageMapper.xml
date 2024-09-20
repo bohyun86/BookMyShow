@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.mapper.MypageMapper">
+
+	<resultMap id="userResultMap"
+		type="com.itwillbs.domain.UserDTO">
+		<id property="userId" column="user_id" />
+		<result property="password" column="password" />
+		<result property="email" column="email" />
+		<result property="phoneNumber" column="phone_number" />
+		<result property="name" column="name" />
+		<result property="userRole" column="user_role" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+	<resultMap id="musicalResultMap"
+		type="com.itwillbs.domain.MusicalDTO">
+		<id property="musicalId" column="musical_id" />
+		<result property="title" column="title" />
+		<result property="description" column="description" />
+		<result property="startDate" column="start_date" />
+		<result property="endDate" column="end_date" />
+		<result property="ageLimit" column="age_limit" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="partnerId" column="partner_id" />
+		<result property="genreId" column="genre_id" />
+		<result property="venueId" column="venue_id" />
+		<result property="totalDuration" column="total_duration" />
+		<result property="intervalDuration" column="interval_duration" />
+		<result property="musicalSponsor" column="musical_sponsor" />
+		<result property="approved" column="approved" />
+		<result property="discountStartDate"
+			column="discount_start_date" />
+		<result property="discountEndDate" column="discount_end_date" />
+		<result property="discountRate" column="discount_rate" />
+		<result property="request" column="request" />
+		<result property="reserved" column="reserved" />
+		<result property="ticketsPerPerson" column="tickets_per_person" />
+	</resultMap>
+	<resultMap id="attachFileResultMap"
+		type="com.itwillbs.domain.AttachFileDTO">
+		<result property="fileName" column="file_name" />
+		<result property="uploadPath" column="upload_path" />
+		<result property="uuid" column="uuid" />
+		<result property="isPoster" column="is_poster" />
+		<result property="musicalId" column="musical_id" />
+	</resultMap>
+	<resultMap id="performanceResultMap"
+		type="com.itwillbs.domain.PerformanceDTO">
+		<id property="performanceId" column="performance_id" />
+		<result property="performanceDate" column="performance_date" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="musicalId" column="musical_id" />
+		<result property="venueId" column="venue_id" />
+	</resultMap>
+	<resultMap id="bookingResultMap"
+		type="com.itwillbs.domain.BookingDTO">
+		<id property="bookingId" column="booking_id" />
+		<result property="bookingDate" column="booking_date" />
+		<result property="status" column="status" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="memberId" column="member_id" />
+		<result property="ticketCount" column="ticket_count" />
+		<result property="performanceId" column="performance_id" />
+	</resultMap>
+	<resultMap id="paymentResultMap"
+		type="com.itwillbs.domain.PaymentDTO">
+		<id property="paymentId" column="payment_id" />
+		<result property="paymentDate" column="payment_date" />
+		<result property="paymentMethod" column="payment_method" />
+		<result property="paymentAmount" column="payment_amount" />
+		<result property="status" column="status" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="bookingId" column="booking_id" />
+		<result property="refundType" column="refund_type" />
+		<result property="refundAmount" column="refund_amount" />
+		<result property="usedPoints" column="used_points" />
+	</resultMap>
+	<resultMap id="bookedSeatsResultMap"
+		type="com.itwillbs.domain.BookedSeatsDTO">
+		<id property="bookedSeatId" column="booked_seat_id" />
+		<result property="seatNumber" column="seat_number" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="seatClassId" column="seat_class_id" />
+		<result property="bookingId" column="booking_id" />
+	</resultMap>
+	<resultMap id="venueResultMap"
+		type="com.itwillbs.domain.VenueDTO">
+		<id property="venueId" column="venue_id" />
+		<result property="venueName" column="venue_name" />
+		<result property="address" column="address" />
+		<result property="capacity" column="capacity" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="regionId" column="region_id" />
+		<result property="postalCode" column="postal_code" />
+		<result property="detailAddress" column="detail_address" />
+		<result property="publicVenueId" column="public_venue_id" />
+	</resultMap>
+	<resultMap id="memberResultMap"
+		type="com.itwillbs.domain.MemberDTO">
+		<id property="memberId" column="member_id" />
+		<result property="address" column="address" />
+		<result property="birthdate" column="birthdate" />
+		<result property="gender" column="gender" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="userId" column="user_id" />
+	</resultMap>
+	<resultMap id="reviewResultMap"
+		type="com.itwillbs.domain.ReviewDTO">
+		<id property="reviewId" column="review_id" />
+		<result property="rating" column="rating" />
+		<result property="content" column="content" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="memberId" column="member_id" />
+		<result property="musicalId" column="musical_id" />
+	</resultMap>
+	<resultMap id="couponResultMap"
+		type="com.itwillbs.domain.CouponDTO">
+		<id property="couponId" column="coupon_id" />
+		<result property="code" column="code" />
+		<result property="couponAmount" column="coupon_amount" />
+		<result property="status" column="status" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+	<resultMap id="pointResultMap"
+		type="com.itwillbs.domain.PointDTO">
+		<id property="actorId" column="actor_id" />
+		<result property="type" column="type" />
+		<result property="balance" column="balance" />
+		<result property="timestamp" column="timestamp" />
+		<result property="userId" column="user_id" />
+	</resultMap>
+
+
+	<select id="getMemberId" resultType="java.lang.Integer">
+		SELECT member_id
+		FROM Member
+		WHERE user_id = #{userId}
+	</select>
+
+	<select id="getUser" resultType="com.itwillbs.domain.UserDTO"
+		resultMap="userResultMap">
+		SELECT * FROM User
+		WHERE user_id = #{userId}
+	</select>
+
+	<select id="getBookings"
+		resultType="com.itwillbs.domain.BookingDTO"
+		resultMap="bookingResultMap">
+		SELECT *
+		FROM Booking
+		WHERE member_id = #{memberId} AND status = '예매완료'
+		<if test="bookingId != null">
+			AND booking_id = #{bookingId}
+		</if>
+		ORDER BY booking_id ASC
+		<if test="limit != null and offset != null">
+			LIMIT #{offset}, #{limit}
+		</if>
+	</select>
+
+	<select id="getMusicals"
+		resultType="com.itwillbs.domain.MusicalDTO"
+		resultMap="musicalResultMap">
+		SELECT m.*
+		FROM Musical m
+		JOIN Performance p ON m.musical_id = p.musical_id
+		JOIN Booking b ON p.performance_id = b.performance_id
+		<where>
+			<if test="list != null and list.size() > 0">
+				b.booking_id IN
+				<foreach item="item" collection="list" open="("
+					separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			<if test="list == null or list.size() == 0">
+				1 = 0
+			</if>
+		</where>
+	</select>
+
+	<select id="getAttachFiles"
+		resultType="com.itwillbs.domain.AttachFileDTO"
+		resultMap="attachFileResultMap">
+		SELECT af.*
+		FROM AttachFile af
+		JOIN Musical m ON af.musical_id = m.musical_id
+		JOIN Performance p ON m.musical_id = p.musical_id
+		JOIN Booking b ON p.performance_id = b.performance_id
+		<where>
+			<if test="list != null and list.size() > 0">
+				b.booking_id IN
+				<foreach item="bookingId" collection="list" open="("
+					separator="," close=")">
+					#{bookingId}
+				</foreach>
+			</if>
+			<if test="list == null or list.size() == 0">
+				1 = 0
+			</if>
+			AND af.is_poster = true
+		</where>
+	</select>
+
+	<select id="getPerformances"
+		resultType="com.itwillbs.domain.PerformanceDTO"
+		resultMap="performanceResultMap">
+		SELECT p.*
+		FROM Performance p
+		JOIN Booking b ON p.performance_id = b.performance_id
+		<where>
+			<if test="list != null and list.size() > 0">
+				b.booking_id IN
+				<foreach item="bookingId" collection="list" open="("
+					separator="," close=")">
+					#{bookingId}
+				</foreach>
+			</if>
+			<if test="list == null or list.size() == 0">
+				1 = 0
+			</if>
+		</where>
+	</select>
+
+	<select id="getPayments"
+		resultType="com.itwillbs.domain.PaymentDTO"
+		resultMap="paymentResultMap">
+		SELECT *
+		FROM Payment
+		<where>
+			<if test="list != null and list.size() > 0">
+				booking_id IN
+				<foreach item="bookingId" collection="list" open="("
+					separator="," close=")">
+					#{bookingId}
+				</foreach>
+			</if>
+			<if test="list == null or list.size() == 0">
+				1 = 0
+			</if>
+		</where>
+	</select>
+
+	<select id="getBookedSeats"
+		resultType="com.itwillbs.domain.BookedSeatsDTO"
+		resultMap="bookedSeatsResultMap">
+		SELECT *
+		FROM BookedSeats
+		<where>
+			<if test="list != null and list.size() > 0">
+				booking_id IN
+				<foreach item="bookingId" collection="list" open="("
+					separator="," close=")">
+					#{bookingId}
+				</foreach>
+			</if>
+			<if test="list == null or list.size() == 0">
+				1 = 0
+			</if>
+		</where>
+	</select>
+
+	<select id="getTotalBookingsCount" resultType="int">
+		SELECT COUNT(*)
+		FROM Booking
+		WHERE member_id = #{memberId} AND status = '예매완료'
+	</select>
+
+	<select id="getVenues" resultType="com.itwillbs.domain.VenueDTO"
+		resultMap="venueResultMap">
+		SELECT DISTINCT v.*
+		FROM Venue v
+		JOIN Performance p ON v.venue_id = p.venue_id
+		JOIN Booking b ON p.performance_id = b.performance_id
+		<where>
+			<if test="list != null and list.size() > 0">
+				b.booking_id IN
+				<foreach item="bookingId" collection="list" open="("
+					separator="," close=")">
+					#{bookingId}
+				</foreach>
+			</if>
+			<if test="list == null or list.size() == 0">
+				1 = 0
+			</if>
+		</where>
+	</select>
+
+	<select id="getRefundBookings"
+		resultType="com.itwillbs.domain.BookingDTO"
+		resultMap="bookingResultMap">
+		SELECT *
+		FROM Booking
+		WHERE member_id = #{memberId} AND (status = '환불완료' OR status = '취소됨')
+		ORDER BY booking_date DESC
+		LIMIT #{offset}, #{limit}
+	</select>
+
+	<select id="getTotalRefundsCount" resultType="int">
+		SELECT COUNT(*)
+		FROM Booking
+		WHERE member_id = #{memberId} AND (status = '환불완료' OR status = '취소됨')
+	</select>
+
+	<update id="processRefund">
+		UPDATE Booking SET status = '환불완료'
+		WHERE booking_id = #{bookingId} AND user_id = #{userId}
+	</update>
+
+	<select id="getUserPoint" resultType="java.lang.Integer">
+		SELECT balance FROM Point WHERE user_id = #{userId}
+	</select>
+
+	<select id="getUsableTicketCount" resultType="java.lang.Integer">
+		SELECT COUNT(*)
+		FROM Booking
+		WHERE member_id = #{memberId} AND status = '예매완료'
+	</select>
+
+</mapper>
+  

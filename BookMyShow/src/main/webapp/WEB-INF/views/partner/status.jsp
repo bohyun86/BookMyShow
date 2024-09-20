@@ -73,7 +73,7 @@
                                     <c:forEach var="musical" items="${musicalPage.content}">
                                         <tr>
                                             <td>${musical.musicalNumber}</td>
-                                            <td>${musical.musicalName}</td>
+                                            <td><a href="${pageContext.request.contextPath}/partner/edit?musicalId=${musical.musicalId}">${musical.musicalName}</a></td>
                                             <td>${musical.startDate} ~ ${musical.endDate}</td>
                                             <td>${musical.createdAt}</td>
 

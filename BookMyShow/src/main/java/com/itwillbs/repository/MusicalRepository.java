@@ -22,7 +22,5 @@ public interface MusicalRepository extends JpaRepository<MusicalDTO, Integer> {
 
     List<MusicalDTO> findMusicalsByTitleContaining(String keyword);
 
-
-
-
+    MusicalDTO findMusicalByMusicalId(int musicalId);
 }

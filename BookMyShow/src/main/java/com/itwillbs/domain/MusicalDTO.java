@@ -1,45 +1,33 @@
 package com.itwillbs.domain;
 
-import java.sql.Date;
 
 import lombok.Data;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @Data
 public class MusicalDTO {
-	
-	
-	
-	 	private int userId;
-	    private String title;
-	    private String description;
-	    private Date start_date;
-	    private Date end_date;
-	    private int age_limit;
-	    
-	    private Date created_at;
-	    private Date updated_at;
-	    private int partner_id;
-	    private int genre_id;
-	    private int venue_id;
-	    private int total_duration;
-	    private int interval_duration;
-	    private String musical_sponsor;
-	    private int approved;
-	    private Date discount_start_date;
-	    private Date discount_end_date;
-	    private double discount_rate;
-	    private String request;
-	    private int reserved;
-	    private int tickets_per_person;
-		public String getMusical() {
-			// TODO Auto-generated method stub
-			return null;
-		}
-		
-		
-
-		
-	
-	
-	
-}//
+	private Integer musicalId;
+    private String title;
+    private String description;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private Integer ageLimit;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    private Integer partnerId;
+    private Integer genreId;
+    private Integer venueId;
+    private Integer totalDuration;
+    private Integer intervalDuration;
+    private String musicalSponsor;
+    private Boolean approved;
+    private LocalDate discountStartDate;
+    private LocalDate discountEndDate;
+    private BigDecimal discountRate;
+    private String request;
+    private Boolean reserved;
+    private Integer ticketsPerPerson;
+}

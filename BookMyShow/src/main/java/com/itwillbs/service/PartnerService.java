@@ -9,6 +9,7 @@ import com.itwillbs.mapper.PartnerMapper;
 import com.itwillbs.repository.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.hibernate.Hibernate;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
@@ -17,8 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import java.io.File;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -27,9 +30,7 @@ import java.util.List;
 @Log4j2
 @AllArgsConstructor
 public class PartnerService implements PartnerMapper {
-	
-	
-	
+
     private final PartnerMapper partnerMapper;
     private final PartnerRepository partnerRepository;
     private final RegionRepository regionRepository;
@@ -40,6 +41,7 @@ public class PartnerService implements PartnerMapper {
     private final PerformanceRepository performanceRepository;
     private final TicketPriceRepository ticketPriceRepository;
     private final ActorRepository actorRepository;
+    private final PerformanceTempRepository performanceTempRepository;
 
     @PersistenceContext
     private EntityManager entityManager;  // EntityManager 주입
@@ -58,18 +60,19 @@ public class PartnerService implements PartnerMapper {
     }
 
     @Transactional("jpaTransactionManager")
-    public void registerPerformance(PerformanceRegistrationDTO performanceRegistrationDTO, List<AttachFileDTO> list) {
+    public void registerPerformance(PerformanceTempDTO performanceTempDTO, List<AttachFileDTO> list) {
 
-        log.info("performanceRegistrationDTO: {}", performanceRegistrationDTO);
+        log.info("performanceTempDTO: {}", performanceTempDTO);
 
         // 1. 공연장 테이블 저장 (먼저 venue 저장 후 venueId 사용)
         VenueDTO venueDTO = new VenueDTO();
-        venueDTO.setVenueName(performanceRegistrationDTO.getVenueTitle());
-        venueDTO.setRegionId(regionRepository.findRegionByRegionName(performanceRegistrationDTO.getRegionName()));
-        venueDTO.setPostalCode(performanceRegistrationDTO.getPostCode());
-        venueDTO.setAddress(performanceRegistrationDTO.getBasicAddress());
-        venueDTO.setDetailAddress(performanceRegistrationDTO.getDetailAddress());
-        venueDTO.setTotalSeat(performanceRegistrationDTO.getTotalSeat());
+        venueDTO.setVenueName(performanceTempDTO.getVenueTitle());
+        venueDTO.setRegionId(regionRepository.findRegionByRegionName(performanceTempDTO.getRegionName()));
+        venueDTO.setPostalCode(performanceTempDTO.getPostCode());
+        venueDTO.setAddress(performanceTempDTO.getBasicAddress());
+        venueDTO.setDetailAddress(performanceTempDTO.getDetailAddress());
+        venueDTO.setTotalSeat(performanceTempDTO.getTotalSeat());
+        venueDTO.setPublicVenueId(performanceTempDTO.getPublicVenueId());
 
         // Venue 저장 후 venueId 반환
         venueRepository.save(venueDTO);
@@ -80,26 +83,32 @@ public class PartnerService implements PartnerMapper {
 
         // 2. 뮤지컬 테이블 저장 (저장된 venueId 사용)
         MusicalDTO musicalDTO = new MusicalDTO();
-        musicalDTO.setPartnerId(partnerRepository.findPartnerByPartnerId(performanceRegistrationDTO.getPartnerId()));
-        musicalDTO.setTitle(performanceRegistrationDTO.getTitle());
-        musicalDTO.setDescription(performanceRegistrationDTO.getDescription());
-        musicalDTO.setStartDate(performanceRegistrationDTO.getStartDate());
-        musicalDTO.setEndDate(performanceRegistrationDTO.getEndDate());
-        musicalDTO.setAgeLimit(performanceRegistrationDTO.getAgeLimit());
-        musicalDTO.setTotalTime(performanceRegistrationDTO.getTotalTime());
-        musicalDTO.setIntervalTime(performanceRegistrationDTO.getIntervalTime());
-        musicalDTO.setGenreId(genreRepository.findGenreByGenreId(performanceRegistrationDTO.getGenreId()));
+        musicalDTO.setPartnerId(partnerRepository.findPartnerByPartnerId(performanceTempDTO.getPartnerId()));
+        musicalDTO.setTitle(performanceTempDTO.getTitle());
+        musicalDTO.setDescription(performanceTempDTO.getDescription());
+        musicalDTO.setStartDate(performanceTempDTO.getStartDate());
+        musicalDTO.setEndDate(performanceTempDTO.getEndDate());
+        musicalDTO.setAgeLimit(performanceTempDTO.getAgeLimit());
+        musicalDTO.setTotalTime(performanceTempDTO.getTotalTime());
+        musicalDTO.setIntervalTime(performanceTempDTO.getIntervalTime());
+        musicalDTO.setGenreId(genreRepository.findGenreByGenreId(performanceTempDTO.getGenreId()));
         musicalDTO.setVenueId(venueDTO); // 생성된 venueId 설정
-        musicalDTO.setTicketsPerPerson(performanceRegistrationDTO.getTicketsPerPerson());
-        musicalDTO.setDiscountStartDate(performanceRegistrationDTO.getDiscountStartDate());
-        musicalDTO.setDiscountEndDate(performanceRegistrationDTO.getDiscountEndDate());
-        musicalDTO.setDiscountRate(performanceRegistrationDTO.getDiscountRate());
-        musicalDTO.setMusicalSponsor(performanceRegistrationDTO.getMusicalSponsor());
-        musicalDTO.setRequest(performanceRegistrationDTO.getRequest());
-        musicalDTO.setReserved(performanceRegistrationDTO.isReserved());
+        musicalDTO.setTicketsPerPerson(performanceTempDTO.getTicketsPerPerson());
+        musicalDTO.setDiscountStartDate(performanceTempDTO.getDiscountStartDate());
+        musicalDTO.setDiscountEndDate(performanceTempDTO.getDiscountEndDate());
+        musicalDTO.setDiscountRate(performanceTempDTO.getDiscountRate());
+        musicalDTO.setMusicalSponsor(performanceTempDTO.getMusicalSponsor());
+        musicalDTO.setRequest(performanceTempDTO.getRequest());
+        musicalDTO.setReserved(performanceTempDTO.isReserved());
 
         // Musical 저장 후 musicalId 반환
         musicalRepository.save(musicalDTO);
+
+        entityManager.flush();
+
+        // 이후 테이블 수정시 사용할 임시저장
+        performanceTempDTO.setMusicalId(musicalDTO.getMusicalId());
+        performanceTempRepository.save(performanceTempDTO);
 
         entityManager.flush();
 
@@ -120,8 +129,8 @@ public class PartnerService implements PartnerMapper {
         // 5. 티켓가격 테이블 저장
 
         // startDate와 endDate를 LocalDate로 변환
-        LocalDate startDate = performanceRegistrationDTO.getStartDate();
-        LocalDate endDate = performanceRegistrationDTO.getEndDate();
+        LocalDate startDate = performanceTempDTO.getStartDate();
+        LocalDate endDate = performanceTempDTO.getEndDate();
 
 
         // 공연 일정을 하루씩 증가시키면서 저장
@@ -137,17 +146,17 @@ public class PartnerService implements PartnerMapper {
 
             entityManager.flush();
 
-            int[] seatClassId = performanceRegistrationDTO.getClasses();
-            int[] price = performanceRegistrationDTO.getPrice();
-            int[] numberOfSeats = performanceRegistrationDTO.getNumberOfSeats();
+            String[] seatClassId = Arrays.stream(performanceTempDTO.getClasses().split(",")).map(String::trim).toArray(String[]::new);
+            String[] price = Arrays.stream(performanceTempDTO.getPrice().split(",")).map(String::trim).toArray(String[]::new);
+            String[] numberOfSeats = Arrays.stream(performanceTempDTO.getNumberOfSeats().split(",")).map(String::trim).toArray(String[]::new);
 
             for (int i = 0; i < seatClassId.length; i++) {
                 // 각 티켓가격별로 저장 로직 추가
                 TicketPriceDTO ticketPrice = new TicketPriceDTO();
                 ticketPrice.setPerformanceId(performance);
-                ticketPrice.setSeatClassId(seatClassId[i]);
-                ticketPrice.setPrice(price[i]);
-                ticketPrice.setCapacity(numberOfSeats[i]);
+                ticketPrice.setSeatClassId(Integer.parseInt(seatClassId[i]));
+                ticketPrice.setPrice(Integer.parseInt(price[i]));
+                ticketPrice.setCapacity(Integer.parseInt(numberOfSeats[i]));
 
                 // 티켓가격 정보를 DB에 저장 (Repository 또는 다른 로직 사용)
                 ticketPriceRepository.save(ticketPrice);
@@ -158,7 +167,7 @@ public class PartnerService implements PartnerMapper {
         }
 
         // 6. 배우 테이블 저장
-        String[] actorNames = performanceRegistrationDTO.getActorList();
+        String[] actorNames = Arrays.stream(performanceTempDTO.getActorList().split(",")).map(String::trim).toArray(String[]::new);
         List<ActorDTO> actorList = new ArrayList<>();
 
         for (String actor : actorNames) {
@@ -171,36 +180,7 @@ public class PartnerService implements PartnerMapper {
 
         actorRepository.saveAll(actorList);
     }
-/*
-    public List<PartnerStatusDTO> getMusicalsByPartnerId(int partnerId) {
 
-        PartnerDTO partnerDTO = partnerRepository.findPartnerByPartnerId(partnerId);
-
-        List<MusicalDTO> musicalDTOList = musicalRepository.findMusicalsByPartnerIdOrderByCreatedAtDesc(partnerDTO);
-        List<PartnerStatusDTO> partnerStatusDTOList = new ArrayList<>();
-
-        if (musicalDTOList != null) {
-            for (MusicalDTO musicalDTO : musicalDTOList) {
-                PartnerStatusDTO partnerStatusDTO = new PartnerStatusDTO();
-                partnerStatusDTO.setMusicalId(musicalDTO.getMusicalId());
-                partnerStatusDTO.setMusicalName(musicalDTO.getTitle());
-                partnerStatusDTO.setStartDate(musicalDTO.getStartDate());
-                partnerStatusDTO.setEndDate(musicalDTO.getEndDate());
-
-                //
-
-                String createAt = musicalDTO.getCreatedAt().toString();
-                String createdAt2 = createAt.substring(0, createAt.length() - 2);
-
-                partnerStatusDTO.setCreatedAt(createdAt2);
-                partnerStatusDTO.setApprovalStatus(musicalDTO.isApproved());
-
-                partnerStatusDTOList.add(partnerStatusDTO);
-            }
-        }
-
-        return partnerStatusDTOList;
-    }*/
 
     public Page<PartnerStatusDTO> getMusicalsByPartnerId(int partnerId, int page, int size) {
         PartnerDTO partnerDTO = partnerRepository.findPartnerByPartnerId(partnerId);
@@ -243,10 +223,58 @@ public class PartnerService implements PartnerMapper {
 
         return partnerStatusDTOPage;
     }
-    
-    
-    
-    
-    
+
+    public PerformanceTempDTO getPerformanceTemp(int musicalId) {
+        log.info("getPerformanceTemp: {}", musicalId);
+        return performanceTempRepository.findByMusicalId(musicalId);
+    }
+
+    @Transactional
+    public List<AttachFile2DTO> getAttachFileByMusicalId(int musicalId) {
+        log.info("getAttachFileByMusicalId: {}", musicalId);
+
+        List<AttachFileDTO> attachFileDTOList = musicalRepository.findMusicalByMusicalId(musicalId).getAttachFileDTOList();
+        // 1. 윈도우에서 저장된 경로인 경우
+
+        List<AttachFile2DTO> attachFile2DTOList = new ArrayList<>();
+
+        for (AttachFileDTO attachFile: attachFileDTOList) {
+            String uploadPath = attachFile.getUploadPath();
+            if (attachFile.getUploadPath().contains("\\")) {
+                uploadPath = uploadPath.replace("\\", File.separator);
+                // 2. 리눅스, 맥에서 저장된 경로인 경우
+            } else if (attachFile.getUploadPath().contains("/")) {
+                uploadPath = uploadPath.replace("/", File.separator);
+            }
+            AttachFile2DTO attachFile2DTO = new AttachFile2DTO();
+            if (attachFile.isPoster()) {
+                attachFile2DTO.setUuid("poster");
+            } else {
+                attachFile2DTO.setUuid("description");
+            }
+            attachFile2DTO.setFileName(attachFile.getFileName());
+            attachFile2DTO.setFilePath("resources" + File.separator + "upload" + File.separator + attachFile.getUploadPath() + File.separator + attachFile.getUuid() + "_" + attachFile.getFileName());
+            attachFile2DTOList.add(attachFile2DTO);
+        }
+        return attachFile2DTOList;
+    }
+
+    public void deletePerformance(int musicalId) {
+
+        // 1. 첨부파일 삭제
+        attachFileRepository.deleteAllByMusicalId(musicalRepository.findMusicalByMusicalId(musicalId));
+
+        // 2. 뮤지컬 삭제
+        MusicalDTO musicalDTO = musicalRepository.findMusicalByMusicalId(musicalId);
+        int venueId = musicalDTO.getVenueId().getVenueId();
+        musicalRepository.deleteById(musicalId);
+
+        // 3. 공연장 삭제
+        venueRepository.deleteById(venueId);
+
+        // 4. 임시저장 삭제
+        performanceTempRepository.deleteByMusicalId(musicalId);
+
+    }
 }
 

@@ -46,7 +46,6 @@
                                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/partner/">파트너검색</a>
                                 </li>
                                 
-                                </li>
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/partner_submit/">파트너요청승인</a>
                                 </li>
@@ -68,10 +67,7 @@
                         </div>
                     </li>
                     
-<!--                     <li class="nav-item"> -->
-<%--                         <a class="nav-link" href="${pageContext.request.contextPath}/admin/support/">고객센터</a> --%>
-<!--                     </li> -->
-                    
+
                     <li class="nav-item ">
                         <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
                            data-target="#submenu-5" aria-controls="submenu-5">고객센터</a>
