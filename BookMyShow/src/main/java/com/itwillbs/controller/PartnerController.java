@@ -1,10 +1,10 @@
 package com.itwillbs.controller;
 
-import com.itwillbs.domain.Performance.MusicalDTO;
-import com.itwillbs.domain.partner.PartnerDTO;
 import com.itwillbs.domain.Performance.AttachFileDTO;
-import com.itwillbs.domain.Performance.PerformanceRegistrationDTO;
+import com.itwillbs.domain.Performance.AttachFileTempDTO;
+import com.itwillbs.domain.Performance.PerformanceTempDTO;
 import com.itwillbs.domain.UserDTO;
+import com.itwillbs.domain.partner.PartnerDTO;
 import com.itwillbs.domain.partner.PartnerStatusDTO;
 import com.itwillbs.service.PartnerService;
 import com.itwillbs.service.UserServiceImpl;
@@ -106,8 +106,11 @@ public class PartnerController implements ServletContextAware {
     }
 
     @GetMapping("/edit")
-    public String edit() {
-        return "/partner//edit";
+    public String edit(@RequestParam int musicalId, Model model) {
+
+
+
+        return "/partner/edit";
     }
 
 
@@ -143,8 +146,8 @@ public class PartnerController implements ServletContextAware {
 
 
     @PostMapping(value = "/writePro")
-    public String writePro(PerformanceRegistrationDTO performanceRegistrationDTO) {
-        log.info("writePro: {}", performanceRegistrationDTO);
+    public String writePro(PerformanceTempDTO performancetempDTO) {
+        log.info("writePro: {}", performancetempDTO);
 
         List<AttachFileDTO> list = new ArrayList<>();
         String uploadFolder = servletContext.getRealPath("/resources/upload");
@@ -157,17 +160,19 @@ public class PartnerController implements ServletContextAware {
         }
 
         // 공연 상세정보 이미지 처리
-        MultipartFile[] musicalImages = performanceRegistrationDTO.getMusicalImages();
+        MultipartFile[] musicalImages = performancetempDTO.getMusicalImages();
 
         for (MultipartFile musicalImage : musicalImages) {
             uploadImages(musicalImage, uploadPath, list, false);
         }
 
         // 공연 포스터 이미지 처리
-        MultipartFile musicalPost = performanceRegistrationDTO.getMusicalPost();
+        MultipartFile musicalPost = performancetempDTO.getMusicalPost();
         uploadImages(musicalPost, uploadPath, list, true);
 
-        partnerService.registerPerformance(performanceRegistrationDTO, list);
+        // 임시 공연 등록
+
+        partnerService.registerPerformance(performancetempDTO, list);
 
         return "redirect:/partner/status";
     }

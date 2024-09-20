@@ -15,6 +15,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -34,6 +35,8 @@ public class PartnerService implements PartnerMapper {
     private final PerformanceRepository performanceRepository;
     private final TicketPriceRepository ticketPriceRepository;
     private final ActorRepository actorRepository;
+    private final PerformanceTempRepository performanceTempRepository;
+    private final AttachFIleTempRepository attachFIleTempRepository;
 
     @PersistenceContext
     private EntityManager entityManager;  // EntityManager 주입
@@ -52,7 +55,7 @@ public class PartnerService implements PartnerMapper {
     }
 
     @Transactional("jpaTransactionManager")
-    public void registerPerformance(PerformanceRegistrationDTO performanceRegistrationDTO, List<AttachFileDTO> list) {
+    public void registerPerformance(PerformanceTempDTO performanceRegistrationDTO, List<AttachFileDTO> list) {
 
         log.info("performanceRegistrationDTO: {}", performanceRegistrationDTO);
 
@@ -97,6 +100,12 @@ public class PartnerService implements PartnerMapper {
 
         entityManager.flush();
 
+        // 이후 테이블 수정시 사용할 임시저장
+        performanceRegistrationDTO.setMusicalId(musicalDTO.getMusicalId());
+        performanceTempRepository.save(performanceRegistrationDTO);
+
+        entityManager.flush();
+
         log.info("musicalDTO: {}", musicalDTO);
 
         log.info("list: {}", list);
@@ -131,17 +140,17 @@ public class PartnerService implements PartnerMapper {
 
             entityManager.flush();
 
-            int[] seatClassId = performanceRegistrationDTO.getClasses();
-            int[] price = performanceRegistrationDTO.getPrice();
-            int[] numberOfSeats = performanceRegistrationDTO.getNumberOfSeats();
+            String[] seatClassId = Arrays.stream(performanceRegistrationDTO.getClasses().split(",")).map(String::trim).toArray(String[]::new);
+            String[] price = Arrays.stream(performanceRegistrationDTO.getPrice().split(",")).map(String::trim).toArray(String[]::new);
+            String[] numberOfSeats = Arrays.stream(performanceRegistrationDTO.getNumberOfSeats().split(",")).map(String::trim).toArray(String[]::new);
 
             for (int i = 0; i < seatClassId.length; i++) {
                 // 각 티켓가격별로 저장 로직 추가
                 TicketPriceDTO ticketPrice = new TicketPriceDTO();
                 ticketPrice.setPerformanceId(performance);
-                ticketPrice.setSeatClassId(seatClassId[i]);
-                ticketPrice.setPrice(price[i]);
-                ticketPrice.setCapacity(numberOfSeats[i]);
+                ticketPrice.setSeatClassId(Integer.parseInt(seatClassId[i]));
+                ticketPrice.setPrice(Integer.parseInt(price[i]));
+                ticketPrice.setCapacity(Integer.parseInt(numberOfSeats[i]));
 
                 // 티켓가격 정보를 DB에 저장 (Repository 또는 다른 로직 사용)
                 ticketPriceRepository.save(ticketPrice);
@@ -152,7 +161,7 @@ public class PartnerService implements PartnerMapper {
         }
 
         // 6. 배우 테이블 저장
-        String[] actorNames = performanceRegistrationDTO.getActorList();
+        String[] actorNames = Arrays.stream(performanceRegistrationDTO.getActorList().split(",")).map(String::trim).toArray(String[]::new);
         List<ActorDTO> actorList = new ArrayList<>();
 
         for (String actor : actorNames) {
@@ -165,36 +174,7 @@ public class PartnerService implements PartnerMapper {
 
         actorRepository.saveAll(actorList);
     }
-/*
-    public List<PartnerStatusDTO> getMusicalsByPartnerId(int partnerId) {
 
-        PartnerDTO partnerDTO = partnerRepository.findPartnerByPartnerId(partnerId);
-
-        List<MusicalDTO> musicalDTOList = musicalRepository.findMusicalsByPartnerIdOrderByCreatedAtDesc(partnerDTO);
-        List<PartnerStatusDTO> partnerStatusDTOList = new ArrayList<>();
-
-        if (musicalDTOList != null) {
-            for (MusicalDTO musicalDTO : musicalDTOList) {
-                PartnerStatusDTO partnerStatusDTO = new PartnerStatusDTO();
-                partnerStatusDTO.setMusicalId(musicalDTO.getMusicalId());
-                partnerStatusDTO.setMusicalName(musicalDTO.getTitle());
-                partnerStatusDTO.setStartDate(musicalDTO.getStartDate());
-                partnerStatusDTO.setEndDate(musicalDTO.getEndDate());
-
-                //
-
-                String createAt = musicalDTO.getCreatedAt().toString();
-                String createdAt2 = createAt.substring(0, createAt.length() - 2);
-
-                partnerStatusDTO.setCreatedAt(createdAt2);
-                partnerStatusDTO.setApprovalStatus(musicalDTO.isApproved());
-
-                partnerStatusDTOList.add(partnerStatusDTO);
-            }
-        }
-
-        return partnerStatusDTOList;
-    }*/
 
     public Page<PartnerStatusDTO> getMusicalsByPartnerId(int partnerId, int page, int size) {
         PartnerDTO partnerDTO = partnerRepository.findPartnerByPartnerId(partnerId);
@@ -237,5 +217,6 @@ public class PartnerService implements PartnerMapper {
 
         return partnerStatusDTOPage;
     }
+
 }
 

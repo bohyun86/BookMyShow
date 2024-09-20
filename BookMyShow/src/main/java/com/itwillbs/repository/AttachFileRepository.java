@@ -8,4 +8,5 @@ public interface AttachFileRepository extends JpaRepository<AttachFileDTO, Integ
 
     AttachFileDTO findByMusicalIdAndIsPoster(MusicalDTO musicalId, boolean isPoster);
 
+    AttachFileDTO findAttachFileByMusicalId(MusicalDTO musicalId);
 }
