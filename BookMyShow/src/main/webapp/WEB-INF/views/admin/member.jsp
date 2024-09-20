@@ -70,19 +70,17 @@
 
 			
 				
-<form name="findF" action="#" class="form-inline">
-	<select name="findType" class="form-control mr-2" >
+<form name="findF" action="#" class="form-inline" >
+	<select name="findType" class="form-control mr-2" onchange="changeSearch(this)" >
 		<option value="">::검색 유형::</option>
 		<option value="1">이름</option>
 		<option value="2">아이디</option>
 		<option value="3">이메일</option>
 	</select>
-		<input type="text" name="findKeyword"  placeholder="검색어를 입력하세요" class="form-control mr-2"  s>
+		<input type="text" name="findKeyword"  placeholder="검색어를 입력하세요" class="form-control mr-2" id ="searchText">
 			<button class="btn btn-success"  type="button" id="memberSearch">검 색</button>
 			</form>
 
-<!-- <div class="bbs_line"> -->
-<!-- <li><a href="javascript:;">이번 여름 휴가 제주 갈까? 미션 투어 (여행경비 50만원 지원)</a></li> --> 
  						<ul class="list-group">
 
 					  <li class="list-group-item" id="result"></li>
@@ -90,15 +88,15 @@
 <!-- </div> -->
 
 <p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/memberPro'">정보 조회 및 수정</button>
+  <button class="btn btn-primary" type="button" id="editButton" disabled>정보 조회 및 수정</button>
 </div></p> 
 
 <p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/booking'">예매내역</button>
+  <button class="btn btn-primary" type="button" id="bookingButton" disabled>예매내역</button>
 </div></p>
 
 <p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <button class="btn btn-primary" type="button"  onclick = "location.href='${pageContext.request.contextPath}/admin/payment'">결제내역</button>
+  <button class="btn btn-primary" type="button"  id="paymentutton" disabled>결제내역</button>
 </div></p>
 
   </div>
@@ -106,41 +104,51 @@
 
 <script>
 
-$(function(){
-	$('#memberSearch').click(function(){
-// 		alert("notice 클릭");
-// 		console.log("notice 클릭");
-	$.ajax({
-		url:"${pageContext.request.contextPath}/admin/result",
-// 		data:{'memberSearch':$('#memberSearch').val()},
-		dataType:"jason",
-		error:function(err){
-			
-		alert("error");
-			console.log("error")
-		},
-		success:function(result){
-// 		alert("notice 클릭");
-		if(result=='noInfo'){
-			$('#result').html("회원정보가 없습니다");
-		alert("noInfo");
-		console.log("noInfo");
-			
-		}	else {
-		alert($('#result'));
-		console.log("okinfo");
-// 		$("#result").text(jsonData.id);
-		$('#result').html('<li class="list-group-item"><a href="javascript:;">'+item.user_name +'</a></li>');
-// 		result=$('#result');
-		}
-			
-		}
-	});
 
-	});
+
+$(function() {
+    $('#memberSearch').click(function() {
+    	
+    	
+        
+        $.ajax({
+            url: "${pageContext.request.contextPath}/admin/result",
+            data: {'user_name': $('#searchText').val()},
+            dataType: "json",
+            success: function(userDTO) {
+                if (userDTO) {
+                    $('#result').html('<li class="list-group-item"><a href="javascript:;">' + "아이디:"+userDTO.userName+",이메일:"+ userDTO.email+",연락처:"+userDTO.phoneNumber+",이름:"+userDTO.name+",비밀번호:"+userDTO.password+",회원가입일:"+userDTO.createdAt+",유형:"+userDTO.userRole+ '</a></li>');
+                    
+                    $('#editButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/memberPro?userName=' + userDTO.userName + '"').prop('disabled', false);
+                    $('#bookingButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/booking?userName=' + userDTO.userName + '"').prop('disabled', false);
+                    $('#paymentutton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/payment?userName=' + userDTO.userName + '"').prop('disabled', false);
+                } else {
+                    $('#result').html("회원정보가 없습니다");
+                    $('#editButton').prop('disabled', true);
+                    $('#bookingButton').prop('disabled', true);
+                    $('#paymentutton').prop('disabled', true);
+                    
+                }
+            },
+            error: function(err) {
+//                 alert("회원정보가 없습니다");
+ $('#result').html("회원정보가 없습니다");
+                console.log("error");
+            }
+        });
+    });
 });
 
 
+	function changeSearch(obj) {
+		let key = $(obj).val();
+			
+		$('#searchText').attr('name', key);
+		
+			
+		}
+		
+		
 
 
 
