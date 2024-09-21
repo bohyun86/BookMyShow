@@ -17,6 +17,7 @@ public class PartnersServiceAdmin {
 	private PartnerDAO partnerDAO;
 	
 	
+	
     public UserDTO getPartnersy(String id, String email, String phoneNumber, String name, String password,String createdAt, String user_role) {
 		System.out.println("partnersServiceAdmin getPartnersy::"+id);
 		System.out.println("partnersServiceAdmin getPartnersy id::"+id);
@@ -35,8 +36,8 @@ public class PartnersServiceAdmin {
 	} //파트너검색
 	
 	public List<PartnerQnaDTO> getPartneQna(String id) {
-	    System.out.println("PartnersServiceAdmin::" + id);
-	    return partnerDAO.getPartneQna(id);
+	    System.out.println("PartnersServiceAdmin::" +  id);
+	    return partnerDAO.getPartneQna(id); 
 	}
 
 

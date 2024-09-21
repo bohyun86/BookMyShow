@@ -41,6 +41,9 @@ public class UserDTO {
 
     @OneToOne
     private PartnerDTO partnerDTO;
+    
+    @OneToMany(mappedBy = "partnerDTO")
+	 private List<PartnerQnaDTO>partnerQnaDTO;
 }
 
 

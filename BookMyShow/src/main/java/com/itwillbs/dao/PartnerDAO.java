@@ -36,9 +36,12 @@ public class PartnerDAO {
 		return sqlSession.selectOne(namespace+".getPartnersy", id);
 	}
 	
-	public List<PartnerQnaDTO> getPartneQna(String id) {
-	    System.out.println("PartnerDAO::" + id);
-	    return sqlSession.selectList(namespace + ".getPartneQna", id);
+	public List<PartnerQnaDTO> getPartneQna(String  id) {
+	    System.out.println("PartnerDAO::" +  id);
+	    List<PartnerQnaDTO> result = sqlSession.selectList(namespace + ".getPartneQna", id);
+	    System.out.println("Retrieved PartnerQnaDTO List: " + result);
+
+	    return result;
 	}
 	
 	

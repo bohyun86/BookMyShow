@@ -30,35 +30,28 @@
         <result property="accountOwner" column="account_owner"/>
         <result property="approved" column="approved"/>
         
-<!--         <collection property="partnerQnaDTO" javaType="java.util.List" ofType="com.itwillbs.domain.PartnerQnaDTO"> -->
-<!--             <result property="inquiryId" column="inquiry_id"/> -->
-<!--             <result property="inquiryType" column="inquiry_type"/> -->
-<!--             <result property="title" column="title"/> -->
-<!--             <result property="content" column="content"/> -->
-<!--             <result property="createdAt" column="created_at"/> -->
-<!--             <result property="updatedAt" column="updated_at"/> -->
-<!--             <result property="userId" column="user_id"/> -->
-<!--             <result property="answered" column="answered"/> -->
-<!--         </collection> -->
+        <collection property="partnerQnaDTO" javaType="java.util.List" ofType="com.itwillbs.domain.PartnerQnaDTO">
+            <result property="inquiryId" column="inquiry_id"/>
+            <result property="inquiryType" column="inquiry_type"/>
+            <result property="title" column="title"/>
+            <result property="content" column="content"/>
+            <result property="createdAt" column="created_at"/>
+            <result property="updatedAt" column="updated_at"/>
+            <result property="userId" column="user_id"/>
+            <result property="answered" column="answered"/>
+        </collection>
    
         </association>
     </resultMap>
 
 	<select id="getPartnersy"  resultMap="userResultMap" >
- 		SELECT U.*, P.*
+ 		SELECT U.*, P.*,I.*
         FROM Partner P
         JOIN User U ON P.user_id = U.user_id
-        WHERE U.user_name = #{id} or U.name =#{name}
+        LEFT JOIN Inquiry I ON P.user_id = I.user_id
+        WHERE (U.user_name = #{id} or U.name =#{name}) and P.approved=1
     </select>	
     
-<!--     <select id="getPartneQna"  resultMap="userResultMap" > -->
-<!--  			SELECT I.*, P.* -->
-<!--         FROM  Inquiry I -->
-<!--         JOIN Partner P ON I.user_id = P.user_id -->
-<!--         JOIN User U ON U.user_id = P.user_id -->
-<!--         WHERE U.user_name = #{user_name} or U.name =#{name} and I.answered =0   -->
-        
-<!--     </select> -->
     
     
     

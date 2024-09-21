@@ -2,6 +2,8 @@ package com.itwillbs.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itwillbs.domain.MusicalDTO;
+import com.itwillbs.domain.PartnerDTO;
+import com.itwillbs.domain.PartnerQnaDTO;
 import com.itwillbs.domain.Performance.AttachFile2DTO;
 import com.itwillbs.domain.Performance.AttachFileDTO;
 import com.itwillbs.domain.Performance.PerformanceTempDTO;
@@ -314,8 +316,21 @@ public class AdminController {
 
 
     @GetMapping("/partner_qna")
-    public String partner_qna() {
+    public String partner_qna(
+    						@RequestParam("userName") String userName,
+//    						@RequestParam("inquiryId") String inquiryId,
+//    						@RequestParam("title") String title, 
+//						    @RequestParam("content") String content,
+//						    @RequestParam("createdAt") String createdAt,
+//						    @RequestParam("answered") String answered, 
+    		Model model
+    		) {
         log.info("admin partner_qna success");
+        
+        model.addAttribute("userName", userName);
+        log.info("userName: " + userName);
+        
+        
         return "/admin/partner_qna";
     }
     
