@@ -27,4 +27,8 @@ public class MemberService {
 		return memberDAO.getMember(id,email,phoneNumber,name,password,createdAt,user_role);
 	}
 
+	public UserDTO getMember(String id) {
+		return memberDAO.getMember(id);
+	}
+
 }

@@ -1,9 +1,13 @@
 package com.itwillbs.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.PartnerDAO;
+import com.itwillbs.domain.PartnerDTO;
+import com.itwillbs.domain.PartnerQnaDTO;
 import com.itwillbs.domain.UserDTO;
 
 @Service
@@ -24,7 +28,20 @@ public class PartnersServiceAdmin {
 		System.out.println("partnersServiceAdmin getPartnersy user_role::"+user_role);
 		return partnerDAO.getPartnersy(id,email,phoneNumber,name,password,createdAt,user_role);
 	}
+
+
+	public PartnerDTO getPartnersy(String id) {
+		return partnerDAO.getPartnersy(id);
+	} //파트너검색
 	
+	public List<PartnerQnaDTO> getPartneQna(String id) {
+	    System.out.println("PartnersServiceAdmin::" + id);
+	    return partnerDAO.getPartneQna(id);
+	}
+
+
+	
+    
 	
 	
 	

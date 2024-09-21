@@ -57,8 +57,10 @@
 
             </li>
             <li class="nav-item d-flex border-start ps-3">
-                <a class="nav-link text-black fw-bold fs-6" href="#">타임세일</a>
-                <a class="nav-link text-black fw-bold fs-6" href="#">이벤트</a>
+
+                <a class="nav-link text-black fw-bold fs-6" href="${pageContext.request.contextPath}/main/time_sale">타임세일</a>
+                <a class="nav-link text-black fw-bold fs-6" href="${pageContext.request.contextPath}/main/event">이벤트</a>
+
             </li>
         </ul>
     </div>
