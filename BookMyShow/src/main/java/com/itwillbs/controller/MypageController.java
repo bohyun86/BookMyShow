@@ -3,7 +3,6 @@ package com.itwillbs.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,11 +32,22 @@ public class MypageController {
 	private MypageService mypageService;
 	private UserService userService;
 
+	private void addCommonAttributes(Model model, HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		Integer memberID = mypageService.getMemberId(userId);
+		if (userId != null) {
+			Integer point = mypageService.getUserPoint(userId);
+			Integer usableTicketCount = mypageService.getUsableTicketCount(memberID);
+			model.addAttribute("point", point);
+			model.addAttribute("usableTicketCount", usableTicketCount);
+		}
+	}
+
+	// 복수형 메서드
 	@GetMapping("/bookings")
 	public String getBookings(Model model, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size, HttpSession session) {
 		addCommonAttributes(model, session);
-
 		Integer userId = (Integer) session.getAttribute("userId");
 		Integer memberId = mypageService.getMemberId(userId);
 
@@ -49,8 +59,7 @@ public class MypageController {
 		model.addAttribute("attachFiles", mypageService.getAttachFiles(bookingIds));
 		model.addAttribute("performances", mypageService.getPerformances(bookingIds));
 		model.addAttribute("payments", mypageService.getPayments(bookingIds));
-		model.addAttribute("bookedSeatsMap", mypageService.getBookedSeats(bookingIds));
-
+	    model.addAttribute("bookedSeatsMap", mypageService.getBookedSeatss(bookingIds));
 		int totalElements = mypageService.getTotalBookingsCount(memberId);
 		MyPageDTO pageDTO = new MyPageDTO(page, size, totalElements);
 		model.addAttribute("pageDTO", pageDTO);
@@ -58,95 +67,13 @@ public class MypageController {
 		return "my/bookings";
 	}
 
-	@GetMapping("/booking-complete/{bookingId}")
-	public String bookingComplete(@PathVariable Integer bookingId, Model model, HttpSession session) {
-		addCommonAttributes(model, session);
-
-		Integer userId = (Integer) session.getAttribute("userId");
-		Integer memberId = mypageService.getMemberId(userId);
-
-		List<BookingDTO> bookings = mypageService.getBookings(memberId, bookingId, 0, 1);
-		BookingDTO booking = bookings.get(0);
-		List<Integer> bookingIds = Collections.singletonList(bookingId);
-
-		model.addAttribute("booking", booking);
-		model.addAttribute("musical", mypageService.getMusicals(bookingIds).get(0));
-		model.addAttribute("attachFile", mypageService.getAttachFiles(bookingIds).get(0));
-		model.addAttribute("performance", mypageService.getPerformances(bookingIds).get(0));
-		model.addAttribute("payment", mypageService.getPayments(bookingIds).get(0));
-		model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingIds).get(bookingId));
-
-		return "my/booking-complete";
-	}
-
-	@GetMapping("/booking-detail/{bookingId}")
-	public String bookingDetail(@PathVariable Integer bookingId, Model model, HttpSession session) {
-		addCommonAttributes(model, session);
-
-		Integer userId = (Integer) session.getAttribute("userId");
-		if (userId == null) {
-			return "redirect:/login";
-		}
-
-		Integer memberId = mypageService.getMemberId(userId);
-
-		List<BookingDTO> bookings = mypageService.getBookings(memberId, bookingId, 0, 1);
-		if (bookings.isEmpty()) {
-			return "redirect:/error";
-		}
-		BookingDTO booking = bookings.get(0);
-		List<Integer> bookingIds = Collections.singletonList(bookingId);
-
-		model.addAttribute("booking", booking);
-		model.addAttribute("musical", mypageService.getMusicals(bookingIds).get(0));
-		model.addAttribute("attachFile", mypageService.getAttachFiles(bookingIds).get(0));
-		model.addAttribute("performance", mypageService.getPerformances(bookingIds).get(0));
-		model.addAttribute("payment", mypageService.getPayments(bookingIds).get(0));
-		model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingIds).get(bookingId));
-		model.addAttribute("user", mypageService.getUser(userId));
-		model.addAttribute("venue", mypageService.getVenues(bookingIds).get(0));
-
-		return "my/booking-detail";
-	}
-
-	@GetMapping("/refund/{bookingId}")
-	public String refund(@PathVariable Integer bookingId, Model model, HttpSession session) {
-		addCommonAttributes(model, session);
-
-		Integer userId = (Integer) session.getAttribute("userId");
-		if (userId == null) {
-			return "redirect:/login";
-		}
-
-		Integer memberId = mypageService.getMemberId(userId);
-		List<BookingDTO> bookings = mypageService.getBookings(memberId, bookingId, 0, 1);
-
-		if (bookings.isEmpty()) {
-			return "redirect:/error";
-		}
-
-		BookingDTO booking = bookings.get(0);
-		List<Integer> bookingIds = Collections.singletonList(bookingId);
-
-		model.addAttribute("booking", booking);
-		model.addAttribute("musical", mypageService.getMusicals(bookingIds).get(0));
-		model.addAttribute("attachFile", mypageService.getAttachFiles(bookingIds).get(0));
-		model.addAttribute("performance", mypageService.getPerformances(bookingIds).get(0));
-		model.addAttribute("payment", mypageService.getPayments(bookingIds).get(0));
-		model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingIds).get(bookingId));
-		model.addAttribute("user", mypageService.getUser(userId));
-		model.addAttribute("venue", mypageService.getVenues(bookingIds).get(0));
-
-		return "my/refund";
-	}
-
 	@GetMapping("/refunds")
 	public String getRefunds(Model model, @RequestParam(defaultValue = "0") int page,
 			@RequestParam(defaultValue = "10") int size, HttpSession session) {
 		addCommonAttributes(model, session);
-
 		Integer userId = (Integer) session.getAttribute("userId");
 		Integer memberId = mypageService.getMemberId(userId);
+
 		List<BookingDTO> refunds = mypageService.getRefundBookings(memberId, page, size);
 		List<Integer> bookingIds = refunds.stream().map(BookingDTO::getBookingId).collect(Collectors.toList());
 
@@ -162,6 +89,63 @@ public class MypageController {
 
 		return "my/refunds";
 	}
+	
+	
+
+	// 단수형 메서드
+	@GetMapping("/booking-detail/{bookingId}")
+	public String bookingDetail(@PathVariable Integer bookingId, Model model, HttpSession session) {
+		addCommonAttributes(model, session);
+		Integer userId = (Integer) session.getAttribute("userId");
+		if (userId == null) {
+			return "redirect:/login";
+		}
+
+		Integer memberId = mypageService.getMemberId(userId);
+		BookingDTO booking = mypageService.getBooking(bookingId, memberId);
+		if (booking == null) {
+			return "redirect:/error";
+		}
+
+		model.addAttribute("booking", booking);
+		model.addAttribute("musical", mypageService.getMusical(bookingId));
+		model.addAttribute("attachFile", mypageService.getAttachFile(bookingId));
+		model.addAttribute("performance", mypageService.getPerformance(bookingId));
+		model.addAttribute("payment", mypageService.getPayment(bookingId));
+	    model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingId));
+		model.addAttribute("user", mypageService.getUser(userId));
+		model.addAttribute("venue", mypageService.getVenue(bookingId));
+
+		return "my/booking-detail";
+	}
+	
+	
+
+	@GetMapping("/refund/{bookingId}")
+	public String refund(@PathVariable Integer bookingId, Model model, HttpSession session) {
+		addCommonAttributes(model, session);
+		Integer userId = (Integer) session.getAttribute("userId");
+		if (userId == null) {
+			return "redirect:/login";
+		}
+
+		Integer memberId = mypageService.getMemberId(userId);
+		BookingDTO booking = mypageService.getBooking(bookingId, memberId);
+		if (booking == null) {
+			return "redirect:/error";
+		}
+
+		model.addAttribute("booking", booking);
+		model.addAttribute("musical", mypageService.getMusical(bookingId));
+		model.addAttribute("attachFile", mypageService.getAttachFile(bookingId));
+		model.addAttribute("performance", mypageService.getPerformance(bookingId));
+		model.addAttribute("payment", mypageService.getPayment(bookingId));
+	    model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingId));
+		model.addAttribute("user", mypageService.getUser(userId));
+		model.addAttribute("venue", mypageService.getVenue(bookingId));
+
+		return "my/refund";
+	}
 
 	@GetMapping("/refund-detail/{bookingId}")
 	public String refundDetail(@PathVariable Integer bookingId, Model model, HttpSession session) {
@@ -172,20 +156,42 @@ public class MypageController {
 		}
 
 		Integer memberId = mypageService.getMemberId(userId);
-		List<BookingDTO> bookings = mypageService.getBookings(memberId, bookingId, 0, 1);
-		BookingDTO booking = bookings.get(0);
-		List<Integer> bookingIds = Collections.singletonList(bookingId);
+		BookingDTO booking = mypageService.getBooking(bookingId, memberId);
+		if (booking == null) {
+			return "redirect:/error";
+		}
 
 		model.addAttribute("booking", booking);
-		model.addAttribute("musical", mypageService.getMusicals(bookingIds).get(0));
-		model.addAttribute("attachFile", mypageService.getAttachFiles(bookingIds).get(0));
-		model.addAttribute("performance", mypageService.getPerformances(bookingIds).get(0));
-		model.addAttribute("payment", mypageService.getPayments(bookingIds).get(0));
-		model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingIds).get(bookingId));
+		model.addAttribute("musical", mypageService.getMusical(bookingId));
+		model.addAttribute("attachFile", mypageService.getAttachFile(bookingId));
+		model.addAttribute("performance", mypageService.getPerformance(bookingId));
+		model.addAttribute("payment", mypageService.getPayment(bookingId));
+		model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingId));
 		model.addAttribute("user", mypageService.getUser(userId));
-		model.addAttribute("venue", mypageService.getVenues(bookingIds).get(0));
+		model.addAttribute("venue", mypageService.getVenue(bookingId));
 
-		return "/my/refund-detail";
+		return "my/refund-detail";
+	}
+
+	@GetMapping("/booking-complete/{bookingId}")
+	public String bookingComplete(@PathVariable Integer bookingId, Model model, HttpSession session) {
+		addCommonAttributes(model, session);
+		Integer userId = (Integer) session.getAttribute("userId");
+		Integer memberId = mypageService.getMemberId(userId);
+
+		BookingDTO booking = mypageService.getBooking(bookingId, memberId);
+		if (booking == null) {
+			return "redirect:/error";
+		}
+
+		model.addAttribute("booking", booking);
+		model.addAttribute("musical", mypageService.getMusical(bookingId));
+		model.addAttribute("attachFile", mypageService.getAttachFile(bookingId));
+		model.addAttribute("performance", mypageService.getPerformance(bookingId));
+		model.addAttribute("payment", mypageService.getPayment(bookingId));
+		model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingId));
+
+		return "my/booking-complete";
 	}
 
 	@GetMapping("/refund-complete/{bookingId}")
@@ -193,22 +199,26 @@ public class MypageController {
 		addCommonAttributes(model, session);
 		Integer userId = (Integer) session.getAttribute("userId");
 		Integer memberId = mypageService.getMemberId(userId);
-		List<BookingDTO> bookings = mypageService.getBookings(memberId, bookingId, 0, 1);
 
-		BookingDTO booking = bookings.get(0);
-		List<Integer> bookingIds = Collections.singletonList(bookingId);
+		BookingDTO booking = mypageService.getBooking(bookingId, memberId);
+		if (booking == null) {
+			return "redirect:/error";
+		}
 
 		model.addAttribute("booking", booking);
-		model.addAttribute("musical", mypageService.getMusicals(bookingIds).get(0));
-		model.addAttribute("attachFile", mypageService.getAttachFiles(bookingIds).get(0));
-		model.addAttribute("performance", mypageService.getPerformances(bookingIds).get(0));
-		model.addAttribute("payment", mypageService.getPayments(bookingIds).get(0));
-		model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingIds).get(bookingId));
+		model.addAttribute("musical", mypageService.getMusical(bookingId));
+		model.addAttribute("attachFile", mypageService.getAttachFile(bookingId));
+		model.addAttribute("performance", mypageService.getPerformance(bookingId));
+		model.addAttribute("payment", mypageService.getPayment(bookingId));
+		model.addAttribute("bookedSeats", mypageService.getBookedSeats(bookingId));
 		model.addAttribute("user", mypageService.getUser(userId));
 
 		return "my/refund-complete";
 	}
 
+	
+	
+	//profile
 	@GetMapping("/profile-edit")
 	public String profileEdit(HttpSession session, Model model) {
 		addCommonAttributes(model, session);
@@ -268,19 +278,8 @@ public class MypageController {
 		}
 	}
 
-	private void addCommonAttributes(Model model, HttpSession session) {
-		Integer userId = (Integer) session.getAttribute("userId");
-		Integer memberID = mypageService.getMemberId(userId);
-		
-		if (userId != null) {
-			Integer point = mypageService.getUserPoint(userId);
-			Integer usableTicketCount = mypageService.getUsableTicketCount(memberID);
-
-			model.addAttribute("point", point);
-			model.addAttribute("usableTicketCount", usableTicketCount);
-		}
-	}
-
+	
+	//review
 	@GetMapping("/reviews")
 	public String reviews(Model model, HttpSession session) {
 		addCommonAttributes(model, session);
@@ -309,6 +308,8 @@ public class MypageController {
 		return "/my/review-delete";
 	}
 
+	
+	//point
 	@GetMapping("/points")
 	public String points(Model model, HttpSession session) {
 		addCommonAttributes(model, session);
