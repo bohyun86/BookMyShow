@@ -409,3 +409,22 @@ textarea[name=request] {
     justify-content: space-between;
     align-items: center;
 }
+
+#edit-button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    width: 500px;
+}
+
+#edit-button-group .revise-btn, #edit-button-group .delete-btn, #edit-button-group .approve-btn {
+    width: 100px;
+    height: 30px;
+    font-size: 13px;
+    background-color: #0e0c28;
+    border: none;
+    color: white;
+    margin-left: 20px;
+    padding: 0 10px;
+}

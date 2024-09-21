@@ -63,6 +63,7 @@ public class MainService {
         return mainNewCarouselDTOs;
     }
 
+    @Cacheable("timeSaleAll")
     @Transactional
     public List<MainNewCarouselDTO> getTimeSaleCarouselDTOs() {
         LocalDate currentDate = LocalDate.now();
@@ -73,6 +74,18 @@ public class MainService {
         insertCarouselData(musicalDTOs, timeSaleCarouselDTOs, "timeSaleCarouselDTOs");
 
         return timeSaleCarouselDTOs;
+    }
+
+    @Cacheable("newMusical")
+    @Transactional
+    public List<MainNewCarouselDTO> getNewMusical() {
+        List<MusicalDTO> musicalDTOs = musicalRepository.findByApprovedOrderByCreatedAtDesc(true);
+
+        List<MainNewCarouselDTO> mainNewCarouselDTOs = new ArrayList<>();
+
+        insertCarouselData(musicalDTOs, mainNewCarouselDTOs, "mainNewCarouselDTOs");
+
+        return mainNewCarouselDTOs;
     }
 
     private void insertCarouselData(List<MusicalDTO> musicalDTOs, List<MainNewCarouselDTO> carouselDTOS, String keyName) {

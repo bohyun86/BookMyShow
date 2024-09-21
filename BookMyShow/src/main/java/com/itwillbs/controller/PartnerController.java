@@ -1,6 +1,5 @@
 package com.itwillbs.controller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itwillbs.domain.Performance.AttachFile2DTO;
 import com.itwillbs.domain.Performance.AttachFileDTO;
@@ -15,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -153,13 +151,13 @@ public class PartnerController implements ServletContextAware {
         return "/partner/main";
     }
 
+
     @GetMapping("/deletePro")
     public String deletePro(@RequestParam int musicalId) {
         log.info("deletePro: {}", musicalId);
         partnerService.deletePerformance(musicalId);
         return "redirect:/partner/status";
     }
-
 
     @PostMapping(value = "/writePro")
     public String writePro(PerformanceTempDTO performancetempDTO) {
@@ -178,22 +176,26 @@ public class PartnerController implements ServletContextAware {
         // 공연 상세정보 이미지 처리
         MultipartFile[] musicalImages = performancetempDTO.getMusicalImages();
 
-        for (MultipartFile musicalImage : musicalImages) {
-            uploadImages(musicalImage, uploadPath, list, false);
+        if (musicalImages[0].getSize() != 0) {
+            for (MultipartFile musicalImage : musicalImages) {
+                uploadImages(musicalImage, uploadPath, list, false);
+            }
         }
 
         // 공연 포스터 이미지 처리
         MultipartFile musicalPost = performancetempDTO.getMusicalPost();
-        uploadImages(musicalPost, uploadPath, list, true);
-
+        if (musicalPost.getSize() != 0) {
+            uploadImages(musicalPost, uploadPath, list, true);
+        }
         // 임시 공연 등록
+
 
         partnerService.registerPerformance(performancetempDTO, list);
 
         return "redirect:/partner/status";
     }
 
-    private void uploadImages(MultipartFile musicalImage, File uploadPath, List<AttachFileDTO> list, boolean isPoster) {
+    public void uploadImages(MultipartFile musicalImage, File uploadPath, List<AttachFileDTO> list, boolean isPoster) {
         AttachFileDTO attachFileDTO = new AttachFileDTO();
 
         log.info("musicalImage: {}", musicalImage);
@@ -222,9 +224,7 @@ public class PartnerController implements ServletContextAware {
     }
 
 
-
-
-    private String getFolder() {
+    public String getFolder() {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
         Date date = new Date();
