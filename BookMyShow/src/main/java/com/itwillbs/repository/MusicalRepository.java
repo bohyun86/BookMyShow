@@ -25,4 +25,6 @@ public interface MusicalRepository extends JpaRepository<MusicalDTO, Integer> {
     MusicalDTO findMusicalByMusicalId(int musicalId);
 
     Page<MusicalDTO> findAll(Pageable pageable);
+
+    List<MusicalDTO> findByApprovedOrderByCreatedAtDesc(boolean approved);
 }
