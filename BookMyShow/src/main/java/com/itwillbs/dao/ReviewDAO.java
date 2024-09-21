@@ -21,14 +21,10 @@ public class ReviewDAO {
 	private final SqlSession sqlSession;
 	private static final String NAMESPACE = "com.itwillbs.mapper.ReviewMapper";
 
-	public List<ReviewDTO> getReviewsByMemberId(Integer memberId) {
-		return sqlSession.selectList(NAMESPACE + ".getReviewsByMemberId", memberId);
-	}
-
-	public ReviewDTO getReviewByPerf(Integer performanceId, Integer userId) {
+	public ReviewDTO getReviewByPerf(Integer performanceId, Integer memberId) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("performanceId", performanceId);
-		params.put("userId", userId);
+		params.put("memberId", memberId);
 		return sqlSession.selectOne(NAMESPACE + ".getReviewByPerf", params);
 	}
 
@@ -50,5 +46,21 @@ public class ReviewDAO {
 
 	public PerformanceDTO getPerformanceById(int performanceId) {
 		return sqlSession.selectOne(NAMESPACE + ".getPerformanceById", performanceId);
+	}
+
+	public List<ReviewDTO> getReviewsByMemberId(Integer memberId, Integer offset, Integer limit) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("memberId", memberId);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return sqlSession.selectList(NAMESPACE + ".getReviewsByMemberId", params);
+	}
+
+	public int getTotalReviewsCount(Integer memberId) {
+		return sqlSession.selectOne(NAMESPACE + ".getTotalReviewsCount", memberId);
+	}
+	
+	public Map<String, Object> getReviewSummary(Integer memberId) {
+	    return sqlSession.selectOne(NAMESPACE + ".getReviewSummary", memberId);
 	}
 }

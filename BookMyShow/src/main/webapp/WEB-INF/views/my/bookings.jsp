@@ -85,16 +85,25 @@
 											</p>
 										</div>
 										<div class="col-4 pl-2">
-											<c:set var="now" value="<%=new java.util.Date()%>" />
+											<c:set var="now"
+												value="<%=java.time.LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0)%>" />
+											<fmt:parseDate
+												value="${performances[status.index].performanceDate}"
+												pattern="yyyy-MM-dd'T'HH:mm" var="parsedPerformanceDate"
+												type="both" />
+											<c:set var="performanceDateTime"
+												value="<%=new java.sql.Timestamp(((java.util.Date) pageContext.getAttribute(\"parsedPerformanceDate\")).getTime())
+		.toLocalDateTime().withHour(0).withMinute(0).withSecond(0).withNano(0)%>" />
 											<c:choose>
-												<c:when test="${parsedPerformanceDate.after(now)}">
+												<c:when test="${performanceDateTime.isAfter(now)}">
 													<button
 														onclick="location.href='<c:url value='/my/refund/${booking.bookingId}'/>';"
 														class="btn btn-outline-danger w-100">환불신청</button>
 												</c:when>
 												<c:otherwise>
-													<button onclick="writeReview('${booking.bookingId}');"
-														class="btn btn-outline-success w-100">리뷰작성</button>
+													<button
+														onclick="location.href='<c:url value='/my/review-check/${performances[status.index].performanceId}'/>';"
+														class="btn btn-outline-success w-100">리뷰</button>
 												</c:otherwise>
 											</c:choose>
 										</div>

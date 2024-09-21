@@ -29,57 +29,95 @@
 		<result property="musicalTitle" column="title" />
 		<result property="performanceDate" column="performance_date" />
 	</resultMap>
-
-	<select id="getReviewsByMemberId" resultMap="reviewResultMap">
-		SELECT r.*, m.title, p.performance_date
-		FROM Review r
-		JOIN Musical m ON r.musical_id = m.musical_id
-		JOIN Performance p ON r.performance_id = p.performance_id
-		WHERE r.member_id = #{memberId}
-		ORDER BY r.created_at DESC
-	</select>
+	<resultMap id="performanceResultMap"
+		type="com.itwillbs.domain.PerformanceDTO">
+		<id property="performanceId" column="performance_id" />
+		<result property="performanceDate" column="performance_date" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="musicalId" column="musical_id" />
+		<result property="venueId" column="venue_id" />
+		<result property="musicalTitle" column="title" />
+	</resultMap>
 
 	<select id="getReviewByPerf" resultMap="reviewResultMap">
-		SELECT r.*, m.title, p.performance_date
-		FROM Review r
-		JOIN Musical m ON r.musical_id = m.musical_id
-		JOIN Performance p ON r.performance_id = p.performance_id
-		WHERE r.performance_id = #{performanceId} AND r.member_id = #{userId}
+		SELECT r.*,
+		m.title,p.performance_date
+		FROM Review r JOIN Musical m
+		ON r.musical_id
+		= m.musical_id
+		JOIN Performance p
+		ON r.performance_id = p.performance_id
+		WHERE r.performance_id =
+		#{performanceId}
+		AND r.member_id = #{memberId}
 	</select>
 
 	<select id="getReviewById" resultMap="reviewResultMap">
-		SELECT r.*, m.title, p.performance_date
+		SELECT r.*, m.title,
+		p.performance_date
 		FROM Review r
-		JOIN Musical m ON r.musical_id = m.musical_id
+		JOIN Musical m ON r.musical_id =
+		m.musical_id
 		JOIN Performance p ON r.performance_id = p.performance_id
 		WHERE r.review_id = #{reviewId}
 	</select>
 
 	<delete id="deleteReview" parameterType="int">
-		DELETE FROM Review WHERE review_id = #{reviewId}
+		DELETE FROM Review WHERE
+		review_id = #{reviewId}
 	</delete>
 
-	<select id="getPerformanceById"
-		resultType="com.itwillbs.domain.PerformanceDTO">
-		SELECT p.*, m.title as musicalTitle
-		FROM Performance p
-		JOIN Musical m ON p.musical_id = m.musical_id
-		WHERE p.performance_id = #{performanceId}
+	<select id="getPerformanceById" resultMap="performanceResultMap">
+		SELECT p.*, m.title
+		FROM Performance p JOIN Musical m
+		ON p.musical_id = m.musical_id
+		WHERE
+		p.performance_id =
+		#{performanceId}
 	</select>
 
 	<insert id="insertReview"
 		parameterType="com.itwillbs.domain.ReviewDTO">
-		INSERT INTO Review (rating, content, member_id, musical_id, performance_id)
-		VALUES (#{rating}, #{content}, #{memberId}, #{musicalId},
+		INSERT INTO Review (rating, content, member_id,
+		musical_id, performance_id)
+		VALUES (#{rating}, #{content}, #{memberId},
+		#{musicalId},
 		#{performanceId})
 	</insert>
 
 	<update id="updateReview"
 		parameterType="com.itwillbs.domain.ReviewDTO">
 		UPDATE Review
-		SET rating = #{rating}, content = #{content}, updated_at =
+		SET rating = #{rating}, content =
+		#{content}, updated_at =
 		CURRENT_TIMESTAMP
 		WHERE review_id = #{reviewId}
 	</update>
+
+	<select id="getReviewsByMemberId" resultMap="reviewResultMap">
+		SELECT r.*, m.title,
+		p.performance_date
+		FROM Review r
+		JOIN Musical m ON r.musical_id =
+		m.musical_id
+		JOIN Performance p ON r.performance_id = p.performance_id
+		WHERE r.member_id = #{memberId}
+		ORDER BY r.created_at DESC
+		LIMIT
+		#{offset}, #{limit}
+	</select>
+
+	<select id="getTotalReviewsCount" resultType="int">
+		SELECT COUNT(*)
+		FROM Review
+		WHERE member_id = #{memberId}
+	</select>
+
+	<select id="getReviewSummary" resultType="java.util.Map">
+		SELECT COUNT(*) as totalReviews, AVG(rating) as averageRating
+		FROM Review
+		WHERE member_id = #{memberId}
+	</select>
 </mapper>
   

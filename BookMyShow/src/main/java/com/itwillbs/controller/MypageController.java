@@ -3,7 +3,11 @@ package com.itwillbs.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
@@ -276,46 +280,69 @@ public class MypageController {
 			return "redirect:/my/profile-edit";
 		}
 	}
-
+	
 	@GetMapping("/reviews")
-	public String reviews(Model model, HttpSession session) {
-		addCommonAttributes(model, session);
-		Integer userId = (Integer) session.getAttribute("userId");
-		Integer memberId = mypageService.getMemberId(userId);
-		List<ReviewDTO> reviews = reviewService.getReviewsByMemberId(memberId);
-		model.addAttribute("reviews", reviews);
-		return "my/reviews";
+	public String reviews(Model model, @RequestParam(defaultValue = "0") int page,
+	                      @RequestParam(defaultValue = "10") int size, HttpSession session) {
+	    addCommonAttributes(model, session);
+	    Integer userId = (Integer) session.getAttribute("userId");
+	    Integer memberId = mypageService.getMemberId(userId);
+
+	    List<ReviewDTO> reviews = reviewService.getReviewsByMemberId(memberId, page, size);
+	    Map<String, Object> summary = reviewService.getReviewSummary(memberId);
+	    
+	    int totalElements = reviewService.getTotalReviewsCount(memberId);
+	    MyPageDTO pageDTO = new MyPageDTO(page, size, totalElements);
+
+	    model.addAttribute("reviews", reviews);
+	    model.addAttribute("totalReviews", summary.get("totalReviews"));
+	    model.addAttribute("averageRating", summary.get("averageRating"));
+	    model.addAttribute("pageDTO", pageDTO);
+
+	    return "my/reviews";
 	}
 
 	@GetMapping("/review-check/{performanceId}")
 	public String reviewCheck(@PathVariable Integer performanceId, Model model, HttpSession session) {
-		addCommonAttributes(model, session);
 		Integer userId = (Integer) session.getAttribute("userId");
-		ReviewDTO existingReview = reviewService.getReviewByPerf(performanceId, userId);
+	    Integer memberId = mypageService.getMemberId(userId);
 
-		if (existingReview != null) {
-			return "redirect:/my/review-form/" + existingReview.getReviewId();
-		} else {
-			return "redirect:/my/review-form?performanceId=" + performanceId;
-		}
+		ReviewDTO existingReview = reviewService.getReviewByPerf(performanceId, memberId);
+
+		 if (existingReview != null) {
+		        return "redirect:/my/review-form/" + existingReview.getReviewId();
+		    } else {
+		        return "redirect:/my/review-form/p" + performanceId;
+		    }
 	}
 
-	@GetMapping("/review-form")
-	public String reviewForm(@RequestParam(required = false) Integer performanceId,
-			@RequestParam(required = false) Integer reviewId, Model model, HttpSession session) {
-		addCommonAttributes(model, session);
-		if (reviewId != null) {
-			ReviewDTO review = reviewService.getReviewById(reviewId);
-			model.addAttribute("review", review);
-			model.addAttribute("isEdit", true);
-		} else if (performanceId != null) {
-			PerformanceDTO performance = reviewService.getPerformanceById(performanceId);
-			model.addAttribute("performance", performance);
-			model.addAttribute("isEdit", false);
-		} else {
-			return "redirect:/error";
-		}
-		return "my/review-form";
+	@GetMapping("/review-form/{id}")
+	public String reviewForm(@PathVariable String id, Model model, HttpSession session) {
+	    addCommonAttributes(model, session);
+	    Integer userId = (Integer) session.getAttribute("userId");
+	    Integer memberId = mypageService.getMemberId(userId);
+
+	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+	    if (id.startsWith("p")) {
+	        // 리뷰 작성
+	        Integer performanceId = Integer.parseInt(id.substring(1));
+	        PerformanceDTO performance = reviewService.getPerformanceById(performanceId);
+	        model.addAttribute("performance", performance);
+	        model.addAttribute("isEdit", false);
+	        model.addAttribute("formattedPerformanceDate", performance.getPerformanceDate().format(formatter));
+	    } else {
+	        // 리뷰 수정
+	        Integer reviewId = Integer.parseInt(id);
+	        ReviewDTO review = reviewService.getReviewById(reviewId);
+	        
+	        PerformanceDTO performance = reviewService.getPerformanceById(review.getPerformanceId());
+	        model.addAttribute("review", review);
+	        model.addAttribute("performance", performance);
+	        model.addAttribute("isEdit", true);
+	        model.addAttribute("formattedPerformanceDate", performance.getPerformanceDate().format(formatter));
+	    }
+
+	    return "my/review-form";
 	}
 
 	@PostMapping("/review-create")
@@ -336,10 +363,11 @@ public class MypageController {
 
 	@PostMapping("/review-delete/{reviewId}")
 	public String reviewDelete(@PathVariable int reviewId, Model model, HttpSession session) {
-	    addCommonAttributes(model, session);
-	    reviewService.deleteReview(reviewId);
-	    return "redirect:/my/reviews";
+		addCommonAttributes(model, session);
+		reviewService.deleteReview(reviewId);
+		return "redirect:/my/reviews";
 	}
+	
 
 	@GetMapping("/points")
 	public String points(Model model, HttpSession session) {
