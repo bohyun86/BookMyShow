@@ -1,25 +1,26 @@
 package com.itwillbs.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Data;
 
 @Data
 public class PartnerDTO {
 
-	private int partner_id;
-	private String company_name;
-	private String business_id;
-	private String account_number;
-	private Date created_at;
-	private Date updated_at;
-	private int user_id;
-	private int partner_status;
-	private String account_owner;
-	private String bank_name;
+	private int partnerId;
+	private String companyName;
+	private String businessId;
+	private String accountNumber;
+	private String createdAt;
+	private String updatedAt;
+	private int userId;
+	private int partnerStatus;
+	private String bankName;
+	private String accountOwner;
+	private int approved;
 	
-	
-	
+	 private List<PartnerQnaDTO>partnerQnaDTO;	 
 	
 	
 	

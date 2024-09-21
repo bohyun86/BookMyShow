@@ -22,7 +22,7 @@
         SELECT *
         FROM Member M
         JOIN User U ON M.user_id = U.user_id
-        WHERE U.user_name = #{id}
+        WHERE U.user_name = #{id} or U.name =#{name} or U.email =#{email}
     </select>
 
 </mapper>

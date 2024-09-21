@@ -86,7 +86,7 @@
 					  </ul>
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" type="button" id="editButton" disabled>정보 조회 및 수정</button>
+					  <button class="btn btn-primary" type="button" id="editButton"   disabled>정보 조회 및 수정</button>
 					</div></p> 
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -175,88 +175,24 @@ $(function() {
 function searchFunction() {
     let searchValue = $('#searchText').val(); // 검색 필드 값
     let searchType = $('#searchText').attr('name');  // 현재 검색 유형
-// 	alert("검색"+searchValue);
 
     // 화면에 출력할 메시지 초기화
     $('#partnerresult').html("");
 
     if (searchType === 'name') {
         if (/^[a-zA-Z가-힣\s]+$/.test(searchValue)) {
-            $(function() {
-//             	alert("d");
-//                 $('#partnerSearch').click(function() {
-//                 	alert("이름버튼클릭");
-                	 
-            			$.ajax({
-                          url: "${pageContext.request.contextPath}/admin/partnerresult",
-                          data: {'user_name': $('#searchText').val()},
-                          dataType: "json",
-                          success: function(userDTO) {
-                              if (userDTO) {
-                                  $('#partnerresult').html('<li class="list-group-item"><a href="javascript:;">' + "아이디:"+userDTO.userName+",이메일:"+ userDTO.email+",연락처:"+userDTO.phoneNumber+",이름:"+userDTO.name+",비밀번호:"+userDTO.password+",회원가입일:"+userDTO.createdAt+",유형:"+userDTO.userRole+ '</a></li>');
-//             	console.log("요청성공",userDTO);
-                                  
-                                  $('#editButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partnerPro?userName=' + userDTO.userName + '"').prop('disabled', false);
-                                  $('#qnaButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_qna?userName=' + userDTO.userName + '"').prop('disabled', false);
-                                  $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?userName=' + userDTO.userName + '"').prop('disabled', false);
-                              } else {
-//             	console.log("요청실패",userDTO);
-                                  $('#partnerresult').html("회원정보가 없습니다");
-                                  $('#editButton').prop('disabled', true);
-                                  $('#qnaButton').prop('disabled', true);
-                                  $('#paymentButton').prop('disabled', true);
-                              }  
-                              },
-                         
-                          error: function(err) {
-//                               alert("회원정보가 없습니다");
-               $('#partnerresult').html("회원정보가 없습니다");
-                              console.log("error");
-                          }
-                      });
-//                   });
-              });
-        } else {
+        	ajaxSearchPartner(searchValue);
+//            
+        }//if /^[a-zA-Z가-힣\s]+$ 
+        else {
             $('#partnerresult').html("이름에는 한글, 영어, 공백만 포함될 수 있습니다.");
             return;
         }
     } else if (searchType === 'id') {
 //     	alert("아이디"+searchValue);
         if (/^[a-zA-Z0-9]+$/.test(searchValue)) {
-            $(function() {
-//                 $('#partnerSearch').click(function() {
-//             	console.log("버튼클릭");
-//             	alert("아이디버튼클릭");
-                	 
-            			$.ajax({
-                          url: "${pageContext.request.contextPath}/admin/partnerresult",
-                          data: {'user_name': $('#searchText').val()},
-                          dataType: "json",
-                          success: function(userDTO) {
-                              if (userDTO) {
-                                  $('#partnerresult').html('<li class="list-group-item"><a href="javascript:;">' + "아이디:"+userDTO.userName+",이메일:"+ userDTO.email+",연락처:"+userDTO.phoneNumber+",이름:"+userDTO.name+",비밀번호:"+userDTO.password+",회원가입일:"+userDTO.createdAt+",유형:"+userDTO.userRole+ '</a></li>');
-//             	console.log("요청성공",userDTO);
-                                  
-                                  $('#editButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partnerPro?userName=' + userDTO.userName + '"').prop('disabled', false);
-                                  $('#qnaButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_qna?userName=' + userDTO.userName + '"').prop('disabled', false);
-                                  $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?userName=' + userDTO.userName + '"').prop('disabled', false);
-                              } else {
-//             	console.log("요청실패",userDTO);
-                                  $('#partnerresult').html("회원정보가 없습니다");
-                                  $('#editButton').prop('disabled', true);
-                                  $('#qnaButton').prop('disabled', true);
-                                  $('#paymentButton').prop('disabled', true);
-                              }  
-                              },
-                         
-                          error: function(err) {
-//                               alert("회원정보가 없습니다");
-               $('#partnerresult').html("회원정보가 없습니다");
-                              console.log("error");
-                          }
-                      });
-//                   });
-              });
+        	ajaxSearchPartner(searchValue);
+        
         } else {
             $('#partnerresult').html("아이디는 영문자와 숫자만 포함될 수 있습니다.");
             return;
@@ -267,6 +203,89 @@ function searchFunction() {
     }
 }
 
+
+function ajaxSearchPartner(searchValue){
+    $(function() {
+//     	alert("d");
+//         $('#partnerSearch').click(function() {
+//         	alert("이름버튼클릭");
+
+        	 
+    			$.ajax({
+                          url: "${pageContext.request.contextPath}/admin/partnerresult",
+                          data: {'user_name': $('#searchText').val()},
+                          dataType: "json",
+                          success: function(response) {
+//                         	  console.log("AJAX 응답 성공: ", response);  // 응답 데이터 확인
+                              // 성공적으로 응답을 받았을 때 처리
+                              if (response) {
+                            	  
+                                  // 회원 정보 출력
+                                  $('#partnerresult').html('<li class="list-group-item"><a href="javascript:;">'
+                                      + "아이디: " + response.userName
+                                      + ", 이메일: " + response.email
+                                      + ", 연락처: " + response.phoneNumber
+                                      + ", 이름: " + response.name
+                                      + ", 비밀번호: " + response.password
+                                      + ", 회원가입일: " + response.createdAt
+                                      + ", 유형: " + response.userRole
+                                      + '</a></li>');
+
+                                  // 파트너 정보가 있으면 파트너 정보도 추가 출력
+                                  if (response.partnerDTO) {
+                                      
+                                      $('#partnerresult').append('<li class="list-group-item"><a href="javascript:;">'
+                                          + "회사명: " + response.partnerDTO.companyName
+                                          + ", 사업자 ID: " + response.partnerDTO.businessId
+                                          + ", 계좌번호: " + response.partnerDTO.accountNumber
+                                          + '</a></li>');
+                                  }
+
+                                  // 각 버튼에 대한 링크 설정 (버튼 활성화)
+                                  $('#editButton').attr('onclick', 'location.href="' 
+                                      + '${pageContext.request.contextPath}/admin/partnerPro?userName=' 
+                                      + encodeURIComponent(response.userName)
+                                      +'&password='
+                                      + encodeURIComponent(response.password) 
+                                      +'&name='
+                                      + encodeURIComponent(response.name) 
+                                      +'&companyName='
+                                      + encodeURIComponent(response.partnerDTO.companyName) 
+                                      +'&businessId='
+                                      + encodeURIComponent(response.partnerDTO.businessId) 
+                                      +'&accountNumber='
+                                      + encodeURIComponent(response.partnerDTO.accountNumber) 
+                                      +'&bankName='
+                                      + encodeURIComponent(response.partnerDTO.bankName) 
+                                      +'&phoneNumber='
+                                      + encodeURIComponent(response.phoneNumber) 
+                                      +'&email='
+                                      + encodeURIComponent(response.email) 
+                                      +'&createdAt='
+                                      + encodeURIComponent(response.partnerDTO.createdAt) 
+                                      
+                                      + '"').prop('disabled', false);
+                                  
+                                  $('#qnaButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_qna?userName=' + response.userName + '"').prop('disabled', false);
+                                  $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?userName=' + response.userName + '"').prop('disabled', false);
+                              } else {
+//             	console.log("요청실패",userDTO);
+                                  $('#partnerresult').html("회원정보가 없습니다");
+                                  $('#editButton').prop('disabled', true);
+                                  $('#qnaButton').prop('disabled', true);
+                                  $('#paymentButton').prop('disabled', true);
+                              }  
+                              },
+                 
+                  error: function(err) {
+//                       alert("회원정보가 없습니다");
+       $('#partnerresult').html("회원정보가 없습니다");
+                      console.log("error");
+                  }
+              });
+//           });
+      });
+}
 
 
 

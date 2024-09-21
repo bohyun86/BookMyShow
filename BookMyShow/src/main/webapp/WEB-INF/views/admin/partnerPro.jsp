@@ -89,7 +89,7 @@
        									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/partnerDTO">
        									 	<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">파트너ID</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${userName}"required>
     													<div class="invalid-feedback">
      														 파트너ID를 입력해주세요.
    														 </div>
@@ -97,7 +97,7 @@
        									 	
        									 	<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">비밀번호</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="passwordInput" value="${password}" required>
     													<div class="invalid-feedback">
      														 비밀번호를 입력해주세요.
    														 </div>
@@ -105,7 +105,7 @@
 													
 												<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">이름</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" value="${name}" required>
     													
     													<div class="invalid-feedback">
      														 이름을 입력해주세요.
@@ -114,7 +114,7 @@
 													
 												<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">회사명</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" value="${companyName}" required>
     													
     													<div class="invalid-feedback">
      														 회사명을 입력해주세요.
@@ -123,7 +123,7 @@
 												
 												<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">사업자등록번호</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" value="${businessId}" required>
     													
     													<div class="invalid-feedback">
      														 사업자등록번호를 입력해주세요.
@@ -132,7 +132,7 @@
 												
 												<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">계좌번호</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" value="${accountNumber}" required>
     													
     													<div class="invalid-feedback">
      														 계좌번호를 입력해주세요.
@@ -141,7 +141,7 @@
 												
 												<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">은행</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" value="${bankName}" required>
     													
     													<div class="invalid-feedback">
      														 은행명을 입력해주세요.
@@ -150,7 +150,7 @@
 													
 													<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">연락처</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" onkeyup="phone(this.value);" style="border-color: red"required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" onkeyup="phone(this.value);"  value="${phoneNumber}" required>
     													<div class="invalid-feedback">
      														 연락처를 입력해주세요.
    														 </div>
@@ -158,7 +158,7 @@
 													
 													<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">이메일</span>
-  													<input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+  													<input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${email}" required>
     													<div class="invalid-feedback">
      														  이메일을 입력해주세요.
    														 </div>
@@ -182,7 +182,7 @@
 													
 													 <div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">가입날짜</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" readonly>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${createdAt}" readonly>
     													
 													</div>
 													

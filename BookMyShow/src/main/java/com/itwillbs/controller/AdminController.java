@@ -17,12 +17,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.MusicalDTO;
+import com.itwillbs.domain.PartnerDTO;
+import com.itwillbs.domain.PartnerQnaDTO;
 import com.itwillbs.domain.UserDTO;
 import com.itwillbs.service.MusicalService;
+import com.itwillbs.service.PartnersServiceAdmin;
 import com.itwillbs.service.UserServiceImpl;
 
 @Controller
@@ -36,6 +40,9 @@ public class AdminController {
 	
 	@Autowired
 	private MusicalService musicalService;
+	
+	private PartnersServiceAdmin partnersServiceAdmin;
+	
 	
 	
     
@@ -106,28 +113,19 @@ public class AdminController {
 	
 	if ("1".equals(searchType)) {
 		List<MusicalDTO> musicalList = musicalService.getMusicalByPartnerId(findKeyword);
-       // ��Ʈ�� ID�� �˻�
 		if (musicalList != null && !musicalList.isEmpty()) {
-           // ����Ʈ�� ù ��° �׸��� ������ URL �Ķ���ͷ� ���
 			model.addAttribute("musicalList", musicalList);
            System.out.println("AdminController searchBy1::"+musicalList);
            
 
            return "redirect:/admin/submit";
        } else {
-//       	model.addAttribute("msg", "내역이 없습니다");
-           // ����Ʈ�� ������� ��� ó��
-//       	model.addAttribute("url", "/admin/search");
            return "redirect:/admin/search";
        }
 	}
 	else if ("2".equals(searchType)) {
     		MusicalDTO musicalDTO = musicalService.getMusicalByTitle(findKeyword);
-//    		UserDTO userDTO = 
-//    		System.out.println("userDTO"+userDTO);
     	if(musicalDTO!= null){
-            // ������ �������� �˻�
-//        	musicalDTO = musicalService.getMusicalByTitle(findKeyword);
     		System.out.println("AdminController searchBy2::"+musicalDTO);
             return "redirect:/admin/submit";
             
@@ -188,6 +186,9 @@ public class AdminController {
     @GetMapping("/partner")
     public String partner() {
     	log.info("admin partner success");
+    	
+    	
+    	
     	return "/admin/partner";
     }
 
@@ -198,16 +199,44 @@ public class AdminController {
     }
     
     @GetMapping("/partnerPro")
-    public String partnerPro() {
+    public String  partnerPro(@RequestParam("userName") String userName,
+            @RequestParam("password") String password,
+            @RequestParam("name") String name,
+            @RequestParam("companyName") String companyName,
+            @RequestParam("businessId") String businessId,
+            @RequestParam("accountNumber") String accountNumber,
+            @RequestParam("bankName") String bankName,
+            @RequestParam("phoneNumber") String phoneNumber,
+            @RequestParam("email") String email,
+            @RequestParam("createdAt") String createdAt,
+            Model model) {
     	log.info("admin partnerPro success");
+    	
+    	model.addAttribute("userName", userName);
+        model.addAttribute("password", password);
+        model.addAttribute("name", name);
+        model.addAttribute("companyName", companyName);
+        model.addAttribute("businessId", businessId);
+        model.addAttribute("accountNumber", accountNumber);
+        model.addAttribute("bankName", bankName);
+        model.addAttribute("phoneNumber", phoneNumber);
+        model.addAttribute("email", email);
+        model.addAttribute("createdAt", createdAt);
+    	
+    	
     	return "/admin/partnerPro";
-    }
-
+    } //parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 partnerPro로 넘기는 과정
+    
+    
+    
+    
     @GetMapping("/partner_qna")
     public String partner_qna() {
     	log.info("admin partner_qna success");
     	return "/admin/partner_qna";
     }
+    
+    
 
     @GetMapping("/partner_settlement")
     public String partner_settlement() {

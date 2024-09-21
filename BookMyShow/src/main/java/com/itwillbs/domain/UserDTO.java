@@ -1,5 +1,7 @@
 package com.itwillbs.domain;
 
+import java.util.List;
+
 import lombok.Data;
 
 
@@ -16,7 +18,7 @@ public class UserDTO {
     private String createdAt;
     private String updatedAt;
 
-
+    private PartnerDTO partnerDTO;
 }
 
 

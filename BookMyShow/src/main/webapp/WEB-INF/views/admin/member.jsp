@@ -78,7 +78,7 @@
 		<option value="3">이메일</option>
 	</select>
 		<input type="text" name="findKeyword"  placeholder="검색어를 입력하세요" class="form-control mr-2" id ="searchText">
-			<button class="btn btn-success"  type="button" id="memberSearch" onclick="searchFunction();">검 색</button>
+			<button class="btn btn-success"  type="button" id="memberSearch" onkeypress="searchFunction();">검 색</button>
 			</form>
 
  						<ul class="list-group">
@@ -103,7 +103,7 @@
                 </div>
 
 <script>
-//검색유형
+///검색유형
 function changeSearch(obj) {
 	let key = $(obj).val();
 		
@@ -116,19 +116,79 @@ function changeSearch(obj) {
         $('#searchText').attr('name', 'id');  // 아이디 검색
         $('#searchText').attr('placeholder', '아이디를 입력하세요');  // 입력 힌트도 변경
     } else if (key === "3") {
-        $('#searchText').attr('name', 'email');  // 아이디 검색
-        $('#searchText').attr('placeholder', '이메일을 입력하세요');  // 입력 힌트도 변경
-		
+    	$('#searchText').attr('name', 'email');  // 아이디 검색
+        $('#searchText').attr('placeholder', '이메일을 입력하세요'); 
 	} else {
         $('#searchText').attr('name', '');  // 기본값으로 초기화
         $('#searchText').attr('placeholder', '검색어를 입력하세요');
     }
 		
 	}
-
-
+	
 $(function() {
+//     // 검색 버튼 클릭 시 searchFunction 호출
     $('#memberSearch').click(function() {
+    	searchFunction();  // 버튼 클릭 시 searchFunction 호출
+//             alert("클릭확인");
+    });
+
+//     // 입력 필드에서 Enter 키 입력 시 searchFunction 호출
+    $('#searchText').on('keypress', function(event) {
+        if (event.key === 'Enter' ) {
+            event.preventDefault();  // 기본 Enter 동작 방지
+            searchFunction();  // Enter 키를 누르면 searchFunction 호출
+//             alert("엔터확인");
+        }
+    });
+});
+
+
+
+
+
+
+function searchFunction() {
+	let searchValue = $('#searchText').val(); // 검색 필드 값
+    let searchType = $('#searchText').attr('name');  // 현재 검색 유형
+    
+    $('#result').html("");
+
+    if (searchType === 'name') {
+        if (/^[a-zA-Z가-힣\s]+$/.test(searchValue)) {
+        	ajaxSearchMember(searchValue);
+        	}else {
+            $('#result').html("이름에는 한글, 영어, 공백만 포함될 수 있습니다.");
+            return;
+        }
+    }else if (searchType === 'id'){
+    	if (/^[a-zA-Z0-9-_/,.][a-zA-Z0-9-_/,. ]*$/.test(searchValue)){
+    	ajaxSearchMember(searchValue);
+    }else {
+    	$('#result').html("아이디는 영문자와 숫자만 포함될 수 있습니다.");
+    	return;
+    }
+	}else if(searchType === 'email'){
+		if(/^[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_\.]?[0-9a-zA-Z])*\.[a-zA-Z]{2,3}$/i.test(searchValue)){
+		ajaxSearchMember(searchValue);
+	}else {
+		$( '#result').html("이메일은 영문자와 숫자 @이가 포함되어야합니다.");
+		return;
+}
+	}
+	else {
+		$( '#result').html("검색 유형을 선택하세요.");
+		return;
+	}
+}
+   
+	
+	
+	
+
+		
+function ajaxSearchMember(searchValue){
+$(function() {
+//     $('#memberSearch').click(function() {
     	
     	
         
@@ -157,10 +217,9 @@ $(function() {
                 console.log("error");
             }
         });
-    });
+//     });
 });
-
-
+}
 		
 		
 
