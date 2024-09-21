@@ -10,61 +10,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/support/*")
 public class SupportController {
 
-    @GetMapping("/notice")
-    public String notice() {
-        log.info("notice success");
-
-        return "/support/notice";
-    }
-    
     @GetMapping("/faq")
     public String faq() {
         log.info("faq success");
 
-        return "/support/faq";
+        return "/support/frequentQuestion";
     }
     
-    @GetMapping("/qna")
-    public String qna() {
-        log.info("qna success");
+    @GetMapping("/support/notice")
+	public String notice() {
+    	log.info("notice success");
 
-        return "/support/qna";
-    }
+		return "/support/notice";
+	}
     
-    @GetMapping("/qna_write")
-    public String qna_write() {
-        log.info("qna_write success");
+    @GetMapping("/support/frequentQuestion")
+   	public String frequentQuestion() {
+       	log.info("frequentQuestion success");
 
-        return "/support/qna_write";
-    }
+   		return "/support/frequentQuestion";
+   	}
     
-    @GetMapping("/faq_answer1")
-    public String faq_answer1() {
-        log.info("faq_answer1 success");
+    @GetMapping("/support/inquiry")
+	public String inquiry() {
+    	log.info("inquiry success");
 
-        return "/support/faq_answer1";
-    }
-    
-    @GetMapping("/faq_answer2")
-    public String faq_answer2() {
-        log.info("faq_answer2 success");
-
-        return "/support/faq_answer2";
-    }
-    
-    @GetMapping("/faq_answer3")
-    public String faq_answer3() {
-        log.info("faq_answer3 success");
-
-        return "/support/faq_answer3";
-    }
-    
-    
-
-//    @GetMapping("/notice/")
-//    public String notice() {
-//        log.info("notice success");
-//
-//        return "/notice/notice";
-//    }
+		return "/support/inquiry";
+	}
 }

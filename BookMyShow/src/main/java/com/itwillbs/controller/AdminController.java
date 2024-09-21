@@ -10,7 +10,9 @@ import com.itwillbs.domain.partner.PartnerStatusDTO;
 import com.itwillbs.service.AdminService;
 import com.itwillbs.service.MusicalService;
 import com.itwillbs.service.PartnerService;
+import com.itwillbs.service.PartnersServiceAdmin;
 import com.itwillbs.service.UserServiceImpl;
+
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -21,7 +23,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import org.springframework.web.multipart.MultipartFile;
+
+
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -30,12 +37,25 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+
 @Controller
 @Log4j2
 @RequestMapping("/admin")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 @AllArgsConstructor // lombok을 이용한 생성자 자동 생성
 public class AdminController {
+
+	
+
+
+	
+	private PartnersServiceAdmin partnersServiceAdmin;
+	
+	
+	
+    
+    
+
 
     private UserServiceImpl userServiceImpl;
     private MusicalService musicalService;
@@ -46,12 +66,6 @@ public class AdminController {
     private ObjectMapper objectMapper;
 
 
-    @GetMapping("/editProTEST")
-    public String editProTEST() {
-        log.info("admin editProTEST success");
-
-        return "/admin/editProTEST";
-    }
 
     @GetMapping("/main")
     public String home() {
@@ -138,6 +152,7 @@ public class AdminController {
 //        	musicalDTO = musicalService.getMusicalByTitle(findKeyword);
                 System.out.println("AdminController searchBy2::" + musicalDTO);
                 return "redirect:/admin/submit";
+
 
             } else {
 
@@ -250,8 +265,11 @@ public class AdminController {
 
     @GetMapping("/partner")
     public String partner() {
+
+
         log.info("admin partner success");
         return "/admin/partner";
+
     }
 
     @GetMapping("/partner_submit")
@@ -261,16 +279,47 @@ public class AdminController {
     }
 
     @GetMapping("/partnerPro")
-    public String partnerPro() {
-        log.info("admin partnerPro success");
-        return "/admin/partnerPro";
-    }
+
+    public String  partnerPro(@RequestParam("userName") String userName,
+            @RequestParam("password") String password,
+            @RequestParam("name") String name,
+            @RequestParam("companyName") String companyName,
+            @RequestParam("businessId") String businessId,
+            @RequestParam("accountNumber") String accountNumber,
+            @RequestParam("bankName") String bankName,
+            @RequestParam("phoneNumber") String phoneNumber,
+            @RequestParam("email") String email,
+            @RequestParam("createdAt") String createdAt,
+            Model model) {
+    	log.info("admin partnerPro success");
+    	
+    	model.addAttribute("userName", userName);
+        model.addAttribute("password", password);
+        model.addAttribute("name", name);
+        model.addAttribute("companyName", companyName);
+        model.addAttribute("businessId", businessId);
+        model.addAttribute("accountNumber", accountNumber);
+        model.addAttribute("bankName", bankName);
+        model.addAttribute("phoneNumber", phoneNumber);
+        model.addAttribute("email", email);
+        model.addAttribute("createdAt", createdAt);
+    	
+    	
+    	return "/admin/partnerPro";
+    } //parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 partnerPro로 넘기는 과정
+    
+    
+    
+    
+
 
     @GetMapping("/partner_qna")
     public String partner_qna() {
         log.info("admin partner_qna success");
         return "/admin/partner_qna";
     }
+    
+    
 
     @GetMapping("/partner_settlement")
     public String partner_settlement() {

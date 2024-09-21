@@ -1,12 +1,13 @@
 package com.itwillbs.domain;
 
+import java.util.List;
+
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-
 
 @Data
 @Entity(name = "User")
@@ -38,7 +39,8 @@ public class UserDTO {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
-
+    @OneToOne
+    private PartnerDTO partnerDTO;
 }
 
 
