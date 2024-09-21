@@ -66,8 +66,7 @@
                         <div class="page-header">
                             <h2 class="pageheader-title">신규등록</h2>
                             <div class="m-2 bg-white form-body">
-                                <form action="${pageContext.request.contextPath}/partner/writePro"
-                                      enctype="multipart/form-data" method="post" class="was-validated">
+                                <form enctype="multipart/form-data" class="was-validated">
                                     <div class="p-3 mb-2 bg-body-tertiary">
                                         <div class="form-group col">
                                             <label class=" col-form-label">공연명</label>
@@ -123,7 +122,7 @@
                                                     <p class="region-p">※ 공연장이 대학로인 경우 "대학로"라고 직접 기입해주세요.</p>
                                                 </div>
 
-                                                <input type="hidden" class="theater-id" name="publicVenueId">
+                                                <input type="hidden" class="theater-id" name="publicVenueId" value="${performanceTempDTO.publicVenueId}">
 
                                                 <div class="input-group" id="address-detail">
                                                     <div class="address-first-line">
@@ -362,7 +361,7 @@
                                                     <input type="number" id="rate-input"
                                                            class="form-control p-0 required-field thousand-separator"
                                                            name=discountNum"
-                                                           value="${performanceTempDTO.discountRate * 100}">
+                                                           value="">
                                                     <span class="input-group-text signal">%</span>
                                                     <input type="hidden" id="discount-rate" name="discountRate"
                                                            value="${performanceTempDTO.discountRate}">
@@ -431,15 +430,18 @@
                                         <div class="form-group col">
                                             <label class="col-form-label"></label>
                                             <div id="edit-button-group">
-                                                <input type="submit" value="수정" class="btn btn-primary revise-btn"
-                                                       Style="color: white">
+                                                <button class="btn btn-primary revise-btn"
+                                                       Style="color: white">삭제
+                                                </button>
                                                 <button class="btn btn-primary delete-btn"
                                                         Style="color: white">삭제
                                                 </button>
                                             </div>
                                         </div>
                                         <input type="hidden" name="partnerId" value="${sessionScope.partnerId}">
-                                        <input type="hidden" name="UserId" value="${sessionScope.userId}">
+                                        <input type="hidden" name="userId" value="${sessionScope.userId}">
+                                        <input type="hidden" name="musicalId" value="${performanceTempDTO.musicalId}">
+                                        <input type="hidden" name="venueId" value="${performanceTempDTO.venueId}">
                                     </div>
                                     <!-- 프로그래스 바 추가 -->
                                     <div id="progress-bar" style="display: none; margin-top: 20px;">
@@ -498,6 +500,7 @@
         });
     </script>
 
+
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const selectedGenreId = "${performanceTempDTO.genreId}"; // 서버에서 넘겨받은 genreId
@@ -541,6 +544,10 @@
                     actorName.innerHTML = actorName.innerHTML.slice(0, -3);
                 }
             }
+
+            // discountRate * 100, 소숫점 제거(정수로 반올림)
+            const discountRate = document.querySelector('#rate-input');
+            discountRate.value = Math.round(parseFloat(${performanceTempDTO.discountRate}) * 100);
         });
     </script>
 
@@ -568,7 +575,9 @@
                     ticketPrice[index].value = selectedTicketPrice[selectedTicketClass.indexOf(item.value)];
                     ticketNumberOfSeats[index].disabled = false;
                     ticketNumberOfSeats[index].value = selectedTicketNumberOfSeats[selectedTicketClass.indexOf(item.value)];
-
+                    // 천단위 구분기호 넣기
+                    ticketPrice[index].value = ticketPrice[index].value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+                    ticketNumberOfSeats[index].value = ticketNumberOfSeats[index].value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
                 }
             });
         });
@@ -577,9 +586,10 @@
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const deleteBtn = document.querySelector('.delete-btn');
-            deleteBtn.addEventListener('click', function () {
+            deleteBtn.addEventListener('click', function (event) {
+                event.preventDefault(); // 기본 동작 방지
                 if (confirm('정말 삭제하시겠습니까?')) {
-                    location.href = '${pageContext.request.contextPath}/partner/delete?musicalId=${performanceTempDTO.musicalId}';
+                    location.href = '${pageContext.request.contextPath}/partner/deletePro?musicalId=${performanceTempDTO.musicalId}';
                 }
             });
 
@@ -605,9 +615,10 @@
                     xhr.onload = function () {
                         if (xhr.status === 200) {
                             alert('수정이 완료되었습니다.');
-                            location.href = '${pageContext.request.contextPath}/partner/detail?musicalId=${performanceTempDTO.musicalId}';
+                            location.href = '${pageContext.request.contextPath}/partner/edit?musicalId=${performanceTempDTO.musicalId}';
                         } else {
                             alert('수정에 실패하였습니다.');
+                            location.href = '${pageContext.request.contextPath}/partner/edit?musicalId=${performanceTempDTO.musicalId}';
                         }
                     };
                     xhr.send(formData);

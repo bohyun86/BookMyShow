@@ -7,16 +7,17 @@ import com.itwillbs.mapper.PartnerMapper;
 import com.itwillbs.repository.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-import org.springframework.data.domain.*;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.File;
-import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -70,15 +71,25 @@ public class PartnerService implements PartnerMapper {
         venueDTO.setTotalSeat(performanceTempDTO.getTotalSeat());
         venueDTO.setPublicVenueId(performanceTempDTO.getPublicVenueId());
 
+        if (performanceTempDTO.getVenueId() != 0 ) {
+            log.info("존재하는 venueId: {}", performanceTempDTO.getVenueId());
+            venueDTO.setVenueId(performanceTempDTO.getVenueId());
+        }
+
         // Venue 저장 후 venueId 반환
         venueRepository.save(venueDTO);
 
         entityManager.flush();
 
+        performanceTempDTO.setVenueId(venueDTO.getVenueId());
+
         log.info("venueDTO: {}", venueDTO);
 
         // 2. 뮤지컬 테이블 저장 (저장된 venueId 사용)
         MusicalDTO musicalDTO = new MusicalDTO();
+        if (performanceTempDTO.getMusicalId() != 0) {
+            musicalDTO.setMusicalId(performanceTempDTO.getMusicalId());
+        }
         musicalDTO.setPartnerId(partnerRepository.findPartnerByPartnerId(performanceTempDTO.getPartnerId()));
         musicalDTO.setTitle(performanceTempDTO.getTitle());
         musicalDTO.setDescription(performanceTempDTO.getDescription());
@@ -108,14 +119,21 @@ public class PartnerService implements PartnerMapper {
 
         entityManager.flush();
 
+        log.info(list.isEmpty());
 
         // 3. 첨부파일 테이블 저장
-        for (AttachFileDTO attachFileDTO : list) {
-            attachFileDTO.setMusicalId(musicalDTO);
+        if (!list.isEmpty()) {
+            if (attachFileRepository.findAttachFileByMusicalId(musicalDTO) != null) {
+                attachFileRepository.deleteAllByMusicalId(musicalDTO);
+            }
+            for (AttachFileDTO attachFileDTO : list) {
+                attachFileDTO.setMusicalId(musicalDTO);
+            }
+
+            attachFileRepository.saveAll(list);
+
+            entityManager.flush();
         }
-
-        attachFileRepository.saveAll(list);
-
     }
 
 
@@ -169,22 +187,30 @@ public class PartnerService implements PartnerMapper {
         return attachFile2DTOList;
     }
 
+    @Transactional("jpaTransactionManager")
     public void deletePerformance(int musicalId) {
 
         // 1. 첨부파일 삭제
         attachFileRepository.deleteAllByMusicalId(musicalRepository.findMusicalByMusicalId(musicalId));
+
+        entityManager.flush();
 
         // 2. 뮤지컬 삭제
         MusicalDTO musicalDTO = musicalRepository.findMusicalByMusicalId(musicalId);
         int venueId = musicalDTO.getVenueId().getVenueId();
         musicalRepository.deleteById(musicalId);
 
+        entityManager.flush();
+
         // 3. 공연장 삭제
         venueRepository.deleteById(venueId);
+
+        entityManager.flush();
 
         // 4. 임시저장 삭제
         performanceTempRepository.deleteByMusicalId(musicalId);
 
+        entityManager.flush();
     }
 }
 

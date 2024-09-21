@@ -418,7 +418,7 @@ textarea[name=request] {
     width: 500px;
 }
 
-#edit-button-group .revise-btn, #edit-button-group .delete-btn {
+#edit-button-group .revise-btn, #edit-button-group .delete-btn, #edit-button-group .approve-btn {
     width: 100px;
     height: 30px;
     font-size: 13px;

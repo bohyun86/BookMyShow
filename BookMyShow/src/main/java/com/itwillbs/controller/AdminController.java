@@ -1,33 +1,34 @@
 package com.itwillbs.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.itwillbs.domain.MusicalDTO;
 import com.itwillbs.domain.Performance.AttachFile2DTO;
+import com.itwillbs.domain.Performance.AttachFileDTO;
 import com.itwillbs.domain.Performance.PerformanceTempDTO;
+import com.itwillbs.domain.UserDTO;
 import com.itwillbs.domain.partner.PartnerStatusDTO;
 import com.itwillbs.service.AdminService;
+import com.itwillbs.service.MusicalService;
 import com.itwillbs.service.PartnerService;
+import com.itwillbs.service.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
-import com.itwillbs.domain.MemberDTO;
-import com.itwillbs.domain.MusicalDTO;
-import com.itwillbs.domain.UserDTO;
-import com.itwillbs.service.MusicalService;
-import com.itwillbs.service.UserServiceImpl;
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @Log4j2
@@ -40,6 +41,9 @@ public class AdminController {
     private MusicalService musicalService;
     private AdminService adminService;
     private PartnerService partnerService;
+    private PartnerController partnerController;
+    private ServletContext servletContext;
+    private ObjectMapper objectMapper;
 
 
     @GetMapping("/editProTEST")
@@ -191,10 +195,54 @@ public class AdminController {
     }
 
     @GetMapping("/approvePro")
-    public String approvePro(@RequestParam int musicalId, Model model) {
+    public String approvePro(@RequestParam int musicalId) {
         log.info("admin approvePro success");
 
+        adminService.approveMusical(musicalId);
 
+        return "redirect:/admin/edit";
+    }
+
+    @PostMapping(value = "/writePro")
+    public String writePro(PerformanceTempDTO performancetempDTO) {
+        log.info("writePro: {}", performancetempDTO);
+
+        List<AttachFileDTO> list = new ArrayList<>();
+        String uploadFolder = servletContext.getRealPath("/resources/upload");
+
+        File uploadPath = new File(uploadFolder, partnerController.getFolder());
+        log.info("uploadPath: {}", uploadPath);
+
+        if (!uploadPath.exists()) {
+            uploadPath.mkdirs();
+        }
+
+        // 공연 상세정보 이미지 처리
+        MultipartFile[] musicalImages = performancetempDTO.getMusicalImages();
+
+        if (musicalImages[0].getSize() != 0) {
+            for (MultipartFile musicalImage : musicalImages) {
+                partnerController.uploadImages(musicalImage, uploadPath, list, false);
+            }
+        }
+
+        // 공연 포스터 이미지 처리
+        MultipartFile musicalPost = performancetempDTO.getMusicalPost();
+        if (musicalPost.getSize() != 0) {
+            partnerController.uploadImages(musicalPost, uploadPath, list, true);
+        }
+        // 임시 공연 등록
+
+        partnerService.registerPerformance(performancetempDTO, list);
+
+        return "redirect:/admin/edit";
+    }
+
+    @GetMapping("/deletePro")
+    public String deletePro(@RequestParam int musicalId) {
+        log.info("deletePro: {}", musicalId);
+
+        partnerService.deletePerformance(musicalId);
 
         return "redirect:/admin/edit";
     }

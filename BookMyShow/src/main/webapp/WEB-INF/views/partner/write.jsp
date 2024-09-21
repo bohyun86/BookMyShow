@@ -386,13 +386,13 @@
                                             <label class="col-form-label">요청사항</label>
                                             <textarea type="text" name="request"></textarea>
                                         </div>
-                                        <input type="hidden" name="partnerId" value="${sessionScope.partnerId}">
+
                                         <div class="form-group col">
                                             <label></label>
                                             <input type="submit" value="등록신청" class="btn btn-primary"
                                                    Style="color: white">
                                         </div>
-
+                                        <input type="hidden" name="partnerId" value="${sessionScope.partnerId}">
                                         <input type="hidden" name="UserId" value="${sessionScope.userId}">
                                     </div>
                                     <!-- 프로그래스 바 추가 -->
