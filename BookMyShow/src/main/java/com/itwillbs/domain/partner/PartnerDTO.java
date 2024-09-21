@@ -1,8 +1,11 @@
 package com.itwillbs.domain.partner;
 
+import com.itwillbs.domain.Performance.MusicalDTO;
 import lombok.Data;
+import org.apache.ibatis.annotations.Many;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Data
 @Entity(name = "Partner")
@@ -39,5 +42,8 @@ public class PartnerDTO {
 
     @Column(name = "account_owner")
     private String accountOwner;
+
+    @OneToMany(mappedBy = "partnerId", cascade = CascadeType.ALL)
+    private List<MusicalDTO> musical;  // 다대일 양방향 관계 설정
 
 }

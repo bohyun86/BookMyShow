@@ -68,12 +68,28 @@ public class MainController {
         return "/main/search";
     }
 
-    @GetMapping("/timeSale")
+    @GetMapping("/time_sale")
     public String timeSale(Model model) {
         log.info("timeSale success");
 
         model.addAttribute("timeSaleCarouselDTOS", mainService.getTimeSaleCarouselDTOs());
 
-        return "/main/timeSale";
+        return "/main/time_sale";
+    }
+
+    @GetMapping("/new_musical")
+    public String newMusical(Model model) {
+        log.info("new_musical success");
+
+        model.addAttribute("newMusical", mainService.getNewMusical());
+
+        return "/main/new_musical";
+    }
+
+    @GetMapping("/event")
+    public String event() {
+        log.info("event success");
+
+        return "/main/event";
     }
 }
