@@ -96,7 +96,7 @@
     font-weight: bolder;
     font-size: 18px;
     height: 60px;
-    width: 400px;
+    width: 410px;
     margin-top: 40px !important;
 }
 
@@ -133,14 +133,14 @@
 }
 
 #find-id-pw #find-container #submit-forms form .info {
-    font-size: 14px;
+    font-size: 13px;
     text-align: justify;
     line-height: 180%;
     color: #333;
     border-radius: 10px;
     border: none;
     padding: 20px;
-    width: 400px;
+    width: 410px;
     margin-top: 30px;
     background-color: #F6F6F6;
 }
