@@ -23,4 +23,10 @@ public interface UserMapper {
 
 	int deleteUser(int userId);
 
+    UserDTO findIdPro(UserDTO userDTO);
+
+    UserDTO findPwPro(UserDTO userDTO);
+
+    int updateUserTempPw(UserDTO userDTO);
+
 }

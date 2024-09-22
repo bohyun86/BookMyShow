@@ -5,12 +5,10 @@ import com.itwillbs.domain.UserDTO;
 import com.itwillbs.mapper.UserMapper;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
-
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import javax.servlet.http.HttpSession;
 
 @Service
 @Log4j2
@@ -42,6 +40,11 @@ public class UserServiceImpl implements UserService {
         // 비밀번호가 암호화되어 있는지 확인
         if (getUser.isEncoded()) {
             // 이미 암호화된 비밀번호를 BCrypt로 비교
+			if (getUser.getTempPassword() != null) {
+				if (passwordEncoder.matches(userDTO.getPassword(), getUser.getTempPassword())) {
+					return getUser;
+				}
+			}
             if (passwordEncoder.matches(userDTO.getPassword(), getUser.getPassword())) {
                 return getUser;
             }
@@ -53,7 +56,7 @@ public class UserServiceImpl implements UserService {
                 return getUser; // 로그인 성공
             }
         }
-		return new UserDTO();
+		return null;
 	}
 
     @Override
@@ -124,4 +127,21 @@ public class UserServiceImpl implements UserService {
 	    }
 	}
 
+	@Override
+    public UserDTO findIdPro(UserDTO userDTO) {
+		return userMapper.findIdPro(userDTO);
+    }
+
+	@Override
+	public UserDTO findPwPro(UserDTO userDTO) {
+		log.info("service findPwPro: {}", userDTO);
+
+		return userMapper.findPwPro(userDTO);
+	}
+
+	@Override
+	public boolean updateUserTempPw(UserDTO userDTO) {
+		userDTO.setTempPassword(passwordEncoder.encode(userDTO.getTempPassword()));
+		return userMapper.updateUserTempPw(userDTO) > 0;
+	}
 }

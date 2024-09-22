@@ -59,13 +59,11 @@
                             </div>
                             <button class="btn btn-primary fw-bolder my-2 find-id-button">아이디 찾기</button>
                             <div class="info">
-                                · <span style="font-weight:600">간편 로그인으로 가입한 경우</span> 아이디/비밀번호를 저장하지 않습니다. 해당되는 간편 로그인 버튼을 클릭해 로그인하세요.<br />
+                                · <span style="font-weight:600">간편 로그인으로 가입한 경우</span> 아이디/비밀번호를 저장하지 않습니다. 해당되는 간편 로그인
+                                버튼을 클릭해 로그인하세요.<br/>
                                 · 아이디 찾기에 실패한 경우 <a href='#' target='_blank'>불편사항 접수</a>를 이용해주세요.
                             </div>
-
                         </form>
-
-
                     </div>
                     <div class=" tab-pane" id="find-pw" role="tabpanel">
                         <form class="find" onsubmit="return false">
@@ -79,7 +77,7 @@
                                             <i class="bi bi-person"></i>
                                         </span>
                                 </div>
-                                <input type="text" class="form-control border-0" placeholder="아이디" name="userName"
+                                <input type="text" class="form-control border-0 check-userName" placeholder="아이디" name="userName"
                                        autocomplete="current-password">
                             </div>
                             <div class="input-group px-0" id="email-input2">
@@ -88,18 +86,16 @@
                                             <i class="bi bi-envelope"></i>
                                         </span>
                                 </div>
-                                <input type="email" class="form-control border-0" name="email" placeholder="이메일">
+                                <input type="email" class="form-control border-0 check-email" name="email" placeholder="이메일">
                             </div>
                             <button class="btn btn-primary fw-bolder my-2 find-pw-button">임시 비밀번호 발급</button>
                             <div class="info">
-                                · <span style="font-weight:600">간편 로그인으로 가입한 경우</span> 아이디/비밀번호를 저장하지 않습니다. 해당되는 간편 로그인 버튼을 클릭해 로그인하세요.<br />
-                                · 메일이 수신되지 않은 경우 스팸메일함을 확인해주세요.<br />
+                                · <span style="font-weight:600">간편 로그인으로 가입한 경우</span> 아이디/비밀번호를 저장하지 않습니다. 해당되는 간편 로그인
+                                버튼을 클릭해 로그인하세요.<br/>
+                                · 메일이 수신되지 않은 경우 스팸메일함을 확인해주세요.<br/>
                                 · 비밀번호 찾기에 실패한 경우 <a href='#' target='_blank'>불편사항 접수</a>를 이용해주세요.
                             </div>
-
                         </form>
-
-
                     </div>
                 </div>
 
@@ -115,5 +111,60 @@
         crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/resources/js/cards.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/dropdown.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        const findIdButton = document.querySelector('.find-id-button');
+        const findPwButton = document.querySelector('.find-pw-button');
+
+        findIdButton.addEventListener('click', () => {
+            const phoneNumber = document.querySelector('input[name="phoneNumber"]').value;
+            const email = document.querySelector('input[name="email"]').value;
+
+            if (!phoneNumber || !email) {
+                alert('휴대폰번호와 이메일을 입력해주세요.');
+                return;
+            }
+
+            fetch(`${pageContext.request.contextPath}/login/findIdPro`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({phoneNumber, email})
+            }).then(response => response.json())
+                .then(data => {
+                    const id = data.userId;
+                    alert("회원님의 아이디는 '" + id + "'입니다.");
+                }).catch(error => {
+                    alert('휴대폰번호 및 이메일을 다시 확인해주세요.');
+                });
+        });
+
+
+        findPwButton.addEventListener('click', () => {
+            const userName = document.querySelector('.check-userName').value;
+            const email = document.querySelector('.check-email').value;
+
+            if (!userName || !email) {
+                alert('아이디와 이메일을 입력해주세요.');
+                return;
+            }
+
+            fetch(`${pageContext.request.contextPath}/login/findPwPro`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({userName, email})
+            }).then(response => response.json())
+                .then(data => {
+                    alert('임시 비밀번호가 발급되었습니다. 이메일을 확인해주세요.');
+                }).catch(error => {
+                    alert('아이디 및 이메일을 다시 확인해주세요.');
+                });
+        });
+    });
+</script>
 </body>
 </html>

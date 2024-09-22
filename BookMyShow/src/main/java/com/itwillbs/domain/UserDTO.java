@@ -42,6 +42,16 @@ public class UserDTO {
 
     @Column(name = "is_encoded")
     private boolean isEncoded;
+
+    @Column(name = "temp_password")
+    private String tempPassword;
+
+    @Column(name = "temp_password_created_at")
+    @UpdateTimestamp
+    private Timestamp tempPasswordCreatedAt;
+
+
+
 }
 
 

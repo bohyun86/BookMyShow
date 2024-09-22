@@ -37,6 +37,28 @@
 		</property>
 	</bean>
 
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<!-- Gmail SMTP 서버 호스트 및 포트 설정 -->
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587" />
+
+		<!-- Gmail 계정 정보 설정 -->
+		<property name="username" value="qhgusdlsp86@cuk.edu"/>
+		<property name="password" value="bshxeiwhcqlovyir" /> <!-- Gmail 앱 비밀번호 입력 -->
+
+		<property name="javaMailProperties">
+			<props>
+				<!-- Gmail SMTP 서버 설정 -->
+				<prop key="mail.transport.protocol">smtp</prop>
+				<prop key="mail.smtp.auth">true</prop>
+				<prop key="mail.smtp.starttls.enable">true</prop>
+				<prop key="mail.smtp.starttls.required">true</prop>
+				<prop key="mail.debug">true</prop>
+			</props>
+		</property>
+	</bean>
+
 	<!-- Security 설정 -->
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 

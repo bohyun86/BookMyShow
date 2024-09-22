@@ -88,7 +88,11 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = "${pageContext.request.contextPath}/main/main";
+                    if (data.tempPassword) {
+                        window.location.href = "${pageContext.request.contextPath}/my/profile-edit";
+                    } else {
+                        window.location.href = "${pageContext.request.contextPath}/main/main";
+                    }
                 } else {
                     alert("아이디 및 비밀번호가 일치하지 않습니다.");
                 }

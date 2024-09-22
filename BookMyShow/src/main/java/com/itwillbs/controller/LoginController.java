@@ -1,12 +1,14 @@
 package com.itwillbs.controller;
 
 import com.itwillbs.domain.UserDTO;
+import com.itwillbs.service.EmailService;
 import com.itwillbs.service.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +23,8 @@ import java.util.Map;
 public class LoginController {
 
     private UserServiceImpl userServiceImpl;
+    private EmailService emailService;
+
 
     @GetMapping("")
     public String login() {
@@ -36,11 +40,20 @@ public class LoginController {
             return ResponseEntity.ok(Map.of("success", false));
         } else {
             log.info("controller user: {}:", getUser);
-            session.setAttribute("userId", getUser.getUserId());
-            session.setAttribute("userRole", getUser.getUserRole());
-            session.setAttribute("userName", getUser.getUserName());
-            session.setAttribute("name", getUser.getName());
-            return ResponseEntity.ok(Map.of("success", true));
+            if (getUser.getTempPassword() != null) {
+                log.info("tempPassword true");
+                session.setAttribute("userId", getUser.getUserId());
+                session.setAttribute("userRole", getUser.getUserRole());
+                session.setAttribute("userName", getUser.getUserName());
+                session.setAttribute("name", getUser.getName());
+                return ResponseEntity.ok(Map.of("success", true, "tempPassword", true));
+            } else {
+                session.setAttribute("userId", getUser.getUserId());
+                session.setAttribute("userRole", getUser.getUserRole());
+                session.setAttribute("userName", getUser.getUserName());
+                session.setAttribute("name", getUser.getName());
+                return ResponseEntity.ok(Map.of("success", true, "tempPassword", false));
+            }
         }
     }
 
@@ -52,6 +65,37 @@ public class LoginController {
     public void findidpw() {
     }
 
+    @PostMapping(value = "/findIdPro", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> findIdPro(@RequestBody UserDTO userDTO) {
+        log.info("findIdPro: {}", userDTO);
+        UserDTO getUser = userServiceImpl.findIdPro(userDTO);
+        if (getUser == null) {
+            return ResponseEntity.ok(Map.of("success", false));
+        } else {
+            log.info("controller user: {}:", getUser);
+            return ResponseEntity.ok(Map.of("success", true, "userId", getUser.getUserName()));
+        }
+    }
+
+    @PostMapping(value = "/findPwPro", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> findPwPro(@RequestBody UserDTO userDTO) {
+        log.info("findPwPro: {}", userDTO);
+        UserDTO getUser = userServiceImpl.findPwPro(userDTO);
+        if (getUser == null) {
+            return ResponseEntity.ok(Map.of("success", false));
+        } else {
+            log.info("controller user: {}:", getUser);
+
+            if (emailService.sendTempPasswordEmail(getUser)) {
+
+                return ResponseEntity.ok(Map.of("success", true));
+            } else {
+                return ResponseEntity.ok(Map.of("success", false));
+            }
+        }
+    }
 
     @GetMapping("/newUser")
     public void newUser() {

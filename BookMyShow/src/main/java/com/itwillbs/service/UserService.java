@@ -21,5 +21,10 @@ public interface UserService {
 	void deleteUser(UserDTO userDTO);
 
     boolean updateUserPasswordAndEncode(UserDTO userDTO, String newPassword);
-    
+
+    UserDTO findIdPro(UserDTO userDTO);
+
+    UserDTO findPwPro(UserDTO userDTO);
+
+    boolean updateUserTempPw(UserDTO userDTO);
 }
