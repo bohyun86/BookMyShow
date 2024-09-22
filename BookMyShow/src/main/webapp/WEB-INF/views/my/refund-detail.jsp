@@ -53,9 +53,9 @@
 				<div class="detail-row">
 					<span class="detail-label">결제수단</span> <span class="detail-value">
 						${payment.paymentMethod}
-						<button
-							class="btn btn-sm btn-outline-danger action-button receipt-button"
-							data-payment-id="${payment.paymentId}">영수증 조회</button>
+<!-- 						<button -->
+<!-- 							class="btn btn-sm btn-outline-danger action-button receipt-button" -->
+<%-- 							data-payment-id="${payment.paymentId}">영수증 조회</button> --%>
 					</span>
 				</div>
 				 <div class="detail-row">
@@ -109,7 +109,7 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<p>밤12시 자정을 기준으로:</p>
+					<p>밤12시 자정 기준</p>
 					<ul>
 						<li>7일 전: 전액 환불</li>
 						<li>6~4일 전: 10% 공제</li>

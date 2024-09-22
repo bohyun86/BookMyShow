@@ -13,6 +13,7 @@ import com.itwillbs.domain.BookingDTO;
 import com.itwillbs.domain.MusicalDTO;
 import com.itwillbs.domain.PaymentDTO;
 import com.itwillbs.domain.PerformanceDTO;
+import com.itwillbs.domain.PointDTO;
 import com.itwillbs.domain.UserDTO;
 import com.itwillbs.domain.VenueDTO;
 
@@ -28,103 +29,140 @@ public class MypageDAO {
 	private static final String NAMESPACE = "com.itwillbs.mapper.MypageMapper";
 
 	// 단수형 메서드
-    public Integer getMemberId(int userId) {
-        return sqlSession.selectOne(NAMESPACE + ".getMemberId", userId);
-    }
+	public Integer getMemberId(int userId) {
+		return sqlSession.selectOne(NAMESPACE + ".getMemberId", userId);
+	}
 
-    public UserDTO getUser(Integer userId) {
-        return sqlSession.selectOne(NAMESPACE + ".getUser", userId);
-    }
+	public UserDTO getUser(Integer userId) {
+		return sqlSession.selectOne(NAMESPACE + ".getUser", userId);
+	}
 
-    public BookingDTO getBooking(Integer bookingId, Integer memberId) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("bookingId", bookingId);
-        params.put("memberId", memberId);
-        return sqlSession.selectOne(NAMESPACE + ".getBooking", params);
-    }
+	public BookingDTO getBooking(Integer bookingId, Integer memberId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("bookingId", bookingId);
+		params.put("memberId", memberId);
+		return sqlSession.selectOne(NAMESPACE + ".getBooking", params);
+	}
 
-    public MusicalDTO getMusical(Integer bookingId) {
-        return sqlSession.selectOne(NAMESPACE + ".getMusical", bookingId);
-    }
+	public MusicalDTO getMusical(Integer bookingId) {
+		return sqlSession.selectOne(NAMESPACE + ".getMusical", bookingId);
+	}
 
-    public AttachFileDTO getAttachFile(Integer bookingId) {
-        return sqlSession.selectOne(NAMESPACE + ".getAttachFile", bookingId);
-    }
+	public AttachFileDTO getAttachFile(Integer bookingId) {
+		return sqlSession.selectOne(NAMESPACE + ".getAttachFile", bookingId);
+	}
 
-    public PerformanceDTO getPerformance(Integer bookingId) {
-        return sqlSession.selectOne(NAMESPACE + ".getPerformance", bookingId);
-    }
+	public PerformanceDTO getPerformance(Integer bookingId) {
+		return sqlSession.selectOne(NAMESPACE + ".getPerformance", bookingId);
+	}
 
-    public PaymentDTO getPayment(Integer bookingId) {
-        return sqlSession.selectOne(NAMESPACE + ".getPayment", bookingId);
-    }
+	public PaymentDTO getPayment(Integer bookingId) {
+		return sqlSession.selectOne(NAMESPACE + ".getPayment", bookingId);
+	}
 
-    public List<BookedSeatsDTO> getBookedSeats(Integer bookingId) {
-        return sqlSession.selectList(NAMESPACE + ".getBookedSeats", bookingId);
-    }
+	public List<BookedSeatsDTO> getBookedSeats(Integer bookingId) {
+		return sqlSession.selectList(NAMESPACE + ".getBookedSeats", bookingId);
+	}
 
-    public VenueDTO getVenue(Integer bookingId) {
-        return sqlSession.selectOne(NAMESPACE + ".getVenue", bookingId);
-    }
+	public VenueDTO getVenue(Integer bookingId) {
+		return sqlSession.selectOne(NAMESPACE + ".getVenue", bookingId);
+	}
 
-    public int getTotalBookingsCount(Integer memberId) {
-        return sqlSession.selectOne(NAMESPACE + ".getTotalBookingsCount", memberId);
-    }
+	public int getTotalBookingsCount(Integer memberId) {
+		return sqlSession.selectOne(NAMESPACE + ".getTotalBookingsCount", memberId);
+	}
 
-    public int getTotalRefundsCount(Integer memberId) {
-        return sqlSession.selectOne(NAMESPACE + ".getTotalRefundsCount", memberId);
-    }
+	public int getTotalRefundsCount(Integer memberId) {
+		return sqlSession.selectOne(NAMESPACE + ".getTotalRefundsCount", memberId);
+	}
 
-    public boolean processRefund(Integer bookingId, Integer userId) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("bookingId", bookingId);
-        params.put("userId", userId);
-        int updatedRows = sqlSession.update(NAMESPACE + ".processRefund", params);
-        return updatedRows > 0;
-    }
+	public boolean processRefund(Integer bookingId, Integer userId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("bookingId", bookingId);
+		params.put("userId", userId);
+		int updatedRows = sqlSession.update(NAMESPACE + ".processRefund", params);
+		return updatedRows > 0;
+	}
 
-    public int getUsableTicketCount(Integer memberId) {
-        return sqlSession.selectOne(NAMESPACE + ".getUsableTicketCount", memberId);
-    }
+	public int getUsableTicketCount(Integer memberId) {
+		return sqlSession.selectOne(NAMESPACE + ".getUsableTicketCount", memberId);
+	}
 
-    // 복수형 메서드
-    public List<BookingDTO> getBookings(Integer memberId, Integer offset, Integer limit) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("memberId", memberId);
-        params.put("offset", offset);
-        params.put("limit", limit);
-        return sqlSession.selectList(NAMESPACE + ".getBookings", params);
-    }
+	// 복수형 메서드
+	public List<BookingDTO> getBookings(Integer memberId, Integer offset, Integer limit) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("memberId", memberId);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return sqlSession.selectList(NAMESPACE + ".getBookings", params);
+	}
 
-    public List<MusicalDTO> getMusicals(List<Integer> bookingIds) {
-        return sqlSession.selectList(NAMESPACE + ".getMusicals", bookingIds);
-    }
+	public List<MusicalDTO> getMusicals(List<Integer> bookingIds) {
+		return sqlSession.selectList(NAMESPACE + ".getMusicals", bookingIds);
+	}
 
-    public List<AttachFileDTO> getAttachFiles(List<Integer> bookingIds) {
-        return sqlSession.selectList(NAMESPACE + ".getAttachFiles", bookingIds);
-    }
+	public List<AttachFileDTO> getAttachFiles(List<Integer> bookingIds) {
+		return sqlSession.selectList(NAMESPACE + ".getAttachFiles", bookingIds);
+	}
 
-    public List<PerformanceDTO> getPerformances(List<Integer> bookingIds) {
-        return sqlSession.selectList(NAMESPACE + ".getPerformances", bookingIds);
-    }
+	public List<PerformanceDTO> getPerformances(List<Integer> bookingIds) {
+		return sqlSession.selectList(NAMESPACE + ".getPerformances", bookingIds);
+	}
 
-    public List<PaymentDTO> getPayments(List<Integer> bookingIds) {
-        return sqlSession.selectList(NAMESPACE + ".getPayments", bookingIds);
-    }
+	public List<PaymentDTO> getPayments(List<Integer> bookingIds) {
+		return sqlSession.selectList(NAMESPACE + ".getPayments", bookingIds);
+	}
 
-    public List<BookedSeatsDTO> getBookedSeatss(List<Integer> bookingIds) {
-        return sqlSession.selectList(NAMESPACE + ".getBookedSeatss", bookingIds);
-    }
+	public List<BookedSeatsDTO> getBookedSeatss(List<Integer> bookingIds) {
+		return sqlSession.selectList(NAMESPACE + ".getBookedSeatss", bookingIds);
+	}
 
-    public List<VenueDTO> getVenues(List<Integer> bookingIds) {
-        return sqlSession.selectList(NAMESPACE + ".getVenues", bookingIds);
-    }
+	public List<VenueDTO> getVenues(List<Integer> bookingIds) {
+		return sqlSession.selectList(NAMESPACE + ".getVenues", bookingIds);
+	}
 
-    public List<BookingDTO> getRefundBookings(Integer memberId, Integer offset, Integer limit) {
-        Map<String, Object> params = new HashMap<>();
-        params.put("memberId", memberId);
-        params.put("offset", offset);
-        params.put("limit", limit);
-        return sqlSession.selectList(NAMESPACE + ".getRefundBookings", params);
-    }
+	public List<BookingDTO> getRefundBookings(Integer memberId, Integer offset, Integer limit) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("memberId", memberId);
+		params.put("offset", offset);
+		params.put("limit", limit);
+		return sqlSession.selectList(NAMESPACE + ".getRefundBookings", params);
+	}
+
+//    refundProcess
+	public void updatePayment(PaymentDTO payment) {
+		sqlSession.update(NAMESPACE + ".updatePayment", payment);
+	}
+
+	public void addPointsRef(Integer userId, int points, int currentAmount, String reason, Integer paymentId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("userId", userId);
+		params.put("points", points);
+		params.put("currentAmount", currentAmount);
+		params.put("reason", reason);
+		params.put("paymentId", paymentId);
+		sqlSession.insert(NAMESPACE + ".addPointsRef", params);
+	}
+
+	public void updateBooking(BookingDTO booking) {
+		sqlSession.update(NAMESPACE + ".updateBooking", booking);
+	}
+
+	public void updateBookedSeatsStatus(Integer bookingId, String status) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("bookingId", bookingId);
+		params.put("status", status);
+		sqlSession.update(NAMESPACE + ".updateBookedSeatsStatus", params);
+	}
+
+	public List<PointDTO> getAvailablePoints(Integer userId) {
+		return sqlSession.selectList(NAMESPACE + ".getAvailablePoints", userId);
+	}
+
+	public void updatePointUsage(Integer pointId, int usedAmount) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("pointId", pointId);
+		params.put("usedAmount", usedAmount);
+		sqlSession.update(NAMESPACE + ".updatePointUsage", params);
+	}
 }

@@ -37,7 +37,8 @@
 	</select>
 
 	<select id="getTotalPoints" resultType="int">
-		SELECT COALESCE(SUM(current_amount), 0) FROM Point WHERE user_id = #{userId}
+		SELECT
+		COALESCE(SUM(current_amount), 0) FROM Point WHERE user_id = #{userId}
 	</select>
 
 	<insert id="addPoints">
@@ -57,7 +58,8 @@
 
 	<select id="getAllCoupons" resultMap="couponResultMap">
 		SELECT * FROM Coupon
-		ORDER BY created_at DESC
+		ORDER
+		BY created_at DESC
 		LIMIT #{offset}, #{limit}
 	</select>
 
@@ -76,8 +78,9 @@
 	</select>
 
 	<update id="updateCouponStatus">
-		UPDATE Coupon SET status = #{status}, updated_at = NOW()
+		UPDATE Coupon SET status = #{status}, updated_at =
+		NOW()
 		WHERE code = #{code}
 	</update>
-	
+
 </mapper>

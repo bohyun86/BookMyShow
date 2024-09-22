@@ -3,7 +3,10 @@ package com.itwillbs.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -26,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.domain.BookingDTO;
 import com.itwillbs.domain.MyPageDTO;
+import com.itwillbs.domain.PaymentDTO;
 import com.itwillbs.domain.PerformanceDTO;
 import com.itwillbs.domain.PointDTO;
 import com.itwillbs.domain.ReviewDTO;
@@ -135,15 +139,8 @@ public class MypageController {
 	public String refund(@PathVariable Integer bookingId, Model model, HttpSession session) {
 		addCommonAttributes(model, session);
 		Integer userId = (Integer) session.getAttribute("userId");
-		if (userId == null) {
-			return "redirect:/login";
-		}
-
 		Integer memberId = mypageService.getMemberId(userId);
 		BookingDTO booking = mypageService.getBooking(bookingId, memberId);
-		if (booking == null) {
-			return "redirect:/error";
-		}
 
 		model.addAttribute("booking", booking);
 		model.addAttribute("musical", mypageService.getMusical(bookingId));
@@ -155,6 +152,35 @@ public class MypageController {
 		model.addAttribute("venue", mypageService.getVenue(bookingId));
 
 		return "my/refund";
+	}
+	
+	@PostMapping("/refund-process/{bookingId}")
+	public String processRefund(@PathVariable Integer bookingId, @RequestParam BigDecimal refundRate, Model model, HttpSession session) {
+	    Integer userId = (Integer) session.getAttribute("userId");
+	    Integer memberId = mypageService.getMemberId(userId);
+	    
+	    BookingDTO booking = mypageService.getBooking(bookingId, memberId);
+//	    PaymentDTO payment = mypageService.getPayment(bookingId);
+
+//	    BigDecimal refundAmount = new BigDecimal(payment.getPaymentAmount()).multiply(refundRate);
+//	    String refundType = getRefundType(refundRate);
+
+//	    boolean refundSuccess = mypageService.processRefund(bookingId, refundType, refundAmount, userId);
+	    boolean refundSuccess = mypageService.processRefund(bookingId, "전액환불", new BigDecimal("10.50"), userId);
+
+	    if (refundSuccess) {
+	        return "redirect:/my/refund-complete/" + bookingId;
+	    } else {
+	        return "redirect:/my/refund/" + bookingId + "?error=refund_failed";
+	    }
+	}
+
+	private String getRefundType(BigDecimal refundRate) {
+	    if (refundRate.compareTo(BigDecimal.ONE) == 0) return "전액환불";
+	    if (refundRate.compareTo(new BigDecimal("0.9")) == 0) return "90%환불";
+	    if (refundRate.compareTo(new BigDecimal("0.8")) == 0) return "80%환불";
+	    if (refundRate.compareTo(new BigDecimal("0.7")) == 0) return "70%환불";
+	    return "환불불가";
 	}
 
 	@GetMapping("/refund-detail/{bookingId}")

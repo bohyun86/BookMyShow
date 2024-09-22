@@ -65,9 +65,9 @@
 				<div class="detail-row">
 					<span class="detail-label">결제수단</span> <span class="detail-value">
 						${payment.paymentMethod}
-						<button
-							class="btn btn-sm btn-outline-danger action-button receipt-button"
-							data-payment-id="${payment.paymentId}">영수증 조회</button>
+<!-- 						<button -->
+<!-- 							class="btn btn-sm btn-outline-danger action-button receipt-button" -->
+<%-- 							data-payment-id="${payment.paymentId}">영수증 조회</button> --%>
 					</span>
 				</div>
 				<div class="detail-row">

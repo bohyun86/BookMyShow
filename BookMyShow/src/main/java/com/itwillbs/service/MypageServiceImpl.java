@@ -7,6 +7,7 @@ import com.itwillbs.domain.BookingDTO;
 import com.itwillbs.domain.MusicalDTO;
 import com.itwillbs.domain.PaymentDTO;
 import com.itwillbs.domain.PerformanceDTO;
+import com.itwillbs.domain.PointDTO;
 import com.itwillbs.domain.UserDTO;
 import com.itwillbs.domain.VenueDTO;
 
@@ -14,10 +15,14 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import java.io.File;
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
+import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
@@ -122,13 +127,53 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public boolean processRefund(Integer bookingId, Integer userId) {
-		if (bookingId == null || userId == null) {
-			return false;
-		}
-		return mypageDAO.processRefund(bookingId, userId);
-	}
+    @Transactional
+    public boolean processRefund(Integer bookingId, String refundType, BigDecimal refundAmount, Integer userId) {
+        Integer memberId = mypageDAO.getMemberId(userId);
+        PaymentDTO payment = mypageDAO.getPayment(bookingId);
+        BookingDTO booking = mypageDAO.getBooking(bookingId, memberId);
 
+//        // 결제 정보 업데이트
+//        payment.setStatus("환불완료");
+//        payment.setRefundType(refundType);
+//        payment.setRefundAmount(refundAmount);
+//        mypageDAO.updatePayment(payment);
+//
+//        // 포인트 처리
+//        int usedPoints = payment.getUsedPoints();
+//        int earnedPoints = payment.getPaymentAmount().intValue() / 100; // 1% 적립 가정
+//        mypageDAO.addPointsRef(userId, usedPoints, usedPoints, "환불반환", payment.getPaymentId());
+//        mypageDAO.addPointsRef(userId, -earnedPoints, 0, "예매취소", payment.getPaymentId());
+//
+//        // 사용한 포인트 차감
+//        usePoints(userId, earnedPoints);
+
+        // 예매 상태 업데이트
+        booking.setStatus("환불완료");
+        mypageDAO.updateBooking(booking);
+
+//        // 좌석 상태 업데이트
+//        mypageDAO.updateBookedSeatsStatus(bookingId, "unreserved");
+
+        return true;
+    }
+
+	  @Override
+	    public void usePoints(Integer userId, int amountToUse) {
+	        List<PointDTO> availablePoints = mypageDAO.getAvailablePoints(userId);
+	        int remainingAmount = amountToUse;
+	        for (PointDTO point : availablePoints) {
+	            if (remainingAmount <= 0) break;
+	            if (point.getCurrentAmount() <= remainingAmount) {
+	                remainingAmount -= point.getCurrentAmount();
+	                mypageDAO.updatePointUsage(point.getPointId(), point.getCurrentAmount());
+	            } else {
+	                mypageDAO.updatePointUsage(point.getPointId(), remainingAmount);
+	                remainingAmount = 0;
+	            }
+	        }
+	    }
+	
 	@Override
 	public int getUsableTicketCount(Integer userId) {
 		if (userId == null) {
