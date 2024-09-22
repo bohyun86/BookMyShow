@@ -7,11 +7,13 @@
 	   xmlns:tx="http://www.springframework.org/schema/tx"
 	   xmlns:jpa="http://www.springframework.org/schema/data/jpa"
 	   xmlns:cache="http://www.springframework.org/schema/cache"
+	   xmlns:task="http://www.springframework.org/schema/task"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
 
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
+		http://www.springframework.org/schema/task https://www.springframework.org/schema/task/spring-task.xsd
 		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd
         http://www.springframework.org/schema/data/jpa https://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 	<!-- 캐싱 기능 활성화 -->
@@ -58,6 +60,10 @@
 			</props>
 		</property>
 	</bean>
+
+	<!-- 비동기 처리 설정 -->
+	<task:annotation-driven executor="asyncExecutor" />
+	<task:executor id="asyncExecutor" pool-size="5-10" queue-capacity="25" />
 
 	<!-- Security 설정 -->
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>

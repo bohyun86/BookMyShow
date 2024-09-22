@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -19,7 +20,8 @@ public class EmailService {
     private JavaMailSender mailSender;
     private UserServiceImpl userServiceImpl;
 
-    public boolean sendTempPasswordEmail(UserDTO userDTO) {
+    @Async
+    public void sendTempPasswordEmail(UserDTO userDTO) {
         // 임시 비밀번호 생성
         String tempPassword = generateRandomPassword();
 
@@ -47,11 +49,8 @@ public class EmailService {
 
             log.info("EmailService: {}, result: {}", userDTO, result);
 
-            return true;
-
         } catch (MessagingException e) {
             e.printStackTrace();
-            return false;
         }
     }
 

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.Map;
 
 @Controller
@@ -82,19 +83,17 @@ public class LoginController {
     @ResponseBody
     public ResponseEntity<Map<String, Object>> findPwPro(@RequestBody UserDTO userDTO) {
         log.info("findPwPro: {}", userDTO);
+        Map<String, Object> response = new HashMap<>();
         UserDTO getUser = userServiceImpl.findPwPro(userDTO);
         if (getUser == null) {
             return ResponseEntity.ok(Map.of("success", false));
         } else {
             log.info("controller user: {}:", getUser);
-
-            if (emailService.sendTempPasswordEmail(getUser)) {
-
-                return ResponseEntity.ok(Map.of("success", true));
-            } else {
-                return ResponseEntity.ok(Map.of("success", false));
-            }
+            emailService.sendTempPasswordEmail(getUser);
+            response.put("status", "success");
+            return ResponseEntity.ok(response);
         }
+
     }
 
     @GetMapping("/newUser")
