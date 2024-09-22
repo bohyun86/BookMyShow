@@ -79,7 +79,9 @@
                                 <table class="table">
                                     <thead class="bg-light">
                                     <tr class="border-0">
+                                        <th class="border-0">#</th>
                                         <th class="border-0">문의작성자</th>
+                                        <th class="border-0">문의유형</th>
                                         <th class="border-0">제목</th>
                                         <th class="border-0">내용</th>
                                         <th class="border-0">작성일</th>
@@ -93,7 +95,7 @@
                                     <c:choose>
                                         <c:when test="${empty partnerQnaList}">
                                             <tr>
-                                                <td colspan="6">데이터가 없습니다.</td>
+                                                <td colspan="9">데이터가 없습니다.</td>
                                             </tr>
                                         </c:when>
                                     </c:choose>
@@ -103,15 +105,18 @@
                                   <c:forEach var="partnerQna" items="${partnerQnaList}">
 <%--             <c:forEach var="partnerQnaDTO" items="${userDTO.partnerDTO.partnerQnaDTO}"> --%>
                 <tr>
+                    <td>${partnerQna.inquiryId}</td>
                     <td>${partnerQna.userDTO.userName}</td>
-                    <td>${partnerQna.title}</td>
+                    <td>${partnerQna.inquiryType}</td>
+                    <td><a href="${pageContext.request.contextPath}/admin/partner_qnaAnswer?inquiryId=${partnerQna.inquiryId}">
+                    ${partnerQna.title}</a></td>
                     <td>${partnerQna.content}</td>
                     <td>${partnerQna.createdAt}</td>
                     <td>${partnerQna.userDTO.name}</td>
                     <td>${partnerQna.partnerDTO.companyName}</td>
                     <td>
                         <c:choose>
-                            <c:when test="${partnerQnaDTO.answered == 1}">
+                            <c:when test="${partnerQna.answered == 1}">
                                 <span class="badge-dot badge-info mr-1"></span>완료
                             </c:when>
                             <c:otherwise>

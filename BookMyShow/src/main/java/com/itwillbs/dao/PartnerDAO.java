@@ -1,7 +1,9 @@
 package com.itwillbs.dao;
 
 import java.sql.Connection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.itwillbs.domain.PartnerDTO;
 import com.itwillbs.domain.PartnerQnaDTO;
 import com.itwillbs.domain.UserDTO;
+import com.mysql.cj.x.protobuf.MysqlxCrud.Update;
 
 @Repository
 public class PartnerDAO {
@@ -44,9 +47,30 @@ public class PartnerDAO {
 	    return result;
 	}
 	
+	
+//	파트너문의
 	public List<PartnerQnaDTO> selectAllPartnerQnaList() {
 		return sqlSession.selectList(namespace + ".selectPartnerQnaList");
-	} 
+	}
+
+
+	public List<PartnerQnaDTO> PartnerQnaAnser(int inquiryId) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + ".PartnerQnaAnser",inquiryId);
+	} //문의내용
+
+
+	public void qnaAnswerOK(int inquiryId,int answered) {
+		 Map<String, Object> params = new HashMap<>();
+	        params.put("inquiryId", inquiryId);
+	        params.put("answered", answered);
+	        sqlSession.update(namespace + ".qnaAnswerOK", params);
+	}
+
+
+
+	
 	
 
 }
+;

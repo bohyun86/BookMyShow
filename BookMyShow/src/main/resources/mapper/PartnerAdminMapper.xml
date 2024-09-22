@@ -26,6 +26,7 @@
         <result property="createdAt" column="created_at"/>
         <result property="updatedAt" column="updated_at"/>
         <result property="answered" column="answered"/>
+        <result property="answerContent" column="answer_content"/>
         
         <association property="userDTO" javaType="com.itwillbs.domain.UserDTO">
             <id property="userId" column="user_id"/>
@@ -55,21 +56,37 @@
     
 
 	<select id="getPartnersy"  resultMap="userResultMap" >
- 		SELECT U.*, P.*,I.*
+ 		SELECT U.*, P.*
         FROM Partner P
         JOIN User U ON P.user_id = U.user_id
-        LEFT JOIN Inquiry I ON P.user_id = I.user_id
         WHERE (U.user_name = #{id} or U.name =#{name}) and P.approved=1
     </select>	
 
 
+<!-- 파트너 문의  -->
 	<select id="selectPartnerQnaList"   resultMap="partnerQnaResultMap"  >
 	
 	SELECT I.*, U.*, P.*
 	FROM Inquiry I 
 	JOIN User U ON I.user_id = U.user_id 
 	JOIN Partner P ON U.user_id = P.user_id
-	    </select>
+	order by I.created_at ASC
+	    </select> 
+	    
+	    <!-- 파트너 문의답변페이지로 불러오기  -->
+	<select id="PartnerQnaAnser"   resultMap="partnerQnaResultMap"  >
+	
+	SELECT title,content
+	FROM Inquiry 
+	where inquiry_id =#{inquiryId}
+	    </select> 
+	    
+	    <update id="qnaAnswerOK" >
+    UPDATE Inquiry
+    SET answered = #{answered}
+    WHERE inquiry_id = #{inquiryId}
+</update>
+	    
     
 
 </mapper>

@@ -337,7 +337,42 @@ public class AdminController {
         }
 
     
+    @GetMapping("/partner_qnaAnswer")
+    public String partner_qnaAnswer(@RequestParam("inquiryId") int inquiryId,Model model) {
+    	log.info("admin partner_qnaAnswer success");
+    	
+    	
+    	
+    	List<PartnerQnaDTO> partnerQna = partnersServiceAdmin.PartnerQnaAnser(inquiryId);
+    	
+    	model.addAttribute("partnerQna", partnerQna);
+//    	 List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.selectAllPartnerQnaList();
+//        model.addAttribute("partnerQnaList", partnerQnaList);
+    	log.info("Fetched partnerQna: {}", partnerQna);
+
+        
+        return "/admin/partner_qnaAnswer"; 
+        }
     
+    
+    
+    
+    @PostMapping("/qnaAnswerOK")
+    public String qnaAnswerOK(@RequestParam(value = "answered", defaultValue = "1") int answered,Model model,
+    						  @RequestParam("inquiryId") int inquiryId
+    						  ) {
+    	log.info("admin qnaAnswerOK success");
+    	partnersServiceAdmin.qnaAnswerOK(inquiryId,answered);
+    	System.out.println("admin answered"+answered);
+    	System.out.println("admin inquiryId"+inquiryId);
+
+    	List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.selectAllPartnerQnaList();
+        model.addAttribute("partnerQnaList", partnerQnaList); //답변상태최신으로업데이트
+        
+        return "redirect:/admin/partner_qna"; 
+        }
+    
+
 
     @GetMapping("/partner_settlement")
     public String partner_settlement() {

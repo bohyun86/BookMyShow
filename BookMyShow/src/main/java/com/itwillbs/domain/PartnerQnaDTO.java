@@ -47,6 +47,9 @@ public class PartnerQnaDTO {
 	@Column(name = "answered")
 	private int answered;
 	
+	@Column(name = "answer_content")
+	private String answerContent;
+	
 
 	@ManyToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
