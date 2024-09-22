@@ -39,6 +39,9 @@ public class PartnersServiceAdmin {
 	    return partnerDAO.getPartneQna(id);
 	}
 
+	 public List<PartnerQnaDTO> selectAllPartnerQnaList() {
+		    return partnerDAO.selectAllPartnerQnaList();
+		} 
 
 	
     

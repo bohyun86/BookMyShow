@@ -41,7 +41,9 @@ public class PartnerDAO {
 	    return sqlSession.selectList(namespace + ".getPartneQna", id);
 	}
 	
-	
+	public List<PartnerQnaDTO> selectAllPartnerQnaList() {
+		return sqlSession.selectList(namespace + ".selectPartnerQnaList");
+	} 
 	
 
 }

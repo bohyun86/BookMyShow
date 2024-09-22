@@ -93,9 +93,9 @@
 					  <button class="btn btn-primary" type="button"  id="paymentButton" disabled>정산내역</button>
 					</div></p>
 					
-					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" type="button"  id="qnaButton" disabled>1:1문의</button>
-					</div></p>
+<!-- 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end"> -->
+<!-- 					  <button class="btn btn-primary" type="button"  id="qnaButton" disabled>1:1문의</button> -->
+<!-- 					</div></p> -->
 
 
 
