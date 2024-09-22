@@ -86,28 +86,71 @@
         							<h4 class="card-title">파트너 정보</h4>
        									 <p class="card-text">
        									 	
-       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/partner">
+       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/partnerDTO">
        									 	<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">파트너ID</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${userName}"required>
     													<div class="invalid-feedback">
      														 파트너ID를 입력해주세요.
+   														 </div>
+													</div>
+       									 	
+       									 	<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">비밀번호</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" id="passwordInput" value="${password}" required>
+    													<div class="invalid-feedback">
+     														 비밀번호를 입력해주세요.
    														 </div>
 													</div>
 													
 												<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">이름</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" value="${name}" required>
     													
     													<div class="invalid-feedback">
      														 이름을 입력해주세요.
    														 </div>
 													</div> 
-<!-- 													공연기간 종료날짜가 시작날짜보다 전 날짜로 선택 못하게 설정해야함 -->
+													
+												<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">회사명</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" value="${companyName}" required>
+    													
+    													<div class="invalid-feedback">
+     														 회사명을 입력해주세요.
+   														 </div>
+													</div> 
+												
+												<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">사업자등록번호</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" value="${businessId}" required>
+    													
+    													<div class="invalid-feedback">
+     														 사업자등록번호를 입력해주세요.
+   														 </div>
+													</div> 
+												
+												<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">계좌번호</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" value="${accountNumber}" required>
+    													
+    													<div class="invalid-feedback">
+     														 계좌번호를 입력해주세요.
+   														 </div>
+													</div> 
+												
+												<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">은행</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange" value="${bankName}" required>
+    													
+    													<div class="invalid-feedback">
+     														 은행명을 입력해주세요.
+   														 </div>
+													</div> 
 													
 													<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">연락처</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" onkeyup="phone(this.value);"  value="${phoneNumber}" required>
     													<div class="invalid-feedback">
      														 연락처를 입력해주세요.
    														 </div>
@@ -115,7 +158,7 @@
 													
 													<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">이메일</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+  													<input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${email}" required>
     													<div class="invalid-feedback">
      														  이메일을 입력해주세요.
    														 </div>
@@ -139,7 +182,7 @@
 													
 													 <div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">가입날짜</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" readonly>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${createdAt}" readonly>
     													
 													</div>
 													
@@ -173,7 +216,7 @@
   															<button class="btn btn-primary me-md-2" type="submit" >수정완료</button> &nbsp; &nbsp;
 														</form>
 														
-  															<form action="${pageContext.request.contextPath}/admin/partner">
+  															<form action="${pageContext.request.contextPath}/admin/partnerDTO">
   																<button class="btn btn-primary" type="submit" onclick="deleteok()">삭제</button>
   																</form>
 														</div>
@@ -186,7 +229,7 @@
  									 
  									 
 									<div class="d-grid gap-2 col-6 mx-auto">
-  										<button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/partner'" >취소</button>
+  										<button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/partnerDTO'" >취소</button>
  									 </div>
  									 
  									 </div>
@@ -197,213 +240,28 @@
 
 <script>
 
-
+//삭제 컨펌가능
 function deleteok(){
     if(!confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')){
         return false;
     }
 }
 
+//연락처 숫자만 입력 가능
+function phone(inMoney, Ev) {
+    var evCode = (window.netscape) ? Ev.which : event.keyCode;
+
+    if (!((evCode >= 37 && evCode <= 57)|| (evCode >= 96 && evCode <= 105)|| evCode == 8 || evCode == 9)) {
+
+          alert("숫자만 입력해주세요. ");
+          event.returnValue = false;
+    }
+    }
+
+
+
 </script>
 
-
-<!-- 					<div class="ecommerce-widget">  -->
-
-<!--                     <div class="row"> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Total Revenue</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">$12099</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-success font-weight-bold"> -->
-<!--                                         <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Affiliate Revenue</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">$12099</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-success font-weight-bold"> -->
-<!--                                         <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue2"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Refunds</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">0.00</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-primary font-weight-bold"> -->
-<!--                                         <span>N/A</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue3"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Avg. Revenue Per User</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">$28000</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-secondary font-weight-bold"> -->
-<!--                                         <span>-2.00%</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue4"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                     </div> -->
-<!--                     <div class="row"> -->
-<!--                         ============================================================== -->
-
-<!--                         ============================================================== -->
-
-<!--                         recent orders  -->
-<!--                         ============================================================== -->
-<!--                         <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <h5 class="card-header">Recent Orders</h5> -->
-<!--                                 <div class="card-body p-0"> -->
-<!--                                     <div class="table-responsive"> -->
-<!--                                         <table class="table"> -->
-<!--                                             <thead class="bg-light"> -->
-<!--                                             <tr class="border-0"> -->
-<!--                                                 <th class="border-0">#</th> -->
-<!--                                                 <th class="border-0">Image</th> -->
-<!--                                                 <th class="border-0">Product Name</th> -->
-<!--                                                 <th class="border-0">Product Id</th> -->
-<!--                                                 <th class="border-0">Quantity</th> -->
-<!--                                                 <th class="border-0">Price</th> -->
-<!--                                                 <th class="border-0">Order Time</th> -->
-<!--                                                 <th class="border-0">Customer</th> -->
-<!--                                                 <th class="border-0">Status</th> -->
-<!--                                             </tr> -->
-<!--                                             </thead> -->
-<!--                                             <tbody> -->
-<!--                                             <tr> -->
-<!--                                                 <td>1</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #1</td> -->
-<!--                                                 <td>id000001</td> -->
-<!--                                                 <td>20</td> -->
-<!--                                                 <td>$80.00</td> -->
-<!--                                                 <td>27-08-2018 01:22:12</td> -->
-<!--                                                 <td>Patricia J. King</td> -->
-<!--                                                 <td><span class="badge-dot badge-brand mr-1"></span>InTransit</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td>2</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic-2.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #2</td> -->
-<!--                                                 <td>id000002</td> -->
-<!--                                                 <td>12</td> -->
-<!--                                                 <td>$180.00</td> -->
-<!--                                                 <td>25-08-2018 21:12:56</td> -->
-<!--                                                 <td>Rachel J. Wicker</td> -->
-<!--                                                 <td><span class="badge-dot badge-success mr-1"></span>Delivered</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td>3</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic-3.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #3</td> -->
-<!--                                                 <td>id000003</td> -->
-<!--                                                 <td>23</td> -->
-<!--                                                 <td>$820.00</td> -->
-<!--                                                 <td>24-08-2018 14:12:77</td> -->
-<!--                                                 <td>Michael K. Ledford</td> -->
-<!--                                                 <td><span class="badge-dot badge-success mr-1"></span>Delivered</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td>4</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic-4.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #4</td> -->
-<!--                                                 <td>id000004</td> -->
-<!--                                                 <td>34</td> -->
-<!--                                                 <td>$340.00</td> -->
-<!--                                                 <td>23-08-2018 09:12:35</td> -->
-<!--                                                 <td>Michael K. Ledford</td> -->
-<!--                                                 <td><span class="badge-dot badge-success mr-1"></span>Delivered</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td colspan="9"><a href="#" class="btn btn-outline-light float-right">View -->
-<!--                                                     Details</a></td> -->
-<!--                                             </tr> -->
-<!--                                             </tbody> -->
-<!--                                         </table> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         ============================================================== -->
-<!--                         end recent orders  -->
-
-
-<!--                         ============================================================== -->
-<!--                         ============================================================== -->
-<!--                         customer acquistion  -->
-<!--                         ============================================================== -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <h5 class="card-header">Customer Acquisition</h5> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <div class="ct-chart ct-golden-section" style="height: 354px;"></div> -->
-<!--                                     <div class="text-center"> -->
-<!--                                             <span class="legend-item mr-2"> -->
-<!--                                                     <span class="fa-xs text-primary mr-1 legend-tile"><i -->
-<!--                                                             class="fa fa-fw fa-square-full"></i></span> -->
-<!--                                             <span class="legend-text">Returning</span> -->
-<!--                                             </span> -->
-<!--                                         <span class="legend-item mr-2"> -->
-
-<!--                                                     <span class="fa-xs text-secondary mr-1 legend-tile"><i -->
-<!--                                                             class="fa fa-fw fa-square-full"></i></span> -->
-<!--                                             <span class="legend-text">First Time</span> -->
-<!--                                             </span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         ============================================================== -->
-<!--                         end customer acquistion  -->
-<!--                         ============================================================== -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
 
 <!-- 바텀 밑으로 내려야함 -->
 <%--         <jsp:include page="../include/adminBottom.jsp"/> --%>

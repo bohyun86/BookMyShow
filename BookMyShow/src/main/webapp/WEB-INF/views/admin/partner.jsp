@@ -11,6 +11,8 @@
 <html lang="UTF-8">
 
 <head>
+<!-- jquery 3.3.1 -->
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -69,233 +71,37 @@
 <%-- 				<h1 class="text-center m-3">[검색어:<%=findKeyword %> ] 검색 결과</h1>				 --%>
 <form name="findF" action="#" class="form-inline">
 
-	<select name="findType" class="form-control mr-2">
+	<select name="findType" class="form-control mr-2" onchange="changeSearch(this)">
 		<option value="">::검색 유형::</option>
-		<option value="1">이름</option>
+		<option value="1" >이름</option>
 		<option value="2">아이디</option>
 	</select>
-	<input type="text" name="findKeyword" placeholder="검색어를 입력하세요" 
-	class="form-control mr-2">
-	<button class="btn btn-success">검 색</button>
+	<input type="text" name="findKeyword" placeholder="검색어를 입력하세요" class="form-control mr-2" id ="searchText"  >
+	<button class="btn btn-success" type="button"  id="partnerSearch"  onkeypress="searchFunction();" >검 색</button>
 </form>
 				
 				
 				<ul class="list-group">
-					  <li class="list-group-item">검색된 파트너 정보 띄우기</li>
+					  <li class="list-group-item" id="partnerresult"></li>
 					  </ul>
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" onclick = "location.href='${pageContext.request.contextPath}/admin/partnerPro'" type="button">정보 조회 및 수정</button>
+					  <button class="btn btn-primary" type="button" id="editButton"   disabled>정보 조회 및 수정</button>
 					</div></p> 
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/partner_settlement'">정산내역</button>
+					  <button class="btn btn-primary" type="button"  id="paymentButton" disabled>정산내역</button>
 					</div></p>
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/partner_qna'">1:1문의</button>
+					  <button class="btn btn-primary" type="button"  id="qnaButton" disabled>1:1문의</button>
 					</div></p>
+
+
+
 
   </div>
                 </div>
-
-<!-- 					<div class="ecommerce-widget">  -->
-
-<!--                     <div class="row"> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Total Revenue</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">$12099</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-success font-weight-bold"> -->
-<!--                                         <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Affiliate Revenue</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">$12099</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-success font-weight-bold"> -->
-<!--                                         <span><i class="fa fa-fw fa-arrow-up"></i></span><span>5.86%</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue2"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Refunds</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">0.00</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-primary font-weight-bold"> -->
-<!--                                         <span>N/A</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue3"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <h5 class="text-muted">Avg. Revenue Per User</h5> -->
-<!--                                     <div class="metric-value d-inline-block"> -->
-<!--                                         <h1 class="mb-1">$28000</h1> -->
-<!--                                     </div> -->
-<!--                                     <div class="metric-label d-inline-block float-right text-secondary font-weight-bold"> -->
-<!--                                         <span>-2.00%</span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                                 <div id="sparkline-revenue4"></div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                     </div> -->
-<!--                     <div class="row"> -->
-<!--                         ============================================================== -->
-
-<!--                         ============================================================== -->
-
-<!--                         recent orders  -->
-<!--                         ============================================================== -->
-<!--                         <div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <h5 class="card-header">Recent Orders</h5> -->
-<!--                                 <div class="card-body p-0"> -->
-<!--                                     <div class="table-responsive"> -->
-<!--                                         <table class="table"> -->
-<!--                                             <thead class="bg-light"> -->
-<!--                                             <tr class="border-0"> -->
-<!--                                                 <th class="border-0">#</th> -->
-<!--                                                 <th class="border-0">Image</th> -->
-<!--                                                 <th class="border-0">Product Name</th> -->
-<!--                                                 <th class="border-0">Product Id</th> -->
-<!--                                                 <th class="border-0">Quantity</th> -->
-<!--                                                 <th class="border-0">Price</th> -->
-<!--                                                 <th class="border-0">Order Time</th> -->
-<!--                                                 <th class="border-0">Customer</th> -->
-<!--                                                 <th class="border-0">Status</th> -->
-<!--                                             </tr> -->
-<!--                                             </thead> -->
-<!--                                             <tbody> -->
-<!--                                             <tr> -->
-<!--                                                 <td>1</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #1</td> -->
-<!--                                                 <td>id000001</td> -->
-<!--                                                 <td>20</td> -->
-<!--                                                 <td>$80.00</td> -->
-<!--                                                 <td>27-08-2018 01:22:12</td> -->
-<!--                                                 <td>Patricia J. King</td> -->
-<!--                                                 <td><span class="badge-dot badge-brand mr-1"></span>InTransit</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td>2</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic-2.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #2</td> -->
-<!--                                                 <td>id000002</td> -->
-<!--                                                 <td>12</td> -->
-<!--                                                 <td>$180.00</td> -->
-<!--                                                 <td>25-08-2018 21:12:56</td> -->
-<!--                                                 <td>Rachel J. Wicker</td> -->
-<!--                                                 <td><span class="badge-dot badge-success mr-1"></span>Delivered</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td>3</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic-3.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #3</td> -->
-<!--                                                 <td>id000003</td> -->
-<!--                                                 <td>23</td> -->
-<!--                                                 <td>$820.00</td> -->
-<!--                                                 <td>24-08-2018 14:12:77</td> -->
-<!--                                                 <td>Michael K. Ledford</td> -->
-<!--                                                 <td><span class="badge-dot badge-success mr-1"></span>Delivered</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td>4</td> -->
-<!--                                                 <td> -->
-<!--                                                     <div class="m-r-10"><img -->
-<%--                                                             src="${pageContext.request.contextPath}/resources/admin_partner/assets/images/product-pic-4.jpg" --%>
-<!--                                                             alt="user" class="rounded" width="45"> -->
-<!--                                                     </div> -->
-<!--                                                 </td> -->
-<!--                                                 <td>Product #4</td> -->
-<!--                                                 <td>id000004</td> -->
-<!--                                                 <td>34</td> -->
-<!--                                                 <td>$340.00</td> -->
-<!--                                                 <td>23-08-2018 09:12:35</td> -->
-<!--                                                 <td>Michael K. Ledford</td> -->
-<!--                                                 <td><span class="badge-dot badge-success mr-1"></span>Delivered</td> -->
-<!--                                             </tr> -->
-<!--                                             <tr> -->
-<!--                                                 <td colspan="9"><a href="#" class="btn btn-outline-light float-right">View -->
-<!--                                                     Details</a></td> -->
-<!--                                             </tr> -->
-<!--                                             </tbody> -->
-<!--                                         </table> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         ============================================================== -->
-<!--                         end recent orders  -->
-
-
-<!--                         ============================================================== -->
-<!--                         ============================================================== -->
-<!--                         customer acquistion  -->
-<!--                         ============================================================== -->
-<!--                         <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
-<!--                             <div class="card"> -->
-<!--                                 <h5 class="card-header">Customer Acquisition</h5> -->
-<!--                                 <div class="card-body"> -->
-<!--                                     <div class="ct-chart ct-golden-section" style="height: 354px;"></div> -->
-<!--                                     <div class="text-center"> -->
-<!--                                             <span class="legend-item mr-2"> -->
-<!--                                                     <span class="fa-xs text-primary mr-1 legend-tile"><i -->
-<!--                                                             class="fa fa-fw fa-square-full"></i></span> -->
-<!--                                             <span class="legend-text">Returning</span> -->
-<!--                                             </span> -->
-<!--                                         <span class="legend-item mr-2"> -->
-
-<!--                                                     <span class="fa-xs text-secondary mr-1 legend-tile"><i -->
-<!--                                                             class="fa fa-fw fa-square-full"></i></span> -->
-<!--                                             <span class="legend-text">First Time</span> -->
-<!--                                             </span> -->
-<!--                                     </div> -->
-<!--                                 </div> -->
-<!--                             </div> -->
-<!--                         </div> -->
-<!--                         ============================================================== -->
-<!--                         end customer acquistion  -->
-<!--                         ============================================================== -->
-<!--                     </div> -->
-<!--                 </div> -->
-<!--             </div> -->
-<!--         </div> -->
 
 <!-- 바텀 밑으로 내려야함 -->
 <%--         <jsp:include page="../include/adminBottom.jsp"/> --%>
@@ -309,8 +115,6 @@
 <!-- end main wrapper  -->
 <!-- ============================================================== -->
 <!-- Optional JavaScript -->
-<!-- jquery 3.3.1 -->
-<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
 <!-- bootstap bundle js -->
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
 <!-- slimscroll js -->
@@ -329,6 +133,164 @@
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/c3charts/C3chartjs.js"></script>
 <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/libs/js/dashboard-ecommerce.js"></script>
+
+<script>
+
+  
+  
+//검색유형
+function changeSearch(obj) {
+	let key = $(obj).val();
+		
+	$('#searchText').attr('name', key);
+	
+	if (key === "1") {
+        $('#searchText').attr('name', 'name');  // 이름 검색
+        $('#searchText').attr('placeholder', '이름을 입력하세요');  // 입력 힌트도 변경
+    } else if (key === "2") {
+        $('#searchText').attr('name', 'id');  // 아이디 검색
+        $('#searchText').attr('placeholder', '아이디를 입력하세요');  // 입력 힌트도 변경
+    } else {
+        $('#searchText').attr('name', '');  // 기본값으로 초기화
+        $('#searchText').attr('placeholder', '검색어를 입력하세요');
+    }
+		
+	}
+		
+$(function() {
+    // 검색 버튼 클릭 시 searchFunction 호출
+    $('#partnerSearch').click(function() {
+        searchFunction();  // 버튼 클릭 시 searchFunction 호출
+    });
+
+    // 입력 필드에서 Enter 키 입력 시 searchFunction 호출
+    $('#searchText').on('keypress', function(event) {
+        if (event.key === 'Enter' ) {
+            event.preventDefault();  // 기본 Enter 동작 방지
+            searchFunction();  // Enter 키를 누르면 searchFunction 호출
+        }
+    });
+});
+
+function searchFunction() {
+    let searchValue = $('#searchText').val(); // 검색 필드 값
+    let searchType = $('#searchText').attr('name');  // 현재 검색 유형
+
+    // 화면에 출력할 메시지 초기화
+    $('#partnerresult').html("");
+
+    if (searchType === 'name') {
+        if (/^[a-zA-Z가-힣\s]+$/.test(searchValue)) {
+        	ajaxSearchPartner(searchValue);
+//            
+        }//if /^[a-zA-Z가-힣\s]+$ 
+        else {
+            $('#partnerresult').html("이름에는 한글, 영어, 공백만 포함될 수 있습니다.");
+            return;
+        }
+    } else if (searchType === 'id') {
+//     	alert("아이디"+searchValue);
+        if (/^[a-zA-Z0-9]+$/.test(searchValue)) {
+        	ajaxSearchPartner(searchValue);
+        
+        } else {
+            $('#partnerresult').html("아이디는 영문자와 숫자만 포함될 수 있습니다.");
+            return;
+        }
+    } else {
+        $('#partnerresult').html("검색 유형을 선택하세요.");
+        return;
+    }
+}
+
+
+function ajaxSearchPartner(searchValue){
+    $(function() {
+//     	alert("d");
+//         $('#partnerSearch').click(function() {
+//         	alert("이름버튼클릭");
+
+        	 
+    			$.ajax({
+                          url: "${pageContext.request.contextPath}/admin/partnerresult",
+                          data: {'user_name': $('#searchText').val()},
+                          dataType: "json",
+                          success: function(response) {
+//                         	  console.log("AJAX 응답 성공: ", response);  // 응답 데이터 확인
+                              // 성공적으로 응답을 받았을 때 처리
+                              if (response) {
+                            	  
+                                  // 회원 정보 출력
+                                  $('#partnerresult').html('<li class="list-group-item"><a href="javascript:;">'
+                                      + "아이디: " + response.userName
+                                      + ", 이메일: " + response.email
+                                      + ", 연락처: " + response.phoneNumber
+                                      + ", 이름: " + response.name
+                                      + ", 비밀번호: " + response.password
+                                      + ", 회원가입일: " + response.createdAt
+                                      + ", 유형: " + response.userRole
+                                      + '</a></li>');
+
+                                  // 파트너 정보가 있으면 파트너 정보도 추가 출력
+                                  if (response.partnerDTO) {
+                                      
+                                      $('#partnerresult').append('<li class="list-group-item"><a href="javascript:;">'
+                                          + "회사명: " + response.partnerDTO.companyName
+                                          + ", 사업자 ID: " + response.partnerDTO.businessId
+                                          + ", 계좌번호: " + response.partnerDTO.accountNumber
+                                          + '</a></li>');
+                                  }
+
+                                  // 각 버튼에 대한 링크 설정 (버튼 활성화)
+                                  $('#editButton').attr('onclick', 'location.href="' 
+                                      + '${pageContext.request.contextPath}/admin/partnerPro?userName=' 
+                                      + encodeURIComponent(response.userName)
+                                      +'&password='
+                                      + encodeURIComponent(response.password) 
+                                      +'&name='
+                                      + encodeURIComponent(response.name) 
+                                      +'&companyName='
+                                      + encodeURIComponent(response.partnerDTO.companyName) 
+                                      +'&businessId='
+                                      + encodeURIComponent(response.partnerDTO.businessId) 
+                                      +'&accountNumber='
+                                      + encodeURIComponent(response.partnerDTO.accountNumber) 
+                                      +'&bankName='
+                                      + encodeURIComponent(response.partnerDTO.bankName) 
+                                      +'&phoneNumber='
+                                      + encodeURIComponent(response.phoneNumber) 
+                                      +'&email='
+                                      + encodeURIComponent(response.email) 
+                                      +'&createdAt='
+                                      + encodeURIComponent(response.partnerDTO.createdAt) 
+                                      
+                                      + '"').prop('disabled', false);
+                                  
+                                  $('#qnaButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_qna?userName=' + response.userName + '"').prop('disabled', false);
+                                  $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?userName=' + response.userName + '"').prop('disabled', false);
+                              } else {
+//             	console.log("요청실패",userDTO);
+                                  $('#partnerresult').html("회원정보가 없습니다");
+                                  $('#editButton').prop('disabled', true);
+                                  $('#qnaButton').prop('disabled', true);
+                                  $('#paymentButton').prop('disabled', true);
+                              }  
+                              },
+                 
+                  error: function(err) {
+//                       alert("회원정보가 없습니다");
+       $('#partnerresult').html("회원정보가 없습니다");
+                      console.log("error");
+                  }
+              });
+//           });
+      });
+}
+
+
+
+
+</script>
 </body>
 
 </html>

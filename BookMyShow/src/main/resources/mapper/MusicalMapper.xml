@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -104,4 +105,59 @@
     </select>
     
     
+=======
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.itwillbs.mapper.MusicalMapper">
+<!-- <resultMap id="MusicalWithUserMap" type="com.itwillbs.domain.MusicalDTO"> -->
+<!--     <association property="User" javaType="UserDTO"> -->
+<!--         <result property="userName" column="user_name"/> -->
+<!--     </association> -->
+<!-- </resultMap> -->
+
+ 
+ 
+  <!-- 뮤지컬 승인 상태 업데이트 -->
+    <update id="updateMusicalApproval" >
+     UPDATE Musical
+SET approved = 1
+WHERE title = #{title} AND approved = 0;
+    </update>
+   
+
+   <!-- 파트너 ID로 뮤지컬 검색 -->
+<!--    아이디로 검색 안됌 수정해야함 -->
+    <select id="getMusicalByPartnerId" resultType="com.itwillbs.domain.MusicalDTO">
+        SELECT  U.user_name, M.title
+           FROM Partner P
+       JOIN User U ON  P.user_id = U.user_id
+         JOIN Musical M ON M.partner_id = P.partner_id
+        WHERE U.user_name = #{user_name} and M.approved=0
+        
+
+    </select>
+    
+
+    <!-- 뮤지컬 제목으로 검색 -->
+    <select id="getMusicalByTitle"  resultType="com.itwillbs.domain.MusicalDTO">
+    SELECT  U.user_name, M.title
+           FROM Partner P
+       JOIN User U ON  P.user_id = U.user_id
+         JOIN Musical M ON M.partner_id = P.partner_id
+        WHERE M.title = #{title} and M.approved=0
+    </select>
+    
+    <select id="getMusical" resultType="com.itwillbs.domain.MusicalDTO">
+		select * 
+		from Partner P
+		JOIN User U ON  P.user_id = U.user_id
+         JOIN Musical M ON M.partner_id = P.partner_id
+		WHERE M.title = #{title}
+		
+	</select>
+
+>>>>>>> refs/heads/develop
 </mapper>

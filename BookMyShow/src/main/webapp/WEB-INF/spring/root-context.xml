@@ -5,56 +5,144 @@
 	   xmlns:aop="http://www.springframework.org/schema/aop"
 	   xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	   xmlns:tx="http://www.springframework.org/schema/tx"
+	   xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+	   xmlns:cache="http://www.springframework.org/schema/cache"
 	   xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+
 		http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd
 		http://www.springframework.org/schema/aop https://www.springframework.org/schema/aop/spring-aop.xsd
 		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring.xsd
-		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd">
+		http://www.springframework.org/schema/tx https://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/data/jpa https://www.springframework.org/schema/data/jpa/spring-jpa.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+	<!-- 캐싱 기능 활성화 -->
+	<cache:annotation-driven cache-manager="cacheManager"/>
+
+	<!-- 캐시 관리자 설정 -->
+	<bean id="cacheManager" class="org.springframework.cache.support.SimpleCacheManager">
+		<property name="caches">
+			<set>
+				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+					<property name="name" value="mainNewCarousel"/>
+				</bean>
+				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+					<property name="name" value="timeSaleCarousel"/>
+				</bean>
+				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+					<property name="name" value="timeSaleAll"/>
+				</bean>
+				<bean class="org.springframework.cache.concurrent.ConcurrentMapCacheFactoryBean">
+					<property name="name" value="newMusical"/>
+				</bean>
+			</set>
+		</property>
+	</bean>
+
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 공연 정보 등록 Service Key 등록 -->
+	<bean id="serviceKey" class="java.lang.String">
+		<constructor-arg
+			value="a85b154a49f4403da522aba1e732569f" />
+	</bean>
 
-	<bean id="mysqlCleanup" class="com.itwillbs.common.MySQLCleanup" destroy-method="cleanup"/>
+	<bean id="mysqlCleanup" class="com.itwillbs.common.MySQLCleanup"
+		destroy-method="cleanup" />
 
 	<!-- HikariCP 데이터 소스 설정 -->
-	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
-		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver" />
-		<property name="jdbcUrl" value="jdbc:mysql://itwillbs.com:3306/c1d2405t1?serverTimezone=Asia/Seoul" />
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		destroy-method="close">
+		<property name="driverClassName"
+			value="com.mysql.cj.jdbc.Driver" />
+		<property name="jdbcUrl"
+			value="jdbc:mysql://itwillbs.com:3306/c1d2405t1?serverTimezone=Asia/Seoul" />
 		<property name="username" value="c1d2405t1" />
 		<property name="password" value="1234" />
 
-		<!-- 추가 HikariCP 설정 (선택 사항) -->
-		<!--		<property name="maximumPoolSize" value="10" />-->
-		<!--		<property name="minimumIdle" value="5" />-->
-		<!--		<property name="idleTimeout" value="30000" />-->
-		<!--		<property name="connectionTimeout" value="20000" />-->
 	</bean>
 
-	<!-- 트랜잭션 관리자 설정 -->
+	<!--트랜잭션 관리자 설정-->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
 	</bean>
 
-	<!-- 트랜잭션 어노테이션 활성화 -->
-	<tx:annotation-driven transaction-manager="transactionManager"/>
-
 	<!-- MyBatis 설정 -->
-	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<bean id="sqlSessionFactory"
+		class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="mapperLocations" value="classpath:mapper/**/*Mapper.xml" />
+		<property name="mapperLocations"
+			value="classpath:mapper/**/*Mapper.xml" />
+		<property name="typeHandlers">
+			<array>
+				<bean class="com.itwillbs.common.LocalDateTimeTypeHandler" />
+			</array>
+		</property>
 	</bean>
 
-	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
-		<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	<bean id="sqlSession"
+		class="org.mybatis.spring.SqlSessionTemplate"
+		destroy-method="clearCache">
+		<constructor-arg name="sqlSessionFactory"
+			ref="sqlSessionFactory" />
 	</bean>
-
-
-
-
-
+	
 	<mybatis-spring:scan base-package="com.itwillbs.mapper" />
 
-	<!-- root-context에서는 @Service, @Repository, @Configuration, @Component 같은 빈을 스캔 -->
+	<!-- JPA 및 Hibernate 설정 추가 -->
+	<!-- JPA Vendor Adapter 설정 (Hibernate 사용) -->
+	<bean id="jpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+		<property name="generateDdl" value="true" />
+<!--		<property name="showSql" value="true" />-->
+	</bean>
+	
+	<!-- EntityManagerFactory 설정 -->
+	<bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<property name="jpaVendorAdapter" ref="jpaVendorAdapter" />
+		<property name="packagesToScan" value="com.itwillbs.domain" />
+		<property name="jpaProperties">
+			<props>
+				<prop key="hibernate.hbm2ddl.auto">update</prop>
+				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL8Dialect</prop>
+				<prop key="hibernate.id.new_generator_mappings">true</prop> <!-- JPA 2.0 이상 사용 시 -->
+<!--				<prop key="hibernate.show_sql">true</prop>-->
+<!--				<prop key="hibernate.format_sql">true</prop>-->
+			</props>
+		</property>
+	</bean>
 
+	<!-- JPA 트랜잭션 관리자 설정 -->
+	<bean id="jpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+		<property name="entityManagerFactory" ref="entityManagerFactory" />
+	</bean>
+
+	<bean id="chainedTransactionManager" class="org.springframework.data.transaction.ChainedTransactionManager">
+		<constructor-arg>
+			<list>
+				<ref bean="jpaTransactionManager"/>
+				<ref bean="transactionManager"/> <!-- DataSourceTransactionManager -->
+			</list>
+		</constructor-arg>
+	</bean>
+
+	<!-- 트랜잭션 어노테이션 활성화 -->
+	<tx:annotation-driven transaction-manager="chainedTransactionManager"/>
+
+	<!-- Jackson ObjectMapper 설정 -->
+	<bean id="jacksonMapper" class="org.springframework.http.converter.json.Jackson2ObjectMapperFactoryBean">
+		<property name="modules">
+			<list>
+				<!-- Java 8 날짜/시간 모듈 추가 -->
+				<bean class="com.fasterxml.jackson.datatype.jsr310.JavaTimeModule" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- Spring Data JPA Repository 설정 -->
+	<jpa:repositories base-package="com.itwillbs.repository" />
+
+
+
+	<!-- root-context에서는 @Service, @Repository, @Configuration, @Component 같은 빈을 스캔 -->
 	<context:component-scan base-package="com.itwillbs.aop" />
 	<context:component-scan base-package="com.itwillbs.dao" />
 	<context:component-scan base-package="com.itwillbs.service" />
@@ -63,6 +151,7 @@
 
 	<aop:aspectj-autoproxy />
 
-	<!-- 테스트용 빈 스캔 설정-->
-	<context:component-scan base-package="com.itwillbs.controller"/>
+	<!-- 테스트용 빈 스캔 설정 -->
+	<context:component-scan
+		base-package="com.itwillbs.controller" />
 </beans>

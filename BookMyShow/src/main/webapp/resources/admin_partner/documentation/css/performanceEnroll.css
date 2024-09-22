@@ -1,0 +1,430 @@
+.form-body {
+    width: 700px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 700px;
+    height: 49px;
+    padding: 0;
+}
+
+.form-group label {
+    display: inline-block;
+    width: 200px;
+    padding: 0 0 0 10px;
+    color: #777;
+}
+
+.form-group input, .form-group select {
+    width: 500px;
+    height: 30px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 13px;
+    color: #777;
+}
+
+.form-group input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+}
+
+.input-group-parent {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 400px;
+}
+
+.input-group span {
+    font-size: 10px;
+    color: #ff4b4b;
+}
+
+
+#perform-date, #discount-date{
+    width: 500px;
+    height: 30px;
+    border: 1px solid #ccc;
+    font-size: 13px;
+    color: #777;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.discount-rate {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+#show-class {
+    height: auto;
+}
+
+.sub-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 500px;
+    height: 35px;
+    padding: 0;
+}
+
+.sub-group .check-box {
+    display: flex;
+    flex-direction: row;
+    width: 100px;
+}
+
+.classify-grade {
+    margin: 0;
+    column-gap: 0;
+}
+
+.show-time {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 500px;
+    height: 35px;
+    padding: 0;
+}
+
+.show-time input {
+    width: 100px;
+    height: 30px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 13px;
+    color: #777;
+}
+
+.show-time p, .detail-info p{
+    margin: 0;
+    font-size: 13px;
+    color: #777;
+}
+
+.show-time .total-time, .show-time .interval-time {
+    display: flex;
+    flex-direction: row;
+    width: 220px;
+    justify-content: start;
+    align-items: center;
+}
+
+.show-time .total-time {
+    padding-right: 20px;
+}
+
+.show-time .interval-time {
+    padding-left: 20px;
+    border-left: 1px solid #ccc;
+}
+
+.show-time input {
+    margin-left: 10px;
+}
+
+.detail-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 500px;
+    padding: 0;
+}
+
+.detail-info .musicalImage, .detail-info .musicalDescriptionImage {
+    display: flex;
+    flex-direction: row;
+    width: 500px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.detail-info .musicalDescriptionImage {
+    margin-top: 5px;
+}
+
+.detail-info input {
+    width: 380px;
+    padding: 5px;
+    box-shadow: none;
+}
+
+
+
+#address-detail {
+    margin-top: 10px;
+}
+
+#venue {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: auto;
+}
+
+.venue-sub-menu {
+    width: 500px;
+}
+
+#venue .address-first-line {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 500px;
+    height: 35px;
+    padding: 0;
+}
+
+#venue .address-first-line input {
+    width: 120px;
+    height: 30px;
+    margin-right: 10px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 13px;
+    color: #777;
+
+}
+
+#venue .btn {
+    height: 30px;
+    font-size: 13px;
+    background-color: #0e0c28;
+    border: none;
+}
+
+
+input[type=radio] {
+    display: block;
+    width: 20%;
+    height: 20%;
+    margin: 0 10px;
+}
+
+.seat-check-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 500px;
+    height: 35px;
+    padding: 0;
+}
+
+.seat-check-box label {
+    width: 60px;
+}
+
+.seat-check-box .reservation-check {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.seat-reserved, .seat-unreserved {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 120px;
+}
+
+.seat-reserved label {
+    width: 60px;
+}
+
+.seat-unreserved label {
+    width: 80px;
+}
+
+.total-seat {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.total-seat input {
+    width: 150px;
+    margin-left: 10px;
+}
+
+input[type="date"] {
+    border-radius: 0;
+}
+
+/* 검색 결과 리스트 스타일 */
+#results {
+    border: 1px solid #ccc;
+    max-height: 200px;
+    width: 200px;
+    overflow-y: auto;
+    position: absolute;
+    background-color: white;
+    z-index: 1000;
+}
+
+#results li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+#results li:hover {
+    background-color: #f0f0f0;
+}
+
+/* 검색창 위치 설정 */
+.search-container {
+    position: relative;
+    width: 200px;
+}
+
+#results li {
+    list-style-type: none;
+    font-size: 13px;
+    color: #777;
+    width: 400px;
+}
+
+form .bg-body-tertiary .musical-images#detail-info{
+    height: 400px;
+}
+
+form .bg-body-tertiary .musical-images#detail-info .img-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-content: start;
+    width: 500px;
+    height: 140px;
+    object-fit: cover;
+    margin: 10px 0;
+    border: 1px solid #777;
+    background-color: white;
+}
+
+form .bg-body-tertiary .musical-images#detail-info .img-container .img-thumbnail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100px;
+    height: 130px;
+    object-fit: cover;
+}
+
+form .bg-body-tertiary .musical-images#detail-info .img-container p {
+    margin: 0;
+    font-size: 13px;
+    color: #777;
+    width: 80px; /* p 태그의 최대 너비 설정 */
+    white-space: nowrap; /* 글자를 한 줄로 처리 (줄바꿈 방지) */
+    overflow: hidden; /* 넘치는 글자는 숨김 */
+    text-overflow: ellipsis; /* 넘치는 글자는 말줄임표(...)로 표시 */
+}
+
+.actor-menu {
+    height: 70px;
+}
+
+.actor-menu .actor-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
+    width: 500px;
+    padding: 0;
+}
+
+.actor-menu .actor-container .actor-name {
+    font-size: 13px;
+    color: #777;
+    text-align: left;
+    width: 500px;
+    padding: 10px 0 10px;
+
+}
+
+#discount-input {
+    margin: 20px 0;
+}
+
+#discount-input #rate-input {
+    text-align: center;
+}
+
+.input-group-text.signal {
+    color: black;
+}
+
+.total-seat input[name=totalSeat] {
+    width: 80px;
+}
+
+.total-seat p {
+    margin: 0;
+    font-size: 10px;
+    color: #777;
+    width: 100px;
+}
+
+.request {
+    height: 170px;
+}
+
+textarea[name=request] {
+    height: 150px;
+    width: 500px;
+    resize: none;
+}
+
+.region-p {
+    font-size: 10px;
+    color: #777;
+    width: 300px;
+}
+
+.region {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#edit-button-group {
+    display: flex;
+    flex-direction: row;
+    justify-content: right;
+    align-items: center;
+    width: 500px;
+}
+
+#edit-button-group .revise-btn, #edit-button-group .delete-btn, #edit-button-group .approve-btn {
+    width: 100px;
+    height: 30px;
+    font-size: 13px;
+    background-color: #0e0c28;
+    border: none;
+    color: white;
+    margin-left: 20px;
+    padding: 0 10px;
+}

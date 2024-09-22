@@ -45,6 +45,10 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/partner/">파트너검색</a>
                                 </li>
+                                
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/partner_submit/">파트너요청승인</a>
+                                </li>
                                
                             </ul>
                         </div>
@@ -63,9 +67,25 @@
                         </div>
                     </li>
                     
-                    <li class="nav-item">
-                        <a class="nav-link" href="${pageContext.request.contextPath}/admin/support/">고객센터</a>
+
+                    <li class="nav-item ">
+                        <a class="nav-link" href="#" data-toggle="collapse" aria-expanded="false"
+                           data-target="#submenu-5" aria-controls="submenu-5">고객센터</a>
+                        <div id="submenu-5" class="collapse submenu" style="">
+                            <ul class="nav flex-column">
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/support/">고객센터</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/coupon-create">쿠폰생성</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/coupon-manage">쿠폰관리</a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
+                    
                     
                 </ul>
             </div>

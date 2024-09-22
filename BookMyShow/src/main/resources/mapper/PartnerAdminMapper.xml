@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.mapper.PartnerAdminMapper">
+
+ 
+   <resultMap id="userResultMap" type="com.itwillbs.domain.UserDTO">
+        <id property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="password" column="password"/>
+        <result property="email" column="email"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="name" column="name"/>
+        <result property="userRole" column="user_role"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+    
+     <association property="partnerDTO" javaType="com.itwillbs.domain.PartnerDTO">
+             <result property="partnerId" column="partner_id"/>
+        <result property="companyName" column="company_name"/>
+        <result property="businessId" column="business_id"/>
+        <result property="accountNumber" column="account_number"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="userId" column="user_id"/>
+        <result property="partnerStatus" column="partner_status"/>
+        <result property="bankName" column="bank_name"/>
+        <result property="accountOwner" column="account_owner"/>
+        <result property="approved" column="approved"/>
+        
+<!--         <collection property="partnerQnaDTO" javaType="java.util.List" ofType="com.itwillbs.domain.PartnerQnaDTO"> -->
+<!--             <result property="inquiryId" column="inquiry_id"/> -->
+<!--             <result property="inquiryType" column="inquiry_type"/> -->
+<!--             <result property="title" column="title"/> -->
+<!--             <result property="content" column="content"/> -->
+<!--             <result property="createdAt" column="created_at"/> -->
+<!--             <result property="updatedAt" column="updated_at"/> -->
+<!--             <result property="userId" column="user_id"/> -->
+<!--             <result property="answered" column="answered"/> -->
+<!--         </collection> -->
+   
+        </association>
+    </resultMap>
+
+	<select id="getPartnersy"  resultMap="userResultMap" >
+ 		SELECT U.*, P.*
+        FROM Partner P
+        JOIN User U ON P.user_id = U.user_id
+        WHERE U.user_name = #{id} or U.name =#{name}
+    </select>	
+    
+<!--     <select id="getPartneQna"  resultMap="userResultMap" > -->
+<!--  			SELECT I.*, P.* -->
+<!--         FROM  Inquiry I -->
+<!--         JOIN Partner P ON I.user_id = P.user_id -->
+<!--         JOIN User U ON U.user_id = P.user_id -->
+<!--         WHERE U.user_name = #{user_name} or U.name =#{name} and I.answered =0   -->
+        
+<!--     </select> -->
+    
+    
+    
+    
+
+</mapper>

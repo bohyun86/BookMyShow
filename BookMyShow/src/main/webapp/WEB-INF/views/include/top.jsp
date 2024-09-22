@@ -34,9 +34,9 @@
                 <!-- Dropdown menu -->
                 <div class="dropdown-menu shadow border-0 " id="cs-dropdown-menu">
                     <div class="h-100 d-flex row justify-content-between align-items-center">
-                        <div class="w-100"><a class="text-decoration-none text-dark" href="#">공지사항</a></div>
-                        <div><a class="text-decoration-none text-dark" href="#">FAQ</a></div>
-                        <div><a class="text-decoration-none text-dark" href="#">1:1문의</a></div>
+                        <div class="w-100"><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/support/notice">공지사항</a></div>
+                        <div><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/support/frequentQuestion">FAQ</a></div>
+                        <div><a class="text-decoration-none text-dark" href="${pageContext.request.contextPath}/support/inquiry">1:1문의</a></div>
                     </div>
                 </div>
             </li>
@@ -57,8 +57,10 @@
 
             </li>
             <li class="nav-item d-flex border-start ps-3">
-                <a class="nav-link text-black fw-bold fs-6" href="#">타임세일</a>
-                <a class="nav-link text-black fw-bold fs-6" href="#">이벤트</a>
+
+                <a class="nav-link text-black fw-bold fs-6" href="${pageContext.request.contextPath}/main/time_sale">타임세일</a>
+                <a class="nav-link text-black fw-bold fs-6" href="${pageContext.request.contextPath}/main/event">이벤트</a>
+
             </li>
         </ul>
     </div>

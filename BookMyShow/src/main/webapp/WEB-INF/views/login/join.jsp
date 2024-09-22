@@ -13,7 +13,7 @@
 <body class="bg-opacity-50">
 <div class="w-100 min-vh-100 d-flex justify-content-center align-items-center bg-white">
     <div class="p-5 shadow" id="login-form">
-        <h2 class="pb-3 text-center mt-5 mb-3 site-logo"><a href="${pageContext.request.contextPath}/main/">예매하다</a></h2>
+        <h2 class="pb-3 text-center mt-5 mb-3 site-logo"><a href="${pageContext.request.contextPath}/main/main">예매하다</a></h2>
         <div class="form-group pb-2 d-flex row align-items-stretch">
 
 <%--            button onclick시 ${pageContext.request.contextPath}/login/newUser 로 이동 --%>

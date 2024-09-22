@@ -1,10 +1,12 @@
 package com.itwillbs.domain;
 
 import lombok.Data;
+import lombok.RequiredArgsConstructor;
 
 import javax.persistence.Column;
 
 @Data
+@RequiredArgsConstructor
 public class MemberDTO {
     @Column(name = "member_id")
     private int memberId;
