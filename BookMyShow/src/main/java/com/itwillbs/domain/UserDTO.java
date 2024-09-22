@@ -1,7 +1,5 @@
 package com.itwillbs.domain;
 
-import java.util.List;
-
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
@@ -41,6 +39,9 @@ public class UserDTO {
 
     @OneToOne
     private PartnerDTO partnerDTO;
+
+    @Column(name = "is_encoded")
+    private boolean isEncoded;
 }
 
 

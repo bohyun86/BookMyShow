@@ -2,6 +2,8 @@ package com.itwillbs.service;
 
 import com.itwillbs.domain.UserDTO;
 
+import javax.servlet.http.HttpSession;
+
 public interface UserService {
 
     Boolean insertUser(UserDTO userDTO);
@@ -17,5 +19,7 @@ public interface UserService {
     Boolean updateUser(UserDTO userDTO, String newPassword );
 
 	void deleteUser(UserDTO userDTO);
+
+    boolean updateUserPasswordAndEncode(UserDTO userDTO, String newPassword);
     
 }

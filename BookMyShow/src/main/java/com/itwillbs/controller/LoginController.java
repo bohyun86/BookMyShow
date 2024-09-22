@@ -27,18 +27,20 @@ public class LoginController {
         return "/login/login";
     }
 
-    @PostMapping("/loginPro")
-    public String loginPro(UserDTO userDTO, HttpSession session) {
+    @PostMapping(value = "/loginPro", produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ResponseEntity<Map<String, Object>> loginPro(@RequestBody UserDTO userDTO, HttpSession session) {
         log.info("loginPro: {}", userDTO);
         UserDTO getUser = userServiceImpl.loginPro(userDTO);
         if (getUser == null) {
-            return "redirect:/login/login";
+            return ResponseEntity.ok(Map.of("success", false));
         } else {
-            log.info(getUser);
+            log.info("controller user: {}:", getUser);
             session.setAttribute("userId", getUser.getUserId());
             session.setAttribute("userRole", getUser.getUserRole());
             session.setAttribute("userName", getUser.getUserName());
-            return "redirect:/main/main";
+            session.setAttribute("name", getUser.getName());
+            return ResponseEntity.ok(Map.of("success", true));
         }
     }
 
@@ -46,10 +48,10 @@ public class LoginController {
     public void join() {
     }
 
-    @PostMapping("/JoinPro")
-    public void newUserPro(UserDTO userDTO) {
-        userServiceImpl.insertUser(userDTO);
+    @GetMapping("/findidpw")
+    public void findidpw() {
     }
+
 
     @GetMapping("/newUser")
     public void newUser() {

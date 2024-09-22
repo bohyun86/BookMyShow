@@ -17,6 +17,7 @@
 		<result property="createdAt" column="created_at" />
 		<result property="updatedAt" column="updated_at" />
 		<result property="memberId" column="member_id" />
+		<result property="isEncoded" column="is_encoded" />
 	</resultMap>
 
 	<!-- User 삽입 시, 생성된 user_id 값을 자동으로 가져오도록 설정 -->
@@ -27,6 +28,17 @@
 		values(0, #{userName}, #{password}, #{email}, #{phoneNumber}, #{name},
 		#{userRole}, now())
 	</insert>
+
+	<select id="getUserById" resultType="com.itwillbs.domain.UserDTO"
+		resultMap="userResultMap">
+		select * from User where user_name = #{userName}
+	</select>
+
+	<update id="updateUserPasswordAndEncode">
+		update User
+		set password = #{password}, is_encoded = #{isEncoded}
+		where user_id = #{userId}
+	</update>
 
 	<!-- Member 삽입 시, 방금 생성된 user_id 값을 사용 -->
 	<insert id="insertMember">
