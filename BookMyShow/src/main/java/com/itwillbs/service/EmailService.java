@@ -27,7 +27,7 @@ public class EmailService {
 
         // 이메일 내용 생성
         String subject = "[예매하다] 임시 비밀번호";
-        String content = String.format("안녕하세요,\n임시비밀번호는 %s 입니다.\n" +
+        String content = String.format("안녕하세요,\n임시비밀번호는 %s입니다.\n" +
                 "로그인 후 비밀번호를 반드시 변경해주세요.", tempPassword);
 
         try {
