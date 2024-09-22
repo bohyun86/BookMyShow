@@ -1,8 +1,14 @@
+<%--
+  Created by IntelliJ IDEA.
+  User: ITWILL
+  Date: 2024-09-03
+  Time: 오후 1:41
+  To change this template use File | Settings | File Templates.
+--%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <!doctype html>
-<html lang="ko">
+<html lang="UTF-8">
 
 <head>
     <!-- Required meta tags -->
@@ -24,35 +30,19 @@
           href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/fonts/material-design-iconic-font/css/materialdesignicons.min.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/c3charts/c3.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet"
-          href="${pageContext.request.contextPath}/resources/admin_partner/documentation/css/performanceEnroll.css">
-    <title>공연 등록 - 예매하다</title>
+          href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
+    <title>예매하다. 관리자 페이지</title>
 </head>
 
 <body>
-<% request.setCharacterEncoding("UTF-8"); %>
-<!-- ============================================================== -->
-<!-- main wrapper -->
-<!-- ============================================================== -->
+
 <div class="dashboard-main-wrapper">
-    <!-- ============================================================== -->
-    <!-- navbar -->
-    <!-- ============================================================== -->
-    <jsp:include page="../include/partner/top.jsp"/>
-    <!-- ============================================================== -->
-    <!-- end navbar -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- left sidebar -->
-    <!-- ============================================================== -->
-    <jsp:include page="../include/partner/sidebar.jsp"/>
-    <!-- ============================================================== -->
-    <!-- end left sidebar -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
+
+    <jsp:include page="../include/adminTop.jsp"/>
+
+    <jsp:include page="../include/adminSidebar.jsp"/>
+
     <!-- wrapper  -->
     <!-- ============================================================== -->
     <div class="dashboard-wrapper">
@@ -62,6 +52,22 @@
                 <!-- pageheader  -->
                 <!-- ============================================================== -->
                 <div class="row">
+                    <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                        <div class="page-header">
+                            <h2 class="pageheader-title">뮤지컬수정페이지 </h2>
+                            <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel
+                                mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
+                        </div>
+                    </div>
+                    </div>
+                <!-- ============================================================== -->
+                <!-- end pageheader  -->
+                <!-- ============================================================== -->
+                 
+<!-- ==================================================== -->
+
+
+			<div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
                             <h2 class="pageheader-title">신규등록</h2>
@@ -386,13 +392,13 @@
                                             <label class="col-form-label">요청사항</label>
                                             <textarea type="text" name="request"></textarea>
                                         </div>
-
+                                        <input type="hidden" name="partnerId" value="${sessionScope.partnerId}">
                                         <div class="form-group col">
                                             <label></label>
                                             <input type="submit" value="등록신청" class="btn btn-primary"
                                                    Style="color: white">
                                         </div>
-                                        <input type="hidden" name="partnerId" value="${sessionScope.partnerId}">
+
                                         <input type="hidden" name="UserId" value="${sessionScope.userId}">
                                     </div>
                                     <!-- 프로그래스 바 추가 -->
@@ -407,48 +413,262 @@
                             </div>
                         </div>
                     </div>
-                    <!-- ============================================================== -->
-                    <!-- end pageheader  -->
-                    <!-- ============================================================== -->
-                </div>
-            </div>
-        </div>
-        <!-- ============================================================== -->
-        <!-- end wrapper  -->
-        <!-- ============================================================== -->
+
+			
+	
+
+
+
+				
+			<div class="card mb-3" style="max-width: 540px;">
+  
+					<div class="card mb-3" style="max-width: 540px;">
+  						<div class="row g-0">
+   							 <div class="col-md-4">
+     							 <img src="${pageContext.request.contextPath}/resources/images/poster/newopen1.jpg" class="img-fluid rounded-start" alt="new1">
+   							 </div>
+    						<div class="col-md-8">
+      							<div class="card-body">
+        							<h4 class="card-title">뮤지컬 수정</h4>
+       									 <p class="card-text">
+       									 	
+       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/edit" name="fr" method="get">
+       									 	<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">뮤지컬 제목</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+    													<div class="invalid-feedback">
+     														 뮤지컬 제목을 입력해주세요.
+   														 </div>
+													</div>
+													
+												<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연기간</span>
+  													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="startDate" onChange="setendmin(this.value)" required>
+  													<input type="date" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="endDate" name="endDate" required>
+    																									
+    													<div class="invalid-feedback">
+     														 공연 기간을 입력해주세요.
+   														 </div>
+													</div> 
+													
+													<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연시작시간</span>
+  													<input type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="endTime" name="endTime" required>
+    																									
+    													<div class="invalid-feedback">
+     														 공연 시작시간을 입력해주세요.
+   														 </div>
+													</div> 
+													
+													<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연종료시간</span>
+  													<input type="time" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="endTime" name="endTime" required>
+    																									
+    													<div class="invalid-feedback">
+     														 공연 종료시간을 입력해주세요.
+   														 </div>
+													</div> 
+													
+<!-- 													공연시간 설정 -->
+													
+													<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연장소</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+    													<div class="invalid-feedback">
+     														 공연장소를 입력해주세요.
+   														 </div>
+													</div>
+													
+													<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">관람연령</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+    													<div class="invalid-feedback">
+     														  관람연령을 입력해주세요.
+   														 </div>
+													</div>
+	 													 
+	 													 <div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">티켓가격</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" onkeyup="realshowMoney2(this.value);" style="border-color: red"required>
+    													<div class="invalid-feedback">
+     														  티켓가격을 입력해주세요.
+   														 </div>
+													</div>
+	 													 
+	 													  <div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">출연진</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+    													<div class="invalid-feedback">
+     														  출연진을 입력해주세요.
+   														 </div>
+													</div>
+													
+													 <div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">제작진</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+    													<div class="invalid-feedback">
+     														  제작진을 입력해주세요.
+   														 </div>
+													</div>
+													
+													 <div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">주최.주관</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+    													<div class="invalid-feedback">
+     														  주최.주관을 입력해주세요.
+   														 </div>
+													</div>
+													
+													<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">기획.제작</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
+    													<div class="invalid-feedback">
+     														  기획.제작을 입력해주세요.
+   														 </div>
+													</div>
+<!-- 	 																					
+	 								 													 
+	 													
+<!-- 	 													 		 <div class="col-md-6"> -->
+<!--     											<label for="validationCustom11" class="form-label">소개</label> -->
+<!--     												<textarea class="form-control" id="validationCustom11" required> -->
+<!--     													<div class="invalid-feedback"> -->
+<!--      														 뮤지컬 제목을 입력해주세요. -->
+<!--    														 </div> -->
+<!-- 	 													 </div>  -->
+<!-- 소개 //사이드바 드롭다운 x 일단 주석  -->
+			
+				 										
+				 										<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+  															<button class="btn btn-primary me-md-2" type="submit" >수정완료</button> &nbsp; &nbsp;
+  															</form>
+  															
+  															<form action="${pageContext.request.contextPath}/admin/edit">
+  																<button class="btn btn-primary" type="submit" onclick="deleteok()" >삭제</button>
+  																</form>
+														</div>
+														
+    												</div>
+  												</div>
+											</div>
+  										
+ 									  </div>
+ 									 </div>
+ 									 
+ 									 
+									<div class="d-grid gap-2 col-6 mx-auto">
+  										<button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/edit'" >취소</button>
+ 									 </div>
+ 									 
+ 									 </div>
+ 									 </div>
+ 									 
+ 									 
+
+
+<script>
+
+
+//startDate 오늘날짜 가져옴
+//endDate는 startDate 전날짜 못가져옴
+$(function(){
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1; 
+	  
+	   var yyyy = today.getFullYear();
+	   if(dd<10){
+	     dd='0'+dd
+	   } 
+	   if(mm<10){
+	     mm='0'+mm
+	   } 
+	   today = yyyy+'-'+mm+'-'+dd;
+	
+	   document.getElementById("startDate").setAttribute("min", today);
+	  })
+	     
+	
+	function setendmin(e){
+	   document.getElementById("endDate").setAttribute("min", e);
+	   }  
+	   
+	   
+//티켓가격 숫자만 입력 가능
+	   function realshowMoney2(inMoney, Ev) {
+       var evCode = (window.netscape) ? Ev.which : event.keyCode;
+
+       if (!((evCode >= 37 && evCode <= 57)|| (evCode >= 96 && evCode <= 105)|| evCode == 8 || evCode == 9)) {
+
+             alert("숫자만 입력해주세요. ");
+             event.returnValue = false;
+       }
+       }
+	
+	   
+//삭제컨펌
+function deleteok(){
+    if(!confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')){
+        return false;
+    }
+}
+
+
+
+
+const postAddress = document.querySelector('.post-address');
+const basicAddress = document.querySelector('.basic-address');
+const detailAddress = document.querySelector('.detail-address');
+const btnSearch = document.querySelector('.btn-address');
+
+btnSearch.addEventListener('click', function () {
+    searchPost.open();
+});
+
+const searchPost = new daum.Postcode({
+    oncomplete: function (data) {
+        postAddress.value = data.zonecode;
+        basicAddress.value = data.address;
+        detailAddress.focus();
+    }
+});
+</script>
+
+
+
+
+<!-- 바텀 밑으로 내려야함 -->
+<%--         <jsp:include page="../include/adminBottom.jsp"/> --%>
+
     </div>
     <!-- ============================================================== -->
-    <!-- end main wrapper  -->
+    <!-- end wrapper  -->
     <!-- ============================================================== -->
-    <!-- Optional JavaScript -->
-    <!-- jquery 3.3.1 -->
-    <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
-    <!-- bootstap bundle js -->
-    <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
-            crossorigin="anonymous"></script>
-    <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/admin_partner/documentation/js/write.js"></script>
-    <script>
-
-        const postAddress = document.querySelector('.post-address');
-        const basicAddress = document.querySelector('.basic-address');
-        const detailAddress = document.querySelector('.detail-address');
-        const btnSearch = document.querySelector('.btn-address');
-
-        btnSearch.addEventListener('click', function () {
-            searchPost.open();
-        });
-
-        const searchPost = new daum.Postcode({
-            oncomplete: function (data) {
-                postAddress.value = data.zonecode;
-                basicAddress.value = data.address;
-                detailAddress.focus();
-            }
-        });
-    </script>
+</div>
+<!-- ============================================================== -->
+<!-- end main wrapper  -->
+<!-- ============================================================== -->
+<!-- Optional JavaScript -->
+<!-- jquery 3.3.1 -->
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
+<!-- bootstap bundle js -->
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
+<!-- slimscroll js -->
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/slimscroll/jquery.slimscroll.js"></script>
+<!-- main js -->
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/libs/js/main-js.js"></script>
+<!-- chart chartist js -->
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/chartist-bundle/chartist.min.js"></script>
+<!-- sparkline js -->
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/sparkline/jquery.sparkline.js"></script>
+<!-- morris js -->
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/morris-bundle/raphael.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/morris-bundle/morris.js"></script>
+<!-- chart c3 js -->
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/c3charts/c3.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/c3charts/d3-5.4.0.min.js"></script>
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/c3charts/C3chartjs.js"></script>
+<script src="${pageContext.request.contextPath}/resources/admin_partner/assets/libs/js/dashboard-ecommerce.js"></script>
 </body>
 
 </html>
