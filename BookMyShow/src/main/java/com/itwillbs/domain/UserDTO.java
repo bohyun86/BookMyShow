@@ -42,8 +42,10 @@ public class UserDTO {
     @OneToOne
     private PartnerDTO partnerDTO;
     
+
     @OneToMany
     private List<PartnerQnaDTO>partnerQnaDTO;
+
 }
 
 

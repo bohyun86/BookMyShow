@@ -2,6 +2,9 @@ package com.itwillbs.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itwillbs.domain.MusicalDTO;
+
+import com.itwillbs.domain.PartnerDTO;
+
 import com.itwillbs.domain.PartnerQnaDTO;
 import com.itwillbs.domain.Performance.AttachFile2DTO;
 import com.itwillbs.domain.Performance.AttachFileDTO;
@@ -43,7 +46,8 @@ import java.util.List;
 @Log4j2
 @RequestMapping("/admin")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@AllArgsConstructor // lombok을 이용한 생성자 자동 생성
+@AllArgsConstructor
+// lombok을 이용한 생성자 자동 생성
 public class AdminController {
 
 	
@@ -331,6 +335,7 @@ public class AdminController {
         
         return "/admin/partner_qna"; 
         }
+
     
     
 

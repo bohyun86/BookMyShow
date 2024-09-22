@@ -45,12 +45,14 @@
     </resultMap>
 
 	<select id="getPartnersy"  resultMap="userResultMap" >
- 		SELECT U.*, P.*
+ 		SELECT U.*, P.*,I.*
         FROM Partner P
         JOIN User U ON P.user_id = U.user_id
-        WHERE U.user_name = #{id} or U.name =#{name}
+        LEFT JOIN Inquiry I ON P.user_id = I.user_id
+        WHERE (U.user_name = #{id} or U.name =#{name}) and P.approved=1
     </select>	
     
+
 <!--     <select id="getPartneQna"  resultMap="userResultMap" > -->
 <!--  			SELECT I.*, P.* -->
 <!--         FROM  Inquiry I -->
@@ -67,6 +69,7 @@ FROM Inquiry I
 JOIN User U ON I.user_id = U.user_id 
 JOIN Partner P ON U.user_id = P.user_id
     </select>
+
     
     
     
