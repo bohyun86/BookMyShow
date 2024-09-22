@@ -1,7 +1,6 @@
-@charset "UTF-8";
-/* 공통 스타일 */
 #board-content {
     padding: 2rem;
+    width: 100%;
 }
 
 .title {
@@ -10,20 +9,15 @@
     margin-bottom: 1rem;
 }
 
-/* 포인트 페이지 스타일 */
-.points-summary {
+.points-summary, .search-options {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
 }
 
-.points-summary strong {
-    font-size: 1.2rem;
-    color: #007bff;
-}
-
 .table {
+    width: 100%;
     background-color: white;
     border-radius: 8px;
     overflow: hidden;
@@ -42,7 +36,6 @@
     color: #dc3545;
 }
 
-/* 쿠폰 등록 페이지 스타일 */
 .coupon-input {
     display: flex;
     justify-content: center;
@@ -51,7 +44,7 @@
 }
 
 .coupon-input input {
-    width: 60px;
+    width: 80px;
     height: 40px;
     text-align: center;
     font-size: 1.2rem;
@@ -60,15 +53,8 @@
     border-radius: 4px;
 }
 
-.coupon-input span {
-    font-size: 1.2rem;
-    color: #6c757d;
-}
-
-.btn-primary {
-    display: block;
-    width: 200px;
-    margin: 1rem auto;
+.btn-primary, .btn-secondary {
+    margin-right: 10px;
 }
 
 .coupon-info {
@@ -78,8 +64,10 @@
     margin-top: 2rem;
 }
 
-.coupon-info p {
-    margin-bottom: 0.5rem;
-    font-size: 0.9rem;
-    color: #6c757d;
+.card {
+    margin-bottom: 2rem;
+}
+
+.dashboard-wrapper {
+    padding: 20px;
 }

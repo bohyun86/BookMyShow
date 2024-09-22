@@ -130,14 +130,6 @@ public class MypageServiceImpl implements MypageService {
 	}
 
 	@Override
-	public int getUserPoint(Integer userId) {
-		if (userId == null) {
-			return 0;
-		}
-		return mypageDAO.getUserPoint(userId);
-	}
-
-	@Override
 	public int getUsableTicketCount(Integer userId) {
 		if (userId == null) {
 			return 0;

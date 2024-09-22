@@ -83,11 +83,6 @@ public class MypageDAO {
         return updatedRows > 0;
     }
 
-    public int getUserPoint(Integer userId) {
-        Integer balance = sqlSession.selectOne(NAMESPACE + ".getUserPoint", userId);
-        return balance != null ? balance : 0;
-    }
-
     public int getUsableTicketCount(Integer memberId) {
         return sqlSession.selectOne(NAMESPACE + ".getUsableTicketCount", memberId);
     }

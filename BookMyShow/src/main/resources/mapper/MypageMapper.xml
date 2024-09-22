@@ -170,12 +170,6 @@
 		LIMIT 1
 	</update>
 
-	<select id="getUserPoint" resultType="java.lang.Integer">
-		SELECT balance FROM Point
-		WHERE user_id = #{userId}
-		LIMIT 1
-	</select>
-
 	<select id="getUsableTicketCount" resultType="java.lang.Integer">
 		SELECT COUNT(*)
 		FROM Booking

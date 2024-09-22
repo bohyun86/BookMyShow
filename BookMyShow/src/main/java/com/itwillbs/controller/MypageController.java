@@ -3,8 +3,6 @@ package com.itwillbs.controller;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +10,9 @@ import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,13 +21,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.domain.BookingDTO;
 import com.itwillbs.domain.MyPageDTO;
 import com.itwillbs.domain.PerformanceDTO;
+import com.itwillbs.domain.PointDTO;
 import com.itwillbs.domain.ReviewDTO;
 import com.itwillbs.domain.UserDTO;
+import com.itwillbs.service.CouponPointService;
 import com.itwillbs.service.MypageService;
 import com.itwillbs.service.ReviewService;
 import com.itwillbs.service.UserService;
@@ -40,12 +44,13 @@ public class MypageController {
 	private MypageService mypageService;
 	private UserService userService;
 	private ReviewService reviewService;
+	private CouponPointService couponPointService;
 
 	private void addCommonAttributes(Model model, HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("userId");
 		Integer memberID = mypageService.getMemberId(userId);
 		if (userId != null) {
-			Integer point = mypageService.getUserPoint(userId);
+			Integer point = couponPointService.getTotalPoints(userId);
 			Integer usableTicketCount = mypageService.getUsableTicketCount(memberID);
 			model.addAttribute("point", point);
 			model.addAttribute("usableTicketCount", usableTicketCount);
@@ -280,69 +285,67 @@ public class MypageController {
 			return "redirect:/my/profile-edit";
 		}
 	}
-	
+
 	@GetMapping("/reviews")
 	public String reviews(Model model, @RequestParam(defaultValue = "0") int page,
-	                      @RequestParam(defaultValue = "10") int size, HttpSession session) {
-	    addCommonAttributes(model, session);
-	    Integer userId = (Integer) session.getAttribute("userId");
-	    Integer memberId = mypageService.getMemberId(userId);
+			@RequestParam(defaultValue = "10") int size, HttpSession session) {
+		addCommonAttributes(model, session);
+		Integer userId = (Integer) session.getAttribute("userId");
+		Integer memberId = mypageService.getMemberId(userId);
 
-	    List<ReviewDTO> reviews = reviewService.getReviewsByMemberId(memberId, page, size);
-	    Map<String, Object> summary = reviewService.getReviewSummary(memberId);
-	    
-	    int totalElements = reviewService.getTotalReviewsCount(memberId);
-	    MyPageDTO pageDTO = new MyPageDTO(page, size, totalElements);
+		List<ReviewDTO> reviews = reviewService.getReviewsByMemberId(memberId, page, size);
+		Map<String, Object> summary = reviewService.getReviewSummary(memberId);
 
-	    model.addAttribute("reviews", reviews);
-	    model.addAttribute("totalReviews", summary.get("totalReviews"));
-	    model.addAttribute("averageRating", summary.get("averageRating"));
-	    model.addAttribute("pageDTO", pageDTO);
+		int totalElements = reviewService.getTotalReviewsCount(memberId);
+		MyPageDTO pageDTO = new MyPageDTO(page, size, totalElements);
 
-	    return "my/reviews";
+		model.addAttribute("reviews", reviews);
+		model.addAttribute("totalReviews", summary.get("totalReviews"));
+		model.addAttribute("averageRating", summary.get("averageRating"));
+		model.addAttribute("pageDTO", pageDTO);
+
+		return "my/reviews";
 	}
 
 	@GetMapping("/review-check/{performanceId}")
 	public String reviewCheck(@PathVariable Integer performanceId, Model model, HttpSession session) {
 		Integer userId = (Integer) session.getAttribute("userId");
-	    Integer memberId = mypageService.getMemberId(userId);
+		Integer memberId = mypageService.getMemberId(userId);
 
 		ReviewDTO existingReview = reviewService.getReviewByPerf(performanceId, memberId);
 
-		 if (existingReview != null) {
-		        return "redirect:/my/review-form/" + existingReview.getReviewId();
-		    } else {
-		        return "redirect:/my/review-form/p" + performanceId;
-		    }
+		if (existingReview != null) {
+			return "redirect:/my/review-form/" + existingReview.getReviewId();
+		} else {
+			return "redirect:/my/review-form/p" + performanceId;
+		}
 	}
 
 	@GetMapping("/review-form/{id}")
 	public String reviewForm(@PathVariable String id, Model model, HttpSession session) {
-	    addCommonAttributes(model, session);
-	    Integer userId = (Integer) session.getAttribute("userId");
-	    Integer memberId = mypageService.getMemberId(userId);
+		addCommonAttributes(model, session);
 
-	    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-	    if (id.startsWith("p")) {
-	        // 리뷰 작성
-	        Integer performanceId = Integer.parseInt(id.substring(1));
-	        PerformanceDTO performance = reviewService.getPerformanceById(performanceId);
-	        model.addAttribute("performance", performance);
-	        model.addAttribute("isEdit", false);
-	        model.addAttribute("formattedPerformanceDate", performance.getPerformanceDate().format(formatter));
-	    } else {
-	        // 리뷰 수정
-	        Integer reviewId = Integer.parseInt(id);
-	        ReviewDTO review = reviewService.getReviewById(reviewId);
-	        
-	        PerformanceDTO performance = reviewService.getPerformanceById(review.getPerformanceId());
-	        model.addAttribute("review", review);
-	        model.addAttribute("performance", performance);
-	        model.addAttribute("isEdit", true);
-	        model.addAttribute("formattedPerformanceDate", performance.getPerformanceDate().format(formatter));
-	    }
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		if (id.startsWith("p")) {
+			// 리뷰 작성
+			Integer performanceId = Integer.parseInt(id.substring(1));
+			PerformanceDTO performance = reviewService.getPerformanceById(performanceId);
+			model.addAttribute("performance", performance);
+			model.addAttribute("isEdit", false);
+			model.addAttribute("formattedPerformanceDate", performance.getPerformanceDate().format(formatter));
+		} else {
+			// 리뷰 수정
+			Integer reviewId = Integer.parseInt(id);
+			ReviewDTO review = reviewService.getReviewById(reviewId);
 
-	    return "my/review-form";
+			PerformanceDTO performance = reviewService.getPerformanceById(review.getPerformanceId());
+			model.addAttribute("review", review);
+			model.addAttribute("performance", performance);
+			model.addAttribute("isEdit", true);
+			model.addAttribute("formattedPerformanceDate", performance.getPerformanceDate().format(formatter));
+		}
+
+		return "my/review-form";
 	}
 
 	@PostMapping("/review-create")
@@ -367,19 +370,40 @@ public class MypageController {
 		reviewService.deleteReview(reviewId);
 		return "redirect:/my/reviews";
 	}
-	
 
 	@GetMapping("/points")
-	public String points(Model model, HttpSession session) {
+	public String points(Model model, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size, HttpSession session) {
 		addCommonAttributes(model, session);
-		log.info("points check");
-		return "/my/points";
+		Integer userId = (Integer) session.getAttribute("userId");
+		Page<PointDTO> pointHistory = couponPointService.getPointHistory(userId, page, size);
+		model.addAttribute("pointHistory", pointHistory.getContent());
+		model.addAttribute("pageInfo", new MyPageDTO(page, size, pointHistory.getTotalElements()));
+		model.addAttribute("totalPoints", couponPointService.getTotalPoints(userId));
+		return "my/points";
 	}
 
 	@GetMapping("/coupon-redeem")
-	public String couponRedeem(Model model, HttpSession session) {
+	public String couponRedeemForm(Model model, HttpSession session) {
 		addCommonAttributes(model, session);
-		log.info("coupon redeem");
-		return "/my/coupon-redeem";
+		return "my/coupon-redeem";
 	}
+
+	@PostMapping("/redeem-coupon")
+	@ResponseBody
+	public ResponseEntity<String> redeemCoupon(@RequestParam String coupon1, @RequestParam String coupon2,
+			@RequestParam String coupon3, HttpSession session) {
+		String couponCode = coupon1 + coupon2 + coupon3;
+		Integer userId = (Integer) session.getAttribute("userId");
+		try {
+			int pointsAdded = couponPointService.redeemCoupon(userId, couponCode);
+			String jsonResponse = String.format("{\"message\": \"%d 포인트가 추가되었습니다.\", \"redirect\": \"/my/points\"}",
+					pointsAdded);
+			return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8).body(jsonResponse);
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body("{\"error\": \"" + e.getMessage() + "\"}");
+		}
+	}
+
 }

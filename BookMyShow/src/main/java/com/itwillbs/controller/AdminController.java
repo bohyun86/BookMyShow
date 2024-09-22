@@ -12,16 +12,24 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
+import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itwillbs.domain.CouponDTO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.MusicalDTO;
+import com.itwillbs.domain.MyPageDTO;
 import com.itwillbs.domain.UserDTO;
+import com.itwillbs.service.CouponPointService;
 import com.itwillbs.service.MusicalService;
 import com.itwillbs.service.UserServiceImpl;
 
@@ -30,241 +38,237 @@ import com.itwillbs.service.UserServiceImpl;
 @RequestMapping("/admin")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
 public class AdminController {
-	
+
 	@Autowired
 	private UserServiceImpl userServiceImpl;
-	
+
 	@Autowired
 	private MusicalService musicalService;
-	
-	
-    @GetMapping("/editProTEST")
-    public String editProTEST() {
-        log.info("admin editProTEST success");
 
-        return "/admin/editProTEST";
-    }
-    
-    @GetMapping("/main")
-    public String home() {
-        log.info("admin main success");
+	@Autowired
+	private CouponPointService couponPointService;
 
-        return "/admin/main";
-    }
-    
-    @GetMapping("/login")
-    public String login() {
-        log.info("admin login success");
+	@GetMapping("/editProTEST")
+	public String editProTEST() {
+		log.info("admin editProTEST success");
 
-        return "/admin/login";
-    }
-    
-    @PostMapping("/loginPro")
-    public String loginPro(UserDTO userDTO , HttpSession session) {
-        log.info("admin loginPro success");
-        UserDTO getUser = userServiceImpl.loginPro(userDTO);
-        log.info(getUser);
-        if (getUser == null) {
-            return "redirect:/admin/login";
-        } else {
-            log.info(getUser);
-            session.setAttribute("userId", getUser.getUserId());
-            session.setAttribute("userRole", getUser.getUserRole());
-            session.setAttribute("userName", getUser.getUserName());
-            return "redirect:/admin/main/";
-        }
-        
-    }
-    
-    
-    
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        log.info("admin logout success");
-        session.invalidate();
-
-        return "/main/main";
-    }
-
-    
-    
-
-
-    @GetMapping("/search")
-    public String search(HttpServletRequest request,Model model) {
-//    	
-    	
-		return "/admin/search";
-    	
-    	
-    }
-
-    
-    @PostMapping("/searchBy")
-    public String searchBy(HttpServletRequest request,Model model) {
-    
-    log.info("admin searchBy:: success");
-	 String searchType = request.getParameter("findType");
-    String findKeyword = request.getParameter("findKeyword");
-	System.out.println("AdminController searchType::"+searchType);
-	System.out.println("AdminController findKeyword::"+findKeyword);
-	
-	if ("1".equals(searchType)) {
-		List<MusicalDTO> musicalList = musicalService.getMusicalByPartnerId(findKeyword);
-       // ��Ʈ�� ID�� �˻�
-		if (musicalList != null && !musicalList.isEmpty()) {
-           // ����Ʈ�� ù ��° �׸��� ������ URL �Ķ���ͷ� ���
-			model.addAttribute("musicalList", musicalList);
-           System.out.println("AdminController searchBy1::"+musicalList);
-           
-
-           return "redirect:/admin/submit";
-       } else {
-//       	model.addAttribute("msg", "내역이 없습니다");
-           // ����Ʈ�� ������� ��� ó��
-//       	model.addAttribute("url", "/admin/search");
-           return "redirect:/admin/search";
-       }
+		return "/admin/editProTEST";
 	}
-	else if ("2".equals(searchType)) {
-    		MusicalDTO musicalDTO = musicalService.getMusicalByTitle(findKeyword);
+
+	@GetMapping("/main")
+	public String home() {
+		log.info("admin main success");
+
+		return "/admin/main";
+	}
+
+	@GetMapping("/login")
+	public String login() {
+		log.info("admin login success");
+
+		return "/admin/login";
+	}
+
+	@PostMapping("/loginPro")
+	public String loginPro(UserDTO userDTO, HttpSession session) {
+		log.info("admin loginPro success");
+		UserDTO getUser = userServiceImpl.loginPro(userDTO);
+		log.info(getUser);
+		if (getUser == null) {
+			return "redirect:/admin/login";
+		} else {
+			log.info(getUser);
+			session.setAttribute("userId", getUser.getUserId());
+			session.setAttribute("userRole", getUser.getUserRole());
+			session.setAttribute("userName", getUser.getUserName());
+			return "redirect:/admin/main/";
+		}
+
+	}
+
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		log.info("admin logout success");
+		session.invalidate();
+
+		return "/main/main";
+	}
+
+	@GetMapping("/search")
+	public String search(HttpServletRequest request, Model model) {
+//    	
+
+		return "/admin/search";
+
+	}
+
+	@PostMapping("/searchBy")
+	public String searchBy(HttpServletRequest request, Model model) {
+
+		log.info("admin searchBy:: success");
+		String searchType = request.getParameter("findType");
+		String findKeyword = request.getParameter("findKeyword");
+		System.out.println("AdminController searchType::" + searchType);
+		System.out.println("AdminController findKeyword::" + findKeyword);
+
+		if ("1".equals(searchType)) {
+			List<MusicalDTO> musicalList = musicalService.getMusicalByPartnerId(findKeyword);
+			// ��Ʈ�� ID�� �˻�
+			if (musicalList != null && !musicalList.isEmpty()) {
+				// ����Ʈ�� ù ��° �׸��� ������ URL �Ķ���ͷ� ���
+				model.addAttribute("musicalList", musicalList);
+				System.out.println("AdminController searchBy1::" + musicalList);
+
+				return "redirect:/admin/submit";
+			} else {
+//       	model.addAttribute("msg", "내역이 없습니다");
+				// ����Ʈ�� ������� ��� ó��
+//       	model.addAttribute("url", "/admin/search");
+				return "redirect:/admin/search";
+			}
+		} else if ("2".equals(searchType)) {
+			MusicalDTO musicalDTO = musicalService.getMusicalByTitle(findKeyword);
 //    		UserDTO userDTO = 
 //    		System.out.println("userDTO"+userDTO);
-    	if(musicalDTO!= null){
-            // ������ �������� �˻�
+			if (musicalDTO != null) {
+				// ������ �������� �˻�
 //        	musicalDTO = musicalService.getMusicalByTitle(findKeyword);
-    		System.out.println("AdminController searchBy2::"+musicalDTO);
-            return "redirect:/admin/submit";
-            
-        }
-    	else {
-			
-    		return "redirect:/admin/search";
-    	}
-    	}
-       
-   
+				System.out.println("AdminController searchBy2::" + musicalDTO);
+				return "redirect:/admin/submit";
+
+			} else {
+
+				return "redirect:/admin/search";
+			}
+		}
+
 //	return musicalList; 
-	return findKeyword;
-    }
+		return findKeyword;
+	}
 
-    
-    
+	@GetMapping("/submit")
+	public String submit(HttpServletRequest request, Model model) {
+		log.info("admin submit:: success");
 
+		return "/admin/submit";
 
-    @GetMapping("/submit")
-    public String submit(HttpServletRequest request,Model model) {
-    	log.info("admin submit:: success");
-    	
-    		return "/admin/submit";
-    	
-    	
-    }
+	}
 
-    
-    
-    
-    
-    
-    
-    
+	@GetMapping("/edit")
+	public String edit() {
+		log.info("admin edit success");
+		return "/admin/edit";
+	}
 
+	@GetMapping("/editPro")
+	public String editPro() {
+		log.info("admin editPro success");
 
+		return "/admin/editPro";
+	}
 
+	@GetMapping("/partner")
+	public String partner() {
+		log.info("admin partner success");
+		return "/admin/partner";
+	}
 
-    @GetMapping("/edit")
-    public String edit() {
-    	log.info("admin edit success");
-    	return "/admin/edit";
-    }
+	@GetMapping("/partner_submit")
+	public String partner_submit() {
+		log.info("admin partner_submit success");
+		return "/admin/partner_submit";
+	}
 
-    @GetMapping("/editPro")
-    public String editPro() {
-    	log.info("admin editPro success");
+	@GetMapping("/partnerPro")
+	public String partnerPro() {
+		log.info("admin partnerPro success");
+		return "/admin/partnerPro";
+	}
 
+	@GetMapping("/partner_qna")
+	public String partner_qna() {
+		log.info("admin partner_qna success");
+		return "/admin/partner_qna";
+	}
 
-    	return "/admin/editPro";
-    }
+	@GetMapping("/partner_settlement")
+	public String partner_settlement() {
+		log.info("admin partner_settlement success");
+		return "/admin/partner_settlement";
+	}
 
+	@GetMapping("/member")
+	public String member() {
+		log.info("admin member success");
+		return "/admin/member";
+	}
 
+	@GetMapping("/memberPro")
+	public String memberPro() {
+		log.info("admin memberPro success");
+		return "/admin/memberPro";
+	}
 
+	@GetMapping("/booking")
+	public String booking() {
+		log.info("admin booking success");
+		return "/admin/booking";
+	}
 
+	@GetMapping("/payment")
+	public String payment() {
+		log.info("admin payment success");
+		return "/admin/payment";
+	}
 
-    @GetMapping("/partner")
-    public String partner() {
-    	log.info("admin partner success");
-    	return "/admin/partner";
-    }
+	@GetMapping("/support")
+	public String support() {
+		log.info("admin support success");
+		return "/admin/support";
+	}
 
-    @GetMapping("/partner_submit")
-    public String partner_submit() {
-    	log.info("admin partner_submit success");
-    	return "/admin/partner_submit";
-    }
-    
-    @GetMapping("/partnerPro")
-    public String partnerPro() {
-    	log.info("admin partnerPro success");
-    	return "/admin/partnerPro";
-    }
+	// coupon start
+	@GetMapping("/coupon-create")
+	public String couponCreateForm() {
+		return "admin/coupon-create";
+	}
 
-    @GetMapping("/partner_qna")
-    public String partner_qna() {
-    	log.info("admin partner_qna success");
-    	return "/admin/partner_qna";
-    }
+	@PostMapping("/create-coupon")
+	@ResponseBody
+	public ResponseEntity<String> createCoupon(@RequestParam String coupon1, @RequestParam String coupon2,
+			@RequestParam String coupon3, @RequestParam Integer couponAmount) {
+		String couponCode = coupon1 + coupon2 + coupon3;
+		CouponDTO couponDTO = new CouponDTO();
+		couponDTO.setCode(couponCode);
+		couponDTO.setCouponAmount(couponAmount);
+		try {
+			couponPointService.createCoupon(couponDTO);
+			return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body("{\"success\": true, \"message\": \"쿠폰이 성공적으로 생성되었습니다.\"}");
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body("{\"success\": false, \"message\": \"" + e.getMessage() + "\"}");
+		}
+	}
 
-    @GetMapping("/partner_settlement")
-    public String partner_settlement() {
-    	log.info("admin partner_settlement success");
-    	return "/admin/partner_settlement";
-    }
+	@GetMapping("/coupon-manage")
+	public String couponManage(Model model, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size) {
+		Page<CouponDTO> coupons = couponPointService.getAllCoupons(page, size);
+		model.addAttribute("coupons", coupons.getContent());
+		model.addAttribute("pageInfo", new MyPageDTO(page, size, coupons.getTotalElements()));
+		return "admin/coupon-manage";
+	}
 
-
-
-    @GetMapping("/member")
-    public String member() {
-    	log.info("admin member success");
-    	return "/admin/member";
-    }
-
-    
-    @GetMapping("/memberPro")
-    public String memberPro() {
-    	log.info("admin memberPro success");
-    	return "/admin/memberPro";
-    }
-
-    @GetMapping("/booking")
-    public String booking() {
-    	log.info("admin booking success");
-    	return "/admin/booking";
-    }
-
-    @GetMapping("/payment")
-    public String payment() {
-    	log.info("admin payment success");
-    	return "/admin/payment";
-    }
-
-
-
-    @GetMapping("/support")
-    public String support() {
-    	log.info("admin support success");
-    	return "/admin/support";
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
+	@PostMapping("/delete-coupon")
+	@ResponseBody
+	public ResponseEntity<?> deleteCoupon(@RequestParam Integer couponId) {
+		boolean deleted = couponPointService.deleteCoupon(couponId);
+		if (deleted) {
+			return ResponseEntity.ok().body("{\"success\": true}");
+		} else {
+			return ResponseEntity.badRequest().body("{\"success\": false}");
+		}
+	}
+	// coupon end
 }//

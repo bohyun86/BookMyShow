@@ -60,9 +60,15 @@
                     <div class="refund-notice">
                         <h3>환불진행 안내</h3>
                         <ul>
-                            <li>${payment.paymentMethod}를 통해 환불 금액에 대한 결제 취소가 진행됩니다.</li>
-                            <li>${payment.paymentMethod} 내 결제수단에 따라 환불 완료까지 영업일 기준 3~5일 가량 소요될 수 있으며, 포인트를 이용한 경우 동일한 포인트로 환불됩니다.</li>
-                            <li>환불은 즉시 처리되며 이후 철회 또는 티켓 사용이 불가합니다. 결제/취소 세부사항은 ${payment.paymentMethod}를 통해 확인해주세요.</li>
+                            <li>
+<%--                             ${payment.paymentMethod}를 통해  --%>
+                            환불 금액에 대한 결제 취소가 진행됩니다.</li>
+                            <li>
+<%--                             ${payment.paymentMethod} 내  --%>
+                            결제수단에 따라 환불 완료까지 영업일 기준 3~5일 가량 소요될 수 있으며, 포인트를 이용한 경우 동일한 포인트로 환불됩니다.</li>
+                            <li>환불은 즉시 처리되며 이후 철회 또는 티켓 사용이 불가합니다. 
+<%--                             결제/취소 세부사항은 ${payment.paymentMethod}를 통해 확인해주세요. --%>
+                            </li>
                         </ul>
                     </div>
                     <div class="form-check">

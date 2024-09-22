@@ -39,8 +39,6 @@ public interface MypageService {
 
 	boolean processRefund(Integer bookingId, Integer userId);
 
-	int getUserPoint(Integer userId);
-
 	int getUsableTicketCount(Integer memberId);
 
 	// 복수형 메서드
