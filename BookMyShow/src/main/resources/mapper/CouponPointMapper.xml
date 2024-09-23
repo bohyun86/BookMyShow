@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.itwillbs.mapper.CouponPointMapper">
+
+	<resultMap id="pointResultMap"
+		type="com.itwillbs.domain.PointDTO">
+		<id property="pointId" column="point_id" />
+		<result property="userId" column="user_id" />
+		<result property="originalAmount" column="original_amount" />
+		<result property="currentAmount" column="current_amount" />
+		<result property="type" column="type" />
+		<result property="createdAt" column="created_at" />
+		<result property="relatedId" column="related_id" />
+	</resultMap>
+
+	<resultMap id="couponResultMap"
+		type="com.itwillbs.domain.CouponDTO">
+		<id property="couponId" column="coupon_id" />
+		<result property="code" column="code" />
+		<result property="couponAmount" column="coupon_amount" />
+		<result property="status" column="status" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+
+	<select id="getPointHistory" resultMap="pointResultMap">
+		SELECT * FROM Point
+		WHERE
+		user_id = #{userId}
+		ORDER BY created_at DESC
+		LIMIT #{offset}, #{limit}
+	</select>
+
+	<select id="getTotalPointHistoryCount" resultType="int">
+		SELECT
+		COUNT(*) FROM Point WHERE user_id = #{userId}
+	</select>
+
+	<select id="getTotalPoints" resultType="int">
+		SELECT
+		COALESCE(SUM(current_amount), 0) FROM Point WHERE user_id = #{userId}
+	</select>
+
+	<insert id="addPoints">
+		INSERT INTO Point (user_id, original_amount,
+		current_amount, type,
+		created_at, related_id)
+		VALUES (#{userId},
+		#{amount}, #{amount}, #{type}, NOW(), #{relatedId})
+	</insert>
+
+	<insert id="insertCoupon"
+		parameterType="com.itwillbs.domain.CouponDTO">
+		INSERT INTO Coupon (code, coupon_amount, status,
+		created_at)
+		VALUES (#{code}, #{couponAmount}, 'Active', NOW())
+	</insert>
+
+	<select id="getAllCoupons" resultMap="couponResultMap">
+		SELECT * FROM Coupon
+		ORDER
+		BY created_at DESC
+		LIMIT #{offset}, #{limit}
+	</select>
+
+	<select id="getTotalCouponsCount" resultType="int">
+		SELECT COUNT(*)
+		FROM Coupon
+	</select>
+
+	<delete id="deleteCoupon">
+		DELETE FROM Coupon WHERE coupon_id = #{couponId}
+	</delete>
+
+	<select id="getCouponByCode" resultMap="couponResultMap">
+		SELECT * FROM Coupon
+		WHERE code = #{code} LIMIT 1
+	</select>
+
+	<update id="updateCouponStatus">
+		UPDATE Coupon SET status = #{status}, updated_at =
+		NOW()
+		WHERE code = #{code}
+	</update>
+
+</mapper>
