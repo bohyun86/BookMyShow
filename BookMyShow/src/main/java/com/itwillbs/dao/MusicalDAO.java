@@ -1,3 +1,5 @@
+
+
 package com.itwillbs.dao;
 
 import java.util.List;
@@ -6,15 +8,24 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.itwillbs.domain.MusicalDTO;
+
+import com.itwillbs.domain.MusicalMainDTO;
+import com.itwillbs.domain.Performance.MusicalDTO;
 
 @Repository
 public class MusicalDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
+	private static final String namespace = "com.itwillbs.mapper.MusicalMapper";
 	
-	private static final String namespace="com.itwillbs.mapper.MusicalMapper";
+	
+	public List<MusicalMainDTO> getMusical_Page(MusicalMainDTO musicalMainDTO) {
+		
+		
+		return sqlSession.selectList(namespace + ".getMusical_Page", musicalMainDTO);
+		
+	}
 	
 	// ������ ���� ���� ������Ʈ
     public void updateMusicalApproval(int approved) {
@@ -39,9 +50,11 @@ public class MusicalDAO {
 	public MusicalDTO getMusical(String title) {
 		// TODO Auto-generated method stub
 		return  sqlSession.selectOne(namespace + ".getMusical", title);
-	}
-	
-	
-	
+	}	
+
+
+
+
 	
 }
+
