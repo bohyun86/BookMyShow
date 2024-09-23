@@ -82,7 +82,7 @@ public class PartnerController implements ServletContextAware {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "redirect:/partner/login";
+        return "redirect:/main/main";
     }
 
 
