@@ -41,10 +41,13 @@ public class UserDTO {
     @OneToOne
     private PartnerDTO partnerDTO;
 
+
     
 
     @OneToMany
     private List<PartnerQnaDTO>partnerQnaDTO;
+
+
 
 
     @Column(name = "is_encoded")
@@ -56,7 +59,6 @@ public class UserDTO {
     @Column(name = "temp_password_created_at")
     @UpdateTimestamp
     private Timestamp tempPasswordCreatedAt;
-
 
 
 }
