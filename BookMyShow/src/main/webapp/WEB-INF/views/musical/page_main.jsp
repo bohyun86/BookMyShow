@@ -80,8 +80,18 @@
                     </a>
                     <!-- 카드 바디가 콘텐츠에 맞춰 자연스럽게 확장되도록 설정 -->
                     <div class="card-body w-100" style="flex-grow: 1;">
-                        <p class="area">${MusicalDTO.region_name1}</p>
-                        
+                        <c:if test="${!MusicalDTO.region_name1 eq null }" >
+                        	<p class="area">${MusicalDTO.region_name1}</p>
+                	 	</c:if>
+                       	<c:if test="${!MusicalDTO.region_name2 eq null }" >
+                       	 	<p class="area">${MusicalDTO.region_name2}</p>
+                     	 </c:if>
+                      	 <c:if test="${!MusicalDTO.region_name3 eq null }" >
+                      	 	<p class="area">${MusicalDTO.region_name3}</p>
+                       	 </c:if>
+                     	 <c:if test="${!MusicalDTO.region_name4 eq null }" >
+                     	 	<p class="area">${MusicalDTO.region_name4}</p>
+                        </c:if>
                         <p class="category">🗂️${MusicalDTO.genre_name}</p>
                        
                         <h6 class="title">${MusicalDTO.title}</h6>

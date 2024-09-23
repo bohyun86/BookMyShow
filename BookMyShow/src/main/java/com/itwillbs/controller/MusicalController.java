@@ -44,6 +44,7 @@ public class MusicalController {
 	    }
 	  if (regionValue != null) {
 	    	musicalMainDTO.setRegionCheck("true");
+	    	musicalMainDTO.setRegion_name1(regionValue);	
 	        if(regionValue.equals("경기")) {
 	        	musicalMainDTO.setRegion_name1("경기");
 	        	musicalMainDTO.setRegion_name2("인천");
