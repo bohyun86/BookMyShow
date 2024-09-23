@@ -106,7 +106,7 @@ function searchTheater() {
         debounceTimer = setTimeout(() => {
             const query = search.value;  // 검색어를 가져오는 부분 수정
             if (query !== '') {
-                fetch(`/theater/theater-info?theaterName=${encodeURIComponent(query)}`, {
+                fetch(`/theater/theater-info?theaterName=${query}`, {
                     headers: {
                         'Accept-Charset': 'UTF-8',  // UTF-8로 응답을 받도록 설정
                         'Content-Type': 'application/xml; charset=UTF-8'  // 요청의 Content-Type을 UTF-8로 설정
