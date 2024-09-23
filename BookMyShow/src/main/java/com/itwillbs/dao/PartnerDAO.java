@@ -54,14 +54,29 @@ public class PartnerDAO {
 	}
 
 
-	public List<PartnerQnaDTO> PartnerQnaAnser(int inquiryId) {
-		// TODO Auto-generated method stub
-		return sqlSession.selectList(namespace + ".PartnerQnaAnser",inquiryId);
-	} //문의내용
+//	public List<PartnerQnaDTO> PartnerQnaAnser(int inquiryId) {
+//		// TODO Auto-generated method stub
+//		return sqlSession.selectList(namespace + ".PartnerQnaAnser",inquiryId);
+//	} //문의내용 답변문의 불러오면 삭제
 
 
 	public void qnaAnswerOK(int inquiryId) {
 		sqlSession.update(namespace + ".qnaAnswerOK", inquiryId);
+	} 
+	
+	public void qnaAnswerContentOK(String answerContent ,int inquiryId) {
+		 Map<String, Object> params = new HashMap<>();
+		    params.put("answerContent", answerContent);  // 답변 내용
+		    params.put("inquiryId", inquiryId);  // inquiryId
+		    sqlSession.update(namespace + ".qnaAnswerContentOK", params);
+
+//		sqlSession.update(namespace + ".qnaAnswerContentOK", answerContent);
+	} 
+
+
+	public List<PartnerQnaDTO> PartnerQnaAnser(int inquiryId,String answerContent) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace + ".PartnerQnaAnser",inquiryId);
 	}
 
 

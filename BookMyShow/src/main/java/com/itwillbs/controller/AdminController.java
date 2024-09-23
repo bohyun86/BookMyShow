@@ -304,12 +304,14 @@ public class AdminController {
 
     
     @GetMapping("/partner_qnaAnswer")
-    public String partner_qnaAnswer(@RequestParam("inquiryId") int inquiryId,Model model) {
+    public String partner_qnaAnswer(@RequestParam("inquiryId") int inquiryId,
+    								@RequestParam(required = false) String answerContent,Model model) {
     	log.info("admin partner_qnaAnswer success");
     	
     	
     	
-    	List<PartnerQnaDTO> partnerQna = partnersServiceAdmin.PartnerQnaAnser(inquiryId);
+//    	List<PartnerQnaDTO> partnerQna = partnersServiceAdmin.PartnerQnaAnser(inquiryId);
+    	List<PartnerQnaDTO> partnerQna = partnersServiceAdmin.PartnerQnaAnser(inquiryId,answerContent);
     	
     	model.addAttribute("partnerQna", partnerQna);
 //    	 List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.selectAllPartnerQnaList();
@@ -325,14 +327,17 @@ public class AdminController {
     
     @PostMapping("/qnaAnswerOK")
     public String qnaAnswerOK(Model model,
-    						  @RequestParam("inquiryId") int inquiryId
+    						  @RequestParam("inquiryId") int inquiryId,
+    						  @RequestParam("answerContent") String answerContent
     						  ) {
     	log.info("admin qnaAnswerOK success");
     	partnersServiceAdmin.qnaAnswerOK(inquiryId);
+    	partnersServiceAdmin.qnaAnswerContentOK(answerContent,inquiryId);  
 //    	System.out.println("admin answered"+answered);
 
 //    	List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.qnaAnswerOK(inquiryId);
     	System.out.println("admin inquiryId"+inquiryId);
+    	System.out.println("admin answerContent"+answerContent);
     	List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.selectAllPartnerQnaList();
         model.addAttribute("partnerQnaList", partnerQnaList); //답변상태최신으로업데이트
         

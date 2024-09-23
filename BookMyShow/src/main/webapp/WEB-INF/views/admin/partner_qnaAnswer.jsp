@@ -90,12 +90,22 @@
                                                       
                                         <div class="form-group col answer">
                                             <label class="col-form-label">답변내용</label>
-                                            <textarea type="text" name="answer" placeholder="답변할 내용을 입력해주세요" style="width: 600px;"
+                                           
+                                            <c:choose>
+                           					 <c:when test="${partnerQna.answerContent == null}">
+                                            <textarea type="text" name="answerContent" placeholder="답변할 내용을 입력해주세요" style="width: 600px;"
                                                       ></textarea>
+                                                      </c:when>
+                                                      <c:otherwise>
+                                                      <textarea type="text" name="answerContent" style="width: 600px;"
+                                                      >${partnerQna.answerContent}</textarea>
+                                                      
+                                                      </c:otherwise>
+                                                      </c:choose>
                                                       </div>
                                                       
                                         <input type="hidden" name="inquiryId" value="${partnerQna.inquiryId}">
-<!--                                         <input type="hidden" name="answered" value="1"> -->
+                                        <input type="hidden" name="answerContent" value="${partnerQnaList.answerContent}">
                                         </div>
                                         </c:forEach>
                                         </c:if>

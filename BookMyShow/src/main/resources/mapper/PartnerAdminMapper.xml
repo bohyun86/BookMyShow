@@ -76,7 +76,7 @@
 	    <!-- 파트너 문의답변페이지로 불러오기  -->
 	<select id="PartnerQnaAnser"   resultMap="partnerQnaResultMap"  >
 	
-	SELECT title,content,inquiry_id,answer_content
+	SELECT *
 	FROM Inquiry 
 	where inquiry_id =#{inquiryId}
 	    </select> 
@@ -84,9 +84,17 @@
 	    <update id="qnaAnswerOK" >
     UPDATE Inquiry
     SET answered = 1
+    ,answer_content =#{answerContent}
     WHERE inquiry_id = #{inquiryId}
 </update>
 	    
+	    <update id="qnaAnswerContentOK"  parameterType="map">
+      UPDATE Inquiry set
+    answer_content =#{answerContent}
+    WHERE inquiry_id = #{inquiryId}
+</update>
+
+
     
 
 </mapper>

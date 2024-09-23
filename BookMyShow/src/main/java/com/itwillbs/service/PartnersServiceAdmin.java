@@ -49,15 +49,32 @@ public class PartnersServiceAdmin {
 		}
 
 
-	public List<PartnerQnaDTO> PartnerQnaAnser(int inquiryId) {
-		// TODO Auto-generated method stub
-		return partnerDAO.PartnerQnaAnser(inquiryId);
-	}//문의내용
+//	public List<PartnerQnaDTO> PartnerQnaAnser(int inquiryId) {
+//		// TODO Auto-generated method stub
+//		return partnerDAO.PartnerQnaAnser(inquiryId);
+//	}//문의내용 밑에 답변문의 내용 불러오면 이메소드 삭제
+	 
 
 
+//	public void qnaAnswerOK(int inquiryId,String answerContent) {
+//		 System.out.println("PartnersServiceAdmin"+inquiryId);
+//		  partnerDAO.qnaAnswerOK(inquiryId);
+//	} 
+	
 	public void qnaAnswerOK(int inquiryId) {
 		 System.out.println("PartnersServiceAdmin"+inquiryId);
 		  partnerDAO.qnaAnswerOK(inquiryId);
+	} 
+
+	 public void qnaAnswerContentOK(String answerContent,int inquiryId) {
+//		 System.out.println("PartnersServiceAdmin"+answerContent);
+		  partnerDAO.qnaAnswerContentOK(answerContent,inquiryId);
+	} 
+
+
+	public List<PartnerQnaDTO> PartnerQnaAnser(int inquiryId,String answerContent) {
+		// TODO Auto-generated method stub
+		return partnerDAO.PartnerQnaAnser(inquiryId,answerContent);
 	}
 
 
