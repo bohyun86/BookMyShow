@@ -23,7 +23,7 @@ public class UserController {
         log.info("join: {}", userDTO);
 
         if (userServiceImpl.insertUser(userDTO)) {
-            return "redirect:/main/";
+            return "redirect:/main/main";
         } else {
             return "redirect:/login/join";
         }
