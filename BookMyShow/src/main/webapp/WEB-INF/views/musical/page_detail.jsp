@@ -552,9 +552,168 @@
 <jsp:include page="../include/bottom.jsp"/>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-<script src="${pageContext.request.contextPath}/resources/js/carousel.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/cards.js"></script>
-<script src="${pageContext.request.contextPath}/resources/js/dropdown.js"></script>
+
+<script>
+//dropdown
+//JavaScript to toggle dropdown menu visibility
+document.getElementById('cs-dropdown').addEventListener('mouseover', function(event) {
+    event.preventDefault(); // Prevent default link behavior
+    const dropdownMenu = document.getElementById('cs-dropdown-menu');
+    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
+});
+
+
+
+// Hide the dropdown when clicking outside
+document.addEventListener('click', function(event) {
+    const dropdownMenu = document.getElementById('cs-dropdown-menu');
+    const isClickInside = document.getElementById('cs-dropdown').contains(event.target);
+    if (!isClickInside && dropdownMenu.style.display === 'block') {
+        dropdownMenu.style.display = 'none';
+    }
+});
+
+//carousel
+const slides = document.querySelectorAll('.slide');
+const dots = document.querySelectorAll('.dot');
+let currentIndex = 0;
+
+// 모든 슬라이드에 부드러운 전환 효과 추가
+slides.forEach((slide) => {
+    slide.style.transition = 'transform 0.5s ease-in-out';
+});
+
+dots.forEach((dot, index) => {
+    dot.addEventListener('click', () => {
+        currentIndex = index;
+        slides.forEach((slide) => {
+            slide.style.transform = `translateX(-${currentIndex * 100}%)`;
+        });
+    });
+});
+
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' && currentIndex < slides.length - 1) {
+        currentIndex++;
+    } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
+        currentIndex--;
+    }
+    slides.forEach((slide) => {
+        slide.style.transform = `translateX(-${currentIndex * 100}%)`;
+    });
+});
+
+//card
+document.addEventListener('DOMContentLoaded', function () {
+    CardsMove("new-open");
+    CardsMove("time-sale");
+
+    function CardsMove(className) {
+        // 선택자에서 .${className} 대신 `.className` 사용
+        const cardsContainer = document.querySelector(`.${className}.cards`);
+        const cards = document.querySelectorAll(`.${className}.card`);
+        const prevBtn = document.querySelector(`.${className}.prev-btn`);
+        const nextBtn = document.querySelector(`.${className}.next-btn`);
+
+        console.log(cardsContainer, cards, prevBtn, nextBtn);
+
+        let currentIndex = 0;
+        const maxIndex = cards.length - 5; // 5개가 한 번에 보이기 때문
+
+        function updateCardsPosition() {
+            cardsContainer.style.transform = `translateX(-${currentIndex * 240}px)`; // 220px 카드 너비 + 20px 마진
+        }
+
+        nextBtn.addEventListener('click', function () {
+            if (currentIndex < maxIndex) {
+                currentIndex++;
+                updateCardsPosition();
+            }
+        });
+
+        prevBtn.addEventListener('click', function () {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateCardsPosition();
+            }
+        });
+    }
+});
+
+//calendar
+ let date = new Date();
+
+const renderCalender = () => {
+    const viewYear = date.getFullYear();
+    const viewMonth = date.getMonth();
+   
+    document.querySelector('.year-month').textContent = `${viewYear}년 ${viewMonth + 1}월`;
+   
+    const prevLast = new Date(viewYear, viewMonth, 0);
+    const thisLast = new Date(viewYear, viewMonth + 1, 0);
+   
+    const PLDate = prevLast.getDate();
+    const PLDay = prevLast.getDay();
+   
+   const TLDate = thisLast.getDate();
+   const TLDay = thisLast.getDay();
+   
+    const prevDates = [];
+    const thisDates = [...Array(TLDate + 1).keys()].slice(1);
+    const nextDates = [];
+   
+    if(PLDay !== 6) {
+       for(let i = 0; i < PLDay + 1; i++) {
+           prevDates.unshift(PLDate - i);
+       }
+    }
+   
+    for (let i = 1; 1 < 7 - TLDay; i++) {
+       nextDates.push(i);
+    }
+   
+    const dates = prevDates.concat(thisDates, nextDates);
+    const firstDateIndex = new dates.indexOf(1);
+    const lastDateIndex = dates.lastIndexOf(TLDate);
+
+    dates.forEach((date, i) => {
+        const condition = i >= firstDateIndex && i < lastDateIndex + 1
+                          ? 'this'
+                          : 'other';
+       dates[i] = `<div class="date"><span class=${condition}>${date}</span></div>`;
+    });
+   
+    document.querySelector('.dates').innerHTML =dates.join('');
+
+    const today = new Date();
+    if(viewMonth === today.getMonth() && viewYear === today.getFullYear()) {
+        for (let date of document.querySelectorAll('.this')) {
+            if (+date.innerText === today.getDate()) {
+                date.classList.add('todaty');
+                break;
+            } 
+        }
+    }
+};
+
+renderCalender();
+
+const prevMonth = () => {
+    date.setMonth(date.getMonth() - 1);
+    renderCalender();
+};
+
+const nextMonth = () => {
+    date.setMonth(date.getMonth() + 1);
+    renderCalender();
+};
+
+const goToday = () => {
+    date = new Date();
+    renderCalender();
+};
+
+</script>
 
 
 

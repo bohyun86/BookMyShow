@@ -73,8 +73,7 @@
                 <!-- 카드 간 위아래 margin 추가 -->
                 <div class="card new-open" 
                      style="width: 100%; margin-bottom: 60px; display: flex; flex-direction: column;">
-                    <a href="${pageContext.request.contextPath}/musical/page_detail">
-<%--                     <a href="${pageContext.request.contextPath}/musical/page_detail?musical_id=${MusicalDTO.musical_id}"> --%>
+                    <a href="${pageContext.request.contextPath}/musical/page_detail?musical_id=${MusicalDTO.musical_id}"> 
                         <img src="${pageContext.request.contextPath}/resources/upload/${MusicalDTO.upload_path }/${MusicalDTO.uuid}_${MusicalDTO.file_name}"
                             class="card-img-top" alt="..." style="width: 100%; height: auto;">
                     </a>

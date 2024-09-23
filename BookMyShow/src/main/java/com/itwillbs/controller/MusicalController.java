@@ -1,6 +1,7 @@
 package com.itwillbs.controller;
 
-import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -79,7 +80,13 @@ public class MusicalController {
        return "/musical/page_main" ;
     }
 
-
+  
+  	@RequestMapping("/page_detail")
+  	public String musicalPage_detail() {
+	  
+  		
+  		return "/musical/page_detail";
+  	}
 
 
 
