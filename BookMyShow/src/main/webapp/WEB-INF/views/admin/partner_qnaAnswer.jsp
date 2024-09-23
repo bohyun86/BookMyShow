@@ -69,7 +69,7 @@
                             
 <!--                                 <form enctype="multipart/form-data" class="was-validated"> -->
 
-									<form action="${pageContext.request.contextPath}/admin/qnaAnswerOK" method="post">
+									<form action="${pageContext.request.contextPath}/admin/qnaAnswerOK"  method="post">
 									
                                 <c:if test="${not empty partnerQna}">
     						<c:forEach var="partnerQna" items="${partnerQna}">
@@ -88,14 +88,14 @@
                                                       >${partnerQna.content}</textarea>
                                                       </div>
                                                       
-                                        <div class="form-group col request">
+                                        <div class="form-group col answer">
                                             <label class="col-form-label">답변내용</label>
-                                            <textarea type="text" name="request" placeholder="답변할 내용을 입력해주세요"
+                                            <textarea type="text" name="answer" placeholder="답변할 내용을 입력해주세요" style="width: 600px;"
                                                       ></textarea>
                                                       </div>
                                                       
                                         <input type="hidden" name="inquiryId" value="${partnerQna.inquiryId}">
-                                        <input type="hidden" name="answered" value="1">
+<!--                                         <input type="hidden" name="answered" value="1"> -->
                                         </div>
                                         </c:forEach>
                                         </c:if>

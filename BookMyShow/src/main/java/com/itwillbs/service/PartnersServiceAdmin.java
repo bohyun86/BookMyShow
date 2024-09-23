@@ -55,11 +55,20 @@ public class PartnersServiceAdmin {
 	}//문의내용
 
 
-	@Transactional
-	public void qnaAnswerOK(int inquiryId,int answered ) {
-        partnerDAO.qnaAnswerOK(inquiryId,answered); // 1로 업데이트
-    }
+	public void qnaAnswerOK(int inquiryId) {
+		 System.out.println("PartnersServiceAdmin"+inquiryId);
+		  partnerDAO.qnaAnswerOK(inquiryId);
+	}
 
+
+
+
+
+
+
+
+
+	
 
 
 	

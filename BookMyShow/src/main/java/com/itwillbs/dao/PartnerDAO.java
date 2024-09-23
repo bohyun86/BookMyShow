@@ -60,12 +60,10 @@ public class PartnerDAO {
 	} //문의내용
 
 
-	public void qnaAnswerOK(int inquiryId,int answered) {
-		 Map<String, Object> params = new HashMap<>();
-	        params.put("inquiryId", inquiryId);
-	        params.put("answered", answered);
-	        sqlSession.update(namespace + ".qnaAnswerOK", params);
+	public void qnaAnswerOK(int inquiryId) {
+		sqlSession.update(namespace + ".qnaAnswerOK", inquiryId);
 	}
+
 
 
 

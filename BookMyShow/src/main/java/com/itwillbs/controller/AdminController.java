@@ -358,14 +358,15 @@ public class AdminController {
     
     
     @PostMapping("/qnaAnswerOK")
-    public String qnaAnswerOK(@RequestParam(value = "answered", defaultValue = "1") int answered,Model model,
+    public String qnaAnswerOK(Model model,
     						  @RequestParam("inquiryId") int inquiryId
     						  ) {
     	log.info("admin qnaAnswerOK success");
-    	partnersServiceAdmin.qnaAnswerOK(inquiryId,answered);
-    	System.out.println("admin answered"+answered);
-    	System.out.println("admin inquiryId"+inquiryId);
+    	partnersServiceAdmin.qnaAnswerOK(inquiryId);
+//    	System.out.println("admin answered"+answered);
 
+//    	List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.qnaAnswerOK(inquiryId);
+    	System.out.println("admin inquiryId"+inquiryId);
     	List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.selectAllPartnerQnaList();
         model.addAttribute("partnerQnaList", partnerQnaList); //답변상태최신으로업데이트
         
