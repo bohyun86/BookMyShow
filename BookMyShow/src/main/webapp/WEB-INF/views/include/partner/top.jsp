@@ -1,10 +1,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:if test="${sessionScope.userRole != 'partner'}">
-<%--    <script>--%>
-<%--        alert('파트너로 로그인해주세요.');--%>
-<%--        location.href = '${pageContext.request.contextPath}/partner/login/';--%>
-<%--    </script>--%>
+    <script>
+        alert('파트너로 로그인해주세요.');
+        location.href = '${pageContext.request.contextPath}/partner/login/';
+    </script>
 </c:if>
 <div class="dashboard-header">
     <nav class="navbar navbar-expand-lg bg-white fixed-top">

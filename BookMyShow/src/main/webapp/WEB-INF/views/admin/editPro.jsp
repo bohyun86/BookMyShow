@@ -1,5 +1,3 @@
-
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -7,7 +5,7 @@
 <html lang="en">
 
 <head>
-<!-- jquery 3.3.1 -->
+    <!-- jquery 3.3.1 -->
     <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
@@ -125,7 +123,8 @@
                                                     <p class="region-p">※ 공연장이 대학로인 경우 "대학로"라고 직접 기입해주세요.</p>
                                                 </div>
 
-                                                <input type="hidden" class="theater-id" name="publicVenueId" value="${performanceTempDTO.publicVenueId}">
+                                                <input type="hidden" class="theater-id" name="publicVenueId"
+                                                       value="${performanceTempDTO.publicVenueId}">
 
                                                 <div class="input-group" id="address-detail">
                                                     <div class="address-first-line">
@@ -433,9 +432,13 @@
                                         <div class="form-group col">
                                             <label class="col-form-label"></label>
                                             <div id="edit-button-group">
-                                                <button class="btn btn-primary revise-btn"
-                                                       Style="color: white">수정
-                                                </button>
+                                                <c:choose>
+                                                    <c:when test="${!approval}">
+                                                        <button class="btn btn-primary revise-btn"
+                                                                Style="color: white">수정
+                                                        </button>
+                                                    </c:when>
+                                                </c:choose>
                                                 <button class="btn btn-primary delete-btn"
                                                         Style="color: white">삭제
                                                 </button>
@@ -640,7 +643,7 @@
 
                     // 한 번 실행 후에 해당 이벤트 리스너를 제거하여 중복 등록을 방지
                     form.removeEventListener('submit', handleSubmit);
-                }, { once: true }); // 한 번만 실행되도록 설정
+                }, {once: true}); // 한 번만 실행되도록 설정
             });
         });
     </script>
@@ -649,5 +652,5 @@
 </body>
 
 
->>>>>>> branch 'soyeon' of https://github.com/bohyun86/BookMyShow.git
+>>>>>>> refs/heads/develop
 </html>
