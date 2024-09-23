@@ -58,6 +58,11 @@ public class SupportService {
 		supportNoticeDTO.setUpdate_at(new Timestamp(System.currentTimeMillis()));
 		supportDAO.updateNotice(supportNoticeDTO);
 	}
+    
+    public void deleteNotice(SupportNoticeDTO supportNoticeDTO) {
+		System.out.println("SupportService deleteNotice()");
+		supportDAO.deleteNotice(supportNoticeDTO);
+	}
 	
 	public void insertQna(SupportqnaDTO supportqnaDTO) {
 		System.out.println("SupportService insertQna()");
@@ -98,6 +103,11 @@ public class SupportService {
 		System.out.println("SupportService updateQna()");
 		supportqnaDTO.setUpdated_at(new Timestamp(System.currentTimeMillis()));
 		supportDAO.updateQna(supportqnaDTO);
+	}
+    
+    public void deleteQna(SupportqnaDTO supportqnaDTO) {
+		System.out.println("SupportService deleteQna()");
+		supportDAO.deleteQna(supportqnaDTO);
 	}
 	
 	public void insertInquiry(SupportinquiryDTO supportinquiryDTO) {

@@ -117,6 +117,16 @@ public class SupportController {
 		return "redirect:/support/notice";
 	}
     
+    @GetMapping("support/ntdelete")
+	public String ntdelete(SupportNoticeDTO supportNoticeDTO){
+		System.out.println("SupportController ntdelete()");
+		System.out.println(supportNoticeDTO);
+
+		supportService.deleteNotice(supportNoticeDTO);
+		
+		return "redirect:/support/notice";
+	}
+    
     @GetMapping("/support/frequentQuestion")
    	public String frequentQuestion(HttpServletRequest request, Model model) {
        	log.info("frequentQuestion success");
@@ -195,6 +205,16 @@ public class SupportController {
 		System.out.println(supportqnaDTO);
 
 		supportService.updateQna(supportqnaDTO);
+		
+		return "redirect:/support/frequentQuestion";
+	}
+    
+    @GetMapping("support/qnadelete")
+	public String qnadelete(SupportqnaDTO supportqnaDTO){
+		System.out.println("SupportController qnadelete()");
+		System.out.println(supportqnaDTO);
+
+		supportService.deleteQna(supportqnaDTO);
 		
 		return "redirect:/support/frequentQuestion";
 	}

@@ -64,7 +64,7 @@
     text-decoration: none;
     color: black; 
     border-radius: 5px;
-    margin-left: 580px;
+    margin-left: 340px;
     }
     </style>
     <style>
@@ -91,7 +91,7 @@
 					    </div>
 					<p class="btn_line txt_right">
 				<a href="javascript:document.fr.submit();" class="btn_bbs1">자주 묻는 질문 수정</a>
-
+                <a href="${pageContext.request.contextPath}/support/qnadelete?faq_id=${supportqnaDTO.faq_id}" class="btn_bbs2">자주 묻는 질문 삭제</a>
 				<a href="${pageContext.request.contextPath}/support/frequentQuestion" class="btn_bbs2">돌아가기</a>
 			</p>
 		</form>

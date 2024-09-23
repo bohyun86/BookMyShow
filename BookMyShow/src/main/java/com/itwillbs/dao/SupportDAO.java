@@ -55,6 +55,12 @@ public void updateNotice(SupportNoticeDTO supportNoticeDTO) {
 	sqlSession.update(namespace + ".updateNotice" , supportNoticeDTO);
 }
 
+public void deleteNotice(SupportNoticeDTO supportNoticeDTO) {
+	System.out.println("SupportDAO deleteNotice()");
+	
+	sqlSession.delete(namespace + ".deleteNotice" , supportNoticeDTO);
+}
+
 public Integer getMaxNum1() {
 	System.out.println("SupportDAO getMaxNum1()");
 	return sqlSession.selectOne(namespace + ".getMaxNum1");
@@ -89,6 +95,12 @@ public void updateQna(SupportqnaDTO supportqnaDTO) {
 	System.out.println("SupportDAO updateQna()");
 	
 	sqlSession.update(namespace + ".updateQna" , supportqnaDTO);
+}
+
+public void deleteQna(SupportqnaDTO supportqnaDTO) {
+	System.out.println("SupportDAO deleteQna()");
+	
+	sqlSession.delete(namespace + ".deleteQna" , supportqnaDTO);
 }
 
 public Integer getMaxNum2() {

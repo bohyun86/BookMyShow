@@ -35,6 +35,11 @@
 		where notice_id = #{notice_id}             
 	</update>
 	
+	<delete id="deleteNotice">
+		delete from Notice
+		where notice_id = #{notice_id}             
+	</delete>
+	
 	<insert id="insertQna">
 		insert into FAQ(faq_id,question,answer,created_at)
 		values(#{faq_id},#{question},#{answer},#{created_at})
@@ -64,6 +69,11 @@
 		set question = #{question}, answer = #{answer}, updated_at = #{updated_at}
 		where faq_id = #{faq_id}             
 	</update>
+	
+	<delete id="deleteQna">
+		delete from FAQ
+		where faq_id = #{faq_id}             
+	</delete>
 	
 	<insert id="insertInquiry">
 		insert into Inquiry(inquiry_id,inquiry_type,title,content,created_at,user_id,answered)
