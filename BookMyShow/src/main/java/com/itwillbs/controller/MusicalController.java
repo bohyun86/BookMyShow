@@ -72,7 +72,7 @@ public class MusicalController {
 	  
 	  
 	  
-	  model.addAttribute("getMusical", musicalService.getMusical(musicalMainDTO));
+	  model.addAttribute("getMusical", musicalService.getMusical_Page(musicalMainDTO));
 	  
 	  
        return "/musical/page_main" ;

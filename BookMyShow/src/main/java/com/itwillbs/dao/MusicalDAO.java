@@ -17,13 +17,13 @@ public class MusicalDAO {
 
 	@Autowired
 	private SqlSession sqlSession;
-	private static final String namespace = "com.itwillbs.mapper.MusicalMapper.";
+	private static final String namespace = "com.itwillbs.mapper.MusicalMapper";
 	
 	
-	public List<MusicalMainDTO> getMusical(MusicalMainDTO musicalMainDTO) {
+	public List<MusicalMainDTO> getMusical_Page(MusicalMainDTO musicalMainDTO) {
 		
 		
-		return sqlSession.selectList(namespace + "getMusical", musicalMainDTO);
+		return sqlSession.selectList(namespace + ".getMusical_Page", musicalMainDTO);
 		
 	}
 	

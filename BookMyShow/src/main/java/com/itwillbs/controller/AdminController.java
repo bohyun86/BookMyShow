@@ -128,7 +128,7 @@ public class AdminController {
         System.out.println("AdminController findKeyword::" + findKeyword);
 
         if ("1".equals(searchType)) {
-            List<MusicalDTO> musicalList = musicalService.getMusicalByPartnerId(findKeyword);
+            List<com.itwillbs.domain.Performance.MusicalDTO> musicalList = musicalService.getMusicalByPartnerId(findKeyword);
             // ��Ʈ�� ID�� �˻�
             if (musicalList != null && !musicalList.isEmpty()) {
                 // ����Ʈ�� ù ��° �׸��� ������ URL �Ķ���ͷ� ���
@@ -144,7 +144,7 @@ public class AdminController {
                 return "redirect:/admin/search";
             }
         } else if ("2".equals(searchType)) {
-            MusicalDTO musicalDTO = musicalService.getMusicalByTitle(findKeyword);
+            com.itwillbs.domain.Performance.MusicalDTO musicalDTO = musicalService.getMusicalByTitle(findKeyword);
 //    		UserDTO userDTO = 
 //    		System.out.println("userDTO"+userDTO);
             if (musicalDTO != null) {
