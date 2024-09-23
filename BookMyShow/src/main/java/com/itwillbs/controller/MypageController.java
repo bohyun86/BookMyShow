@@ -280,7 +280,7 @@ public class MypageController {
 		} catch (Exception e) {
 			log.error("프로필 업데이트 중 오류 발생", e);
 		}
-		return "redirect:/my/bookings";
+		return "redirect:/my/profile-edit";
 	}
 
 	@GetMapping("/withdrawal")
