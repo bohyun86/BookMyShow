@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.SupportNoticeDTO;
@@ -88,6 +89,33 @@ public class SupportController {
 		return "/support/notice";
 	}
 	
+    @GetMapping("/support/ntcontent")
+	public String ntcontent(@RequestParam("notice_id") int notice_id, Model model) {
+    	log.info("ntcontent success");
+        SupportNoticeDTO supportNoticeDTO = supportService.getNotice(notice_id);
+		
+		model.addAttribute("supportNoticeDTO", supportNoticeDTO);
+		return "/support/ntcontent";
+	}
+    
+    @GetMapping("/support/ntupdate")
+	public String ntupdate(@RequestParam("notice_id") int notice_id, Model model) {
+    	log.info("ntupdate success");
+    	SupportNoticeDTO supportNoticeDTO = supportService.getNotice(notice_id);
+    	
+		model.addAttribute("supportNoticeDTO", supportNoticeDTO);
+		return "/support/ntupdate";
+	}
+    
+    @PostMapping("support/ntupdatePro")
+	public String ntupdatePro(SupportNoticeDTO supportNoticeDTO){
+		System.out.println("SupportController ntupdatePro()");
+		System.out.println(supportNoticeDTO);
+
+		supportService.updateNotice(supportNoticeDTO);
+		
+		return "redirect:/support/notice";
+	}
     
     @GetMapping("/support/frequentQuestion")
    	public String frequentQuestion(HttpServletRequest request, Model model) {
@@ -137,9 +165,37 @@ public class SupportController {
     
     @PostMapping("support/qnawritePro")
 	public String qnawritePro(SupportqnaDTO supportqnaDTO) {
-		System.out.println("SupportController ntwritePro()");
+		System.out.println("SupportController qnawritePro()");
 		System.out.println(supportqnaDTO);
 		supportService.insertQna(supportqnaDTO);
+		return "redirect:/support/frequentQuestion";
+	}
+    
+    @GetMapping("/support/qnacontent")
+	public String qnacontent(@RequestParam("faq_id") int faq_id, Model model) {
+    	log.info("qnacontent success");
+        SupportqnaDTO supportqnaDTO = supportService.getQna(faq_id);
+		
+		model.addAttribute("supportqnaDTO", supportqnaDTO);
+		return "/support/qnacontent";
+	}
+    
+    @GetMapping("/support/qnaupdate")
+	public String qnaupdate(@RequestParam("faq_id") int faq_id, Model model) {
+    	log.info("qnaupdate success");
+    	SupportqnaDTO supportqnaDTO = supportService.getQna(faq_id);
+    	
+		model.addAttribute("supportqnaDTO", supportqnaDTO);
+		return "/support/qnaupdate";
+	}
+    
+    @PostMapping("support/qnaupdatePro")
+	public String qnapdatePro(SupportqnaDTO supportqnaDTO){
+		System.out.println("SupportController qnapdatePro()");
+		System.out.println(supportqnaDTO);
+
+		supportService.updateQna(supportqnaDTO);
+		
 		return "redirect:/support/frequentQuestion";
 	}
     

@@ -8,12 +8,12 @@ public class SupportqnaDTO {
 	private String question;
 	private String answer;
 	private Timestamp created_at;
-	private Timestamp update_at;
+	private Timestamp updated_at;
 	
 	@Override
 	public String toString() {
 		return "SupportqnaDTO [faq_id=" + faq_id + ", question=" + question + ", answer=" + answer + ", created_at="
-				+ created_at + ", update_at=" + update_at + "]";
+				+ created_at + ", updated_at=" + updated_at + "]";
 	}
 	
 	public int getFaq_id() {	
@@ -42,11 +42,11 @@ public class SupportqnaDTO {
 	public void setCreated_at(Timestamp created_at) {
 		this.created_at = created_at;
 	}
-	public Timestamp getUpdate_at() {
-		return update_at;
+	public Timestamp getUpdated_at() {
+		return updated_at;
 	}
-	public void setUpdate_at(Timestamp update_at) {
-		this.update_at = update_at;
+	public void setUpdated_at(Timestamp updated_at) {
+		this.updated_at = updated_at;
 	}
 	
 }

@@ -43,6 +43,18 @@ public int getNoticeCount(PageDTO pageDTO) {
 	return sqlSession.selectOne(namespace + ".getNoticeCount",pageDTO);
 }
 
+public SupportNoticeDTO getNotice(int notice_id) {
+	System.out.println("SupportDAO getNotice()");
+	
+	return sqlSession.selectOne(namespace + ".getNotice", notice_id);
+}
+
+public void updateNotice(SupportNoticeDTO supportNoticeDTO) {
+	System.out.println("SupportDAO updateNotice()");
+	
+	sqlSession.update(namespace + ".updateNotice" , supportNoticeDTO);
+}
+
 public Integer getMaxNum1() {
 	System.out.println("SupportDAO getMaxNum1()");
 	return sqlSession.selectOne(namespace + ".getMaxNum1");
@@ -65,6 +77,18 @@ public int getQnaCount(PageDTO pageDTO) {
 	System.out.println("SupportDAO getQnaCount()");
 	
 	return sqlSession.selectOne(namespace + ".getQnaCount",pageDTO);
+}
+
+public SupportqnaDTO getQna(int faq_id) {
+	System.out.println("SupportDAO getQna()");
+	
+	return sqlSession.selectOne(namespace + ".getQna", faq_id);
+}
+
+public void updateQna(SupportqnaDTO supportqnaDTO) {
+	System.out.println("SupportDAO updateQna()");
+	
+	sqlSession.update(namespace + ".updateQna" , supportqnaDTO);
 }
 
 public Integer getMaxNum2() {

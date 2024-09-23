@@ -16,12 +16,24 @@
 	
 	<select id="getNoticeList" resultType="com.itwillbs.domain.SupportNoticeDTO">
 		select * from Notice 
-
+        order by notice_id desc
+		limit #{startRow},#{pageSize}
 	</select>
 	
 	<select id="getNoticeCount" resultType="java.lang.Integer">
 		select count(*) from Notice
 	</select>
+	
+	<select id="getNotice" resultType="com.itwillbs.domain.SupportNoticeDTO">
+		select * from Notice
+		where notice_id = #{notice_id}
+	</select>
+	
+	<update id="updateNotice">
+		update Notice
+		set title = #{title}, content = #{content}, update_at = #{update_at}
+		where notice_id = #{notice_id}             
+	</update>
 	
 	<insert id="insertQna">
 		insert into FAQ(faq_id,question,answer,created_at)
@@ -34,12 +46,24 @@
 	
 	<select id="getQnaList" resultType="com.itwillbs.domain.SupportqnaDTO">
 		select * from FAQ 
-
+        order by faq_id desc
+		limit #{startRow},#{pageSize}
 	</select>
 	
 	<select id="getQnaCount" resultType="java.lang.Integer">
 		select count(*) from FAQ
 	</select>
+	
+	<select id="getQna" resultType="com.itwillbs.domain.SupportqnaDTO">
+		select * from FAQ
+		where faq_id = #{faq_id}
+	</select>
+	
+	<update id="updateQna">
+		update FAQ
+		set question = #{question}, answer = #{answer}, updated_at = #{updated_at}
+		where faq_id = #{faq_id}             
+	</update>
 	
 	<insert id="insertInquiry">
 		insert into Inquiry(inquiry_id,inquiry_type,title,content,created_at,user_id,answered)

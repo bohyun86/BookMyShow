@@ -46,6 +46,18 @@ public class SupportService {
 		
 		return supportDAO.getNoticeCount(pageDTO);
 	} 
+    
+    public SupportNoticeDTO getNotice(int notice_id) {
+		System.out.println("SupportService getNotice()");
+		
+		return supportDAO.getNotice(notice_id);
+	}
+    
+    public void updateNotice(SupportNoticeDTO supportNoticeDTO) {
+		System.out.println("SupportService updateNotice()");
+		supportNoticeDTO.setUpdate_at(new Timestamp(System.currentTimeMillis()));
+		supportDAO.updateNotice(supportNoticeDTO);
+	}
 	
 	public void insertQna(SupportqnaDTO supportqnaDTO) {
 		System.out.println("SupportService insertQna()");
@@ -75,6 +87,18 @@ public class SupportService {
 		
 		return supportDAO.getQnaCount(pageDTO);
 	} 
+    
+    public SupportqnaDTO getQna(int faq_id) {
+		System.out.println("SupportService getQna()");
+		
+		return supportDAO.getQna(faq_id);
+	}
+    
+    public void updateQna(SupportqnaDTO supportqnaDTO) {
+		System.out.println("SupportService updateQna()");
+		supportqnaDTO.setUpdated_at(new Timestamp(System.currentTimeMillis()));
+		supportDAO.updateQna(supportqnaDTO);
+	}
 	
 	public void insertInquiry(SupportinquiryDTO supportinquiryDTO) {
 		System.out.println("SupportService insertQna()");

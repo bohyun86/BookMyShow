@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>예매하다 - 자주 묻는 질문</title>
+    <title>예매하다 - 자주 묻는 질문 목록</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css">
     <!-- Bootstrap icons  -->
@@ -31,7 +31,7 @@
     border: 1px solid black;
     background-color: #eee;
     font-size: 16px;
-    margin-left: 480px;
+    margin-left: 400px;
     border-radius: 5px
     }
     </style>
@@ -76,7 +76,7 @@
     
        <c:if test="${ ! empty sessionScope.userRole }">
           <c:if test="${sessionScope.userRole eq 'admin'}">
-           <a href="${pageContext.request.contextPath}/support/qnawrite" class="btn_srch">faq 작성</a>
+           <a href="${pageContext.request.contextPath}/support/qnawrite" class="btn_srch">자주 묻는 질문 작성</a>
           </c:if>
          </c:if>
          </div>
@@ -92,17 +92,12 @@
 	<c:forEach var="supportqnaDTO" items="${qnaList }">
 	<ul class="qna-body">
 		<li style="width:35px;">${supportqnaDTO.faq_id }</li>
-		<li style="width:570px;"><a href="javascript:;">${supportqnaDTO.question }</a></li>
+		<li style="width:570px;"><a href="${pageContext.request.contextPath}/support/qnacontent?faq_id=${supportqnaDTO.faq_id}">${supportqnaDTO.question }</a></li>
 		<li style="width:90px"><fmt:formatDate value="${supportqnaDTO.created_at }" pattern="yyyy-MM-dd"/></li>
 	</ul>
 	</c:forEach>
-	
-        </div>
-    </section>
-</main>
 
 <div id="noticenum">
-<div class="pagination">
 				<c:if test="${pageDTO.currentPage ne 1}">
 					<a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${pageDTO.currentPage-1}" class="prevpage  pbtn">이전</a>
 				</c:if>
@@ -118,8 +113,11 @@
 				<c:if test="${pageDTO.currentPage ne pageDTO.pageCount}">
 					<a href="${pageContext.request.contextPath}/support/frequentQuestion?pageNum=${pageDTO.currentPage+1}" class="nextpage  pbtn">다음</a>
 				</c:if>
-			</div></div>
+			</div>
 
+        </div>
+    </section>
+</main>
 
 <jsp:include page="../include/bottom.jsp"/>
 
