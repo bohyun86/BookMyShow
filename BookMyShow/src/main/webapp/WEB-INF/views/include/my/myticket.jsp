@@ -1,7 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-
 <div class="container-fluid my-ticket-header-container px-0">
     <div class="my-ticket-header">
         <ul class="nav nav-pills nav-fill">

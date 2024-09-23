@@ -1,78 +1,86 @@
 @charset "UTF-8";
 
 #board-main {
-    display: flex;
-    justify-content: space-between;
-    max-width: 1100px;
-    margin: 0 auto;
+	display: flex;
+	justify-content: space-between;
+	max-width: 1100px;
+	margin: 0 auto;
 }
 
 #board-content {
-    width: 73%;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-    padding: 20px;
+	width: 73%;
+	background-color: white;
+	border-radius: 10px;
+	box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+	padding: 20px;
 }
 
 .title {
-    font-size: 1.5rem;
-    font-weight: bold;
-    padding-bottom: 1rem;
-    margin-bottom: 1rem;
-    border-bottom: 1px solid #ddd;
+	font-size: 1.5rem;
+	font-weight: bold;
+	padding-bottom: 1rem;
+	margin-bottom: 1rem;
+	border-bottom: 1px solid #ddd;
 }
 
 .review-summary {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 1rem;
+	display: flex;
+	justify-content: space-between;
+	margin-bottom: 1rem;
 }
 
 .review-item {
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 15px;
-    margin-bottom: 20px;
+	border: 1px solid #ddd;
+	border-radius: 8px;
+	padding: 15px;
+	margin-bottom: 20px;
+	transition: all 0.3s ease;
+}
+
+.review-item:hover {
+	transform: translateY(-3px);
+	box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .review-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 10px;
 }
 
 .star-rating .star {
-/*     cursor: pointer; */
-    font-size: 24px;
-    color: #ddd;
-    transition: color 0.2s;
+	/*     cursor: pointer; */
+	font-size: 40px;
+	color: #ddd;
+	transition: color 0.2s;
+	transition: all 0.3s ease;
 }
 
 .star-rating .star.filled {
-    color: #ffd700;
+	color: #ffd700;
+	transform: scale(1.2);
 }
 
 .review-content {
-    margin-bottom: 10px;
+	margin-bottom: 10px;
 }
 
 .review-footer {
-    display: flex;
-    justify-content: flex-end;
-    gap: 10px;
+	display: flex;
+	justify-content: flex-end;
+	gap: 10px;
 }
 
 /* 폼 스타일 */
 #reviewForm .form-label {
-    font-weight: bold;
+	font-weight: bold;
 }
 
 #reviewForm .form-control[readonly] {
-    background-color: #f8f9fa;
+	background-color: #f8f9fa;
 }
 
 #reviewForm .btn {
-    margin-right: 10px;
+	margin-right: 10px;
 }

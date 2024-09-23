@@ -98,7 +98,7 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<p>밤12시 자정을 기준으로:</p>
+					<p>밤12시 자정 기준</p>
 					<ul>
 						<li>7일 전: 전액 환불</li>
 						<li>6~4일 전: 10% 공제</li>
