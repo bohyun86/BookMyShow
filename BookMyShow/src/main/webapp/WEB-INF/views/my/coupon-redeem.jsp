@@ -25,11 +25,14 @@
 				</div>
 				<button type="submit" class="btn btn-primary">등록하기</button>
 			</form>
-			<div class="coupon-info">
-				<p>- 쿠폰 상품권을 등록하면 예매하다 포인트로 전환됩니다.</p>
-				<p>- 포인트는 예매하다에서 결제시 현금처럼 사용 가능합니다.</p>
-				<p>- 쿠폰을 등록한 뒤에는 환불 및 취소가 불가능합니다.</p>
-			</div>
+			<ul class="info-list">
+				<li><i class="bi bi-check-circle"></i> 쿠폰 상품권을 등록하면 예매하다 포인트로
+					전환됩니다.</li>
+				<li><i class="bi bi-check-circle"></i> 포인트는 예매하다에서 결제시 현금처럼 사용
+					가능합니다.</li>
+				<li><i class="bi bi-check-circle"></i> 쿠폰을 등록한 뒤에는 환불 및 취소가
+					불가능합니다.</li>
+			</ul>
 		</section>
 	</main>
 
