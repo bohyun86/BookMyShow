@@ -1,0 +1,146 @@
+.form-group {
+    width: 450px;
+}
+
+#simple-login small {
+    color: #ff4b4b;
+}
+
+#find-id, #find-pw {
+    background-color: #F6F6F6;
+    border-radius: 30px;
+}
+
+
+#find-id span, #find-pw span {
+    height: 60px;
+}
+
+#find-id i, #find-pw i {
+    font-size: 1.2rem;
+    color: #ff4b4b;
+    font-weight: bolder;
+}
+
+#simple-login-img img {
+    width: 85px;
+}
+
+#find-id-pw #find-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#find-id-pw #find-container #submit-forms {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 20px;
+    width: 500px;
+}
+
+#find-id-pw #find-container #submit-forms .nav.nav-tabs {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#find-id-pw #find-container #submit-forms .nav.nav-tabs .nav-item {
+    margin-top: 10px;
+    border: none;
+    width: 50%;
+    text-align: center;
+}
+
+
+#find-id-pw #find-container #submit-forms .nav.nav-tabs .nav-link {
+    border-bottom: 1px solid #ccc;
+    width: 100%;
+    height: 65px !important;
+    text-align: center;
+    font-weight: bold;
+    color: #ccc;
+    transition: none !important;
+
+}
+
+#find-id-pw #find-container #submit-forms .nav.nav-tabs .nav-link.active {
+    border-top: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: 2px solid black;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    color: black;
+    transition: none !important;
+}
+
+
+#find-id-pw #find-container #submit-forms form {
+    width: 450px;
+    padding: 20px;
+    background-color: white;
+}
+
+#find-id-pw #find-container #submit-forms form button {
+    background-color: #ff4b4b;
+    border: none;
+    font-weight: bolder;
+    font-size: 18px;
+    height: 60px;
+    width: 410px;
+    margin-top: 40px !important;
+}
+
+#find-id-pw #find-container #submit-forms form input {
+    height: 60px;
+    border-radius: 10px;
+    width: 360px;
+}
+
+#find-id-pw #find-container #submit-forms form .input-group {
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+
+#find-id-pw #find-container #submit-forms form .input-group span {
+    border-radius: 10px;
+}
+
+#find-id-pw #find-container #submit-forms p {
+    font-size: 24px;
+    font-weight: lighter;
+    margin-top: 5px;
+}
+
+#find-id-pw #find-container #submit-forms span {
+    font-weight: bolder;
+    color: black;
+}
+
+#find-id-pw #find-container #submit-forms .nav-item button {
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+#find-id-pw #find-container #submit-forms form .info {
+    font-size: 13px;
+    text-align: justify;
+    line-height: 180%;
+    color: #333;
+    border-radius: 10px;
+    border: none;
+    padding: 20px;
+    width: 410px;
+    margin-top: 30px;
+    background-color: #F6F6F6;
+}

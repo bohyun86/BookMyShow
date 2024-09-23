@@ -16,9 +16,17 @@ public interface UserMapper {
     UserDTO getUserByEmail(UserDTO userDTO);
 
     UserDTO getUserById(UserDTO userDTO);
-    
+
+    int updateUserPasswordAndEncode(UserDTO userDTO);
+
 	int updateUser(UserDTO userDTO);
 
 	int deleteUser(int userId);
-	
+
+    UserDTO findIdPro(UserDTO userDTO);
+
+    UserDTO findPwPro(UserDTO userDTO);
+
+    int updateUserTempPw(UserDTO userDTO);
+
 }
