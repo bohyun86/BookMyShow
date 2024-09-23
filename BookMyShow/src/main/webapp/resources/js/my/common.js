@@ -43,14 +43,18 @@ function initReceiptLookup() {
 function initRefundProcess() {
     const agreeCheckbox = document.getElementById('agreeRefund');
     const refundButton = document.getElementById('refundButton');
-    if (agreeCheckbox && refundButton) {
+    const refundForm = document.getElementById('refundForm');
+    
+    if (agreeCheckbox && refundButton && refundForm) {
         agreeCheckbox.addEventListener('change', function() {
             refundButton.disabled = !this.checked;
         });
-        refundButton.addEventListener('click', function() {
+        
+        refundForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
             if (confirm('정말로 환불을 진행하시겠습니까? 이 작업은 취소할 수 없습니다.')) {
-                alert('환불이 정상적으로 처리되었습니다.');
-                window.location.href = contextPath + '/my/refunds';
+                this.submit();
             }
         });
     }
