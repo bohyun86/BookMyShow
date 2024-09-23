@@ -83,7 +83,7 @@
 	    
 	    <update id="qnaAnswerOK" >
     UPDATE Inquiry
-    SET answered = #{answered}
+    SET answered = 1
     WHERE inquiry_id = #{inquiryId}
 </update>
 	    

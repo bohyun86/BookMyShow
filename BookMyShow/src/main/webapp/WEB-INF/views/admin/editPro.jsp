@@ -1,10 +1,13 @@
+
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <!doctype html>
-<html lang="ko">
+<html lang="en">
 
 <head>
+<!-- jquery 3.3.1 -->
+    <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -29,9 +32,8 @@
           integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/resources/admin_partner/documentation/css/performanceEnroll.css">
-    <title>공연 등록 - 예매하다</title>
+    <title>공연 승인, 수정 - 예매하다</title>
 </head>
-
 <body>
 <% request.setCharacterEncoding("UTF-8"); %>
 <!-- ============================================================== -->
@@ -64,7 +66,7 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title">신규등록</h2>
+                            <h2 class="pageheader-title">뮤지컬 수정</h2>
                             <div class="m-2 bg-white form-body">
                                 <form enctype="multipart/form-data" class="was-validated">
                                     <div class="p-3 mb-2 bg-body-tertiary">
