@@ -21,6 +21,9 @@ public class PartnersServiceAdmin {
 	
 	
 	
+	
+	
+	
     public UserDTO getPartnersy(String company_name,String id, String email, String phoneNumber, String name, String password,String createdAt, String user_role) {
 		System.out.println("partnersServiceAdmin getPartnersy::"+id);
 		System.out.println("partnersServiceAdmin getPartnersy id::"+id);
@@ -38,6 +41,7 @@ public class PartnersServiceAdmin {
 		System.out.println();
 		return partnerDAO.getPartnersy(id,password,company_name,name,business_id,account_number,bankName,email,createdAt);
 	} //파트너검색
+	
 	
 	public List<PartnerQnaDTO> getPartneQna(String id) {
 	    System.out.println("PartnersServiceAdmin::" +  id);
@@ -67,6 +71,12 @@ public class PartnersServiceAdmin {
 		// TODO Auto-generated method stub
 		return partnerDAO.PartnerQnaAnser(inquiryId,answerContent);
 	}
+
+
+	public List<PartnerDTO> partnersumbitList() {
+		// TODO Auto-generated method stub
+		return partnerDAO.partnersumbitList();
+	} //파트너 승인페이지 리스트
 
 
 

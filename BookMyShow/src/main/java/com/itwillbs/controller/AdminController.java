@@ -245,11 +245,35 @@ public class AdminController {
 	}
 
 	@GetMapping("/partner_submit")
-	public String partner_submit() {
+	public String partner_submit(Model model) {
 		log.info("admin partner_submit success");
+		
+		 List<PartnerDTO> partnerList = partnersServiceAdmin.partnersumbitList(); //파트너리스트
+	        model.addAttribute("partnerList", partnerList);
+	        
+	        System.out.println("partnerQnaList size: " + partnerList.size());
+	        System.out.println("partnerQnaList"+partnerList);
+	        
+		
+		
+		
+		
 		return "/admin/partner_submit";
 	}
 
+	@GetMapping("/partner_sumbitPro")
+	public String partner_sumbitPro(Model model) {
+		log.info("admin partner_submitPro success");
+		
+		 
+		
+		
+		
+		
+		return "/admin/partner_sumbitPro";
+	}
+
+	
 	@GetMapping("/partnerPro")
 
 	public String partnerPro(@RequestParam("userName") String userName, 
@@ -355,10 +379,19 @@ public class AdminController {
 		return "/admin/member";
 	}
 
+//	
+	
 	@GetMapping("/memberPro")
 	public String memberPro() {
 		log.info("admin memberPro success");
 		return "/admin/memberPro";
+	}
+	
+	
+	@GetMapping("/member_qna")
+	public String member_qna() {
+		log.info("admin member_qna success");
+		return "/admin/member_qna";
 	}
 
 	@GetMapping("/booking")

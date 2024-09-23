@@ -75,6 +75,13 @@ public class PartnerDAO {
 	}
 
 
+	public List<PartnerDTO> partnersumbitList() {
+		
+		return sqlSession.selectList(namespace + ".partnersumbitList");
+		//파트너 승인요청페이지 리스트
+	}
+
+
 
 
 

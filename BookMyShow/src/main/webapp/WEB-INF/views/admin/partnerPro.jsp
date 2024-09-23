@@ -86,7 +86,7 @@
         							<h4 class="card-title">파트너 정보</h4>
        									 <p class="card-text">
        									 	
-       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/partnerDTO">
+       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/editPartnerForm" id="editPartnerForm" method="post" >
        									 	<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">파트너ID</span>
   													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${userName}"required>
@@ -213,11 +213,11 @@
 				 										
 				 										
 				 										<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  															<button class="btn btn-primary me-md-2" type="submit" >수정완료</button> &nbsp; &nbsp;
+  															<button class="btn btn-primary me-md-2" type="submit" onclick= "submitForm()" >수정완료</button> &nbsp; &nbsp;
 														</form>
 														
   															<form action="${pageContext.request.contextPath}/admin/partnerDTO">
-  																<button class="btn btn-primary" type="submit" onclick="deleteok()">삭제</button>
+  																<button class="btn btn-primary" type="button" onclick="deleteok()">삭제</button>
   																</form>
 														</div>
     												</div>
@@ -229,7 +229,7 @@
  									 
  									 
 									<div class="d-grid gap-2 col-6 mx-auto">
-  										<button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/partnerDTO'" >취소</button>
+  										<button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/partner'" >취소</button>
  									 </div>
  									 
  									 </div>
@@ -239,6 +239,17 @@
 
 
 <script>
+
+
+
+function submitForm(){
+	 if (confirm("파트너 정보를 수정 하시겠습니까?")) {
+         alert("수정 되었습니다.");
+         document.getElementById("editPartnerForm").submit();
+     } else {
+         alert("취소되었습니다.");
+     }
+}
 
 //삭제 컨펌가능
 function deleteok(){

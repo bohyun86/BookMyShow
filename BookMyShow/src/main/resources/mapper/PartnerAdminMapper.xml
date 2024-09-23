@@ -123,6 +123,14 @@
     WHERE inquiry_id = #{inquiryId}
 </update>
 
+<select id="partnersumbitList"   resultMap="partnerResultMap"  >
+	
+	SELECT U.*, P.*
+	FROM Partner P 
+	JOIN User U ON P.user_id = U.user_id
+	    </select> 
+
+
 
     
 

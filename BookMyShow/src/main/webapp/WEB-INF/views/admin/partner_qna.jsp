@@ -108,8 +108,7 @@
                     <td>${partnerQna.inquiryId}</td>
                     <td>${partnerQna.userDTO.userName}</td>
                     <td>${partnerQna.inquiryType}</td>
-                    <td><a href="${pageContext.request.contextPath}/admin/partner_qnaAnswer?inquiryId=${partnerQna.inquiryId}">
-                    ${partnerQna.title}</a></td>
+                    <td><a href="${pageContext.request.contextPath}/admin/partner_qnaAnswer?inquiryId=${partnerQna.inquiryId}">${partnerQna.title}</a></td>
                     <td>${partnerQna.content}</td>
                     <td>${partnerQna.createdAt}</td>
                     <td>${partnerQna.userDTO.name}</td>
