@@ -34,7 +34,7 @@ public class PartnerDAO {
 	}
 
 	
-	public PartnerDTO getPartnersy(String id,String company_name) {
+	public PartnerDTO getPartnersy(String id, String password,String company_name, String name,String business_id, String account_number,String bankName, String email,String createdAt) {
 		System.out.println("PartnerDAO"+id);
 		return sqlSession.selectOne(namespace+".getPartnersy", id);
 	}

@@ -34,9 +34,9 @@ public class PartnersServiceAdmin {
 	}
 
 
-	public PartnerDTO getPartnersy(String id, String company_name) {
+	public PartnerDTO getPartnersy(String id, String password,String company_name, String name,String business_id, String account_number,String bankName, String email,String createdAt) {
 		System.out.println();
-		return partnerDAO.getPartnersy(id,company_name);
+		return partnerDAO.getPartnersy(id,password,company_name,name,business_id,account_number,bankName,email,createdAt);
 	} //파트너검색
 	
 	public List<PartnerQnaDTO> getPartneQna(String id) {

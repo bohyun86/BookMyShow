@@ -253,24 +253,28 @@ public class AdminController {
 	@GetMapping("/partnerPro")
 
 	public String partnerPro(@RequestParam("userName") String userName, 
-//			@RequestParam("password") String password,
-//			@RequestParam("name") String name, @RequestParam("companyName") String companyName,
-//			@RequestParam("businessId") String businessId, @RequestParam("accountNumber") String accountNumber,
-//			@RequestParam("bankName") String bankName, @RequestParam("phoneNumber") String phoneNumber,
-//			@RequestParam("email") String email, @RequestParam("createdAt") String createdAt,
+			@RequestParam("password") String password,
+			@RequestParam("name") String name, 
+			@RequestParam("companyName") String companyName,
+			@RequestParam("businessId") String businessId,
+			@RequestParam("accountNumber") String accountNumber,
+			@RequestParam("bankName") String bankName,
+			@RequestParam("phoneNumber") String phoneNumber,
+			@RequestParam("email") String email, 
+			@RequestParam("createdAt") String createdAt,
 			Model model) {
 		log.info("admin partnerPro success");
 
 		model.addAttribute("userName", userName);
-//		model.addAttribute("password", password);
-//		model.addAttribute("name", name);
-//		model.addAttribute("companyName", companyName);
-//		model.addAttribute("businessId", businessId);
-//		model.addAttribute("accountNumber", accountNumber);
-//		model.addAttribute("bankName", bankName);
-//		model.addAttribute("phoneNumber", phoneNumber);
-//		model.addAttribute("email", email);
-//		model.addAttribute("createdAt", createdAt);
+		model.addAttribute("password", password);
+		model.addAttribute("name", name);
+		model.addAttribute("companyName", companyName);
+		model.addAttribute("businessId", businessId);
+		model.addAttribute("accountNumber", accountNumber);
+		model.addAttribute("bankName", bankName);
+		model.addAttribute("phoneNumber", phoneNumber);
+		model.addAttribute("email", email);
+		model.addAttribute("createdAt", createdAt);
 
 		return "/admin/partnerPro";
 	} // parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 partnerPro로 넘기는 과정

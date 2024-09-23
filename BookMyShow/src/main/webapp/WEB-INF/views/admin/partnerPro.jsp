@@ -164,21 +164,21 @@
    														 </div>
 													</div>
 	 													 
-	 													 <div class="input-group input-group-sm mb-3">
- 	 											<span class="input-group-text" id="inputGroup-sizing-sm">등록된 뮤지컬</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" readonly>
-    													</div>
+<!-- 	 													 <div class="input-group input-group-sm mb-3"> -->
+<!--  	 											<span class="input-group-text" id="inputGroup-sizing-sm">등록된 뮤지컬</span> -->
+<!--   													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" readonly> -->
+<!--     													</div> -->
 	 													 
-	 													  <div class="input-group input-group-sm mb-3">
- 	 											<span class="input-group-text" id="inputGroup-sizing-sm">요청한 뮤지컬</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" readonly>
-    													</div>
+<!-- 	 													  <div class="input-group input-group-sm mb-3"> -->
+<!--  	 											<span class="input-group-text" id="inputGroup-sizing-sm">요청한 뮤지컬</span> -->
+<!--   													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" readonly> -->
+<!--     													</div> -->
 													
-													 <div class="input-group input-group-sm mb-3">
- 	 											<span class="input-group-text" id="inputGroup-sizing-sm">요청한 날짜</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" readonly>
+<!-- 													 <div class="input-group input-group-sm mb-3"> -->
+<!--  	 											<span class="input-group-text" id="inputGroup-sizing-sm">요청한 날짜</span> -->
+<!--   													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" readonly> -->
     													
-													</div>
+<!-- 													</div> -->
 													
 													 <div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">가입날짜</span>
@@ -186,18 +186,18 @@
     													
 													</div>
 													
-													<div class="input-group input-group-sm mb-3">
+<!-- 													<div class="input-group input-group-sm mb-3"> -->
 														
- 	 											<span class="input-group-text" id="inputGroup-sizing-sm">활동상태</span>
-  													<select name="findType" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required>
-    													<option value="">::활동상태::</option>
-															<option value="1">활동 </option>
-															<option value="2">탈퇴</option>
-														</select>
-    													<div class="invalid-feedback">
-     														  활동상태를 선택해주세요.
-   														 </div>
-													</div>
+<!--  	 											<span class="input-group-text" id="inputGroup-sizing-sm">활동상태</span> -->
+<!--   													<select name="findType" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" required> -->
+<!--     													<option value="">::활동상태::</option> -->
+<!-- 															<option value="1">활동 </option> -->
+<!-- 															<option value="2">탈퇴</option> -->
+<!-- 														</select> -->
+<!--     													<div class="invalid-feedback"> -->
+<!--      														  활동상태를 선택해주세요. -->
+<!--    														 </div> -->
+<!-- 													</div> -->
 <!-- 	 																					
 	 								 													 
 	 													

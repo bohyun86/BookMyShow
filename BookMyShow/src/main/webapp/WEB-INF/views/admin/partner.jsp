@@ -245,24 +245,24 @@ function ajaxSearchPartner(searchValue){
                                   $('#editButton').attr('onclick', 'location.href="' 
                                       + '${pageContext.request.contextPath}/admin/partnerPro?userName=' 
                                       + encodeURIComponent(partnerDTO.userDTO.userName)
-//                                       +'&password='
-//                                       + encodeURIComponent(partnerDTO.userDTO.password) 
-//                                       +'&name='
-//                                       + encodeURIComponent(partnerDTO.userDTO.name) 
-//                                       +'&companyName='
-//                                       + encodeURIComponent(partnerDTO.companyName) 
-//                                       +'&businessId='
-//                                       + encodeURIComponent(partnerDTO.businessId) 
-//                                       +'&accountNumber='
-//                                       + encodeURIComponent(partnerDTO.accountNumber) 
-//                                       +'&bankName='
-//                                       + encodeURIComponent(partnerDTO.bankName) 
-//                                       +'&phoneNumber='
-//                                       + encodeURIComponent(response.phoneNumber) 
-//                                       +'&email='
-//                                       + encodeURIComponent(partnerDTO.userDTO.email) 
-//                                       +'&createdAt='
-//                                       + encodeURIComponent(partnerDTO.createdAt) 
+                                      +'&password='
+                                      + encodeURIComponent(partnerDTO.userDTO.password) 
+                                      +'&name='
+                                      + encodeURIComponent(partnerDTO.userDTO.name) 
+                                      +'&companyName='
+                                      + encodeURIComponent(partnerDTO.companyName) 
+                                      +'&businessId='
+                                      + encodeURIComponent(partnerDTO.businessId) 
+                                      +'&accountNumber='
+                                      + encodeURIComponent(partnerDTO.accountNumber) 
+                                      +'&bankName='
+                                      + encodeURIComponent(partnerDTO.bankName) 
+                                      +'&phoneNumber='
+                                      + encodeURIComponent(partnerDTO.userDTO.phoneNumber) 
+                                      +'&email='
+                                      + encodeURIComponent(partnerDTO.userDTO.email) 
+                                      +'&createdAt='
+                                      + encodeURIComponent(partnerDTO.createdAt) 
                                       
                                       + '"').prop('disabled', false);
                                   

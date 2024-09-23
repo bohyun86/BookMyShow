@@ -101,8 +101,11 @@ public class AdminAjaxController {
 		String password = request.getParameter("password");
 		String user_role = request.getParameter("user_role");
 		String company_name = request.getParameter("company_name");
+		String business_id = request.getParameter("business_id");
+		String account_number = request.getParameter("account_number");
+		String bankName = request.getParameter("bankName");
 //		UserDTO userDTO = partnersServiceAdmin.getPartnersy(company_name,id,email,phoneNumber,name,password,createdAt,user_role);
-		PartnerDTO partnerDTO = partnersServiceAdmin.getPartnersy(id,company_name);
+		PartnerDTO partnerDTO = partnersServiceAdmin.getPartnersy(id,password,company_name,name,business_id,account_number,bankName,email,createdAt);
 		System.out.println("AdminAjaxController::"+email);
 //		System.out.println("AdminAjaxController::"+password);
 //		System.out.println("AdminAjaxController::"+createdAt);
