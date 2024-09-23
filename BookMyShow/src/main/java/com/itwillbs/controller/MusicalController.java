@@ -78,7 +78,6 @@ public class MusicalController {
 	  
        return "/musical/page_main" ;
     }
-  
 
 
 
