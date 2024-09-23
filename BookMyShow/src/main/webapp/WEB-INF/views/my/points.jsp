@@ -17,7 +17,7 @@
 		<section id="board-content">
 			<h1 class="title">포인트 내역</h1>
 			<div class="points-summary">
-				<span>총 포인트: <strong>${totalPoints}</strong></span> <a
+				<span>총 포인트: <strong class="highlight">${totalPoints}</strong></span> <a
 					href="${pageContext.request.contextPath}/my/coupon-redeem"
 					class="btn btn-primary">쿠폰 등록</a>
 			</div>

@@ -121,17 +121,18 @@
 	<div class="modal fade" id="seatModal${booking.bookingId}"
 		tabindex="-1" aria-labelledby="seatModalLabel${booking.bookingId}"
 		aria-hidden="true">
-		<div class="modal-dialog">
+		<div class="modal-dialog modal-dialog-centered">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="seatModalLabel${booking.bookingId}">좌석
-						정보</h5>
+					<h5 class="modal-title" id="seatModalLabel${booking.bookingId}">
+						<i class="bi bi-chair me-2"></i>좌석 정보
+					</h5>
 					<button type="button" class="btn-close" data-bs-dismiss="modal"
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
 					<ul>
-						<c:forEach var="seat" items="${bookedSeats}">
+						<c:forEach var="seat" items="${bookedSeatsMap[booking.bookingId]}">
 							<li>${seat.seatNumber}</li>
 						</c:forEach>
 					</ul>
@@ -139,6 +140,7 @@
 			</div>
 		</div>
 	</div>
+
 
 	<jsp:include page="../include/bottom.jsp" />
 

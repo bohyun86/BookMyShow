@@ -21,8 +21,8 @@
 			<div class="container">
 				<h1 class="title mb-4">내가 작성한 리뷰</h1>
 				<div class="review-summary mb-4">
-					<span>총 리뷰 수: ${totalReviews}</span> <span>평균 평점: <span
-						class="average-rating"> <fmt:formatNumber
+					<span>총 리뷰 수: <strong>${totalReviews}</strong></span> <span>평균 평점: <span
+						class="average-rating highlight"> <fmt:formatNumber
 								value="${averageRating}" pattern="#.#" /></span>/5</span>
 				</div>
 				<div class="review-list">

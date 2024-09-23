@@ -21,10 +21,11 @@
 				<div class="coupon-input">
 					<input type="text" maxlength="4" name="coupon1" required> <span>-</span>
 					<input type="text" maxlength="4" name="coupon2" required> <span>-</span>
-					<input type="text" maxlength="4" name="coupon3" required>
+					<input type="text" maxlength="4" name="coupon3" required><br>
+					<button type="submit" class="btn btn-primary">등록하기</button>
 				</div>
-				<button type="submit" class="btn btn-primary">등록하기</button>
 			</form>
+			<br><br>
 			<ul class="info-list">
 				<li><i class="bi bi-check-circle"></i> 쿠폰 상품권을 등록하면 예매하다 포인트로
 					전환됩니다.</li>

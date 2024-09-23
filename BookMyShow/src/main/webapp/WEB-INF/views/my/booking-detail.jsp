@@ -88,28 +88,29 @@
 		</section>
 	</main>
 
-	<div class="modal fade" id="refundPolicyModal" tabindex="-1"
-		aria-labelledby="refundPolicyModalLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<h5 class="modal-title" id="refundPolicyModalLabel">환불 규정</h5>
-					<button type="button" class="btn-close" data-bs-dismiss="modal"
-						aria-label="Close"></button>
-				</div>
-				<div class="modal-body">
-					<p>밤12시 자정 기준</p>
-					<ul>
-						<li>7일 전: 전액 환불</li>
-						<li>6~4일 전: 10% 공제</li>
-						<li>3~2일 전: 20% 공제</li>
-						<li>1일 전: 30% 공제</li>
-						<li>당일: 환불 불가</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
+	  <!-- 환불 규정 모달 -->
+    <div class="modal fade" id="refundPolicyModal" tabindex="-1" aria-labelledby="refundPolicyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="refundPolicyModalLabel">
+                        <i class="bi bi-info-circle me-2"></i>환불 규정
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p><i class="bi bi-clock me-2"></i>밤12시 자정 기준</p>
+                    <ul>
+                        <li>7일 전: 전액 환불</li>
+                        <li>6~4일 전: 10% 공제</li>
+                        <li>3~2일 전: 20% 공제</li>
+                        <li>1일 전: 30% 공제</li>
+                        <li>당일: 환불 불가</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 
 	<jsp:include page="../include/bottom.jsp" />
 
