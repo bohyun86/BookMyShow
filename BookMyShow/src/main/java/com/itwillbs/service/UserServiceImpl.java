@@ -88,16 +88,16 @@ public class UserServiceImpl implements UserService {
 			log.warn("유효하지 않은 사용자 정보");
 			return false;
 		}
+		if (!isValidEmail(userDTO.getEmail()) || !isValidPhoneNumber(userDTO.getPhoneNumber())) {
+			log.warn("유효하지 않은 이메일 또는 전화번호: {}", userDTO.getUserId());
+			return false;
+		}
 		if (newPassword != null && !newPassword.trim().isEmpty()) {
 			if (!isValidPassword(newPassword)) {
 				log.warn("유효하지 않은 새 비밀번호: {}", userDTO.getUserId());
 				return false;
 			}
-			userDTO.setPassword(newPassword);
-		}
-		if (!isValidEmail(userDTO.getEmail()) || !isValidPhoneNumber(userDTO.getPhoneNumber())) {
-			log.warn("유효하지 않은 이메일 또는 전화번호: {}", userDTO.getUserId());
-			return false;
+			updateUserPasswordAndEncode(userDTO, newPassword);
 		}
 		return userMapper.updateUser(userDTO) > 0;
 	}

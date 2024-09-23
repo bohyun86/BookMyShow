@@ -76,7 +76,7 @@
 	    <!-- 파트너 문의답변페이지로 불러오기  -->
 	<select id="PartnerQnaAnser"   resultMap="partnerQnaResultMap"  >
 	
-	SELECT title,content,inquiry_id
+	SELECT title,content,inquiry_id,answer_content
 	FROM Inquiry 
 	where inquiry_id =#{inquiryId}
 	    </select> 

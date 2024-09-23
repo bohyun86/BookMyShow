@@ -12,4 +12,6 @@ public class PerformanceDTO {
 	private LocalDateTime updatedAt;
 	private Integer musicalId;
 	private Integer venueId;
+	
+	private String musicalTitle;
 }

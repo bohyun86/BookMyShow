@@ -21,18 +21,28 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.domain.Page;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.itwillbs.domain.CouponDTO;
+import com.itwillbs.domain.MemberDTO;
+import com.itwillbs.domain.MusicalDTO;
+import com.itwillbs.domain.MyPageDTO;
+import com.itwillbs.domain.UserDTO;
+import com.itwillbs.service.CouponPointService;
+import com.itwillbs.service.MusicalService;
+import com.itwillbs.service.UserServiceImpl;
 import org.springframework.web.multipart.MultipartFile;
-
-
 
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +50,6 @@ import javax.servlet.http.HttpSession;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
 
 @Controller
 @Log4j2
@@ -50,80 +59,62 @@ import java.util.List;
 // lombok을 이용한 생성자 자동 생성
 public class AdminController {
 
-	
-
-
-	
+	private CouponPointService couponPointService;
 	private PartnersServiceAdmin partnersServiceAdmin;
-	
-	
-	
-    
-    
+	private UserServiceImpl userServiceImpl;
+	private MusicalService musicalService;
+	private AdminService adminService;
+	private PartnerService partnerService;
+	private PartnerController partnerController;
+	private ServletContext servletContext;
+	private ObjectMapper objectMapper;
 
+	@GetMapping("/main")
+	public String home() {
+		log.info("admin main success");
+		return "/admin/main";
+	}
 
-    private UserServiceImpl userServiceImpl;
-    private MusicalService musicalService;
-    private AdminService adminService;
-    private PartnerService partnerService;
-    private PartnerController partnerController;
-    private ServletContext servletContext;
-    private ObjectMapper objectMapper;
+	@GetMapping("/login")
+	public String login() {
+		log.info("admin login success");
+		return "/admin/login";
+	}
 
+	@PostMapping("/loginPro")
+	public String loginPro(UserDTO userDTO, HttpSession session) {
+		log.info("admin loginPro success");
+		UserDTO getUser = userServiceImpl.loginPro(userDTO);
+		log.info(getUser);
+		if (getUser == null) {
+			return "redirect:/admin/login";
+		} else {
+			log.info(getUser);
+			session.setAttribute("userId", getUser.getUserId());
+			session.setAttribute("userRole", getUser.getUserRole());
+			session.setAttribute("userName", getUser.getUserName());
+			return "redirect:/admin/main/";
+		}
 
+	}
 
-    @GetMapping("/main")
-    public String home() {
-        log.info("admin main success");
+	@GetMapping("/logout")
+	public String logout(HttpSession session) {
+		log.info("admin logout success");
+		session.invalidate();
 
-        return "/admin/main";
-    }
+		return "/main/main";
+	}
 
-    @GetMapping("/login")
-    public String login() {
-        log.info("admin login success");
-
-        return "/admin/login";
-    }
-
-    @PostMapping("/loginPro")
-    public String loginPro(UserDTO userDTO, HttpSession session) {
-        log.info("admin loginPro success");
-        UserDTO getUser = userServiceImpl.loginPro(userDTO);
-        log.info(getUser);
-        if (getUser == null) {
-            return "redirect:/admin/login";
-        } else {
-            log.info(getUser);
-            session.setAttribute("userId", getUser.getUserId());
-            session.setAttribute("userRole", getUser.getUserRole());
-            session.setAttribute("userName", getUser.getUserName());
-            return "redirect:/admin/main/";
-        }
-
-    }
-
-
-    @GetMapping("/logout")
-    public String logout(HttpSession session) {
-        log.info("admin logout success");
-        session.invalidate();
-
-        return "/main/main";
-    }
-
-
-    @GetMapping("/search")
-    public String search(HttpServletRequest request, Model model) {
+	@GetMapping("/search")
+	public String search(HttpServletRequest request, Model model) {
 //    	
 
-        return "/admin/search";
+		return "/admin/search";
 
+	}
 
-    }
-
-
-    @PostMapping("/searchBy")
+	@PostMapping("/searchBy")
     public String searchBy(HttpServletRequest request, Model model) {
 
         log.info("admin searchBy:: success");
@@ -157,31 +148,23 @@ public class AdminController {
 //        	musicalDTO = musicalService.getMusicalByTitle(findKeyword);
                 System.out.println("AdminController searchBy2::" + musicalDTO);
                 return "redirect:/admin/submit";
-
-
             } else {
-
                 return "redirect:/admin/search";
             }
         }
-
-
 //	return musicalList; 
         return findKeyword;
     }
-
-
-    @GetMapping("/submit")
+//	return"/admin/submit";
+    
+	@GetMapping("/submit")
     public String submit(HttpServletRequest request, Model model) {
         log.info("admin submit:: success");
 
         return "/admin/submit";
-
-
     }
 
-
-    @GetMapping("/edit")
+	@GetMapping("/edit")
     public String edit(
             @RequestParam(defaultValue = "1") int page,
             @RequestParam(defaultValue = "10") int size,
@@ -199,7 +182,7 @@ public class AdminController {
         return "/admin/edit";
     }
 
-    @GetMapping("/editPro")
+	@GetMapping("/editPro")
     public String editPro(@RequestParam int musicalId, Model model) {
         log.info("admin editPro success");
         PerformanceTempDTO performanceTempDTO = partnerService.getPerformanceTemp(musicalId);
@@ -209,21 +192,17 @@ public class AdminController {
 
         model.addAttribute("performanceTempDTO", performanceTempDTO);
         model.addAttribute("attachFileDTO", attachFileDTO);
+        return"/admin/editPro";
+	}
 
-
-        return "/admin/editPro";
-    }
-
-    @GetMapping("/approvePro")
+	@GetMapping("/approvePro")
     public String approvePro(@RequestParam int musicalId) {
         log.info("admin approvePro success");
-
         adminService.approveMusical(musicalId);
-
         return "redirect:/admin/edit";
     }
 
-    @PostMapping(value = "/writePro")
+	@PostMapping(value = "/writePro")
     public String writePro(PerformanceTempDTO performancetempDTO) {
         log.info("writePro: {}", performancetempDTO);
 
@@ -258,7 +237,7 @@ public class AdminController {
         return "redirect:/admin/edit";
     }
 
-    @GetMapping("/deletePro")
+	@GetMapping("/deletePro")
     public String deletePro(@RequestParam int musicalId) {
         log.info("deletePro: {}", musicalId);
 
@@ -267,55 +246,42 @@ public class AdminController {
         return "redirect:/admin/edit";
     }
 
+	@GetMapping("/partner")
+	public String partner() {
 
-    @GetMapping("/partner")
-    public String partner() {
+		log.info("admin partner success");
+		return "/admin/partner";
 
+	}
 
-        log.info("admin partner success");
-        return "/admin/partner";
+	@GetMapping("/partner_submit")
+	public String partner_submit() {
+		log.info("admin partner_submit success");
+		return "/admin/partner_submit";
+	}
 
-    }
+	@GetMapping("/partnerPro")
 
-    @GetMapping("/partner_submit")
-    public String partner_submit() {
-        log.info("admin partner_submit success");
-        return "/admin/partner_submit";
-    }
+	public String partnerPro(@RequestParam("userName") String userName, @RequestParam("password") String password,
+			@RequestParam("name") String name, @RequestParam("companyName") String companyName,
+			@RequestParam("businessId") String businessId, @RequestParam("accountNumber") String accountNumber,
+			@RequestParam("bankName") String bankName, @RequestParam("phoneNumber") String phoneNumber,
+			@RequestParam("email") String email, @RequestParam("createdAt") String createdAt, Model model) {
+		log.info("admin partnerPro success");
 
-    @GetMapping("/partnerPro")
+		model.addAttribute("userName", userName);
+		model.addAttribute("password", password);
+		model.addAttribute("name", name);
+		model.addAttribute("companyName", companyName);
+		model.addAttribute("businessId", businessId);
+		model.addAttribute("accountNumber", accountNumber);
+		model.addAttribute("bankName", bankName);
+		model.addAttribute("phoneNumber", phoneNumber);
+		model.addAttribute("email", email);
+		model.addAttribute("createdAt", createdAt);
 
-    public String  partnerPro(@RequestParam("userName") String userName,
-            @RequestParam("password") String password,
-            @RequestParam("name") String name,
-            @RequestParam("companyName") String companyName,
-            @RequestParam("businessId") String businessId,
-            @RequestParam("accountNumber") String accountNumber,
-            @RequestParam("bankName") String bankName,
-            @RequestParam("phoneNumber") String phoneNumber,
-            @RequestParam("email") String email,
-            @RequestParam("createdAt") String createdAt,
-            Model model) {
-    	log.info("admin partnerPro success");
-    	
-    	model.addAttribute("userName", userName);
-        model.addAttribute("password", password);
-        model.addAttribute("name", name);
-        model.addAttribute("companyName", companyName);
-        model.addAttribute("businessId", businessId);
-        model.addAttribute("accountNumber", accountNumber);
-        model.addAttribute("bankName", bankName);
-        model.addAttribute("phoneNumber", phoneNumber);
-        model.addAttribute("email", email);
-        model.addAttribute("createdAt", createdAt);
-    	
-    	
-    	return "/admin/partnerPro";
-    } //parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 partnerPro로 넘기는 과정
-    
-    
-    
-    
+		return "/admin/partnerPro";
+	} // parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 partnerPro로 넘기는 과정
 
 
     @GetMapping("/partner_qna")
@@ -375,44 +341,86 @@ public class AdminController {
     
 
 
-    @GetMapping("/partner_settlement")
-    public String partner_settlement() {
-        log.info("admin partner_settlement success");
-        return "/admin/partner_settlement";
-    }
+	@GetMapping("/partner_settlement")
+	public String partner_settlement() {
+		log.info("admin partner_settlement success");
+		return "/admin/partner_settlement";
+	}
 
 
-    @GetMapping("/member")
-    public String member() {
-        log.info("admin member success");
-        return "/admin/member";
-    }
+	@GetMapping("/member")
+	public String member() {
+		log.info("admin member success");
+		return "/admin/member";
+	}
 
+	@GetMapping("/memberPro")
+	public String memberPro() {
+		log.info("admin memberPro success");
+		return "/admin/memberPro";
+	}
 
-    @GetMapping("/memberPro")
-    public String memberPro() {
-        log.info("admin memberPro success");
-        return "/admin/memberPro";
-    }
+	@GetMapping("/booking")
+	public String booking() {
+		log.info("admin booking success");
+		return "/admin/booking";
+	}
 
-    @GetMapping("/booking")
-    public String booking() {
-        log.info("admin booking success");
-        return "/admin/booking";
-    }
+	@GetMapping("/payment")
+	public String payment() {
+		log.info("admin payment success");
+		return "/admin/payment";
+	}
 
-    @GetMapping("/payment")
-    public String payment() {
-        log.info("admin payment success");
-        return "/admin/payment";
-    }
+	@GetMapping("/support")
+	public String support() {
+		log.info("admin support success");
+		return "/admin/support";
+	}
 
+	// coupon start
+	@GetMapping("/coupon-create")
+	public String couponCreateForm() {
+		return "admin/coupon-create";
+	}
 
-    @GetMapping("/support")
-    public String support() {
-        log.info("admin support success");
-        return "/admin/support";
-    }
+	@PostMapping("/create-coupon")
+	@ResponseBody
+	public ResponseEntity<String> createCoupon(@RequestParam String coupon1, @RequestParam String coupon2,
+			@RequestParam String coupon3, @RequestParam Integer couponAmount) {
+		String couponCode = coupon1 + coupon2 + coupon3;
+		CouponDTO couponDTO = new CouponDTO();
+		couponDTO.setCode(couponCode);
+		couponDTO.setCouponAmount(couponAmount);
+		try {
+			couponPointService.createCoupon(couponDTO);
+			return ResponseEntity.ok().contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body("{\"success\": true, \"message\": \"쿠폰이 성공적으로 생성되었습니다.\"}");
+		} catch (Exception e) {
+			return ResponseEntity.badRequest().contentType(MediaType.APPLICATION_JSON_UTF8)
+					.body("{\"success\": false, \"message\": \"" + e.getMessage() + "\"}");
+		}
+	}
 
+	@GetMapping("/coupon-manage")
+	public String couponManage(Model model, @RequestParam(defaultValue = "0") int page,
+			@RequestParam(defaultValue = "10") int size) {
+		Page<CouponDTO> coupons = couponPointService.getAllCoupons(page, size);
+		model.addAttribute("coupons", coupons.getContent());
+		model.addAttribute("pageInfo", new MyPageDTO(page, size, coupons.getTotalElements()));
+		return "admin/coupon-manage";
+	}
+
+	@PostMapping("/delete-coupon")
+	@ResponseBody
+	public ResponseEntity<?> deleteCoupon(@RequestParam Integer couponId) {
+		boolean deleted = couponPointService.deleteCoupon(couponId);
+		if (deleted) {
+			return ResponseEntity.ok().body("{\"success\": true}");
+		} else {
+			return ResponseEntity.badRequest().body("{\"success\": false}");
+		}
+	}
+	// coupon end
 
 }//
