@@ -50,8 +50,6 @@ public class UserDTO {
     @UpdateTimestamp
     private Timestamp tempPasswordCreatedAt;
 
-
-
 }
 
 

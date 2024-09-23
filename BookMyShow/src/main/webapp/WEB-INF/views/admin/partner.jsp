@@ -76,7 +76,7 @@
 		<option value="1" >이름</option>
 		<option value="2">아이디</option>
 	</select>
-	<input type="text" name="findKeyword" placeholder="검색어를 입력하세요" class="form-control mr-2" id ="searchText"  >
+	<input type="text" name="id" placeholder="검색어를 입력하세요" class="form-control mr-2" id ="searchText"  >
 	<button class="btn btn-success" type="button"  id="partnerSearch"  onkeypress="searchFunction();" >검 색</button>
 </form>
 				
@@ -93,9 +93,9 @@
 					  <button class="btn btn-primary" type="button"  id="paymentButton" disabled>정산내역</button>
 					</div></p>
 					
-					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" type="button"  id="qnaButton" disabled>1:1문의</button>
-					</div></p>
+<!-- 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end"> -->
+<!-- 					  <button class="btn btn-primary" type="button"  id="qnaButton" disabled>1:1문의</button> -->
+<!-- 					</div></p> -->
 
 
 
@@ -266,7 +266,11 @@ function ajaxSearchPartner(searchValue){
                                       
                                       + '"').prop('disabled', false);
                                   
-                                  $('#qnaButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_qna?userName=' + response.userName + '"').prop('disabled', false);
+                                  $('#qnaButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_qna?userName=' 
+                                  + encodeURIComponent(response.userName)
+                                  + '"').prop('disabled', false);
+                                  
+                                  
                                   $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?userName=' + response.userName + '"').prop('disabled', false);
                               } else {
 //             	console.log("요청실패",userDTO);

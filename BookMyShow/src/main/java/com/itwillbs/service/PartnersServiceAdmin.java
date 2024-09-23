@@ -2,6 +2,8 @@ package com.itwillbs.service;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,11 +12,13 @@ import com.itwillbs.domain.PartnerDTO;
 import com.itwillbs.domain.PartnerQnaDTO;
 import com.itwillbs.domain.UserDTO;
 
+
 @Service
 public class PartnersServiceAdmin {
 
 	@Autowired
 	private PartnerDAO partnerDAO;
+	
 	
 	
     public UserDTO getPartnersy(String id, String email, String phoneNumber, String name, String password,String createdAt, String user_role) {
@@ -35,10 +39,32 @@ public class PartnersServiceAdmin {
 	} //파트너검색
 	
 	public List<PartnerQnaDTO> getPartneQna(String id) {
-	    System.out.println("PartnersServiceAdmin::" + id);
-	    return partnerDAO.getPartneQna(id);
+	    System.out.println("PartnersServiceAdmin::" +  id);
+	    return partnerDAO.getPartneQna(id); 
 	}
 
+//	파트너문의
+	 public List<PartnerQnaDTO> selectAllPartnerQnaList() {
+		    return partnerDAO.selectAllPartnerQnaList();
+		}
+
+
+	public List<PartnerQnaDTO> PartnerQnaAnser(int inquiryId) {
+		// TODO Auto-generated method stub
+		return partnerDAO.PartnerQnaAnser(inquiryId);
+	}//문의내용
+
+
+	@Transactional
+	public void qnaAnswerOK(int inquiryId,int answered ) {
+        partnerDAO.qnaAnswerOK(inquiryId,answered); // 1로 업데이트
+    }
+
+
+
+	
+
+		
 
 	
     

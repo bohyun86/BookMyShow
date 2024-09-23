@@ -2,6 +2,10 @@ package com.itwillbs.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itwillbs.domain.MusicalDTO;
+
+import com.itwillbs.domain.PartnerDTO;
+
+import com.itwillbs.domain.PartnerQnaDTO;
 import com.itwillbs.domain.Performance.AttachFile2DTO;
 import com.itwillbs.domain.Performance.AttachFileDTO;
 import com.itwillbs.domain.Performance.PerformanceTempDTO;
@@ -42,7 +46,8 @@ import java.util.List;
 @Log4j2
 @RequestMapping("/admin")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@AllArgsConstructor // lombok을 이용한 생성자 자동 생성
+@AllArgsConstructor
+// lombok을 이용한 생성자 자동 생성
 public class AdminController {
 
 	
@@ -314,12 +319,60 @@ public class AdminController {
 
 
     @GetMapping("/partner_qna")
-    public String partner_qna() {
-        log.info("admin partner_qna success");
-        return "/admin/partner_qna";
-    }
+    public String partner_qna(Model model) {
+    	log.info("admin partner_qna success");
+
+    	
+//        String id = request.getParameter("user_name");
+        List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.selectAllPartnerQnaList();
+        model.addAttribute("partnerQnaList", partnerQnaList);
+        
+        System.out.println("partnerQnaList size: " + partnerQnaList.size());
+        System.out.println("partnerQnaList"+partnerQnaList);
+        
+        
+
+        
+        return "/admin/partner_qna"; 
+        }
+
+    
+    @GetMapping("/partner_qnaAnswer")
+    public String partner_qnaAnswer(@RequestParam("inquiryId") int inquiryId,Model model) {
+    	log.info("admin partner_qnaAnswer success");
+    	
+    	
+    	
+    	List<PartnerQnaDTO> partnerQna = partnersServiceAdmin.PartnerQnaAnser(inquiryId);
+    	
+    	model.addAttribute("partnerQna", partnerQna);
+//    	 List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.selectAllPartnerQnaList();
+//        model.addAttribute("partnerQnaList", partnerQnaList);
+    	log.info("Fetched partnerQna: {}", partnerQna);
+
+        
+        return "/admin/partner_qnaAnswer"; 
+        }
     
     
+    
+    
+    @PostMapping("/qnaAnswerOK")
+    public String qnaAnswerOK(@RequestParam(value = "answered", defaultValue = "1") int answered,Model model,
+    						  @RequestParam("inquiryId") int inquiryId
+    						  ) {
+    	log.info("admin qnaAnswerOK success");
+    	partnersServiceAdmin.qnaAnswerOK(inquiryId,answered);
+    	System.out.println("admin answered"+answered);
+    	System.out.println("admin inquiryId"+inquiryId);
+
+    	List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.selectAllPartnerQnaList();
+        model.addAttribute("partnerQnaList", partnerQnaList); //답변상태최신으로업데이트
+        
+        return "redirect:/admin/partner_qna"; 
+        }
+    
+
 
     @GetMapping("/partner_settlement")
     public String partner_settlement() {
