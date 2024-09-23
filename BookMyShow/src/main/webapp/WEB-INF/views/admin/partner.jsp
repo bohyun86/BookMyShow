@@ -93,9 +93,9 @@
 					  <button class="btn btn-primary" type="button"  id="paymentButton" disabled>정산내역</button>
 					</div></p>
 					
-					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" type="button"  id="qnaButton" disabled>1:1문의</button>
-					</div></p>
+<!-- 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end"> -->
+<!-- 					  <button class="btn btn-primary" type="button"  id="qnaButton" disabled>1:1문의</button> -->
+<!-- 					</div></p> -->
 
 
 
@@ -215,60 +215,62 @@ function ajaxSearchPartner(searchValue){
                           url: "${pageContext.request.contextPath}/admin/partnerresult",
                           data: {'user_name': $('#searchText').val()},
                           dataType: "json",
-                          success: function(response) {
+                          success: function(partnerDTO) {
 //                         	  console.log("AJAX 응답 성공: ", response);  // 응답 데이터 확인
                               // 성공적으로 응답을 받았을 때 처리
-                              if (response) {
+                              if (partnerDTO.userDTO) {
                             	  
                                   // 회원 정보 출력
                                   $('#partnerresult').html('<li class="list-group-item"><a href="javascript:;">'
-                                      + "아이디: " + response.userName
-                                      + ", 이메일: " + response.email
-                                      + ", 연락처: " + response.phoneNumber
-                                      + ", 이름: " + response.name
-                                      + ", 비밀번호: " + response.password
-                                      + ", 회원가입일: " + response.createdAt
-                                      + ", 유형: " + response.userRole
+                                      + "아이디: " + partnerDTO.userDTO.userName
+                                      + ", 이메일: " + partnerDTO.userDTO.email
+                                      + ", 연락처: " + partnerDTO.userDTO.phoneNumber
+                                      + ", 이름: " + partnerDTO.userDTO.name
+                                      + ", 비밀번호: " + partnerDTO.userDTO.password
+                                      + ", 회원가입일: " + partnerDTO.userDTO.createdAt
+                                      + ", 유형: " + partnerDTO.userDTO.userRole
                                       + '</a></li>');
 
                                   // 파트너 정보가 있으면 파트너 정보도 추가 출력
-                                  if (response.partnerDTO) {
+                                  if (partnerDTO) {
                                       
                                       $('#partnerresult').append('<li class="list-group-item"><a href="javascript:;">'
-                                          + "회사명: " + response.partnerDTO.companyName
-                                          + ", 사업자 ID: " + response.partnerDTO.businessId
-                                          + ", 계좌번호: " + response.partnerDTO.accountNumber
+                                          + "회사명: " +partnerDTO.companyName
+                                          + ", 사업자 ID: " + partnerDTO.businessId
+                                          + ", 계좌번호: " + partnerDTO.accountNumber
                                           + '</a></li>');
-                                  }
+                                  
 
                                   // 각 버튼에 대한 링크 설정 (버튼 활성화)
                                   $('#editButton').attr('onclick', 'location.href="' 
                                       + '${pageContext.request.contextPath}/admin/partnerPro?userName=' 
-                                      + encodeURIComponent(response.userName)
-                                      +'&password='
-                                      + encodeURIComponent(response.password) 
-                                      +'&name='
-                                      + encodeURIComponent(response.name) 
-                                      +'&companyName='
-                                      + encodeURIComponent(response.partnerDTO.companyName) 
-                                      +'&businessId='
-                                      + encodeURIComponent(response.partnerDTO.businessId) 
-                                      +'&accountNumber='
-                                      + encodeURIComponent(response.partnerDTO.accountNumber) 
-                                      +'&bankName='
-                                      + encodeURIComponent(response.partnerDTO.bankName) 
-                                      +'&phoneNumber='
-                                      + encodeURIComponent(response.phoneNumber) 
-                                      +'&email='
-                                      + encodeURIComponent(response.email) 
-                                      +'&createdAt='
-                                      + encodeURIComponent(response.partnerDTO.createdAt) 
+                                      + encodeURIComponent(partnerDTO.userDTO.userName)
+//                                       +'&password='
+//                                       + encodeURIComponent(partnerDTO.userDTO.password) 
+//                                       +'&name='
+//                                       + encodeURIComponent(partnerDTO.userDTO.name) 
+//                                       +'&companyName='
+//                                       + encodeURIComponent(partnerDTO.companyName) 
+//                                       +'&businessId='
+//                                       + encodeURIComponent(partnerDTO.businessId) 
+//                                       +'&accountNumber='
+//                                       + encodeURIComponent(partnerDTO.accountNumber) 
+//                                       +'&bankName='
+//                                       + encodeURIComponent(partnerDTO.bankName) 
+//                                       +'&phoneNumber='
+//                                       + encodeURIComponent(response.phoneNumber) 
+//                                       +'&email='
+//                                       + encodeURIComponent(partnerDTO.userDTO.email) 
+//                                       +'&createdAt='
+//                                       + encodeURIComponent(partnerDTO.createdAt) 
                                       
                                       + '"').prop('disabled', false);
                                   
+                                  
                                   $('#qnaButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_qna?userName=' + response.userName + '"').prop('disabled', false);
                                   $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?userName=' + response.userName + '"').prop('disabled', false);
-                              } else {
+                              } 
+                              }else {
 //             	console.log("요청실패",userDTO);
                                   $('#partnerresult').html("회원정보가 없습니다");
                                   $('#editButton').prop('disabled', true);

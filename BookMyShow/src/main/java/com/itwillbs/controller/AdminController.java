@@ -2,6 +2,10 @@ package com.itwillbs.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itwillbs.domain.MusicalDTO;
+
+import com.itwillbs.domain.PartnerDTO;
+
+import com.itwillbs.domain.PartnerQnaDTO;
 import com.itwillbs.domain.Performance.AttachFile2DTO;
 import com.itwillbs.domain.Performance.AttachFileDTO;
 import com.itwillbs.domain.Performance.PerformanceTempDTO;
@@ -51,7 +55,8 @@ import java.util.List;
 @Log4j2
 @RequestMapping("/admin")
 @EnableAspectJAutoProxy(proxyTargetClass = true)
-@AllArgsConstructor // lombok을 이용한 생성자 자동 생성
+@AllArgsConstructor
+// lombok을 이용한 생성자 자동 생성
 public class AdminController {
 
 	private CouponPointService couponPointService;
@@ -257,38 +262,98 @@ public class AdminController {
 
 	@GetMapping("/partnerPro")
 
-	public String partnerPro(@RequestParam("userName") String userName, @RequestParam("password") String password,
-			@RequestParam("name") String name, @RequestParam("companyName") String companyName,
-			@RequestParam("businessId") String businessId, @RequestParam("accountNumber") String accountNumber,
-			@RequestParam("bankName") String bankName, @RequestParam("phoneNumber") String phoneNumber,
-			@RequestParam("email") String email, @RequestParam("createdAt") String createdAt, Model model) {
+	public String partnerPro(@RequestParam("userName") String userName, 
+//			@RequestParam("password") String password,
+//			@RequestParam("name") String name, @RequestParam("companyName") String companyName,
+//			@RequestParam("businessId") String businessId, @RequestParam("accountNumber") String accountNumber,
+//			@RequestParam("bankName") String bankName, @RequestParam("phoneNumber") String phoneNumber,
+//			@RequestParam("email") String email, @RequestParam("createdAt") String createdAt,
+			Model model) {
 		log.info("admin partnerPro success");
 
 		model.addAttribute("userName", userName);
-		model.addAttribute("password", password);
-		model.addAttribute("name", name);
-		model.addAttribute("companyName", companyName);
-		model.addAttribute("businessId", businessId);
-		model.addAttribute("accountNumber", accountNumber);
-		model.addAttribute("bankName", bankName);
-		model.addAttribute("phoneNumber", phoneNumber);
-		model.addAttribute("email", email);
-		model.addAttribute("createdAt", createdAt);
+//		model.addAttribute("password", password);
+//		model.addAttribute("name", name);
+//		model.addAttribute("companyName", companyName);
+//		model.addAttribute("businessId", businessId);
+//		model.addAttribute("accountNumber", accountNumber);
+//		model.addAttribute("bankName", bankName);
+//		model.addAttribute("phoneNumber", phoneNumber);
+//		model.addAttribute("email", email);
+//		model.addAttribute("createdAt", createdAt);
 
 		return "/admin/partnerPro";
 	} // parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 partnerPro로 넘기는 과정
 
-	@GetMapping("/partner_qna")
-	public String partner_qna() {
-		log.info("admin partner_qna success");
-		return "/admin/partner_qna";
-	}
+
+    @GetMapping("/partner_qna")
+    public String partner_qna(Model model) {
+    	log.info("admin partner_qna success");
+
+    	
+//        String id = request.getParameter("user_name");
+        List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.selectAllPartnerQnaList();
+        model.addAttribute("partnerQnaList", partnerQnaList);
+        
+        System.out.println("partnerQnaList size: " + partnerQnaList.size());
+        System.out.println("partnerQnaList"+partnerQnaList);
+        
+        
+
+        
+        return "/admin/partner_qna"; 
+        }
+
+    
+    @GetMapping("/partner_qnaAnswer")
+    public String partner_qnaAnswer(@RequestParam("inquiryId") int inquiryId,
+    								@RequestParam(required = false) String answerContent,Model model) {
+    	log.info("admin partner_qnaAnswer success");
+    	
+    	
+    	
+//    	List<PartnerQnaDTO> partnerQna = partnersServiceAdmin.PartnerQnaAnser(inquiryId);
+    	List<PartnerQnaDTO> partnerQna = partnersServiceAdmin.PartnerQnaAnser(inquiryId,answerContent);
+    	
+    	model.addAttribute("partnerQna", partnerQna);
+//    	 List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.selectAllPartnerQnaList();
+//        model.addAttribute("partnerQnaList", partnerQnaList);
+    	log.info("Fetched partnerQna: {}", partnerQna);
+
+        
+        return "/admin/partner_qnaAnswer"; 
+        }
+    
+    
+    
+    
+    @PostMapping("/qnaAnswerOK")
+    public String qnaAnswerOK(Model model,
+    						  @RequestParam("inquiryId") int inquiryId,
+    						  @RequestParam("answerContent") String answerContent
+    						  ) {
+    	log.info("admin qnaAnswerOK success");
+    	partnersServiceAdmin.qnaAnswerOK(inquiryId);
+    	partnersServiceAdmin.qnaAnswerContentOK(answerContent,inquiryId);  
+//    	System.out.println("admin answered"+answered);
+
+//    	List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.qnaAnswerOK(inquiryId);
+    	System.out.println("admin inquiryId"+inquiryId);
+    	System.out.println("admin answerContent"+answerContent);
+    	List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.selectAllPartnerQnaList();
+        model.addAttribute("partnerQnaList", partnerQnaList); //답변상태최신으로업데이트
+        
+        return "redirect:/admin/partner_qna"; 
+        }
+    
+
 
 	@GetMapping("/partner_settlement")
 	public String partner_settlement() {
 		log.info("admin partner_settlement success");
 		return "/admin/partner_settlement";
 	}
+
 
 	@GetMapping("/member")
 	public String member() {

@@ -19,12 +19,12 @@ import lombok.Data;
 @Table(name="Partner")
 public class PartnerDTO {
 	
-	@Id
     @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
 	
+    @Id
 	@Column(name = "partner_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int partnerId;
 	
 	@Column(name = "company_name")
@@ -54,8 +54,7 @@ public class PartnerDTO {
 	 @Column(name = "approved")
 	private int approved;
 	
-	 @OneToMany
-	 @JoinColumn(name = "userId")
+	 @OneToMany(mappedBy = "partnerDTO")
 	 private List<PartnerQnaDTO>partnerQnaDTO;	 
 	
 	 @OneToOne

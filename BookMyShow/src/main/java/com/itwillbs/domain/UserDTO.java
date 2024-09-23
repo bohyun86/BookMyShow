@@ -6,6 +6,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.List;
 
 @Data
 @Entity(name = "User")
@@ -40,6 +41,15 @@ public class UserDTO {
     @OneToOne
     private PartnerDTO partnerDTO;
 
+
+    
+
+    @OneToMany
+    private List<PartnerQnaDTO>partnerQnaDTO;
+
+
+
+
     @Column(name = "is_encoded")
     private boolean isEncoded;
 
@@ -49,7 +59,6 @@ public class UserDTO {
     @Column(name = "temp_password_created_at")
     @UpdateTimestamp
     private Timestamp tempPasswordCreatedAt;
-
 
 
 }

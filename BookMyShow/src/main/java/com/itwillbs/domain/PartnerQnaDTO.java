@@ -6,7 +6,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ManyToAny;
 
 import lombok.Data;
 
@@ -15,12 +21,12 @@ import lombok.Data;
 @Table(name="Inquiry")
 public class PartnerQnaDTO {
 
-	@Id
     @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
 	
+    @Id
 	@Column(name = "inquiry_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int inquiryId;
 	
 	@Column(name = "inquiry_type")
@@ -41,8 +47,20 @@ public class PartnerQnaDTO {
 	@Column(name = "answered")
 	private int answered;
 	
+	@Column(name = "answer_content")
+	private String answerContent;
+	
+
+	@ManyToOne
+	@JoinColumn(name = "user_id", insertable = false, updatable = false)
+	private UserDTO userDTO;
+
 	
 	
+	 @ManyToOne
+	 @JoinColumn(name = "user_id", insertable = false, updatable = false) // user_id에 대한 참조
+	 private PartnerDTO partnerDTO;
+	 
 	
 	
 }
