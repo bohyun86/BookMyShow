@@ -9,14 +9,10 @@
 	href="${pageContext.request.contextPath}/resources/css/new-user.css"
 	rel="stylesheet">
 <style type="text/css">
-#current-pass-input,
-#confirm-current-pass-input,
-#new-pass-input,
-#confirm-new-pass-input,
-#update-button,
-#withdrawal-button {
-    height: 57px;
-    width: 422px;
+#current-pass-input, #confirm-current-pass-input, #new-pass-input,
+	#confirm-new-pass-input, #update-button, #withdrawal-button {
+	height: 57px;
+	width: 422px;
 }
 </style>
 
@@ -26,16 +22,18 @@
 	<jsp:include page="../include/my/myticket.jsp" />
 	<main id="board-main">
 		<jsp:include page="../include/my/sidebar.jsp" />
-		
+
 		<section id="board-content">
 			<h1 class="title">프로필 수정</h1>
 			<form class="p-4" id="profile-edit-form"
-				action="${pageContext.request.contextPath}/my/profile-editPro" method="post">
-				
-				<div class="form-group pb-2 d-flex row align-items-stretch justify-content-center">
-					
+				action="${pageContext.request.contextPath}/my/profile-editPro"
+				method="post">
+
+				<div
+					class="form-group pb-2 d-flex row align-items-stretch justify-content-center">
+
 					<input type="hidden" name="userId" value="${userDTO.userId}">
-					
+
 					<!-- 사용자 ID 필드 -->
 					<div class="input-group px-0" id="id-input">
 						<div class="input-group-prepend">
@@ -56,7 +54,8 @@
 							</span>
 						</div>
 						<input type="email" class="form-control border-0" name="email"
-							value="${userDTO.email}" data-current-email="${userDTO.email}" placeholder="이메일">
+							value="${userDTO.email}" data-current-email="${userDTO.email}"
+							placeholder="이메일">
 					</div>
 					<div class="input-alert-email input-alert"></div>
 
@@ -149,5 +148,7 @@
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/my/profile-edit.js"></script>
+	<script>const contextPath = '<%=request.getContextPath()%>';</script>
+
 </body>
 </html>

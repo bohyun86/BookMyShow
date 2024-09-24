@@ -1,7 +1,6 @@
 package com.itwillbs.domain;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 import java.sql.Timestamp;
 import java.time.LocalDate;
