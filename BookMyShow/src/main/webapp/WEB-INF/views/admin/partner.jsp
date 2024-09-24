@@ -215,54 +215,54 @@ function ajaxSearchPartner(searchValue){
                           url: "${pageContext.request.contextPath}/admin/partnerresult",
                           data: {'user_name': $('#searchText').val()},
                           dataType: "json",
-                          success: function(partnerDTO) {
+                          success: function(partnerDTO2) {
 //                         	  console.log("AJAX 응답 성공: ", response);  // 응답 데이터 확인
                               // 성공적으로 응답을 받았을 때 처리
-                              if (partnerDTO.userDTO) {
+                              if (partnerDTO2) {
                             	  
                                   // 회원 정보 출력
                                   $('#partnerresult').html('<li class="list-group-item"><a href="javascript:;">'
-                                      + "아이디: " + partnerDTO.userDTO.userName
-                                      + ", 이메일: " + partnerDTO.userDTO.email
-                                      + ", 연락처: " + partnerDTO.userDTO.phoneNumber
-                                      + ", 이름: " + partnerDTO.userDTO.name
-                                      + ", 비밀번호: " + partnerDTO.userDTO.password
-                                      + ", 회원가입일: " + partnerDTO.userDTO.createdAt
-                                      + ", 유형: " + partnerDTO.userDTO.userRole
+                                      + "아이디: " + partnerDTO2.user_name
+                                      + ", 이메일: " + partnerDTO2.email
+                                      + ", 연락처: " + partnerDTO2.phone_number
+                                      + ", 이름: " + partnerDTO2.name
+                                      + ", 비밀번호: " + partnerDTO2.password
+                                      + ", 회원가입일: " + partnerDTO2.created_at
+                                      + ", 유형: " + partnerDTO2.user_role
                                       + '</a></li>');
 
                                   // 파트너 정보가 있으면 파트너 정보도 추가 출력
-                                  if (partnerDTO) {
+                                  if (partnerDTO2) {
                                       
                                       $('#partnerresult').append('<li class="list-group-item"><a href="javascript:;">'
-                                          + "회사명: " +partnerDTO.companyName
-                                          + ", 사업자 ID: " + partnerDTO.businessId
-                                          + ", 계좌번호: " + partnerDTO.accountNumber
+                                          + "회사명: " +partnerDTO2.company_name
+                                          + ", 사업자 ID: " + partnerDTO2.business_id
+                                          + ", 계좌번호: " + partnerDTO2.account_number
                                           + '</a></li>');
                                   
 
                                   // 각 버튼에 대한 링크 설정 (버튼 활성화)
                                   $('#editButton').attr('onclick', 'location.href="' 
-                                      + '${pageContext.request.contextPath}/admin/partnerPro?userName=' 
-                                      + encodeURIComponent(partnerDTO.userDTO.userName)
+                                      + '${pageContext.request.contextPath}/admin/partnerPro?user_name=' 
+                                      + encodeURIComponent(partnerDTO2.user_name)
                                       +'&password='
-                                      + encodeURIComponent(partnerDTO.userDTO.password) 
+                                      + encodeURIComponent(partnerDTO2.password) 
                                       +'&name='
-                                      + encodeURIComponent(partnerDTO.userDTO.name) 
-                                      +'&companyName='
-                                      + encodeURIComponent(partnerDTO.companyName) 
-                                      +'&businessId='
-                                      + encodeURIComponent(partnerDTO.businessId) 
-                                      +'&accountNumber='
-                                      + encodeURIComponent(partnerDTO.accountNumber) 
+                                      + encodeURIComponent(partnerDTO2.name) 
+                                      +'&company_name='
+                                      + encodeURIComponent(partnerDTO2.company_name) 
+                                      +'&business_id='
+                                      + encodeURIComponent(partnerDTO2.business_id) 
+                                      +'&account_number='
+                                      + encodeURIComponent(partnerDTO2.account_number) 
                                       +'&bankName='
-                                      + encodeURIComponent(partnerDTO.bankName) 
-                                      +'&phoneNumber='
-                                      + encodeURIComponent(partnerDTO.userDTO.phoneNumber) 
+                                      + encodeURIComponent(partnerDTO2.bankName) 
+                                      +'&phone_number='
+                                      + encodeURIComponent(partnerDTO2.phone_number) 
                                       +'&email='
-                                      + encodeURIComponent(partnerDTO.userDTO.email) 
-                                      +'&createdAt='
-                                      + encodeURIComponent(partnerDTO.createdAt) 
+                                      + encodeURIComponent(partnerDTO2.email) 
+                                      +'&created_at='
+                                      + encodeURIComponent(partnerDTO2.created_at) 
                                       
                                       + '"').prop('disabled', false);
                                   

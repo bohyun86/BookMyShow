@@ -44,9 +44,9 @@ public class UserDTO {
 
 
     
-
-    @OneToMany(mappedBy = "userDTO", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<PartnerQnaDTO>partnerQnaDTO;
+//
+//    @OneToMany(mappedBy = "userDTO", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    private List<PartnerQnaDTO>partnerQnaDTO;
 
 
 

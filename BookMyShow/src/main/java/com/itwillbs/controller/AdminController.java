@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itwillbs.domain.Performance.MusicalDTO;
 
 import com.itwillbs.domain.PartnerDTO;
-
+import com.itwillbs.domain.PartnerDTO2;
 import com.itwillbs.domain.PartnerQnaDTO;
 
 import com.itwillbs.domain.CouponDTO;
@@ -248,7 +248,7 @@ public class AdminController {
 	public String partner_submit(Model model) {
 		log.info("admin partner_submit success");
 		
-		 List<PartnerDTO> partnerList = partnersServiceAdmin.partnersumbitList(); //파트너리스트
+		 List<PartnerDTO2> partnerList = partnersServiceAdmin.partnersumbitList(); //파트너리스트
 	        model.addAttribute("partnerList", partnerList);
 	        
 	        System.out.println("partnerQnaList size: " + partnerList.size());
@@ -262,49 +262,95 @@ public class AdminController {
 	}
 
 	@GetMapping("/partner_sumbitPro")
-	public String partner_sumbitPro(Model model) {
+	public String partner_sumbitPro(@RequestParam("partner_id") int partner_id,Model model) {
 		log.info("admin partner_submitPro success");
 		
-		 
+		model.addAttribute("partner_id", partner_id);
+		List<PartnerDTO2> partnerDTO2=partnersServiceAdmin.partnersumbitConfirm(partner_id);
 		
+		model.addAttribute("partnerDTO2", partnerDTO2);
+		System.out.println(partnerDTO2);
+		
+//		partnersServiceAdmin.partnerConfirm(partner_id);
 		
 		
 		
 		return "/admin/partner_sumbitPro";
 	}
+	
+	
+	
+	
+	
+	@PostMapping("/partner_submitConfirm")
+	public String partner_submitConfirm(@RequestParam(required = false)Integer partner_id,Model model) {
+		System.out.println("partner_id"+partner_id);
+		log.info("admin partner_submitConfirm success");
+		
+		
+		
+		
+		
+//		List<PartnerDTO2> partnerDTO2=partnersServiceAdmin.partnersumbitConfirm(partner_id);
+//		
+//		model.addAttribute("partner_id", partner_id);
+//		System.out.println(partnerDTO2);
+		
+		
+//		
+		partnersServiceAdmin.partnerConfirm(partner_id);
+		
+		 List<PartnerDTO2> partnerList = partnersServiceAdmin.partnersumbitList();
+		model.addAttribute("partnerList", partnerList);
+//		System.out.println(partnerList);
+//		
+		
+		
+		return "redirect:/admin/partner_submit"; 
+	}
+	
+	
+	
+	
+	
+	
 
 	
 	@GetMapping("/partnerPro")
-
-	public String partnerPro(@RequestParam("userName") String userName, 
+	public String partnerPro(@RequestParam("user_name") String user_name, 
 			@RequestParam("password") String password,
 			@RequestParam("name") String name, 
-			@RequestParam("companyName") String companyName,
-			@RequestParam("businessId") String businessId,
-			@RequestParam("accountNumber") String accountNumber,
+			@RequestParam("company_name") String  company_name,
+			@RequestParam("business_id") String business_id,
+			@RequestParam("account_number") String account_number,
 			@RequestParam("bankName") String bankName,
-			@RequestParam("phoneNumber") String phoneNumber,
+			@RequestParam("phone_number") String phone_number,
 			@RequestParam("email") String email, 
-			@RequestParam("createdAt") String createdAt,
+			@RequestParam("created_at") String created_at,
 			Model model) {
 		log.info("admin partnerPro success");
 
-		model.addAttribute("userName", userName);
+		model.addAttribute("userName", user_name);
 		model.addAttribute("password", password);
 		model.addAttribute("name", name);
-		model.addAttribute("companyName", companyName);
-		model.addAttribute("businessId", businessId);
-		model.addAttribute("accountNumber", accountNumber);
+		model.addAttribute("companyName", company_name);
+		model.addAttribute("businessId", business_id);
+		model.addAttribute("accountNumber", account_number);
 		model.addAttribute("bankName", bankName);
-		model.addAttribute("phoneNumber", phoneNumber);
+		model.addAttribute("phoneNumber", phone_number);
 		model.addAttribute("email", email);
-		model.addAttribute("createdAt", createdAt);
+		model.addAttribute("createdAt", created_at);
 
 		return "/admin/partnerPro";
 	} // parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 partnerPro로 넘기는 과정
 
 
-    @GetMapping("/partner_qna")
+   
+	
+	
+	
+	
+	@GetMapping("/partner_qna")
     public String partner_qna(Model model) {
     	log.info("admin partner_qna success");
 
@@ -313,25 +359,29 @@ public class AdminController {
         List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.selectAllPartnerQnaList();
         model.addAttribute("partnerQnaList", partnerQnaList);
         
+        
         System.out.println("partnerQnaList size: " + partnerQnaList.size());
         System.out.println("partnerQnaList"+partnerQnaList);
-        
         
 
         
         return "/admin/partner_qna"; 
         }
 
+	
+	
+	
+	
     
     @GetMapping("/partner_qnaAnswer")
-    public String partner_qnaAnswer(@RequestParam("inquiryId") int inquiryId,
-    								@RequestParam(required = false) String answerContent,Model model) {
+    public String partner_qnaAnswer(@RequestParam("inquiry_id") int inquiry_id,
+    								@RequestParam(required = false) String answer_content,Model model) {
     	log.info("admin partner_qnaAnswer success");
     	
     	
     	
 //    	List<PartnerQnaDTO> partnerQna = partnersServiceAdmin.PartnerQnaAnser(inquiryId);
-    	List<PartnerQnaDTO> partnerQna = partnersServiceAdmin.PartnerQnaAnser(inquiryId,answerContent);
+    	List<PartnerQnaDTO> partnerQna = partnersServiceAdmin.PartnerQnaAnser(inquiry_id,answer_content);
     	
     	model.addAttribute("partnerQna", partnerQna);
 //    	 List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.selectAllPartnerQnaList();
@@ -344,7 +394,7 @@ public class AdminController {
     
     
     
-    
+    //답변하고 리스트 화면 돌아가기
     @PostMapping("/qnaAnswerOK")
     public String qnaAnswerOK(Model model,
     						  @RequestParam("inquiryId") int inquiryId,
@@ -363,6 +413,9 @@ public class AdminController {
         
         return "redirect:/admin/partner_qna"; 
         }
+    ////////수정필요할듯
+    
+    
     
 
 
@@ -382,8 +435,26 @@ public class AdminController {
 //	
 	
 	@GetMapping("/memberPro")
-	public String memberPro() {
+	public String memberPro(@RequestParam("user_name") String user_name, 
+			@RequestParam("name") String name, 
+			@RequestParam("password") String password, 
+			@RequestParam("phone_number") String phone_number,
+			@RequestParam("email") String email, 
+			@RequestParam("created_at") String created_at,
+			Model model) {
 		log.info("admin memberPro success");
+		
+		model.addAttribute("userName", user_name);
+		model.addAttribute("password", password);
+		model.addAttribute("name", name);
+		model.addAttribute("phoneNumber", phone_number);
+		model.addAttribute("email", email);
+		model.addAttribute("createdAt", created_at);
+//		
+		
+		
+		
+		
 		return "/admin/memberPro";
 	}
 	

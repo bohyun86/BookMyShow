@@ -94,20 +94,20 @@
                                             <label class="col-form-label">답변내용</label>
                                            
                                             <c:choose>
-                           					 <c:when test="${partnerQna.answerContent == null}">
+                           					 <c:when test="${partnerQna.answer_content == null}">
                                             <textarea type="text" name="answerContent" placeholder="답변할 내용을 입력해주세요" style="width: 600px;"
                                                       ></textarea>
                                                       </c:when>
                                                       <c:otherwise>
                                                       <textarea type="text" name="answerContent" style="width: 600px;"
-                                                      >${partnerQna.answerContent}</textarea>
+                                                      >${partnerQna.answer_content}</textarea>
                                                       
                                                       </c:otherwise>
                                                       </c:choose>
                                                       </div>
                                                       
-                                        <input type="hidden" name="inquiryId" value="${partnerQna.inquiryId}">
-                                        <input type="hidden" name="answerContent" value="${partnerQnaList.answerContent}">
+                                        <input type="hidden" name="inquiryId" value="${partnerQna.inquiry_id}">
+                                        <input type="hidden" name="answerContent" value="${partnerQnaList.answer_content}">
                                         </div>
                                         </c:forEach>
                                         </c:if>

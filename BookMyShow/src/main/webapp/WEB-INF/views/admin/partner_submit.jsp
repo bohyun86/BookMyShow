@@ -84,7 +84,7 @@
                                         <th class="border-0">이름</th>
                                         <th class="border-0">연락처</th>
                                         <th class="border-0">요청일</th>
-                                        <th class="border-0">회사명</th>
+                                        <th class="border-0">제작사</th>
                                         <th class="border-0">은행명</th>
                                         <th class="border-0">계좌번호</th>
                                         <th class="border-0">사업자번호</th>
@@ -105,16 +105,15 @@
 
                                   <c:forEach var="partnerList" items="${partnerList}">
                 <tr>
-                    <td>${partnerList.partnerId}</td>
-                    <td><a href="${pageContext.request.contextPath}/admin/partner_sumbitPro?partnerId=${partnerList.partnerId}">${partnerList.userDTO.userName}</a></td>
-                    <td><a href="${pageContext.request.contextPath}/admin/partner_sumbitPro?partnerId=${partnerList.partnerId}">${partnerList.userDTO.name}</a></td>
-                    <td>${partnerList.userDTO.phoneNumber}</td>
-<%--                     ${partnerList.title}</a></td> --%>
-                    <td>${partnerList.createdAt}</td>
-                    <td>${partnerList.companyName}</td>
-                    <td>${partnerList.businessId}</td>
-                    <td>${partnerList.bankName}</td>
-                    <td>${partnerList.accountNumber}</td>
+                    <td>${partnerList.partner_id}</td>
+                    <td><a href="${pageContext.request.contextPath}/admin/partner_sumbitPro?partner_id=${partnerList.partner_id}">${partnerList.user_name}</a></td>
+                    <td><a href="${pageContext.request.contextPath}/admin/partner_sumbitPro?partner_id=${partnerList.partner_id}">${partnerList.name}</a></td>
+                    <td>${partnerList.phone_number}</td>
+                    <td>${partnerList.created_at}</td>
+                    <td>${partnerList.company_name}</td>
+                    <td>${partnerList.business_id}</td>
+                    <td>${partnerList.account_number}</td>
+                    <td>${partnerList.bank_name}</td>
                     <td>
                         <c:choose>
                             <c:when test="${partnerList.approved == 1}">

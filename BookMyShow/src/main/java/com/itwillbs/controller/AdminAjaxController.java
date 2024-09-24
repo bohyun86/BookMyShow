@@ -1,5 +1,6 @@
 package com.itwillbs.controller;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,8 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.google.gson.JsonObject;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.PartnerDTO;
+import com.itwillbs.domain.PartnerDTO2;
 import com.itwillbs.domain.PartnerQnaDTO;
 import com.itwillbs.domain.UserDTO;
+import com.itwillbs.domain.UserDTOAdmin;
 import com.itwillbs.service.MemberService;
 import com.itwillbs.service.PartnerService;
 import com.itwillbs.service.PartnersServiceAdmin;
@@ -65,7 +68,7 @@ public class AdminAjaxController {
 	
 	
 	@GetMapping("/admin/result")
-	public UserDTO results(HttpServletRequest request) {
+	public UserDTOAdmin results(HttpServletRequest request) {
 		System.out.println("AdminAjaxController result" );
 		String id = request.getParameter("user_name");
 		String email = request.getParameter("eamil");
@@ -74,7 +77,7 @@ public class AdminAjaxController {
 		String createdAt = request.getParameter("createdAt");
 		String password = request.getParameter("password");
 		String user_role = request.getParameter("user_role");
-		UserDTO userDTO = memberService.getMember(id,email,phoneNumber,name,password,createdAt,user_role);
+		UserDTOAdmin userDTO = memberService.getMember(id,email,phoneNumber,name,password,createdAt,user_role);
 //		System.out.println("AdminAjaxController::"+email);
 //		System.out.println("AdminAjaxController::"+password);
 //		System.out.println("AdminAjaxController::"+createdAt);
@@ -91,7 +94,7 @@ public class AdminAjaxController {
 	} //  회원검색
 	
 	@GetMapping("/admin/partnerresult")
-	public PartnerDTO partnerresult(HttpServletRequest request) {
+	public PartnerDTO2 partnerresult(HttpServletRequest request) {
 		System.out.println("AdminAjaxController partnerresult" );
 		String id = request.getParameter("user_name");
 		String email = request.getParameter("eamil");
@@ -105,20 +108,20 @@ public class AdminAjaxController {
 		String account_number = request.getParameter("account_number");
 		String bankName = request.getParameter("bankName");
 //		UserDTO userDTO = partnersServiceAdmin.getPartnersy(company_name,id,email,phoneNumber,name,password,createdAt,user_role);
-		PartnerDTO partnerDTO = partnersServiceAdmin.getPartnersy(id,password,company_name,name,business_id,account_number,bankName,email,createdAt);
-		System.out.println("AdminAjaxController::"+email);
+		PartnerDTO2 partnerDTO2 = partnersServiceAdmin.getPartnersy(id,password,company_name,name,business_id,account_number,bankName,email,createdAt);
+		System.out.println("partnerresult::"+email);
 //		System.out.println("AdminAjaxController::"+password);
 //		System.out.println("AdminAjaxController::"+createdAt);
-//		System.out.println("AdminAjaxController::"+name);
+		System.out.println("partnerresult::"+name);
 //		System.out.println("AdminAjaxController::"+phoneNumber);
-//		System.out.println("AdminAjaxController::"+id);
+		System.out.println("partnerresult::"+id);
 //		System.out.println("AdminAjaxController::"+user_role);
 //		System.out.println("AdminAjaxController::"+company_name);
 //		System.out.println("AdminAjaxController::"+userDTO);
 //		JsonObject jsonObject = new JsonObject();
 		
 		
-		return partnerDTO;
+		return partnerDTO2;
 		
 	} // 파트너검색
 //	

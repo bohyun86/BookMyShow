@@ -198,12 +198,23 @@ $(function() {
             dataType: "json",
             success: function(userDTO) {
                 if (userDTO) {
-                    $('#result').html('<li class="list-group-item"><a href="javascript:;">' + "아이디:"+userDTO.userName+",이메일:"+ userDTO.email+",연락처:"+userDTO.phoneNumber+",이름:"+userDTO.name+",비밀번호:"+userDTO.password+",회원가입일:"+userDTO.createdAt+",유형:"+userDTO.userRole+ '</a></li>');
+                    $('#result').html('<li class="list-group-item"><a href="javascript:;">' + "아이디:"+userDTO.user_name+",이메일:"+ userDTO.email+",연락처:"+userDTO.phone_number+",이름:"+userDTO.name+",비밀번호:"+userDTO.password+",회원가입일:"+userDTO.created_at+",유형:"+userDTO.user_role+ '</a></li>');
                     
-                    $('#editButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/memberPro?userName=' 
-                    		+ userDTO.userName + '"').prop('disabled', false);
-                    $('#bookingButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/booking?userName=' + userDTO.userName + '"').prop('disabled', false);
-                    $('#paymentutton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/payment?userName=' + userDTO.userName + '"').prop('disabled', false);
+                    $('#editButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/memberPro?user_name=' 
+                    		+ encodeURIComponent(userDTO.user_name)
+                            +'&name='
+                    		+ encodeURIComponent(userDTO.name)
+                    		+'&phone_number='
+                    		+ encodeURIComponent(userDTO.phone_number)
+                    		+'&email='
+                    		+ encodeURIComponent(userDTO.email)
+                    		+'&password='
+                    		+ encodeURIComponent(userDTO.password)
+                    		+'&created_at='
+                    		+ encodeURIComponent(userDTO.created_at)
+                    		+'"').prop('disabled', false);
+                    $('#bookingButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/booking?user_name=' + userDTO.user_name + '"').prop('disabled', false);
+                    $('#paymentutton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/payment?user_name=' + userDTO.user_name + '"').prop('disabled', false);
                 } else {
                     $('#result').html("회원정보가 없습니다");
                     $('#editButton').prop('disabled', true);

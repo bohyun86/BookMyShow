@@ -103,16 +103,22 @@
 
 
                                   <c:forEach var="partnerQna" items="${partnerQnaList}">
-<%--             <c:forEach var="partnerQnaDTO" items="${userDTO.partnerDTO.partnerQnaDTO}"> --%>
+<%--                                   ${partnerQna.inquiry_id} --%>
+<%--                                   ${partnerQna.user_name} --%>
+<%--                                   ${partnerQna.inquiry_type} --%>
+<%--                                   ${partnerQna.content} --%>
+<%--                                   ${partnerQna.inquiry_id} --%>
+                                  
+                                  
                 <tr>
-                    <td>${partnerQna.inquiryId}</td>
-                    <td>${partnerQna.userDTO.userName}</td>
-                    <td>${partnerQna.inquiryType}</td>
-                    <td><a href="${pageContext.request.contextPath}/admin/partner_qnaAnswer?inquiryId=${partnerQna.inquiryId}">${partnerQna.title}</a></td>
+                    <td>${partnerQna.inquiry_id}</td>
+                    <td>${partnerQna.user_name}</td>
+                    <td>${partnerQna.inquiry_type}</td>
+                    <td><a href="${pageContext.request.contextPath}/admin/partner_qnaAnswer?inquiry_id=${partnerQna.inquiry_id}">${partnerQna.title}</a></td>
                     <td>${partnerQna.content}</td>
-                    <td>${partnerQna.createdAt}</td>
-                    <td>${partnerQna.userDTO.name}</td>
-                    <td>${partnerQna.partnerDTO.companyName}</td>
+                    <td>${partnerQna.created_at}</td>
+                    <td>${partnerQna.name}</td>
+                    <td>${partnerQna.company_name}</td>
                     <td>
                         <c:choose>
                             <c:when test="${partnerQna.answered == 1}">
@@ -125,7 +131,6 @@
                     </td>
                 </tr>
             </c:forEach>
-<%--         </c:forEach> --%>
 
                                     </tbody>
                                 </table>
