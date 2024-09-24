@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ITWILL
-  Date: 2024-09-03
-  Time: 오후 1:41
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
@@ -201,8 +194,8 @@
 				 										
 				 										<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 				 										<input type="hidden" name="partner_id" value="${partnerDTO2.partner_id}">
-  															<button class="btn btn-primary me-md-2" type="submit" onclick= "submitForm()" >승인</button> &nbsp; &nbsp;
-  																<button class="btn btn-primary me-md-2" type="button" onclick="deleteok()">삭제</button>
+  															<button class="btn btn-primary me-md-2" type="button" onclick= "submitForm();" >승인</button> &nbsp; &nbsp;	
+  																<button class="btn btn-primary me-md-2" type="button" onclick="deleteok();">삭제</button>
   															</div>
 														</c:forEach> 
 														</form>
@@ -227,16 +220,16 @@
 
 <script>
 
-
-
 function submitForm(){
 	 if (confirm("승인하시겠습니까?")) {
-         alert("승인 되었습니다.");
-         document.getElementById("PartnerSubmitForm").submit();
-     } else {
-         alert("취소되었습니다.");
-     }
+        alert("승인 되었습니다.");
+        document.getElementById("editPartnerForm").submit();
+    } else {
+        alert("취소되었습니다.");
+    }
 }
+
+
 
 //삭제 컨펌가능
 function deleteok(){
@@ -246,7 +239,7 @@ function deleteok(){
 }
 
 
-    }
+    
 
 
 
