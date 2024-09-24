@@ -2,7 +2,7 @@ package com.itwillbs.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import com.itwillbs.domain.MusicalDTO;
+import com.itwillbs.domain.Performance.MusicalDTO;
 
 import com.itwillbs.domain.PartnerDTO;
 
@@ -172,16 +172,16 @@ public class AdminController {
         log.info("admin editPro success");
         PerformanceTempDTO performanceTempDTO = partnerService.getPerformanceTemp(musicalId);
         List<AttachFile2DTO> attachFileDTO = partnerService.getAttachFileByMusicalId(musicalId);
-//		MusicalDTO musicalDTO = partnerService.getMusicalByMusicalId(musicalId);
-//		boolean musicalApproved = musicalDTO.isApproved();
+		MusicalDTO musicalDTO = partnerService.getMusicalByMusicalId(musicalId);
+		boolean musicalApproved = musicalDTO.isApproved();
 
-//		log.info("Approved: {}", musicalApproved);
+		log.info("Approved: {}", musicalApproved);
 
         log.info("attachFileDTO: {}", attachFileDTO);
 
         model.addAttribute("performanceTempDTO", performanceTempDTO);
         model.addAttribute("attachFileDTO", attachFileDTO);
-//		model.addAttribute("approval", musicalApproved);
+		model.addAttribute("approval", musicalApproved);
         return"/admin/editPro";
 	}
 
