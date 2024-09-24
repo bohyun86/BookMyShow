@@ -54,12 +54,6 @@ public class PartnerQnaDTO {
 	@ManyToOne
 	@JoinColumn(name = "user_id", insertable = false, updatable = false)
 	private UserDTO userDTO;
-
-	
-	
-	 @ManyToOne
-	 @JoinColumn(name = "user_id", insertable = false, updatable = false) // user_id에 대한 참조
-	 private PartnerDTO partnerDTO;
 	 
 	
 	

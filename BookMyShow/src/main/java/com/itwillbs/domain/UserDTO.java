@@ -38,15 +38,15 @@ public class UserDTO {
     @UpdateTimestamp
     private Timestamp updatedAt;
 
-    @OneToOne
+
+    @OneToOne(mappedBy = "userDTO", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private PartnerDTO partnerDTO;
 
 
     
 
-    @OneToMany
+    @OneToMany(mappedBy = "userDTO", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<PartnerQnaDTO>partnerQnaDTO;
-
 
 
 
