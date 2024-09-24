@@ -11,7 +11,11 @@
                 <a class="nav-link text-black" href="#">회원가입</a>
             </li>
             <li class="nav-item">
+<<<<<<< HEAD
+                <a class="nav-link text-black" id="cs-dropdown" href="${pageContext.request.contextPath}/support/frequentQuestion">고객센터</a>
+=======
                 <a class="nav-link text-black" id="cs-dropdown" href="${pageContext.request.contextPath}/support/faq">고객센터</a>
+>>>>>>> refs/heads/develop
                 <!-- Dropdown menu -->
                 <div class="dropdown-menu shadow border-0 " id="cs-dropdown-menu">
                     <div class="h-100 d-flex row justify-content-between align-items-center">
