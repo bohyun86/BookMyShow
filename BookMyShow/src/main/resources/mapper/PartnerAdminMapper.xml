@@ -161,7 +161,13 @@
 	   </update>
 	   
 	    
+<delete id="partner_delete" >
+	delete from Partner
+	Where partner_id = #{partner_id} and approved=1;
 
+
+
+</delete>
 
 
 

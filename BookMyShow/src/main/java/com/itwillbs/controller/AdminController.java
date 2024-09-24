@@ -307,9 +307,19 @@ public class AdminController {
 		
 		
 		return "redirect:/admin/partner_submit"; 
+	}//승인요청 수락
+	
+	
+	
+	
+	@PostMapping("/partner_delete")
+	public String partner_delete(@RequestParam("partner_id") int partner_id) {
+		log.info("admin partner_submitConfirm success");
+		
+		partnersServiceAdmin.partner_delete(partner_id);
+		
+		return "redirect:/admin/partner_submit";
 	}
-	
-	
 	
 	
 	

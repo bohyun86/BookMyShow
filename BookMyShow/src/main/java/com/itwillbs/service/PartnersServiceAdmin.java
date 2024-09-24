@@ -95,7 +95,15 @@ public class PartnersServiceAdmin {
 		// TODO Auto-generated method stub
 		partnerDAO.partnerConfirm(partner_id);
 	}
+	//파트너승인수락
 
+
+	public void partner_delete(int partner_id) {
+		// TODO Auto-generated method stub
+		partnerDAO.partner_delete(partner_id);
+	}
+	//파트너 삭제
+	
 	
 	
 

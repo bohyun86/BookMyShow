@@ -100,7 +100,15 @@ public class PartnerDAO {
 		 sqlSession.update(namespace+".partnerConfirm",partner_id);
 		
 	}
-	
+
+
+	public void partner_delete(int partner_id) {
+		// TODO Auto-generated method stub
+		
+		sqlSession.delete(namespace+".partner_delete",partner_id);
+		
+	}
+	//파트너삭제
 
 	
 
