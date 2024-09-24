@@ -4,9 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -25,11 +23,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.domain.BookingDTO;
 import com.itwillbs.domain.MyPageDTO;
-import com.itwillbs.domain.PaymentDTO;
 import com.itwillbs.domain.PerformanceDTO;
 import com.itwillbs.domain.PointDTO;
 import com.itwillbs.domain.ReviewDTO;
@@ -291,25 +287,11 @@ public class MypageController {
 	}
 
 	@PostMapping("/withdraw")
-	public String withdrawUser(HttpSession session, RedirectAttributes redirectAttributes, Model model) {
-		addCommonAttributes(model, session);
-		String userName = (String) session.getAttribute("userName");
-		if (userName != null) {
-			try {
-				UserDTO userDTO = new UserDTO();
-				userDTO.setUserName(userName);
-				userService.deleteUser(userDTO);
+	public String withdrawUser(HttpSession session, Model model) {
+		 Integer userId = (Integer) session.getAttribute("userId");
+				userService.deleteUser(userId);
 				session.invalidate();
-				redirectAttributes.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다.");
-				return "redirect:/main/main"; // 탈퇴 후 메인 페이지로 리다이렉션
-			} catch (Exception e) {
-				redirectAttributes.addFlashAttribute("error", "회원 탈퇴 중 오류가 발생했습니다: " + e.getMessage());
-				return "redirect:/my/profile-edit"; // 오류 발생 시 프로필 수정 페이지로 리다이렉션
-			}
-		} else {
-			redirectAttributes.addFlashAttribute("error", "로그인 정보가 유효하지 않습니다.");
-			return "redirect:/my/profile-edit";
-		}
+				return "redirect:/main/main";
 	}
 
 	@GetMapping("/reviews")

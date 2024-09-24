@@ -115,16 +115,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional
-	public void deleteUser(UserDTO userDTO) {
-	    UserDTO user = userMapper.getUser(userDTO);
-	    if (user == null) {
-	        throw new RuntimeException("사용자를 찾을 수 없습니다.");
-	    }
-	    int result = userMapper.deleteUser(user.getUserId()); 
-	    if (result == 0) {  
-	        throw new RuntimeException("회원 탈퇴 처리 중 오류가 발생했습니다.");
-	    }
+	public Boolean deleteUser(Integer userId) {
+	    return userMapper.deleteUser(userId) > 0;
 	}
 
 	@Override
