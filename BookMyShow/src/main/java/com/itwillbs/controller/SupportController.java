@@ -292,14 +292,14 @@ public class SupportController {
 		return "/support/inupdate";
 	}
     
-    @PostMapping("support/inupdatePro")
-	public String inupdatePro(SupportinquiryDTO supportinquiryDTO){
-		System.out.println("SupportController inpdatePro()");
-		System.out.println(supportinquiryDTO);
-
-		supportService.updateInquiry(supportinquiryDTO);
-		
-		return "redirect:/support/inquiry";
-	}
+//    @PostMapping("support/inupdatePro")
+//	public String inupdatePro(SupportinquiryDTO supportinquiryDTO){
+//		System.out.println("SupportController inpdatePro()");
+//		System.out.println(supportinquiryDTO);
+//
+//		supportService.updateInquiry(supportinquiryDTO);
+//		
+//		return "redirect:/support/inquiry";
+//	}
     
 }
