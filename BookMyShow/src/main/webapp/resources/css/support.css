@@ -1,4 +1,5 @@
 #noticenum {
+<<<<<<< HEAD
 	margin-left: 270px;
 }
 
@@ -13,6 +14,23 @@ background: #eee;
 border:2px solid #fff;
 text-decoration: none;
 border-radius: 5px;
+=======
+    text-align: center;
+    padding: 0 0 30px 220px;
+}
+
+.pgnum, .now, .next {
+    width: 70px;
+    padding-right: 5px; 
+    color: #000;
+    font-size: 14px;
+    padding: 5px 10px;
+    margin: 0 2px;
+    background: #eee;
+    border:2px solid #fff;
+    text-decoration: none;
+    border-radius: 5px; 
+>>>>>>> refs/heads/develop
 }
 
 .next {

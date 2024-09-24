@@ -107,6 +107,9 @@ public class PerformanceTempDTO {
     @Column(name = "performance_date")
     private String performanceDate; // 1
 
+    @Column(name = "venue_id")
+    private int venueId; // 1
+
     @Column(name = "venue_title")
     private String venueTitle; //
 

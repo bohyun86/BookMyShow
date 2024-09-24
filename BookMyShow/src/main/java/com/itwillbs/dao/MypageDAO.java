@@ -13,8 +13,9 @@ import com.itwillbs.domain.BookingDTO;
 import com.itwillbs.domain.MusicalDTO;
 import com.itwillbs.domain.PaymentDTO;
 import com.itwillbs.domain.PerformanceDTO;
+import com.itwillbs.domain.PointDTO;
 import com.itwillbs.domain.UserDTO;
-import com.itwillbs.domain.Performance.VenueDTO;
+import com.itwillbs.domain.VenueDTO;
 
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -25,23 +26,72 @@ import lombok.extern.log4j.Log4j2;
 public class MypageDAO {
 
 	private final SqlSession sqlSession;
-
 	private static final String NAMESPACE = "com.itwillbs.mapper.MypageMapper";
 
+	// 단수형 메서드
 	public Integer getMemberId(int userId) {
-	    Integer memberId = sqlSession.selectOne(NAMESPACE + ".getMemberId", userId);
-	    return memberId;
+		return sqlSession.selectOne(NAMESPACE + ".getMemberId", userId);
 	}
-
 
 	public UserDTO getUser(Integer userId) {
 		return sqlSession.selectOne(NAMESPACE + ".getUser", userId);
 	}
 
-	public List<BookingDTO> getBookings(Integer memberId, Integer bookingId, Integer offset, Integer limit) {
+	public BookingDTO getBooking(Integer bookingId, Integer memberId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("bookingId", bookingId);
+		params.put("memberId", memberId);
+		return sqlSession.selectOne(NAMESPACE + ".getBooking", params);
+	}
+
+	public MusicalDTO getMusical(Integer bookingId) {
+		return sqlSession.selectOne(NAMESPACE + ".getMusical", bookingId);
+	}
+
+	public AttachFileDTO getAttachFile(Integer bookingId) {
+		return sqlSession.selectOne(NAMESPACE + ".getAttachFile", bookingId);
+	}
+
+	public PerformanceDTO getPerformance(Integer bookingId) {
+		return sqlSession.selectOne(NAMESPACE + ".getPerformance", bookingId);
+	}
+
+	public PaymentDTO getPayment(Integer bookingId) {
+		return sqlSession.selectOne(NAMESPACE + ".getPayment", bookingId);
+	}
+
+	public List<BookedSeatsDTO> getBookedSeats(Integer bookingId) {
+		return sqlSession.selectList(NAMESPACE + ".getBookedSeats", bookingId);
+	}
+
+	public VenueDTO getVenue(Integer bookingId) {
+		return sqlSession.selectOne(NAMESPACE + ".getVenue", bookingId);
+	}
+
+	public int getTotalBookingsCount(Integer memberId) {
+		return sqlSession.selectOne(NAMESPACE + ".getTotalBookingsCount", memberId);
+	}
+
+	public int getTotalRefundsCount(Integer memberId) {
+		return sqlSession.selectOne(NAMESPACE + ".getTotalRefundsCount", memberId);
+	}
+
+	public boolean processRefund(Integer bookingId, Integer userId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("bookingId", bookingId);
+		params.put("userId", userId);
+		int updatedRows = sqlSession.update(NAMESPACE + ".processRefund", params);
+		return updatedRows > 0;
+	}
+
+	public int getUsableTicketCount(Integer memberId) {
+		return sqlSession.selectOne(NAMESPACE + ".getUsableTicketCount", memberId);
+	}
+
+	// 복수형 메서드
+	public List<BookingDTO> getBookings(Integer memberId, Integer offset, Integer limit) {
 		Map<String, Object> params = new HashMap<>();
 		params.put("memberId", memberId);
-		params.put("bookingId", bookingId);
 		params.put("offset", offset);
 		params.put("limit", limit);
 		return sqlSession.selectList(NAMESPACE + ".getBookings", params);
@@ -63,16 +113,12 @@ public class MypageDAO {
 		return sqlSession.selectList(NAMESPACE + ".getPayments", bookingIds);
 	}
 
-	public List<BookedSeatsDTO> getBookedSeats(List<Integer> bookingIds) {
-		return sqlSession.selectList(NAMESPACE + ".getBookedSeats", bookingIds);
+	public List<BookedSeatsDTO> getBookedSeatss(List<Integer> bookingIds) {
+		return sqlSession.selectList(NAMESPACE + ".getBookedSeatss", bookingIds);
 	}
 
 	public List<VenueDTO> getVenues(List<Integer> bookingIds) {
 		return sqlSession.selectList(NAMESPACE + ".getVenues", bookingIds);
-	}
-
-	public int getTotalBookingsCount(Integer memberId) {
-		return sqlSession.selectOne(NAMESPACE + ".getTotalBookingsCount", memberId);
 	}
 
 	public List<BookingDTO> getRefundBookings(Integer memberId, Integer offset, Integer limit) {
@@ -83,24 +129,40 @@ public class MypageDAO {
 		return sqlSession.selectList(NAMESPACE + ".getRefundBookings", params);
 	}
 
-	public int getTotalRefundsCount(Integer memberId) {
-		return sqlSession.selectOne(NAMESPACE + ".getTotalRefundsCount", memberId);
+//    refundProcess
+	public void updatePayment(PaymentDTO payment) {
+		sqlSession.update(NAMESPACE + ".updatePayment", payment);
 	}
 
-	public boolean processRefund(Integer bookingId, Integer userId) {
-		// 환불 처리 로직 구현
-		// SQL 쿼리를 통해 데이터베이스 업데이트
-		int updatedRows = sqlSession.update(NAMESPACE + ".processRefund",
-				Map.of("bookingId", bookingId, "userId", userId));
-		return updatedRows > 0;
+	public void addPointsRef(Integer userId, int points, int currentAmount, String reason, Integer paymentId) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("userId", userId);
+		params.put("points", points);
+		params.put("currentAmount", currentAmount);
+		params.put("reason", reason);
+		params.put("paymentId", paymentId);
+		sqlSession.insert(NAMESPACE + ".addPointsRef", params);
 	}
 
-	public int getUserPoint(Integer userId) {
-	    Integer balance = sqlSession.selectOne(NAMESPACE + ".getUserPoint", userId);
-	    return balance != null ? balance : 0;
+	public void updateBooking(BookingDTO booking) {
+		sqlSession.update(NAMESPACE + ".updateBooking", booking);
 	}
 
-	public int getUsableTicketCount(Integer userId) {
-		return sqlSession.selectOne(NAMESPACE + ".getUsableTicketCount", userId);
+	public void updateBookedSeatsStatus(Integer bookingId, String status) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("bookingId", bookingId);
+		params.put("status", status);
+		sqlSession.update(NAMESPACE + ".updateBookedSeatsStatus", params);
+	}
+
+	public List<PointDTO> getAvailablePoints(Integer userId) {
+		return sqlSession.selectList(NAMESPACE + ".getAvailablePoints", userId);
+	}
+
+	public void updatePointUsage(Integer pointId, int usedAmount) {
+		Map<String, Object> params = new HashMap<>();
+		params.put("pointId", pointId);
+		params.put("usedAmount", usedAmount);
+		sqlSession.update(NAMESPACE + ".updatePointUsage", params);
 	}
 }

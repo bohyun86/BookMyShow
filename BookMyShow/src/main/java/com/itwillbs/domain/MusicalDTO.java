@@ -1,11 +1,16 @@
+
+
+
 package com.itwillbs.domain;
 
-
-import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+
+
+import lombok.Data;
+
 
 @Data
 public class MusicalDTO {
@@ -31,3 +36,4 @@ public class MusicalDTO {
     private Boolean reserved;
     private Integer ticketsPerPerson;
 }
+

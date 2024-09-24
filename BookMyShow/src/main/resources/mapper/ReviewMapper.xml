@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.itwillbs.mapper.ReviewMapper">
+
+	<resultMap id="userResultMap"
+		type="com.itwillbs.domain.UserDTO">
+		<id property="userId" column="user_id" />
+		<result property="password" column="password" />
+		<result property="email" column="email" />
+		<result property="phoneNumber" column="phone_number" />
+		<result property="name" column="name" />
+		<result property="userRole" column="user_role" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+	</resultMap>
+	<resultMap id="reviewResultMap"
+		type="com.itwillbs.domain.ReviewDTO">
+		<id property="reviewId" column="review_id" />
+		<result property="rating" column="rating" />
+		<result property="content" column="content" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="memberId" column="member_id" />
+		<result property="musicalId" column="musical_id" />
+		<result property="performanceId" column="performance_id" />
+		<result property="musicalTitle" column="title" />
+		<result property="performanceDate" column="performance_date" />
+	</resultMap>
+	<resultMap id="performanceResultMap"
+		type="com.itwillbs.domain.PerformanceDTO">
+		<id property="performanceId" column="performance_id" />
+		<result property="performanceDate" column="performance_date" />
+		<result property="createdAt" column="created_at" />
+		<result property="updatedAt" column="updated_at" />
+		<result property="musicalId" column="musical_id" />
+		<result property="venueId" column="venue_id" />
+		<result property="musicalTitle" column="title" />
+	</resultMap>
+
+	<select id="getReviewByPerf" resultMap="reviewResultMap">
+		SELECT r.*,
+		m.title,p.performance_date
+		FROM Review r JOIN Musical m
+		ON r.musical_id
+		= m.musical_id
+		JOIN Performance p
+		ON r.performance_id = p.performance_id
+		WHERE r.performance_id =
+		#{performanceId}
+		AND r.member_id = #{memberId}
+	</select>
+
+	<select id="getReviewById" resultMap="reviewResultMap">
+		SELECT r.*, m.title,
+		p.performance_date
+		FROM Review r
+		JOIN Musical m ON r.musical_id =
+		m.musical_id
+		JOIN Performance p ON r.performance_id = p.performance_id
+		WHERE r.review_id = #{reviewId}
+	</select>
+
+	<delete id="deleteReview" parameterType="int">
+		DELETE FROM Review WHERE
+		review_id = #{reviewId}
+	</delete>
+
+	<select id="getPerformanceById" resultMap="performanceResultMap">
+		SELECT p.*, m.title
+		FROM Performance p JOIN Musical m
+		ON p.musical_id = m.musical_id
+		WHERE
+		p.performance_id =
+		#{performanceId}
+	</select>
+
+	<insert id="insertReview"
+		parameterType="com.itwillbs.domain.ReviewDTO">
+		INSERT INTO Review (rating, content, member_id,
+		musical_id, performance_id)
+		VALUES (#{rating}, #{content}, #{memberId},
+		#{musicalId},
+		#{performanceId})
+	</insert>
+
+	<update id="updateReview"
+		parameterType="com.itwillbs.domain.ReviewDTO">
+		UPDATE Review
+		SET rating = #{rating}, content =
+		#{content}, updated_at =
+		CURRENT_TIMESTAMP
+		WHERE review_id = #{reviewId}
+	</update>
+
+	<select id="getReviewsByMemberId" resultMap="reviewResultMap">
+		SELECT r.*, m.title,
+		p.performance_date
+		FROM Review r
+		JOIN Musical m ON r.musical_id =
+		m.musical_id
+		JOIN Performance p ON r.performance_id = p.performance_id
+		WHERE r.member_id = #{memberId}
+		ORDER BY r.created_at DESC
+		LIMIT
+		#{offset}, #{limit}
+	</select>
+
+	<select id="getTotalReviewsCount" resultType="int">
+		SELECT COUNT(*)
+		FROM Review
+		WHERE member_id = #{memberId}
+	</select>
+
+	<select id="getReviewSummary" resultType="java.util.Map">
+		SELECT COUNT(*) as totalReviews, AVG(rating) as averageRating
+		FROM Review
+		WHERE member_id = #{memberId}
+	</select>
+</mapper>
+  

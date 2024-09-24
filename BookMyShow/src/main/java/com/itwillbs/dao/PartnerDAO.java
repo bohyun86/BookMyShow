@@ -1,11 +1,14 @@
 package com.itwillbs.dao;
 
 import java.sql.Connection;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.itwillbs.domain.PartnerDTO;
+import com.itwillbs.domain.PartnerQnaDTO;
 import com.itwillbs.domain.UserDTO;
 
 @Repository
@@ -26,8 +29,17 @@ public class PartnerDAO {
 		System.out.println("PartnerDAO getPartnersy user_role :::" + user_role);
 		return sqlSession.selectOne(namespace+ ".getPartnersy", id);
 	}
+
 	
+	public PartnerDTO getPartnersy(String id) {
+		System.out.println("PartnerDAO"+id);
+		return sqlSession.selectOne(namespace+".getPartnersy", id);
+	}
 	
+	public List<PartnerQnaDTO> getPartneQna(String id) {
+	    System.out.println("PartnerDAO::" + id);
+	    return sqlSession.selectList(namespace + ".getPartneQna", id);
+	}
 	
 	
 	

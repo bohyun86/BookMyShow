@@ -36,13 +36,17 @@ public class SupportController {
         return "/support/frequentQuestion";
     }
     
+
     @GetMapping("/support/ntwrite")
 	public String ntwrite() {
     	log.info("ntwrite success");
 
+
+
 		return "/support/ntwrite";
 	}
     
+
     @PostMapping("support/ntwritePro")
 	public String ntwritePro(SupportNoticeDTO supportNoticeDTO) {
 		System.out.println("SupportController ntwritePro()");
@@ -74,6 +78,7 @@ public class SupportController {
 		int endPage = startPage + pageBlock - 1;
 		int pageCount = count / pageSize + (count % pageSize==0?0:1);
 
+
 		if(endPage > pageCount) {
 			endPage = pageCount;
 		}
@@ -97,6 +102,7 @@ public class SupportController {
 		model.addAttribute("supportNoticeDTO", supportNoticeDTO);
 		return "/support/ntcontent";
 	}
+
     
     @GetMapping("/support/ntupdate")
 	public String ntupdate(@RequestParam("notice_id") int notice_id, Model model) {
@@ -111,7 +117,7 @@ public class SupportController {
 	public String ntupdatePro(SupportNoticeDTO supportNoticeDTO){
 		System.out.println("SupportController ntupdatePro()");
 		System.out.println(supportNoticeDTO);
-
+    	
 		supportService.updateNotice(supportNoticeDTO);
 		
 		return "redirect:/support/notice";
@@ -290,7 +296,7 @@ public class SupportController {
     	
 		model.addAttribute("supportinquiryDTO", supportinquiryDTO);
 		return "/support/inupdate";
-	}
+    }
     
 //    @PostMapping("support/inupdatePro")
 //	public String inupdatePro(SupportinquiryDTO supportinquiryDTO){

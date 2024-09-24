@@ -17,6 +17,9 @@
 		<result property="createdAt" column="created_at" />
 		<result property="updatedAt" column="updated_at" />
 		<result property="memberId" column="member_id" />
+		<result property="isEncoded" column="is_encoded" />
+		<result property="tempPassword" column="temp_password" />
+		<result property="tempPasswordCreatedAt" column="temp_password_created_at" />
 	</resultMap>
 
 	<!-- User 삽입 시, 생성된 user_id 값을 자동으로 가져오도록 설정 -->
@@ -27,6 +30,32 @@
 		values(0, #{userName}, #{password}, #{email}, #{phoneNumber}, #{name},
 		#{userRole}, now())
 	</insert>
+
+	<select id="getUserById" resultType="com.itwillbs.domain.UserDTO"
+		resultMap="userResultMap">
+		select * from User where user_name = #{userName}
+	</select>
+
+	<update id="updateUserPasswordAndEncode">
+		update User
+		set password = #{password}, is_encoded = #{isEncoded}
+		where user_id = #{userId}
+	</update>
+
+	<select id="findIdPro" resultMap="userResultMap" resultType="com.itwillbs.domain.UserDTO">
+		select * from User where email = #{email} and phone_number = #{phoneNumber}
+	</select>
+
+	<select id="findPwPro" resultMap="userResultMap" resultType="com.itwillbs.domain.UserDTO">
+		select * from User where user_name = #{userName} and email = #{email}
+	</select>
+
+	<update id="updateUserTempPw">
+		update User
+		set temp_password = #{tempPassword}, temp_password_created_at = now()
+		where user_id = #{userId}
+	</update>
+
 
 	<!-- Member 삽입 시, 방금 생성된 user_id 값을 사용 -->
 	<insert id="insertMember">
@@ -51,8 +80,9 @@
 
 	<update id="updateUser">
 		update User
-		set name = #{name}, password = #{password}, email = #{email},
-		phone_number = #{phoneNumber}, updated_at = now()
+		set name = #{name}, email = #{email},
+		phone_number = #{phoneNumber}, updated_at = now(),
+		temp_password_created_at = null, temp_password = null
 		where user_id = #{userId}
 	</update>
 	

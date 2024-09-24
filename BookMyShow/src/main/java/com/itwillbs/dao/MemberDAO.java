@@ -38,6 +38,11 @@ public class MemberDAO {
 		System.out.println("MemberDAO user_role :::" + user_role);
 		return sqlSession.selectOne(namespace+ ".getMember", id);
 	}
+
+	public UserDTO getMember(String id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+ ".getMember", id);
+	}
 	
 }
 

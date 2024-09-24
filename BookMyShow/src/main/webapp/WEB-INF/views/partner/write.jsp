@@ -112,6 +112,10 @@
                                                        placeholder="공연장 명을 작성해주세요." id="search" name="venueTitle"
                                                        autocomplete="off">
                                                 <ul id="results" style="width: 500px"></ul>
+                                                <%--div 태그 안에 ${pageContext.request.contextPath} 임시 저장 --%>
+                                                <input type="hidden" value="${pageContext.request.contextPath}"
+                                                       id="contextPath">
+
                                                 <div class="region">
                                                     <div class="input-group" style="width: 160px">
                                                         <span class="input-group-text">지역명</span>
@@ -386,13 +390,13 @@
                                             <label class="col-form-label">요청사항</label>
                                             <textarea type="text" name="request"></textarea>
                                         </div>
-                                        <input type="hidden" name="partnerId" value="${sessionScope.partnerId}">
+
                                         <div class="form-group col">
                                             <label></label>
                                             <input type="submit" value="등록신청" class="btn btn-primary"
                                                    Style="color: white">
                                         </div>
-
+                                        <input type="hidden" name="partnerId" value="${sessionScope.partnerId}">
                                         <input type="hidden" name="UserId" value="${sessionScope.userId}">
                                     </div>
                                     <!-- 프로그래스 바 추가 -->

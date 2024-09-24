@@ -86,7 +86,7 @@
             </div>
             <div class="col d-flex justify-content-between mt-1">
                 <div>최근 새로 등록된 티켓<i class="bi bi-ticket-perforated-fill"></i>을 만나보세요</div>
-                <div><a href="#" class="fs-6 fw-bold text-dark">더보기></a></div>
+                <div><a href="${pageContext.request.contextPath}/main/new_musical" class="fs-6 fw-bold text-dark">더보기></a></div>
             </div>
 
             <div class="cards-wrapper overflow-hidden position-relative" style="width: 1100px;">
@@ -124,7 +124,7 @@
             </div>
             <div class="col d-flex justify-content-between mt-1">
                 <div>한정기간/한정수량 최저가<i class="bi bi-cash-stack"></i> 티켓을 만나보세요</div>
-                <div><a href="#" class="fs-6 fw-bold text-dark">더보기></a></div>
+                <div><a href="${pageContext.request.contextPath}/main/time_sale" class="fs-6 fw-bold text-dark">더보기></a></div>
             </div>
 
             <!-- 카드 래퍼 추가 -->
