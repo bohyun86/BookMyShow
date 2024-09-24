@@ -9,7 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
+import com.itwillbs.domain.MusicalDetatilDTO;
 import com.itwillbs.domain.MusicalMainDTO;
 import com.itwillbs.service.MusicalService;
 
@@ -82,12 +82,18 @@ public class MusicalController {
 
   
   	@RequestMapping("/page_detail")
-  	public String musicalPage_detail() {
+  	public String musicalPage_detail( Model model,
+  			@RequestParam(required = false) String musical_id) {
+	  System.out.println("뮤지컬id = "+musical_id);
 	  
-  		
+	  model.addAttribute("musical_file", musicalService.getMusicalFile(musical_id));
+	  System.out.println(model);
+	  model.addAttribute("performace_date", musicalService.getPerformance_date(musical_id));
+	  model.addAttribute("musical_detail", musicalService.getMusicalDetail(musical_id));
+	 
   		return "/musical/page_detail";
   	}
-
+  	
 
 
 }

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html style="overflow-y:hidden !important">
 <head>
@@ -10,6 +12,17 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/musical_detail.css">
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"
+    integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+    integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"
+    integrity="sha512-aOG0c6nPNzGk+5zjwyJaoRUgCdOrfSDhmMID2u4+OIslr0GjpLKo7Xm0Ao3xmpM4T8AmIouRkqwj1nrdVsLKEQ=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.css">
+  <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
 
 </head>
 <body>
@@ -18,187 +31,21 @@
 <div style="padding-top: 20px; width:815px; margin:0 auto;">
 
 	<div style="float: left; position:relative; width:482px; margin-right:20px; margin-top:30px; border-radius:10px;">
-		<img src="${pageContext.request.contextPath}/resources/images/poster/newopen1.jpg" style="width:482px; height: 482px; border-radius:10px;">
+		<c:forEach var="musical_File" items="${musical_file}" varStatus="index" step="1">
+			 <c:if test="${index.last}">
+				<img src="${pageContext.request.contextPath}/resources/upload/${musical_File.upload_path }/${musical_File.uuid}_${musical_File.file_name}" style="width:482px; height: 482px; border-radius:10px;">
+			</c:if>
+		</c:forEach>
 	</div>
 		<form>
 		<section style="float: right; width: 307px;">
-			<div id="calendar_popup" class="calendar_popup_02 choice_day"
-				style="">
-				<div class="popup_warp">
-					<div id="datepicker"
-						style="background: #fff; border-radius: 10px; min-height: 230px;"
-						class="hasDatepicker">
-						<div
-							class="ui-datepicker-inline ui-datepicker ui-widget ui-widget-content ui-helper-clearfix ui-corner-all"
-							style="display: block;">
-							<div
-								class="ui-datepicker-header ui-widget-header ui-helper-clearfix ui-corner-all">
-								<a class="ui-datepicker-prev ui-corner-all ui-state-disabled"
-									title="Prev"><span
-									class="ui-icon ui-icon-circle-triangle-w">Prev</span></a><a
-									class="ui-datepicker-next ui-corner-all" data-handler="next"
-									data-event="click" title="Next"><span
-									class="ui-icon ui-icon-circle-triangle-e">Next</span></a>
-								<div class="ui-datepicker-title">
-									<span class="ui-datepicker-year">2024</span>년&nbsp;<span
-										class="ui-datepicker-month">09</span>
-								</div>
-							</div>
-							<table class="ui-datepicker-calendar">
-								<thead>
-									<tr>
-										<th scope="col" class="ui-datepicker-week-end"><span
-											title="일">일</span></th>
-										<th scope="col"><span title="월">월</span></th>
-										<th scope="col"><span title="화">화</span></th>
-										<th scope="col"><span title="수">수</span></th>
-										<th scope="col"><span title="목">목</span></th>
-										<th scope="col"><span title="금">금</span></th>
-										<th scope="col" class="ui-datepicker-week-end"><span
-											title="토">토</span></th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td
-											class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span
-											class="ui-state-default">1</span></td>
-										<td
-											class=" ui-datepicker-unselectable ui-state-disabled undefined"><span
-											class="ui-state-default">2</span></td>
-										<td
-											class=" ui-datepicker-unselectable ui-state-disabled undefined"><span
-											class="ui-state-default">3</span></td>
-										<td
-											class=" ui-datepicker-unselectable ui-state-disabled undefined"><span
-											class="ui-state-default">4</span></td>
-										<td
-											class=" ui-datepicker-unselectable ui-state-disabled undefined"><span
-											class="ui-state-default">5</span></td>
-										<td
-											class=" ui-datepicker-unselectable ui-state-disabled undefined"><span
-											class="ui-state-default">6</span></td>
-										<td
-											class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span
-											class="ui-state-default">7</span></td>
-									</tr>
-									<tr>
-										<td
-											class=" ui-datepicker-week-end ui-datepicker-unselectable ui-state-disabled undefined"><span
-											class="ui-state-default">8</span></td>
-										<td class=" undefined ui-datepicker-today"
-											data-handler="selectDay" data-event="click" data-month="8"
-											data-year="2024"><a
-											class="ui-state-default ui-state-highlight" href="#"
-											aria-current="false" data-date="9">9</a></td>
-										<td class=" undefined" data-handler="selectDay"
-											data-event="click" data-month="8" data-year="2024"><a
-											class="ui-state-default" href="#" aria-current="false"
-											data-date="10">10</a></td>
-										<td class=" undefined" data-handler="selectDay"
-											data-event="click" data-month="8" data-year="2024"><a
-											class="ui-state-default" href="#" aria-current="false"
-											data-date="11">11</a></td>
-										<td class=" undefined" data-handler="selectDay"
-											data-event="click" data-month="8" data-year="2024"><a
-											class="ui-state-default" href="#" aria-current="false"
-											data-date="12">12</a></td>
-										<td class=" undefined" data-handler="selectDay"
-											data-event="click" data-month="8" data-year="2024"><a
-											class="ui-state-default" href="#" aria-current="false"
-											data-date="13">13</a></td>
-										<td class=" ui-datepicker-week-end undefined"
-											data-handler="selectDay" data-event="click" data-month="8"
-											data-year="2024"><a class="ui-state-default" href="#"
-											aria-current="false" data-date="14">14</a></td>
-									</tr>
-									<tr>
-										<td class=" ui-datepicker-week-end undefined"
-											data-handler="selectDay" data-event="click" data-month="8"
-											data-year="2024"><a class="ui-state-default" href="#"
-											aria-current="false" data-date="15">15</a></td>
-										<td class=" undefined" data-handler="selectDay"
-											data-event="click" data-month="8" data-year="2024"><a
-											class="ui-state-default" href="#" aria-current="false"
-											data-date="16">16</a></td>
-										<td class=" undefined" data-handler="selectDay"
-											data-event="click" data-month="8" data-year="2024"><a
-											class="ui-state-default" href="#" aria-current="false"
-											data-date="17">17</a></td>
-										<td class=" undefined ui-datepicker-current-day"
-											data-handler="selectDay" data-event="click" data-month="8"
-											data-year="2024"><a
-											class="ui-state-default ui-state-active" href="#"
-											aria-current="true" data-date="18">18</a></td>
-										<td class=" undefined" data-handler="selectDay"
-											data-event="click" data-month="8" data-year="2024"><a
-											class="ui-state-default" href="#" aria-current="false"
-											data-date="19">19</a></td>
-										<td class=" undefined" data-handler="selectDay"
-											data-event="click" data-month="8" data-year="2024"><a
-											class="ui-state-default" href="#" aria-current="false"
-											data-date="20">20</a></td>
-										<td class=" ui-datepicker-week-end undefined"
-											data-handler="selectDay" data-event="click" data-month="8"
-											data-year="2024"><a class="ui-state-default" href="#"
-											aria-current="false" data-date="21">21</a></td>
-									</tr>
-									<tr>
-										<td class=" ui-datepicker-week-end undefined"
-											data-handler="selectDay" data-event="click" data-month="8"
-											data-year="2024"><a class="ui-state-default" href="#"
-											aria-current="false" data-date="22">22</a></td>
-										<td class=" undefined" data-handler="selectDay"
-											data-event="click" data-month="8" data-year="2024"><a
-											class="ui-state-default" href="#" aria-current="false"
-											data-date="23">23</a></td>
-										<td class=" undefined" data-handler="selectDay"
-											data-event="click" data-month="8" data-year="2024"><a
-											class="ui-state-default" href="#" aria-current="false"
-											data-date="24">24</a></td>
-										<td class=" undefined" data-handler="selectDay"
-											data-event="click" data-month="8" data-year="2024"><a
-											class="ui-state-default" href="#" aria-current="false"
-											data-date="25">25</a></td>
-										<td class=" undefined" data-handler="selectDay"
-											data-event="click" data-month="8" data-year="2024"><a
-											class="ui-state-default" href="#" aria-current="false"
-											data-date="26">26</a></td>
-										<td class=" undefined" data-handler="selectDay"
-											data-event="click" data-month="8" data-year="2024"><a
-											class="ui-state-default" href="#" aria-current="false"
-											data-date="27">27</a></td>
-										<td class=" ui-datepicker-week-end undefined"
-											data-handler="selectDay" data-event="click" data-month="8"
-											data-year="2024"><a class="ui-state-default" href="#"
-											aria-current="false" data-date="28">28</a></td>
-									</tr>
-									<tr>
-										<td class=" ui-datepicker-week-end undefined"
-											data-handler="selectDay" data-event="click" data-month="8"
-											data-year="2024"><a class="ui-state-default" href="#"
-											aria-current="false" data-date="29">29</a></td>
-										<td class=" undefined" data-handler="selectDay"
-											data-event="click" data-month="8" data-year="2024"><a
-											class="ui-state-default" href="#" aria-current="false"
-											data-date="30">30</a></td>
-										<td
-											class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
-										<td
-											class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
-										<td
-											class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
-										<td
-											class=" ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
-										<td
-											class=" ui-datepicker-week-end ui-datepicker-other-month ui-datepicker-unselectable ui-state-disabled">&nbsp;</td>
-									</tr>
-								</tbody>
-							</table>
+						<div>
+							<input style="width: 300px; height:40px; margin-top: 30px; border-radius: 15px;
+											border-style: none; background-color: #fca7a7; color:#fff; padding-left: 10px;
+											font-weight: bolder; font-size: large;" 
+							class="datepicker" placeholder="날짜를 선택하세요"/>
 						</div>
-					</div>
-					<input type="hidden" name="is_calendar" id="is_calendar" value="y">
-					<form>
+					
 						<div class="time_select selectBox" style="display: block;">
 							<p class="selectbox_title" style="display: block;">
 								시간선택
@@ -284,28 +131,31 @@
 						<div class="submit_btn">
 							<button href="#" class="">결제하기</button>
 						</div>
-					</form>
-				</div>
-			</div>
+					
+			</section>
+		</form>
+	</div>
+		
 
-			<!----- 가격노출영역 // 판매종료일때 ----->
+		
+
+		<!-- <!-- 	--- 가격노출영역 // 판매종료일때 ---
 			<div class="price_section_etc"
 				style="font-size: 16px; background-color: #ddd; display: none;">
 				📢 판매 종료된 티켓입니다.<br>
 			</div>
 
-			<!----- 가격노출영역 // 판매대기일때 ----->
+			--- 가격노출영역 // 판매대기일때 ---
 			<div class="price_section_etc"
 				style="font-size: 16px; background-color: #e8e8ff; display: none;">
 				⏳ 티켓 등록이 진행중입니다.</div>
 
-			<!----- 가격노출영역 // 오픈예정일때 ----->
+			--- 가격노출영역 // 오픈예정일때 ---
 			<div class="price_section_etc"
 				style="font-size: 16px; background-color: #ffe4e4; display: none;">
-				🎫 티켓 오픈 : 2023-08-22 00:00:00</div>
-		</section>
-		</form>
-</div>
+				🎫 티켓 오픈 : 2023-08-22 00:00:00</div> --> 
+
+
 
 	<section style="width: 820px; margin: 0 auto; padding-top: 20px;">
 		<div class="review_preview" style="height: 100%;">
@@ -458,7 +308,7 @@
 
 
         <!-- 상세이미지 -->
-       <%--  <div class="info_detail_poster" alt="상세">
+        <div class="info_detail_poster" alt="상세">
           <div class="info_detail_gradient"></div>
           <div class="info_detail_btn" onclick="showMoreDetailImage()">펼쳐보기
             <img src="${pageContext.request.contextPath}/resources/images/musical_detail/icon_down.png" style="width:13px; vertical-align:2px;padding-left:10px;">
@@ -480,7 +330,7 @@
               }
           </script>
         </div>
-        <div class="main_img"></div> --%>
+        <div class="main_img"></div> 
 
 
         <div style="margin-top:25px;">
@@ -551,168 +401,29 @@
 
 <jsp:include page="../include/bottom.jsp"/>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+
 
 <script>
-//dropdown
-//JavaScript to toggle dropdown menu visibility
-document.getElementById('cs-dropdown').addEventListener('mouseover', function(event) {
-    event.preventDefault(); // Prevent default link behavior
-    const dropdownMenu = document.getElementById('cs-dropdown-menu');
-    dropdownMenu.style.display = dropdownMenu.style.display === 'block' ? 'none' : 'block';
-});
+document.getElementById('datepicker').value= new Date().toISOString().slice(0, 10);
+</script>
 
+<script>
 
-
-// Hide the dropdown when clicking outside
-document.addEventListener('click', function(event) {
-    const dropdownMenu = document.getElementById('cs-dropdown-menu');
-    const isClickInside = document.getElementById('cs-dropdown').contains(event.target);
-    if (!isClickInside && dropdownMenu.style.display === 'block') {
-        dropdownMenu.style.display = 'none';
-    }
-});
-
-//carousel
-const slides = document.querySelectorAll('.slide');
-const dots = document.querySelectorAll('.dot');
-let currentIndex = 0;
-
-// 모든 슬라이드에 부드러운 전환 효과 추가
-slides.forEach((slide) => {
-    slide.style.transition = 'transform 0.5s ease-in-out';
-});
-
-dots.forEach((dot, index) => {
-    dot.addEventListener('click', () => {
-        currentIndex = index;
-        slides.forEach((slide) => {
-            slide.style.transform = `translateX(-${currentIndex * 100}%)`;
-        });
-    });
-});
-
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'ArrowRight' && currentIndex < slides.length - 1) {
-        currentIndex++;
-    } else if (e.key === 'ArrowLeft' && currentIndex > 0) {
-        currentIndex--;
-    }
-    slides.forEach((slide) => {
-        slide.style.transform = `translateX(-${currentIndex * 100}%)`;
-    });
-});
-
-//card
-document.addEventListener('DOMContentLoaded', function () {
-    CardsMove("new-open");
-    CardsMove("time-sale");
-
-    function CardsMove(className) {
-        // 선택자에서 .${className} 대신 `.className` 사용
-        const cardsContainer = document.querySelector(`.${className}.cards`);
-        const cards = document.querySelectorAll(`.${className}.card`);
-        const prevBtn = document.querySelector(`.${className}.prev-btn`);
-        const nextBtn = document.querySelector(`.${className}.next-btn`);
-
-        console.log(cardsContainer, cards, prevBtn, nextBtn);
-
-        let currentIndex = 0;
-        const maxIndex = cards.length - 5; // 5개가 한 번에 보이기 때문
-
-        function updateCardsPosition() {
-            cardsContainer.style.transform = `translateX(-${currentIndex * 240}px)`; // 220px 카드 너비 + 20px 마진
-        }
-
-        nextBtn.addEventListener('click', function () {
-            if (currentIndex < maxIndex) {
-                currentIndex++;
-                updateCardsPosition();
-            }
-        });
-
-        prevBtn.addEventListener('click', function () {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateCardsPosition();
-            }
-        });
-    }
-});
-
-//calendar
- let date = new Date();
-
-const renderCalender = () => {
-    const viewYear = date.getFullYear();
-    const viewMonth = date.getMonth();
-   
-    document.querySelector('.year-month').textContent = `${viewYear}년 ${viewMonth + 1}월`;
-   
-    const prevLast = new Date(viewYear, viewMonth, 0);
-    const thisLast = new Date(viewYear, viewMonth + 1, 0);
-   
-    const PLDate = prevLast.getDate();
-    const PLDay = prevLast.getDay();
-   
-   const TLDate = thisLast.getDate();
-   const TLDay = thisLast.getDay();
-   
-    const prevDates = [];
-    const thisDates = [...Array(TLDate + 1).keys()].slice(1);
-    const nextDates = [];
-   
-    if(PLDay !== 6) {
-       for(let i = 0; i < PLDay + 1; i++) {
-           prevDates.unshift(PLDate - i);
-       }
-    }
-   
-    for (let i = 1; 1 < 7 - TLDay; i++) {
-       nextDates.push(i);
-    }
-   
-    const dates = prevDates.concat(thisDates, nextDates);
-    const firstDateIndex = new dates.indexOf(1);
-    const lastDateIndex = dates.lastIndexOf(TLDate);
-
-    dates.forEach((date, i) => {
-        const condition = i >= firstDateIndex && i < lastDateIndex + 1
-                          ? 'this'
-                          : 'other';
-       dates[i] = `<div class="date"><span class=${condition}>${date}</span></div>`;
-    });
-   
-    document.querySelector('.dates').innerHTML =dates.join('');
-
-    const today = new Date();
-    if(viewMonth === today.getMonth() && viewYear === today.getFullYear()) {
-        for (let date of document.querySelectorAll('.this')) {
-            if (+date.innerText === today.getDate()) {
-                date.classList.add('todaty');
-                break;
-            } 
-        }
-    }
-};
-
-renderCalender();
-
-const prevMonth = () => {
-    date.setMonth(date.getMonth() - 1);
-    renderCalender();
-};
-
-const nextMonth = () => {
-    date.setMonth(date.getMonth() + 1);
-    renderCalender();
-};
-
-const goToday = () => {
-    date = new Date();
-    renderCalender();
-};
-
+$.datepicker.setDefaults({
+	  dateFormat: 'yy-mm-dd',
+	  prevText: '이전 달',
+	  nextText: '다음 달',
+	  monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	  monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+	  dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+	  dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+	  dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+	  showMonthAfterYear: true,
+	  yearSuffix: '년'
+	});
+$(function(){
+    $('.datepicker').datepicker();
+  })
 </script>
 
 

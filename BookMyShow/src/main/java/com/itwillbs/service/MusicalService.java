@@ -8,7 +8,10 @@ import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.MusicalDAO;
 import com.itwillbs.domain.MusicalDTO;
+import com.itwillbs.domain.MusicalDetatilDTO;
+import com.itwillbs.domain.MusicalFileDTO;
 import com.itwillbs.domain.MusicalMainDTO;
+import com.itwillbs.domain.PerformanceDetailDTO;
 
 
 @Service
@@ -46,6 +49,25 @@ public class MusicalService {
 		return musicalDAO.getMusical(title);
 	}
 
+	public MusicalDetatilDTO getMusicalDetail(String musical_id) {
+		
+		return musicalDAO.getMusicalDetail(musical_id);
+		
+	}
+
+	public List<PerformanceDetailDTO> getPerformance_date(String musical_id) {
+		
+		return musicalDAO.getPerformance_date(musical_id);
+	}
+
+
+	public List<MusicalFileDTO> getMusicalFile(String musical_id) {
+		
+		return musicalDAO.getMusicalFile(musical_id);
+	}
+
+	
+	
 }
 
 
