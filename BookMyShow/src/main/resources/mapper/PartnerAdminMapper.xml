@@ -91,7 +91,7 @@
  		SELECT U.*, P.*
         FROM Partner P
         JOIN User U ON P.user_id = U.user_id
-        WHERE P.approved=1
+        WHERE P.approved=1 and U.user_name =#{user_name}
     </select>	
 
 
