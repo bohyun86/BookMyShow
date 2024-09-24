@@ -80,8 +80,9 @@
 
 	<update id="updateUser">
 		update User
-		set name = #{name}, password = #{password}, email = #{email},
-		phone_number = #{phoneNumber}, updated_at = now()
+		set name = #{name}, email = #{email},
+		phone_number = #{phoneNumber}, updated_at = now(),
+		temp_password_created_at = null, temp_password = null
 		where user_id = #{userId}
 	</update>
 	

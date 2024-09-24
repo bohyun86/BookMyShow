@@ -85,16 +85,25 @@
 											</p>
 										</div>
 										<div class="col-4 pl-2">
-											<c:set var="now" value="<%=new java.util.Date()%>" />
+											<c:set var="now"
+												value="<%=java.time.LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0)%>" />
+											<fmt:parseDate
+												value="${performances[status.index].performanceDate}"
+												pattern="yyyy-MM-dd'T'HH:mm" var="parsedPerformanceDate"
+												type="both" />
+											<c:set var="performanceDateTime"
+												value="<%=new java.sql.Timestamp(((java.util.Date) pageContext.getAttribute(\"parsedPerformanceDate\")).getTime())
+		.toLocalDateTime().withHour(0).withMinute(0).withSecond(0).withNano(0)%>" />
 											<c:choose>
-												<c:when test="${parsedPerformanceDate.after(now)}">
+												<c:when test="${performanceDateTime.isAfter(now)}">
 													<button
 														onclick="location.href='<c:url value='/my/refund/${booking.bookingId}'/>';"
 														class="btn btn-outline-danger w-100">환불신청</button>
 												</c:when>
 												<c:otherwise>
-													<button onclick="writeReview('${booking.bookingId}');"
-														class="btn btn-outline-success w-100">리뷰작성</button>
+													<button
+														onclick="location.href='<c:url value='/my/review-check/${performances[status.index].performanceId}'/>';"
+														class="btn btn-outline-success w-100">리뷰</button>
 												</c:otherwise>
 											</c:choose>
 										</div>
@@ -135,31 +144,28 @@
 
 	<jsp:include page="../include/bottom.jsp" />
 
-	<!-- 좌석 확인 모달 -->
-	<c:forEach var="booking" items="${bookings}" varStatus="status">
-		<div class="modal fade" id="seatModal${booking.bookingId}"
-			tabindex="-1" aria-labelledby="seatModalLabel${booking.bookingId}"
-			aria-hidden="true">
-			<div class="modal-dialog">
-				<div class="modal-content">
-					<div class="modal-header">
-						<h5 class="modal-title" id="seatModalLabel${booking.bookingId}">좌석
-							정보</h5>
-						<button type="button" class="btn-close" data-bs-dismiss="modal"
-							aria-label="Close"></button>
-					</div>
-					<div class="modal-body">
-						<ul>
-							<c:forEach var="seat"
-								items="${bookedSeatsMap[booking.bookingId]}">
-								<li>${seat.seatNumber}</li>
-							</c:forEach>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</c:forEach>
+	 <!-- 좌석 확인 모달 -->
+    <c:forEach var="booking" items="${bookings}" varStatus="status">
+        <div class="modal fade" id="seatModal${booking.bookingId}" tabindex="-1" aria-labelledby="seatModalLabel${booking.bookingId}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="seatModalLabel${booking.bookingId}">
+                            <i class="bi bi-chair me-2"></i>좌석 정보
+                        </h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <ul>
+                            <c:forEach var="seat" items="${bookedSeatsMap[booking.bookingId]}">
+                                <li>${seat.seatNumber}</li>
+                            </c:forEach>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </c:forEach>
 
 	<script>
         var contextPath = '${pageContext.request.contextPath}';

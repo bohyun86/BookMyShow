@@ -1,5 +1,6 @@
 package com.itwillbs.service;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -30,16 +31,12 @@ public interface MypageService {
 	PaymentDTO getPayment(Integer bookingId);
 
 	VenueDTO getVenue(Integer bookingId);
-	
+
 	List<BookedSeatsDTO> getBookedSeats(Integer bookingId);
 
 	int getTotalBookingsCount(Integer memberId);
 
 	int getTotalRefundsCount(Integer memberId);
-
-	boolean processRefund(Integer bookingId, Integer userId);
-
-	int getUserPoint(Integer userId);
 
 	int getUsableTicketCount(Integer memberId);
 
@@ -55,9 +52,13 @@ public interface MypageService {
 	List<PaymentDTO> getPayments(List<Integer> bookingIds);
 
 	Map<Integer, List<BookedSeatsDTO>> getBookedSeatss(List<Integer> bookingIds);
-	
+
 	List<VenueDTO> getVenues(List<Integer> bookingIds);
 
 	List<BookingDTO> getRefundBookings(Integer memberId, int page, int size);
+
+	boolean processRefund(Integer bookingId, String refundType, BigDecimal refundAmount, Integer userId);
+
+	void usePoints(Integer userId, int amountToUse);
 
 }

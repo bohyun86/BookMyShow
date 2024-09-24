@@ -13,6 +13,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import org.hibernate.annotations.CascadeType;
 
 @Data
 @Entity
@@ -53,9 +54,6 @@ public class PartnerDTO {
 	
 	 @Column(name = "approved")
 	private int approved;
-	
-	 @OneToMany(mappedBy = "partnerDTO")
-	 private List<PartnerQnaDTO>partnerQnaDTO;	 
 	
 	 @OneToOne
 	 @JoinColumn(name = "userId")

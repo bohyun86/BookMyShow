@@ -22,7 +22,7 @@ public class PartnerDAO {
 	
 	private static final String namespace="com.itwillbs.mapper.PartnerAdminMapper";
 	
-	public UserDTO getPartnersy(String id, String email, String phoneNumber, String name, String password, String createdAt,String user_role) {
+	public UserDTO getPartnersy(String company_name,String id, String email, String phoneNumber, String name, String password, String createdAt,String user_role) {
 		System.out.println("PartnerDAO getPartnersy Id :::" + id);
 		System.out.println("PartnerDAO getPartnersy email :::" + email);
 		System.out.println("PartnerDAO getPartnersy phone_number :::" + phoneNumber);
@@ -34,7 +34,7 @@ public class PartnerDAO {
 	}
 
 	
-	public PartnerDTO getPartnersy(String id) {
+	public PartnerDTO getPartnersy(String id, String password,String company_name, String name,String business_id, String account_number,String bankName, String email,String createdAt) {
 		System.out.println("PartnerDAO"+id);
 		return sqlSession.selectOne(namespace+".getPartnersy", id);
 	}
@@ -54,18 +54,35 @@ public class PartnerDAO {
 	}
 
 
-	public List<PartnerQnaDTO> PartnerQnaAnser(int inquiryId) {
+
+
+	public void qnaAnswerOK(int inquiryId) {
+		sqlSession.update(namespace + ".qnaAnswerOK", inquiryId);
+	} 
+	
+	public void qnaAnswerContentOK(String answerContent ,int inquiryId) {
+		 Map<String, Object> params = new HashMap<>();
+		    params.put("answerContent", answerContent);  // 답변 내용
+		    params.put("inquiryId", inquiryId);  // inquiryId
+		    sqlSession.update(namespace + ".qnaAnswerContentOK", params);
+
+	} 
+
+
+	public List<PartnerQnaDTO> PartnerQnaAnser(int inquiryId,String answerContent) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace + ".PartnerQnaAnser",inquiryId);
-	} //문의내용
-
-
-	public void qnaAnswerOK(int inquiryId,int answered) {
-		 Map<String, Object> params = new HashMap<>();
-	        params.put("inquiryId", inquiryId);
-	        params.put("answered", answered);
-	        sqlSession.update(namespace + ".qnaAnswerOK", params);
 	}
+
+
+	public List<PartnerDTO> partnersumbitList() {
+		
+		return sqlSession.selectList(namespace + ".partnersumbitList");
+		//파트너 승인요청페이지 리스트
+	}
+
+
+
 
 
 

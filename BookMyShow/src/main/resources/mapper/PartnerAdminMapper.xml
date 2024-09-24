@@ -18,6 +18,35 @@
         <result property="updatedAt" column="updated_at"/>
     </resultMap>
 
+   <resultMap id="partnerResultMap" type="com.itwillbs.domain.PartnerDTO">
+        <result property="partnerId" column="partner_id"/>
+        <result property="companyName" column="company_name"/>
+        <result property="businessId" column="business_id"/>
+        <result property="accountNumber" column="account_number"/>
+        <result property="createdAt" column="created_at"/>
+        <result property="updatedAt" column="updated_at"/>
+        <result property="userId" column="user_id"/>
+        <result property="partnerStatus" column="partner_status"/>
+        <result property="bankName" column="bank_name"/>
+        <result property="accountOwner" column="account_owner"/>
+        <result property="approved" column="approved"/>
+        
+        <association property="userDTO" javaType="com.itwillbs.domain.UserDTO">
+            <id property="userId" column="user_id"/>
+            <result property="userName" column="user_name"/>
+            <result property="email" column="email"/>
+            <result property="phoneNumber" column="phone_number"/>
+            <result property="name" column="name"/>
+            <result property="password" column="password"/>
+            <result property="userRole" column="user_role"/>
+            <result property="createdAt" column="created_at"/>
+            <result property="updatedAt" column="updated_at"/>
+        </association>
+        
+
+    </resultMap>
+
+
     <resultMap id="partnerQnaResultMap" type="com.itwillbs.domain.PartnerQnaDTO">
         <id property="inquiryId" column="inquiry_id"/>
         <result property="inquiryType" column="inquiry_type"/>
@@ -55,11 +84,11 @@
     </resultMap>
     
 
-	<select id="getPartnersy"  resultMap="userResultMap" >
+	<select id="getPartnersy"  resultMap="partnerResultMap" >
  		SELECT U.*, P.*
         FROM Partner P
         JOIN User U ON P.user_id = U.user_id
-        WHERE (U.user_name = #{id} or U.name =#{name}) and P.approved=1
+        WHERE (U.user_name = #{userName} or U.name =#{name}) and P.approved=1
     </select>	
 
 
@@ -76,17 +105,33 @@
 	    <!-- 파트너 문의답변페이지로 불러오기  -->
 	<select id="PartnerQnaAnser"   resultMap="partnerQnaResultMap"  >
 	
-	SELECT title,content
+	SELECT *
 	FROM Inquiry 
 	where inquiry_id =#{inquiryId}
 	    </select> 
 	    
 	    <update id="qnaAnswerOK" >
     UPDATE Inquiry
-    SET answered = #{answered}
+    SET answered = 1
+    ,answer_content =#{answerContent}
     WHERE inquiry_id = #{inquiryId}
 </update>
 	    
+	    <update id="qnaAnswerContentOK"  parameterType="map">
+      UPDATE Inquiry set
+    answer_content =#{answerContent}
+    WHERE inquiry_id = #{inquiryId}
+</update>
+
+<select id="partnersumbitList"   resultMap="partnerResultMap"  >
+	
+	SELECT U.*, P.*
+	FROM Partner P 
+	JOIN User U ON P.user_id = U.user_id
+	    </select> 
+
+
+
     
 
 </mapper>

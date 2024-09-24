@@ -14,4 +14,8 @@ public class ReviewDTO {
     private LocalDateTime updatedAt;
     private Integer memberId;
     private Integer musicalId;
+    private Integer performanceId;
+    
+    private String musicalTitle;
+    private LocalDateTime performanceDate;
 }

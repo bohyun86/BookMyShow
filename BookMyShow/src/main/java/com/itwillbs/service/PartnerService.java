@@ -212,5 +212,10 @@ public class PartnerService implements PartnerMapper {
 
         entityManager.flush();
     }
+
+    @Transactional("jpaTransactionManager")
+    public MusicalDTO getMusicalByMusicalId(int musicalId) {
+        return musicalRepository.findMusicalByMusicalId(musicalId);
+    }
 }
 

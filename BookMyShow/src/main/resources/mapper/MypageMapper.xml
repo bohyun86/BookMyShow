@@ -115,16 +115,6 @@
 		<result property="updatedAt" column="updated_at" />
 		<result property="userId" column="user_id" />
 	</resultMap>
-	<resultMap id="reviewResultMap"
-		type="com.itwillbs.domain.ReviewDTO">
-		<id property="reviewId" column="review_id" />
-		<result property="rating" column="rating" />
-		<result property="content" column="content" />
-		<result property="createdAt" column="created_at" />
-		<result property="updatedAt" column="updated_at" />
-		<result property="memberId" column="member_id" />
-		<result property="musicalId" column="musical_id" />
-	</resultMap>
 	<resultMap id="couponResultMap"
 		type="com.itwillbs.domain.CouponDTO">
 		<id property="couponId" column="coupon_id" />
@@ -136,11 +126,13 @@
 	</resultMap>
 	<resultMap id="pointResultMap"
 		type="com.itwillbs.domain.PointDTO">
-		<id property="actorId" column="actor_id" />
-		<result property="type" column="type" />
-		<result property="balance" column="balance" />
-		<result property="timestamp" column="timestamp" />
+		<id property="pointId" column="point_id" />
 		<result property="userId" column="user_id" />
+		<result property="originalAmount" column="original_amount" />
+		<result property="currentAmount" column="current_amount" />
+		<result property="type" column="type" />
+		<result property="createdAt" column="created_at" />
+		<result property="relatedId" column="related_id" />
 	</resultMap>
 
 	<!-- 단수형만 필요한 쿼리 -->
@@ -179,12 +171,6 @@
 		#{bookingId} AND user_id = #{userId}
 		LIMIT 1
 	</update>
-
-	<select id="getUserPoint" resultType="java.lang.Integer">
-		SELECT balance FROM Point
-		WHERE user_id = #{userId}
-		LIMIT 1
-	</select>
 
 	<select id="getUsableTicketCount" resultType="java.lang.Integer">
 		SELECT COUNT(*)
@@ -387,6 +373,51 @@
 		LIMIT
 		#{offset}, #{limit}
 	</select>
+
+	<!-- refundProcess -->
+	<update id="updatePayment"
+		parameterType="com.itwillbs.domain.PaymentDTO">
+		UPDATE payments
+		SET status = #{status}, refund_type = #{refundType}, refund_amount =
+		#{refundAmount}
+		WHERE payment_id = #{paymentId}
+	</update>
+
+	<insert id="addPointsRef"
+		parameterType="com.itwillbs.domain.PointDTO">
+		INSERT INTO points (user_id, original_amount, current_amount, type,
+		related_id, created_at)
+		VALUES (#{userId}, #{originalAmount}, #{currentAmount}, #{type},
+		#{relatedId}, NOW())
+	</insert>
+
+<!-- 	table status 없음 result map -->
+	<update id="updateBooking"
+		parameterType="com.itwillbs.domain.BookingDTO">
+		UPDATE Booking
+		SET status = #{status} 
+		WHERE booking_id = #{bookingId}
+	</update>
+
+	<update id="updateBookedSeatsStatus" parameterType="map">
+		UPDATE
+		BookedSeats
+		SET status = #{status}
+		WHERE booking_id = #{bookingId}
+	</update>
+
+	<select id="getAvailablePoints"
+		parameterType="java.lang.Integer" resultMap="pointResultMap">
+		SELECT * FROM Point
+		WHERE user_id = #{userId} AND current_amount > 0
+		ORDER BY created_at ASC
+	</select>
+
+	<update id="updatePointUsage" parameterType="map">
+		UPDATE Point
+		SET current_amount = current_amount - #{usedAmount}
+		WHERE point_id = #{pointId}
+	</update>
 
 </mapper>
   
