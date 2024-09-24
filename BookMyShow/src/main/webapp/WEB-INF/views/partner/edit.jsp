@@ -431,7 +431,7 @@
                                             <label class="col-form-label"></label>
                                             <div id="edit-button-group">
                                                 <button class="btn btn-primary revise-btn"
-                                                       Style="color: white">삭제
+                                                       Style="color: white">수정
                                                 </button>
                                                 <button class="btn btn-primary delete-btn"
                                                         Style="color: white">삭제
