@@ -71,21 +71,11 @@
     text-decoration: none;
     color: black; 
     border-radius: 5px;
-    margin-left: 490px;
+    margin-left: 625px;
     }
     </style>
     <style>
     .btn_bbs2 {
-    border: 1px solid black;
-    background-color: #fff;
-    font-size: 20px;
-    text-decoration: none;
-    color: black; 
-    border-radius: 5px;
-    }
-    </style>
-    <style>
-    .btn_bbs3 {
     border: 1px solid black;
     background-color: #fff;
     font-size: 20px;
@@ -100,23 +90,13 @@
 
 <main class="support-notice-write" id="notice-main">
     <section class="h-100" id="board-content">
-    <form action="${pageContext.request.contextPath}/support/inupdate" class="supportForm" method="post" name="fr">
-                <p class="inquiry_1">아이디</p> <input type="text" name="user_id" value="${supportinquiryDTO.user_id }" readonly>	
-				<p class="inquiry_1">문의 제목</p> <input type="text" name="title" value="${supportinquiryDTO.title }" readonly>				
-				<p class="inquiry_3">문의 유형</p> <input type="text" name="inquiry_type" value="${supportinquiryDTO.inquiry_type}" readonly>				
+    <form action="${pageContext.request.contextPath}/support/inanswerPro?inquiry_id=${supportinquiryDTO.inquiry_id}" class="supportForm" method="post" name="fr">	
+                <p class="inquiry_1">문의 번호</p> <input type="text" name="inquiry_id" value="${supportinquiryDTO.inquiry_id }" readonly>		
 				<div class="editer_content">
-					    <p class="inquiry_2">문의 내용</p> <textarea name="content" rows="10" cols="30" readonly>${supportinquiryDTO.content}</textarea>
-					    <p class="inquiry_2">답변</p> <textarea name="answer_content" rows="10" cols="30" readonly>${supportinquiryDTO.answer_content}</textarea>
+					    <p class="inquiry_2">답변</p> <textarea name="answer_content" rows="10" cols="30"></textarea>
 					    </div>  
 					<p class="btn_line txt_right">
-				<c:if test="${sessionScope.userRole eq 'admin'}">
-				<a href="${pageContext.request.contextPath}/support/inanswer?inquiry_id=${supportinquiryDTO.inquiry_id}" class="btn_bbs3">답변 달기</a>
-				</c:if>
-				<c:if test="${ ! empty sessionScope.userRole }">
-				<c:if test="${sessionScope.userId eq supportinquiryDTO.user_id or sessionScope.userRole eq 'admin'}">
-				<a href="${pageContext.request.contextPath}/support/inupdate?inquiry_id=${supportinquiryDTO.inquiry_id}" class="btn_bbs1">문의 수정하기</a>
-				</c:if>
-				</c:if>
+				<a href="javascript:document.fr.submit();" class="btn_bbs1">답변 달기</a>
 				<a href="${pageContext.request.contextPath}/support/inquiry" class="btn_bbs2">돌아가기</a>
 			</p>			
 		</form>

@@ -99,7 +99,7 @@
 					    </div>  
 					<p class="btn_line txt_right">
 				<a href="javascript:document.fr.submit();" class="btn_bbs1">문의 수정하기</a>
-				<a href="${pageContext.request.contextPath}/support/inupdatePro?inquiry_id=${supportinquiryDTO.inquiry_id}" class="btn_bbs2">문의 삭제하기</a>
+				<a href="${pageContext.request.contextPath}/support/indelete?inquiry_id=${supportinquiryDTO.inquiry_id}" class="btn_bbs2">문의 삭제하기</a>
 				<a href="${pageContext.request.contextPath}/support/inquiry" class="btn_bbs2">돌아가기</a>
 			</p>			
 		</form>

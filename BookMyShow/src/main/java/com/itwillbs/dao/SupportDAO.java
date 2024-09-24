@@ -133,4 +133,23 @@ public SupportinquiryDTO getInquiry(int inquiry_id) {
 	return sqlSession.selectOne(namespace + ".getInquiry", inquiry_id);
 }
 
+public void updateInquiry(SupportinquiryDTO supportinquiryDTO) {
+	System.out.println("SupportDAO updateInquiry()");
+	
+	sqlSession.update(namespace + ".updateInquiry" , supportinquiryDTO);
+}
+
+public void deleteInquiry(SupportinquiryDTO supportinquiryDTO) {
+	System.out.println("SupportDAO deleteInquiry()");
+	
+	sqlSession.delete(namespace + ".deleteInquiry" , supportinquiryDTO);
+}
+
+public void answerInquiry(SupportinquiryDTO supportinquiryDTO) {
+	System.out.println("SupportDAO answerInquiry()");
+	System.out.println(supportinquiryDTO);
+	
+	sqlSession.insert(namespace + ".answerInquiry", supportinquiryDTO);
+}
+
 }

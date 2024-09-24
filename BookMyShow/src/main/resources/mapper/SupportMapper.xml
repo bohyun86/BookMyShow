@@ -98,5 +98,21 @@
 		select * from Inquiry
 		where inquiry_id = #{inquiry_id}
 	</select>
+	
+	<update id="updateInquiry">
+		update Inquiry
+		set title = #{title}, inquiry_type = #{inquiry_type}, content = #{content}, updated_at = #{updated_at}
+		where inquiry_id = #{inquiry_id}             
+	</update>
+	
+	<delete id="deleteInquiry">
+		delete from Inquiry
+		where inquiry_id = #{inquiry_id}             
+	</delete>
+	
+	<insert id="answerInquiry">
+		insert into Inquiry(answer_content)
+		values(#{answer_content})
+	</insert>
 	   
 </mapper>

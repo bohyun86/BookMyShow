@@ -36,17 +36,13 @@ public class SupportController {
         return "/support/frequentQuestion";
     }
     
-
     @GetMapping("/support/ntwrite")
 	public String ntwrite() {
     	log.info("ntwrite success");
 
-
-
 		return "/support/ntwrite";
 	}
     
-
     @PostMapping("support/ntwritePro")
 	public String ntwritePro(SupportNoticeDTO supportNoticeDTO) {
 		System.out.println("SupportController ntwritePro()");
@@ -298,14 +294,41 @@ public class SupportController {
 		return "/support/inupdate";
     }
     
-//    @PostMapping("support/inupdatePro")
-//	public String inupdatePro(SupportinquiryDTO supportinquiryDTO){
-//		System.out.println("SupportController inpdatePro()");
-//		System.out.println(supportinquiryDTO);
-//
-//		supportService.updateInquiry(supportinquiryDTO);
-//		
-//		return "redirect:/support/inquiry";
-//	}
+    @PostMapping("support/inupdatePro")
+	public String inupdatePro(SupportinquiryDTO supportinquiryDTO){
+		System.out.println("SupportController inpdatePro()");
+		System.out.println(supportinquiryDTO);
+
+		supportService.updateInquiry(supportinquiryDTO);
+		
+		return "redirect:/support/inquiry";
+	}
+    
+    @GetMapping("support/indelete")
+	public String indelete(SupportinquiryDTO supportinquiryDTO){
+		System.out.println("SupportController qnadelete()");
+		System.out.println(supportinquiryDTO);
+
+		supportService.deleteInquiry(supportinquiryDTO);
+		
+		return "redirect:/support/inquiry";
+	}
+    
+    @GetMapping("/support/inanswer")
+	public String inanswer(@RequestParam("inquiry_id") int inquiry_id, Model model) {
+    	log.info("inanswer success");
+    	SupportinquiryDTO supportinquiryDTO = supportService.getInquiry(inquiry_id);
+    	
+		model.addAttribute("supportinquiryDTO", supportinquiryDTO);
+		return "/support/inanswer";
+    }
+    
+    @PostMapping("support/inanswerPro")
+	public String inanswerPro(SupportinquiryDTO supportinquiryDTO) {
+		System.out.println("SupportController inanswerPro()");
+		System.out.println(supportinquiryDTO);
+		supportService.answerInquiry(supportinquiryDTO);
+		return "redirect:/support/incontent";
+	}
     
 }

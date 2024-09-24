@@ -111,7 +111,7 @@ public class SupportService {
 	}
 	
 	public void insertInquiry(SupportinquiryDTO supportinquiryDTO) {
-		System.out.println("SupportService insertQna()");
+		System.out.println("SupportService insertInquiry()");
 		if (supportDAO.getMaxNum1() == null) {
 			supportinquiryDTO.setInquiry_id(1);	
 		}else {
@@ -143,6 +143,23 @@ public class SupportService {
 		System.out.println("SupportService getInquiry()");
 		
 		return supportDAO.getInquiry(inquiry_id);
+	}
+    
+    public void updateInquiry(SupportinquiryDTO supportinquiryDTO) {
+		System.out.println("SupportService updateInquiry()");
+		supportinquiryDTO.setUpdated_at(new Timestamp(System.currentTimeMillis()));
+		supportDAO.updateInquiry(supportinquiryDTO);
+	}
+    
+    public void deleteInquiry(SupportinquiryDTO supportinquiryDTO) {
+		System.out.println("SupportService deleteInquiry()");
+		supportDAO.deleteInquiry(supportinquiryDTO);
+	}
+    
+    public void answerInquiry(SupportinquiryDTO supportinquiryDTO) {
+		System.out.println("SupportService answerInquiry()");				
+		supportinquiryDTO.setCreated_at(new Timestamp(System.currentTimeMillis()));
+		supportDAO.answerInquiry(supportinquiryDTO);
 	}
     
 }
