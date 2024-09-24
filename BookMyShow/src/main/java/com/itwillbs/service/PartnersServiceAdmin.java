@@ -105,16 +105,7 @@ public class PartnersServiceAdmin {
 	//파트너 삭제
 	
 	
-	public void editPartner(int partner_id) {
-		
-		partnerDAO.editPartner(partner_id);
-	}
 	
-public void editUserFOReditPartner(int user_id) {
-		
-	partnerDAO.editUserFOReditPartner(user_id);
-	}
-	//파트너정보수정
 
 
 

@@ -110,16 +110,6 @@ public class PartnerDAO {
 	}
 	//파트너삭제
 
-	public void editPartner(int partner_id) {
-				
-		sqlSession.update(namespace+".editPartner",partner_id);
-	}
-	
-	public void editUserFOReditPartner(int user_id) {
-		
-		sqlSession.update(namespace+".editUserFOReditPartner",user_id);
-	}
-	//파트너정보수정
 
 	
 
