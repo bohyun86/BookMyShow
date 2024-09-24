@@ -16,16 +16,15 @@
             </c:if>
             <c:if test="${sessionScope.userRole == 'admin'}">
                 <li class="nav-item">
-<<<<<<< HEAD
-                    <a class="nav-link text-black" href="${pageContext.request.contextPath}/admin/">관리자 페이지</a>
-=======
+
+
                     <a class="nav-link text-black" href="${pageContext.request.contextPath}/admin/main">관리자 페이지</a>
->>>>>>> refs/heads/develop
+
                 </li>
             </c:if>
             <c:if test="${sessionScope.userRole == 'member'}">
                 <li class="nav-item">
-                    <a class="nav-link text-black" href="${pageContext.request.contextPath}/mypage/">마이페이지</a>
+                    <a class="nav-link text-black" href="${pageContext.request.contextPath}/my/bookings/">마이페이지</a>
                 </li>
             </c:if>
             <c:if test="${sessionScope.userRole == null}">
