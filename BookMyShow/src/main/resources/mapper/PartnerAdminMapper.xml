@@ -91,7 +91,7 @@
  		SELECT U.*, P.*
         FROM Partner P
         JOIN User U ON P.user_id = U.user_id
-        WHERE P.approved=1 and U.user_name =#{user_name}
+        WHERE P.approved=1 and U.user_name =#{user_name} or U.name=#{name}
     </select>	
 
 
@@ -164,12 +164,31 @@
 <delete id="partner_delete" >
 	delete from Partner
 	Where partner_id = #{partner_id} and approved=1;
-
-
-
 </delete>
+<!-- 파트너삭제 -->
 
 
+
+
+
+<update id="editUserFOReditPartner">
+ UPDATE User 
+    SET user_name = #{user_name}, 
+        password = #{password}, 
+        name = #{name}, 
+        phone_number = #{phone_number}, 
+        email = #{email}
+    WHERE user_id = #{user_id} 
+    </update>
+
+<update id="editPartner">
+    UPDATE Partner 
+    SET company_name = #{company_name}, 
+        business_id = #{business_id}
+    WHERE partner_id = #{partner_id} 
+    AND approved = 1
+</update>
+<!-- 파트너정보업데이트 -->
 
 
 

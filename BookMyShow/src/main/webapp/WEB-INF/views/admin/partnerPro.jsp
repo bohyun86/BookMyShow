@@ -213,11 +213,16 @@
 				 										
 				 										
 				 										<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  															<button class="btn btn-primary me-md-2" type="submit" onclick= "submitForm()" >수정완료</button> &nbsp; &nbsp;
+				 										<input type="hidden" name="partner_id" value="${partner_id}">
+				 										<input type="hidden" name="user_id" value="${userId}">
+				 										<input type="hidden" name="user_name" value="${userName}">
+  															<button class="btn btn-primary me-md-2" type="button" onclick= "submitForm();" >수정완료</button> &nbsp; &nbsp;
+  															</div>
 														</form>
 														
   															<form action="${pageContext.request.contextPath}/admin/partnerDTO">
   																<button class="btn btn-primary" type="button" onclick="deleteok()">삭제</button>
+  																
   																</form>
 														</div>
     												</div>

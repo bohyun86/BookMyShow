@@ -255,14 +255,18 @@ function ajaxSearchPartner(searchValue){
                                       + encodeURIComponent(partnerDTO2.business_id) 
                                       +'&account_number='
                                       + encodeURIComponent(partnerDTO2.account_number) 
-                                      +'&bankName='
-                                      + encodeURIComponent(partnerDTO2.bankName) 
+                                      +'&bank_name='
+                                      + encodeURIComponent(partnerDTO2.bank_name) 
                                       +'&phone_number='
                                       + encodeURIComponent(partnerDTO2.phone_number) 
                                       +'&email='
                                       + encodeURIComponent(partnerDTO2.email) 
                                       +'&created_at='
                                       + encodeURIComponent(partnerDTO2.created_at) 
+                                      +'&partner_id='
+                                      + encodeURIComponent(partnerDTO2.partner_id) 
+                                      +'&user_id='
+                                      + encodeURIComponent(partnerDTO2.user_id) 
                                       
                                       + '"').prop('disabled', false);
                                   

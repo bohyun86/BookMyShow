@@ -333,10 +333,11 @@ public class AdminController {
 			@RequestParam("company_name") String  company_name,
 			@RequestParam("business_id") String business_id,
 			@RequestParam("account_number") String account_number,
-			@RequestParam("bankName") String bankName,
+			@RequestParam("bank_name") String bank_name,
 			@RequestParam("phone_number") String phone_number,
 			@RequestParam("email") String email, 
 			@RequestParam("created_at") String created_at,
+			@RequestParam(required = false)Integer partner_id,
 			Model model) {
 		log.info("admin partnerPro success");
 
@@ -346,16 +347,31 @@ public class AdminController {
 		model.addAttribute("companyName", company_name);
 		model.addAttribute("businessId", business_id);
 		model.addAttribute("accountNumber", account_number);
-		model.addAttribute("bankName", bankName);
+		model.addAttribute("bankName", bank_name);
 		model.addAttribute("phoneNumber", phone_number);
 		model.addAttribute("email", email);
 		model.addAttribute("createdAt", created_at);
+		model.addAttribute("partner_id", partner_id);
 
 		return "/admin/partnerPro";
 	} // parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 partnerPro로 넘기는 과정
 
 
-   
+	@PostMapping("/editPartnerForm")
+	public String editPartnerForm(@RequestParam(required = false)Integer partner_id,
+			@RequestParam(required = false)Integer user_id,
+			@RequestParam("user_name") String user_name
+						) {
+		log.info("admin editPartnerForm success");
+		System.out.println("editPartner"+partner_id);
+		System.out.println("editPartner"+user_id);
+		System.out.println("editPartner"+user_name);
+		
+		
+		return "redirect:/admin/partner";
+	}
+	
+	
 	
 	
 	
