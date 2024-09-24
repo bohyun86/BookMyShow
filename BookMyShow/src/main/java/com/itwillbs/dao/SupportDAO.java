@@ -127,4 +127,10 @@ public int getInCount(PageDTO pageDTO) {
 	return sqlSession.selectOne(namespace + ".getInCount",pageDTO);
 }
 
+public SupportinquiryDTO getInquiry(int inquiry_id) {
+	System.out.println("SupportDAO getInquiry()");
+	
+	return sqlSession.selectOne(namespace + ".getInquiry", inquiry_id);
+}
+
 }

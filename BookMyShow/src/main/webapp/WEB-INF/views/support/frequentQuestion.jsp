@@ -31,7 +31,7 @@
     border: 1px solid black;
     background-color: #eee;
     font-size: 16px;
-    margin-left: 400px;
+    margin-left: 410px;
     border-radius: 5px
     }
     </style>
@@ -79,9 +79,6 @@
            <a href="${pageContext.request.contextPath}/support/qnawrite" class="btn_srch">자주 묻는 질문 작성</a>
           </c:if>
          </c:if>
-         </div>
-    
-        <div class="title">
             
     <ul class="notice-header">
 		<li style="width:35px;">번호</li>

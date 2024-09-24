@@ -273,4 +273,33 @@ public class SupportController {
 		supportService.insertInquiry(supportinquiryDTO);
 		return "redirect:/support/inquiry";
 	}
+    
+    @GetMapping("/support/incontent")
+	public String incontent(@RequestParam("inquiry_id") int inquiry_id, Model model) {
+    	log.info("incontent success");
+        SupportinquiryDTO supportinquiryDTO = supportService.getInquiry(inquiry_id);
+		
+		model.addAttribute("supportinquiryDTO", supportinquiryDTO);
+		return "/support/incontent";
+	}
+    
+    @GetMapping("/support/inupdate")
+	public String inupdate(@RequestParam("inquiry_id") int inquiry_id, Model model) {
+    	log.info("inupdate success");
+    	SupportinquiryDTO supportinquiryDTO = supportService.getInquiry(inquiry_id);
+    	
+		model.addAttribute("supportinquiryDTO", supportinquiryDTO);
+		return "/support/inupdate";
+	}
+    
+    @PostMapping("support/inupdatePro")
+	public String inupdatePro(SupportinquiryDTO supportinquiryDTO){
+		System.out.println("SupportController inpdatePro()");
+		System.out.println(supportinquiryDTO);
+
+		supportService.updateInquiry(supportinquiryDTO);
+		
+		return "redirect:/support/inquiry";
+	}
+    
 }

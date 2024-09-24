@@ -31,7 +31,7 @@
     border: 1px solid black;
     background-color: #eee;
     font-size: 16px;
-    margin-left: 560px;
+    margin-left: 570px;
     border-radius: 5px
     }
     </style>
@@ -86,7 +86,7 @@
 	<c:forEach var="supportinquiryDTO" items="${inList }">
 	<ul class="inquiry-body">
 		<li style="width:35px;">${supportinquiryDTO.inquiry_id }</li>
-		<li style="width:570px;"><a href="javascript:;">${supportinquiryDTO.title }</a></li>
+		<li style="width:570px;"><a href="${pageContext.request.contextPath}/support/incontent?inquiry_id=${supportinquiryDTO.inquiry_id}">${supportinquiryDTO.title }</a></li>
 		<li style="width:90px"><fmt:formatDate value="${supportinquiryDTO.created_at }" pattern="yyyy-MM-dd"/></li>
 	</ul>
 	</c:forEach>

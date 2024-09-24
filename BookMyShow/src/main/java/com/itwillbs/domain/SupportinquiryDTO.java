@@ -11,14 +11,23 @@ public class SupportinquiryDTO {
 	private Timestamp created_at;
 	private Timestamp update_at;
 	private int answered;
+	private String answer_content;
 	
 	@Override
 	public String toString() {
 		return "SupportinquiryDTO [inquiry_id=" + inquiry_id + ", inquiry_type=" + inquiry_type + ", title=" + title
 				+ ", content=" + content + ", created_at=" + created_at + ", update_at="
-				+ update_at + ", answered=" + answered + "]";
+				+ update_at + ", answered=" + answered + ", answer_content=" + answer_content + "]";
 	}
-	
+		
+	public String getAnswer_content() {
+		return answer_content;
+	}
+
+	public void setAnswer_content(String answer_content) {
+		this.answer_content = answer_content;
+	}
+
 	public int getAnswered() {
 		return answered;
 	}

@@ -138,4 +138,11 @@ public class SupportService {
 		
 		return supportDAO.getInCount(pageDTO);
 	} 
+    
+    public SupportinquiryDTO getInquiry(int inquiry_id) {
+		System.out.println("SupportService getInquiry()");
+		
+		return supportDAO.getInquiry(inquiry_id);
+	}
+    
 }

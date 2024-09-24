@@ -62,7 +62,7 @@
     text-decoration: none;
     color: black; 
     border-radius: 5px;
-    margin-left: 260px;
+    margin-left: 583px;
     }
     </style>
     <style>

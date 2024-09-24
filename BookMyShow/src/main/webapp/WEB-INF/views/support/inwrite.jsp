@@ -38,7 +38,7 @@
      <style>
     textarea {
 	width: 800px;
-	height: 700px;
+	height: 500px;
 	border-radius: 10px;
     }
     </style>
@@ -71,7 +71,7 @@
     text-decoration: none;
     color: black; 
     border-radius: 5px;
-    margin-left: 260px;
+    margin-left: 630px;
     }
     </style>
     <style>
@@ -99,7 +99,7 @@
 					    </div>  
 					<p class="btn_line txt_right">
 				<a href="javascript:document.fr.submit();" class="btn_bbs1">문의하기</a>
-				<a href="${pageContext.request.contextPath}/support/notice" class="btn_bbs2">돌아가기</a>
+				<a href="${pageContext.request.contextPath}/support/inquiry" class="btn_bbs2">돌아가기</a>
 			</p>			
 		</form>
     </section>
