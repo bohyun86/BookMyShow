@@ -17,7 +17,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/fonts/circular-std/style.css">
+    <link href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/fonts/circular-std/style.css"
           rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin_partner/assets/libs/css/style.css">
     <link rel="stylesheet"
@@ -54,13 +54,12 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title" >회원예매내역페이지 </h2>
+                            <h2 class="pageheader-title" >관리자메인페이지 </h2>
                             <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel
                                 mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
-                  </div>
-                  </div>
-                  </div>
-                  
+                        </div>
+                    </div>
+                </div>
                 <!-- ============================================================== -->
                 <!-- end pageheader  -->
                 <!-- ============================================================== -->
@@ -69,43 +68,13 @@
 
 
 
-<!-- 			test -->
-	
-			<div class="card mb-3" style="max-width: 540px;">
-  
-					<div class="card mb-3" style="max-width: 540px;">
-  						<div class="row g-0">
-    						<div class="col-md-8">
-      							<div class="card-body">
-        							<h4 class="card-title">${sessionScope.id }회원님의 예매내역</h4>
-       									 <p class="card-text">
-       									 <ul>
-       									 	<li>예매번호:</li>
-       									 	<li>예매한 뮤지컬:</li>
-       									 	<li>관람일:</li>
-       									 	<li>공연장소:</li>
-       									 	<li>예매날짜:</li>
-       									 	<li>예매좌석 번호:</li>
-       									 	<li>예매인원 수:</li>
-       									 
-       									 
-       									 </ul>
-       									 
-       									 </p>
-       									 </div>
-       									 </div>
-       									 </div>
-       									 </div>
-       									 </div>
-       									 				
-										<div class="d-grid gap-2 col-6 mx-auto">
-  											<button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/member'">돌아가기</button> &nbsp;&nbsp; 
-										</div>
+			<h2><span class="name">${sessionScope.userName}</span>관리자님 환영합니다.</h2>
+			
+				
+				  </div>
+                </div>
 
-  </div>
-                  </div>
-                  
-     			
+
 
 <!-- 바텀 밑으로 내려야함 -->
 <%--         <jsp:include page="../include/adminBottom.jsp"/> --%>

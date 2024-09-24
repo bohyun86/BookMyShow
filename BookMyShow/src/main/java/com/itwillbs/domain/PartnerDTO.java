@@ -13,18 +13,19 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import lombok.Data;
+import org.hibernate.annotations.CascadeType;
 
 @Data
 @Entity
 @Table(name="Partner")
 public class PartnerDTO {
 	
-	@Id
     @Column(name = "user_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int userId;
 	
+    @Id
 	@Column(name = "partner_id")
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int partnerId;
 	
 	@Column(name = "company_name")
@@ -53,10 +54,6 @@ public class PartnerDTO {
 	
 	 @Column(name = "approved")
 	private int approved;
-	
-	 @OneToMany
-	 @JoinColumn(name = "userId")
-	 private List<PartnerQnaDTO>partnerQnaDTO;	 
 	
 	 @OneToOne
 	 @JoinColumn(name = "userId")

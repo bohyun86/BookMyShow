@@ -4,4 +4,11 @@
         "https://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 
+
+    <settings>
+        <setting name="lazyLoadingEnabled" value="false"/>
+    </settings>
+<!--     설정이 true로 되어 있다면, 관련 데이터를 접근하기 전에 partnerQnaDTO가 로딩되지 않을 수 있음 -->
+
+
 </configuration>
