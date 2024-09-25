@@ -9,6 +9,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <!-- Bootstrap CSS -->
+    <!-- jquery 3.3.1 -->
+    <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/bootstrap/css/bootstrap.min.css">
     <link href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/fonts/circular-std/style.css"
@@ -69,7 +71,7 @@
                             
 <!--                                 <form enctype="multipart/form-data" class="was-validated"> -->
 
-									<form action="${pageContext.request.contextPath}/admin/qnaAnswerOK" method="post">
+									<form action="${pageContext.request.contextPath}/admin/qnaAnswerOK"  id="answerForm"  method="post">
 									
                                 <c:if test="${not empty partnerQna}">
     						<c:forEach var="partnerQna" items="${partnerQna}">
@@ -88,14 +90,24 @@
                                                       >${partnerQna.content}</textarea>
                                                       </div>
                                                       
-                                        <div class="form-group col request">
+                                        <div class="form-group col answer">
                                             <label class="col-form-label">답변내용</label>
-                                            <textarea type="text" name="request" placeholder="답변할 내용을 입력해주세요"
+                                           
+                                            <c:choose>
+                           					 <c:when test="${partnerQna.answer_content == null}">
+                                            <textarea type="text" name="answerContent" placeholder="답변할 내용을 입력해주세요" style="width: 600px;"
                                                       ></textarea>
+                                                      </c:when>
+                                                      <c:otherwise>
+                                                      <textarea type="text" name="answerContent" style="width: 600px;"
+                                                      >${partnerQna.answer_content}</textarea>
+                                                      
+                                                      </c:otherwise>
+                                                      </c:choose>
                                                       </div>
                                                       
-                                        <input type="hidden" name="inquiryId" value="${partnerQna.inquiryId}">
-                                        <input type="hidden" name="answered" value="1">
+                                        <input type="hidden" name="inquiryId" value="${partnerQna.inquiry_id}">
+                                        <input type="hidden" name="answerContent" value="${partnerQnaList.answer_content}">
                                         </div>
                                         </c:forEach>
                                         </c:if>
@@ -103,8 +115,8 @@
                                             <label class="col-form-label"></label>
                                             
                             <div id= "edit-button-group"class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                                <button class="btn btn-primary me-md-2" type="submit">답변등록</button>
-                                                <button class="btn btn-primary me-md-2">수정</button>
+                                                <button class="btn btn-primary me-md-2" type="button"  onclick="submitForm();">답변등록</button>
+                                                <button class="btn btn-primary me-md-2" type="button" onclick="editForm()();">수정</button>
  								 <button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/partner_qna'" >돌아가기</button>&nbsp;&nbsp;
 							</div>
                                 </div>
@@ -144,8 +156,6 @@
     <!-- end main wrapper  -->
     <!-- ============================================================== -->
     <!-- Optional JavaScript -->
-    <!-- jquery 3.3.1 -->
-    <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/jquery/jquery-3.3.1.min.js"></script>
     <!-- bootstap bundle js -->
     <script src="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/bootstrap/js/bootstrap.bundle.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
@@ -153,6 +163,33 @@
             crossorigin="anonymous"></script>
     <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
     <script src="${pageContext.request.contextPath}/resources/admin_partner/documentation/js/write.js"></script>
+    
+    
+    
+     <script>
+     
+     
+        function submitForm() {
+        	 document.getElementById("answerForm").submit();
+            alert("답변이 등록되었습니다.");
+            
+        }
+        
+        function editForm() {
+            // 사용자에게 확인을 받는 컨펌창
+            if (confirm("답변을 수정 하시겠습니까?")) {
+                alert("답변이 등록되었습니다.");
+                document.getElementById("answerForm").submit();
+            } else {
+                alert("답변 등록이 취소되었습니다.");
+            }
+        }
+        
+        
+        
+    </script>
+    
+    
     
     <script>
 

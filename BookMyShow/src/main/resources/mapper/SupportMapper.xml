@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <mapper namespace="com.itwillbs.mapper.SupportMapper">
+  
+<insert id="insertNotice">
+		insert into Notice(notice_id,title,content,created_at)
+		values(#{notice_id},#{title},#{content},#{created_at})
+	</insert>
+	
+	<select id="getMaxNum" resultType="java.lang.Integer">
+		select max(notice_id) from Notice
+	</select>
+	
+	<select id="getNoticeList" resultType="com.itwillbs.domain.SupportNoticeDTO">
+		select * from Notice 
+        order by notice_id desc
+		limit #{startRow},#{pageSize}
+	</select>
+	
+	<select id="getNoticeCount" resultType="java.lang.Integer">
+		select count(*) from Notice
+	</select>
+	
+	<select id="getNotice" resultType="com.itwillbs.domain.SupportNoticeDTO">
+		select * from Notice
+		where notice_id = #{notice_id}
+	</select>
+	
+	<update id="updateNotice">
+		update Notice
+		set title = #{title}, content = #{content}, update_at = #{update_at}
+		where notice_id = #{notice_id}             
+	</update>
+	
+	<delete id="deleteNotice">
+		delete from Notice
+		where notice_id = #{notice_id}             
+	</delete>
+	
+	<insert id="insertQna">
+		insert into FAQ(faq_id,question,answer,created_at)
+		values(#{faq_id},#{question},#{answer},#{created_at})
+	</insert>
+	
+	<select id="getMaxNum1" resultType="java.lang.Integer">
+		select max(faq_id) from FAQ
+	</select>
+	
+	<select id="getQnaList" resultType="com.itwillbs.domain.SupportqnaDTO">
+		select * from FAQ 
+        order by faq_id desc
+		limit #{startRow},#{pageSize}
+	</select>
+	
+	<select id="getQnaCount" resultType="java.lang.Integer">
+		select count(*) from FAQ
+	</select>
+	
+	<select id="getQna" resultType="com.itwillbs.domain.SupportqnaDTO">
+		select * from FAQ
+		where faq_id = #{faq_id}
+	</select>
+	
+	<update id="updateQna">
+		update FAQ
+		set question = #{question}, answer = #{answer}, updated_at = #{updated_at}
+		where faq_id = #{faq_id}             
+	</update>
+	
+	<delete id="deleteQna">
+		delete from FAQ
+		where faq_id = #{faq_id}             
+	</delete>
+	
+	<insert id="insertInquiry">
+		insert into Inquiry(inquiry_id,inquiry_type,title,content,created_at,user_id,answered)
+		values(#{inquiry_id},#{inquiry_type},#{title},#{content},#{created_at},#{userId},#{answered})
+	</insert>
+	
+	<select id="getMaxNum2" resultType="java.lang.Integer">
+		select max(inquiry_id) from Inquiry
+	</select>
+	
+	<select id="getInList" resultType="com.itwillbs.domain.SupportinquiryDTO">
+		select * from Inquiry
+		order by inquiry_id desc
+		limit #{startRow},#{pageSize}
+	</select>
+	
+	<select id="getInCount" resultType="java.lang.Integer">
+		select count(*) from Inquiry
+	</select>
+	
+	<select id="getInquiry" resultType="com.itwillbs.domain.SupportinquiryDTO">
+		select * from Inquiry
+		where inquiry_id = #{inquiry_id}
+	</select>
+	   
+</mapper>

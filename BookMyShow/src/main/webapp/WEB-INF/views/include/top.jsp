@@ -30,7 +30,7 @@
                 </li>
             </c:if>
             <li class="nav-item">
-                <a class="nav-link text-black" id="cs-dropdown" href="${pageContext.request.contextPath}/support/faq">고객센터</a>
+                <a class="nav-link text-black" id="cs-dropdown" href="${pageContext.request.contextPath}/support/frequentQuestion">고객센터</a>
                 <!-- Dropdown menu -->
                 <div class="dropdown-menu shadow border-0 " id="cs-dropdown-menu">
                     <div class="h-100 d-flex row justify-content-between align-items-center">
@@ -44,9 +44,9 @@
         <ul class="nav justify-content-start align-items-center">
             <li class="nav-item"><a class="site-logo ms-3" href="${pageContext.request.contextPath}/main/main">예매하다</a></li>
             <li class="nav-item ms-5">
-                <form class="d-flex border border-2 border-gray rounded-5 px-2">
-                    <input class="bg-transparent text-gray border-0" aria-label="Search">
-                    <i class="bi bi-search fs-5 p-2"></i>
+                <form class="d-flex border border-2 border-gray rounded-5 px-2" method="get" action="${pageContext.request.contextPath}/main/search" >
+                    <input class="bg-transparent text-gray border-0" aria-label="Search" name="searching">
+                    <i class="bi bi-search fs-5 p-2" onclick="submitForm()"></i>
                 </form>
             </li>
         </ul>
@@ -54,13 +54,10 @@
             <li class="nav-item col-6">
 <!--             	뮤지컬 버튼 클릭으로 페이지 연결 -->
                 <a class="nav-link text-black fw-bold fs-6 px-0" href="${pageContext.request.contextPath}/musical/page_main" id="musical_page">뮤지컬</a>
-
             </li>
             <li class="nav-item d-flex border-start ps-3">
-
                 <a class="nav-link text-black fw-bold fs-6" href="${pageContext.request.contextPath}/main/time_sale">타임세일</a>
                 <a class="nav-link text-black fw-bold fs-6" href="${pageContext.request.contextPath}/main/event">이벤트</a>
-
             </li>
         </ul>
     </div>

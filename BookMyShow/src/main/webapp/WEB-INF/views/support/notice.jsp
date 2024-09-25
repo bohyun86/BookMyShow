@@ -1,11 +1,13 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>     
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
 
-    <title>예매하다 - 공지사항</title>
+    <title>예매하다 - 공지사항 목록</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/index.css">
     <!-- Bootstrap icons  -->
@@ -24,6 +26,34 @@
             background-color: white;
         }
     </style>
+    <style>
+    .btn_srch {
+    border: 1px solid black;
+    background-color: #eee;
+    font-size: 16px;
+    margin-left: 519px;
+    border-radius: 5px;
+    font-weight: 600;
+    }
+    </style>
+    <style>
+    .notice-body {
+    list-style: none;
+    margin-top: 24px;
+    height: 40px;
+    border-radius: 8px;
+    }
+    </style>
+     <style>
+    .notice-body li {
+    float: left;
+    padding-top: 11px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 600;
+    }
+    </style>
+
 </head>
 <body id="board-body">
 <jsp:include page="../include/top.jsp"/>
@@ -42,27 +72,51 @@
         </div>
     </aside>
     <section class="h-100" id="board-content">
-        <div class="title">
+    
+    <div class="title">
             공지사항
-            
+    
+       <c:if test="${ ! empty sessionScope.userRole }">
+          <c:if test="${sessionScope.userRole eq 'admin'}">
+           <a href="${pageContext.request.contextPath}/support/ntwrite" class="btn_srch">공지사항 작성</a>
+          </c:if>
+         </c:if>
+         
     <ul class="notice-header">
 		<li style="width:35px;">번호</li>
 		<li style="width:570px;">제목</li>
 		<li style="width:80px">작성일</li>
 	</ul>
-            
-        </div>
-    </section>
-</main>
+	
+	<c:forEach var="supportNoticeDTO" items="${noticeList }">
+	<ul class="notice-body">
+		<li style="width:35px;">${supportNoticeDTO.notice_id }</li>
+		<li style="width:570px;"><a href="${pageContext.request.contextPath}/support/ntcontent?notice_id=${supportNoticeDTO.notice_id}">${supportNoticeDTO.title }</a></li>
+		<li style="width:90px"><fmt:formatDate value="${supportNoticeDTO.created_at }" pattern="yyyy-MM-dd"/></li>
+	</ul>
+	</c:forEach>
 
 <div id="noticenum">
-<span onclick="location.reload();" style="cursor:pointer"><b class="now">
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${1}">1</a></b></span>
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${2}" class="pgnum">2</a>
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${3}" class="pgnum">3</a>
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${4}" class="pgnum">4</a>
-<a href="${pageContext.request.contextPath}/support/notice?pageNum=${5}" class="pgnum">5</a>
-<b>>></b><a href="${pageContext.request.contextPath}/support/notice?pageNum=${i}" class="next">다음</a></div>
+				<c:if test="${pageDTO.currentPage ne 1}">
+					<a href="${pageContext.request.contextPath}/support/notice?pageNum=${pageDTO.currentPage-1}" class="prevpage  pbtn">이전</a>
+				</c:if>
+				
+				<c:forEach var="i" begin="${pageDTO.startPage}" end="${pageDTO.endPage}" step="1">
+					<c:if test="${pageDTO.currentPage eq i}">
+						<a href="${pageContext.request.contextPath}/support/notice?pageNum=${i}"><span class="pagenum currentpage">${i}</span></a>
+					</c:if>
+					<c:if test="${pageDTO.currentPage ne i}">
+						<a href="${pageContext.request.contextPath}/support/notice?pageNum=${i}"><span class="pagenum">${i}</span></a>
+					</c:if>
+				</c:forEach>
+				<c:if test="${pageDTO.currentPage ne pageDTO.pageCount}">
+					<a href="${pageContext.request.contextPath}/support/notice?pageNum=${pageDTO.currentPage+1}" class="nextpage  pbtn">다음</a>
+				</c:if>
+			</div>
+			
+	</div>
+   </section>
+</main>
 
 <jsp:include page="../include/bottom.jsp"/>
 

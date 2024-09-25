@@ -88,16 +88,16 @@ public class UserServiceImpl implements UserService {
 			log.warn("유효하지 않은 사용자 정보");
 			return false;
 		}
+		if (!isValidEmail(userDTO.getEmail()) || !isValidPhoneNumber(userDTO.getPhoneNumber())) {
+			log.warn("유효하지 않은 이메일 또는 전화번호: {}", userDTO.getUserId());
+			return false;
+		}
 		if (newPassword != null && !newPassword.trim().isEmpty()) {
 			if (!isValidPassword(newPassword)) {
 				log.warn("유효하지 않은 새 비밀번호: {}", userDTO.getUserId());
 				return false;
 			}
-			userDTO.setPassword(newPassword);
-		}
-		if (!isValidEmail(userDTO.getEmail()) || !isValidPhoneNumber(userDTO.getPhoneNumber())) {
-			log.warn("유효하지 않은 이메일 또는 전화번호: {}", userDTO.getUserId());
-			return false;
+			updateUserPasswordAndEncode(userDTO, newPassword);
 		}
 		return userMapper.updateUser(userDTO) > 0;
 	}
@@ -115,16 +115,8 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	@Transactional
-	public void deleteUser(UserDTO userDTO) {
-	    UserDTO user = userMapper.getUser(userDTO);
-	    if (user == null) {
-	        throw new RuntimeException("사용자를 찾을 수 없습니다.");
-	    }
-	    int result = userMapper.deleteUser(user.getUserId()); 
-	    if (result == 0) {  
-	        throw new RuntimeException("회원 탈퇴 처리 중 오류가 발생했습니다.");
-	    }
+	public Boolean deleteUser(Integer userId) {
+	    return userMapper.deleteUser(userId) > 0;
 	}
 
 	@Override

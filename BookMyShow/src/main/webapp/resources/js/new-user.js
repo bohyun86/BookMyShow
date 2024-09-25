@@ -24,58 +24,32 @@ function eventCheck() {
 
 
 // 이용약관 ===================================================================================
-// 전체 동의 체크박스를 클릭하면 subCheck의 상태를 변경하는 함수
+// 전체 동의 체크박스와 서브 체크박스들 가져오기
 const agreeCheck = document.querySelector('#agree-check');
 const subChecks = document.querySelectorAll('.sub-check');
 
+// 전체 동의 체크박스를 클릭하면 서브 체크박스의 상태를 변경하는 함수
 function clickAllCheckButton() {
-    agreeCheck.addEventListener('click', function () {
-        if (!agreeCheck.checked) {
-            subChecks.forEach(function (subCheck) {
-                subCheck.checked = false;
-            });
-        } else {
-            subChecks.forEach(function (subCheck) {
-                subCheck.checked = true;
-            });
-        }
+    agreeCheck.addEventListener('change', function () {
+        subChecks.forEach(function (subCheck) {
+            subCheck.checked = agreeCheck.checked;
+        });
     });
 }
 
-// subCheck를 클릭하면 전체 동의 체크박스의 상태를 변경하는 함수
+// 서브 체크박스의 상태를 변경하면 전체 동의 체크박스의 상태를 업데이트하는 함수
 function clickSubCheck() {
-    subChecks.forEach(sub => sub.addEventListener('click', checkAgreeAll));
-    subChecks.forEach(sub => sub.addEventListener('click', checkDisagreeAll));
-}
-
-
-function checkAgreeAll() {
-    let isAllChecked = true;
-
-    subChecks.forEach(function (subCheck) {
-        if (!subCheck.checked) {
-            isAllChecked = false;
-        }
+    subChecks.forEach(sub => {
+        sub.addEventListener('change', function () {
+            // 모든 서브 체크박스가 체크되었는지 확인
+            agreeCheck.checked = Array.from(subChecks).every(subCheck => subCheck.checked);
+        });
     });
-
-    if (isAllChecked) {
-        agreeCheck.checked = true;
-    }
 }
 
-function checkDisagreeAll() {
-    let isAllUnchecked = true;
-
-    subChecks.forEach(function (subCheck) {
-        if (subCheck.checked) {
-            isAllUnchecked = false;
-        }
-    });
-
-    if (isAllUnchecked) {
-        agreeCheck.checked = false;
-    }
-}
+// 함수 호출로 이벤트 리스너 등록
+clickAllCheckButton();
+clickSubCheck();
 
 
 // 입력필드 alert ===================================================================================

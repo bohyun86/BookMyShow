@@ -65,6 +65,9 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/member/">회원검색</a>
                                 </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/member_qna">문의관리</a>
+                                </li>
                                 
                             </ul>
                         </div>

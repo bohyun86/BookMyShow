@@ -15,6 +15,7 @@ import org.springframework.stereotype.Repository;
 
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.UserDTO;
+import com.itwillbs.domain.UserDTOAdmin;
 import com.mysql.cj.xdevapi.Result;
 
 
@@ -27,7 +28,7 @@ public class MemberDAO {
 	
 	private static final String namespace="com.itwillbs.mapper.MemberMapper";
 
-	public UserDTO getMember(String id, String email, String phoneNumber, String name, String password, String createdAt,String user_role) {
+	public UserDTOAdmin getMember(String id, String email, String phoneNumber, String name, String password, String createdAt,String user_role) {
 		System.out.println("MemberDAO getMember");
 		System.out.println("MemberDAO Id :::" + id);
 		System.out.println("MemberDAO email :::" + email);
@@ -39,7 +40,7 @@ public class MemberDAO {
 		return sqlSession.selectOne(namespace+ ".getMember", id);
 	}
 
-	public UserDTO getMember(String id) {
+	public UserDTOAdmin getMember(String id) {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+ ".getMember", id);
 	}

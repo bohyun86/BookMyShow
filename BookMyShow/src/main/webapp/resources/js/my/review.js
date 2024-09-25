@@ -7,7 +7,7 @@ function initReviewActions() {
     document.querySelectorAll('.edit-review').forEach(button => {
         button.addEventListener('click', function() {
             const reviewId = this.getAttribute('data-review-id');
-            editReview(reviewId);
+            window.location.href = `${contextPath}/my/review-form/${reviewId}`;
         });
     });
 
@@ -20,54 +20,55 @@ function initReviewActions() {
 }
 
 function initStarRating() {
-    document.querySelectorAll('.star-rating').forEach(ratingContainer => {
-        const stars = ratingContainer.querySelectorAll('.star');
-        const rating = parseFloat(ratingContainer.getAttribute('data-rating'));
+    const reviewForm = document.getElementById('reviewForm');
+    if (reviewForm) {
+        const starRating = reviewForm.querySelector('.star-rating');
+        const stars = starRating.querySelectorAll('.star');
+        const ratingInput = document.getElementById('ratingInput');
 
-        updateStars(stars, rating);
-
-        // 리뷰 작성/수정 페이지에서만 별점 클릭 이벤트 추가
-        if (document.getElementById('reviewForm')) {
-            stars.forEach((star, index) => {
-                star.addEventListener('click', function() {
-                    const newRating = index + 1;
-                    updateStars(stars, newRating);
-                    document.getElementById('ratingInput').value = newRating;
-                });
+        stars.forEach((star, index) => {
+            star.addEventListener('click', () => {
+                const rating = index + 1;
+                updateStars(stars, rating);
+                ratingInput.value = rating;
             });
-        }
-    });
+
+            star.addEventListener('mouseover', () => {
+                updateStars(stars, index + 1);
+            });
+
+            star.addEventListener('mouseout', () => {
+                const currentRating = parseInt(ratingInput.value);
+                updateStars(stars, currentRating);
+            });
+        });
+    }
 }
 
 function updateStars(stars, rating) {
     stars.forEach((star, index) => {
         if (index < rating) {
-            star.textContent = '★';
             star.classList.add('filled');
+            star.textContent = '★';
         } else {
-            star.textContent = '☆';
             star.classList.remove('filled');
+            star.textContent = '☆';
         }
     });
 }
 
-function editReview(reviewId) {
-    window.location.href = `${contextPath}/my/review-edit/${reviewId}`;
-}
-
 function deleteReview(reviewId) {
     if (confirm('정말로 이 리뷰를 삭제하시겠습니까?')) {
-        fetch(`${contextPath}/api/reviews/${reviewId}`, {
-            method: 'DELETE',
+        fetch(`${contextPath}/my/review-delete/${reviewId}`, {
+            method: 'POST',
             headers: {
-                'Content-Type': 'application/json',
+                'Content-Type': 'application/json'
             },
         })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
+        .then(response => {
+            if (response.ok) {
                 alert('리뷰가 성공적으로 삭제되었습니다.');
-                location.reload();
+                window.location.href = `${contextPath}/my/reviews`;
             } else {
                 alert('리뷰 삭제에 실패했습니다. 다시 시도해주세요.');
             }

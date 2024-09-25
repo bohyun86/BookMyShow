@@ -6,19 +6,19 @@
 <mapper namespace="com.itwillbs.mapper.MemberMapper">
 
  
-    <resultMap id="userResultMap" type="com.itwillbs.domain.UserDTO">
-        <id property="userId" column="user_id"/>
-        <result property="userName" column="user_name"/>
-        <result property="password" column="password"/>
-        <result property="email" column="email"/>
-        <result property="phoneNumber" column="phone_number"/>
-        <result property="name" column="name"/>
-        <result property="userRole" column="user_role"/>
-        <result property="createdAt" column="created_at"/>
-        <result property="updatedAt" column="updated_at"/>
-    </resultMap>
+<!--     <resultMap id="userResultMap" type="com.itwillbs.domain.UserDTO"> -->
+<!--         <id property="userId" column="user_id"/> -->
+<!--         <result property="userName" column="user_name"/> -->
+<!--         <result property="password" column="password"/> -->
+<!--         <result property="email" column="email"/> -->
+<!--         <result property="phoneNumber" column="phone_number"/> -->
+<!--         <result property="name" column="name"/> -->
+<!--         <result property="userRole" column="user_role"/> -->
+<!--         <result property="createdAt" column="created_at"/> -->
+<!--         <result property="updatedAt" column="updated_at"/> -->
+<!--     </resultMap> -->
 
-    <select id="getMember" resultType="com.itwillbs.domain.UserDTO" resultMap="userResultMap">
+    <select id="getMember" resultType="com.itwillbs.domain.UserDTOAdmin" >
         SELECT *
         FROM Member M
         JOIN User U ON M.user_id = U.user_id
