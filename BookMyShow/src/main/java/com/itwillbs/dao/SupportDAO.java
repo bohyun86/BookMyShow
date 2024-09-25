@@ -149,7 +149,7 @@ public void answerInquiry(SupportinquiryDTO supportinquiryDTO) {
 	System.out.println("SupportDAO answerInquiry()");
 	System.out.println(supportinquiryDTO);
 	
-	sqlSession.insert(namespace + ".answerInquiry", supportinquiryDTO);
+	sqlSession.update(namespace + ".answerInquiry", supportinquiryDTO);
 }
 
 }
