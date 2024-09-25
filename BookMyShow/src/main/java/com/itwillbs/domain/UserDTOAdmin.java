@@ -34,6 +34,26 @@ public class UserDTOAdmin {
     private String tempPassword;
 
     private Timestamp tempPasswordCreatedAt;
+    
+    
+    
+    //파트너
+private int partner_id;
+	
+	private String company_name;
+	
+	private String business_id;
+	
+	private String account_number;
+	 
+	 
+	private int partner_status;
+	
+	private String bank_name;
+	
+	private String account_owner;
+	
+	private int approved;
 
 
 }

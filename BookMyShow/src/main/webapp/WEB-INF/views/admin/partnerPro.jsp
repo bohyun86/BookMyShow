@@ -86,7 +86,7 @@
         							<h4 class="card-title">파트너 정보</h4>
        									 <p class="card-text">
        									 	
-       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/editPartnerForm" id="editPartnerForm" method="post" >
+       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/partner" id="editPartnerForm" method="post" >
        									 	<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">파트너ID</span>
   													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${userName}"required>

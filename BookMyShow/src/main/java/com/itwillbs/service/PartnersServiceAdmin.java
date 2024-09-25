@@ -78,10 +78,16 @@ public class PartnersServiceAdmin {
 
 
 
+//	public List<PartnerDTO2> partnersumbitList() {
+//		// TODO Auto-generated method stub
+//		return partnerDAO.partnersumbitList();
+//	} //파트너 승인페이지 리스트
+//	
 	public List<PartnerDTO2> partnersumbitList() {
 		// TODO Auto-generated method stub
 		return partnerDAO.partnersumbitList();
 	} //파트너 승인페이지 리스트
+
 
 
 	public List<PartnerDTO2> partnersumbitConfirm(int partner_id) {

@@ -81,11 +81,18 @@ public class PartnerDAO {
 	}
 
 
-	public List<PartnerDTO2> partnersumbitList() {
+//	public List<PartnerDTO2> partnersumbitList() {
+//		
+//		return sqlSession.selectList(namespace + ".partnersumbitList");
+//		//파트너 승인요청페이지 리스트
+//	}
+	
+public List<PartnerDTO2> partnersumbitList() {
 		
 		return sqlSession.selectList(namespace + ".partnersumbitList");
 		//파트너 승인요청페이지 리스트
 	}
+
 
 
 	public List<PartnerDTO2> partnersumbitConfirm(int partner_id) {

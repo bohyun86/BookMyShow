@@ -16,6 +16,7 @@ import com.itwillbs.domain.Performance.AttachFile2DTO;
 import com.itwillbs.domain.Performance.AttachFileDTO;
 import com.itwillbs.domain.Performance.PerformanceTempDTO;
 import com.itwillbs.domain.UserDTO;
+import com.itwillbs.domain.UserDTOAdmin;
 import com.itwillbs.domain.partner.PartnerStatusDTO;
 import com.itwillbs.service.*;
 import lombok.AllArgsConstructor;
@@ -83,12 +84,14 @@ public class AdminController {
 
 	}
 
+
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		log.info("admin logout success");
 		session.invalidate();
 
-		return "/main/main";
+		return "redirect:/main/main";
 	}
 
 	@GetMapping("/search")
@@ -248,7 +251,8 @@ public class AdminController {
 	public String partner_submit(Model model) {
 		log.info("admin partner_submit success");
 		
-		 List<PartnerDTO2> partnerList = partnersServiceAdmin.partnersumbitList(); //파트너리스트
+		 List<PartnerDTO2> partnerList = partnersServiceAdmin.partnersumbitList(); //파트너리스트 파트너회원가입 구현하면 이거주석 하고 테스트
+//		 List<UserDTOAdmin> partnerList = partnersServiceAdmin.partnersumbitList(); //파트너리스트
 	        model.addAttribute("partnerList", partnerList);
 	        
 	        System.out.println("partnerQnaList size: " + partnerList.size());
@@ -300,6 +304,8 @@ public class AdminController {
 //		
 		partnersServiceAdmin.partnerConfirm(partner_id);
 		
+//		 List<UserDTOAdmin> partnerList = partnersServiceAdmin.partnersumbitList();
+
 		 List<PartnerDTO2> partnerList = partnersServiceAdmin.partnersumbitList();
 		model.addAttribute("partnerList", partnerList);
 //		System.out.println(partnerList);
@@ -357,20 +363,20 @@ public class AdminController {
 	} // parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 partnerPro로 넘기는 과정
 
 
-	@PostMapping("/editPartnerForm")
-	public String editPartnerForm(@RequestParam(required = false)Integer partner_id,
-			@RequestParam(required = false)Integer user_id,
-			@RequestParam("user_name") String user_name
-						) {
-		log.info("admin editPartnerForm success");
-		System.out.println("editPartner"+partner_id);
-		System.out.println("editPartner"+user_id);
-		System.out.println("editPartner"+user_name);
-		
-		
-		return "redirect:/admin/partner";
-	}
-	
+//	@PostMapping("/editPartnerForm")
+//	public String editPartnerForm(@RequestParam(required = false)Integer partner_id,
+//			@RequestParam(required = false)Integer user_id,
+//			@RequestParam("user_name") String user_name
+//						) {
+//		log.info("admin editPartnerForm success");
+//		System.out.println("editPartner"+partner_id);
+//		System.out.println("editPartner"+user_id);
+//		System.out.println("editPartner"+user_name);
+//		
+//		
+//		return "redirect:/admin/partner";
+//	}
+//	
 	
 	
 	
