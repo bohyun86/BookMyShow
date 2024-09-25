@@ -39,103 +39,90 @@
 	</div>
 		<form>
 		<section style="float: right; width: 307px;">
-						<div>
-							
-							<input style="width: 300px; height:40px; margin-top: 30px; border-radius: 15px;
-											border-style: none; background-color: #fca7a7; color:#fff; padding-left: 10px;
-											font-weight: bolder; font-size: large;" 
-							class="datepicker" placeholder="날짜를 선택하세요" />
+			<div>
+				
+				<input style="width: 300px; height:40px; margin-top: 30px; border-radius: 15px;
+								border-style: none; background-color: #fca7a7; color:#fff; padding-left: 10px;
+								font-weight: bolder; font-size: large;" 
+				class="datepicker" placeholder="날짜를 선택하세요" id="dateValue"/>
+			</div>
+			
+			
+			<div class="title2_select selectBox" style="display: block;" id="option">
+				<p class="selectbox_title" style="display: block;">
+					권종선택
+					<button type="button" class="title2_btn btn_number_420478"
+						name="420478"
+						value="{&quot;number&quot;:&quot;420478&quot;,&quot;product_number&quot;:&quot;5229&quot;,&quot;run_date&quot;:&quot;2024-09-18 14:00:00&quot;,&quot;title1&quot;:&quot;★타임세일★&quot;,&quot;title2&quot;:&quot;&quot;,&quot;promo&quot;:&quot;timesale&quot;,&quot;full_price&quot;:&quot;55000&quot;,&quot;sale_price&quot;:&quot;19800&quot;,&quot;jaego&quot;:&quot;4&quot;,&quot;soldout&quot;:&quot;0&quot;,&quot;open_date&quot;:&quot;0000-00-00 00:00:00&quot;,&quot;close_date&quot;:&quot;2024-09-18 13:00:00&quot;,&quot;expire_date&quot;:&quot;0000-00-00 00:00:00&quot;}">
+						<span style="color: #ff4b4b;" class="option_title">★타임세일★</span><span
+							class="title2_left">남은티켓 4매</span><span
+							style="color: #ff4b4b;" class="title2_price">19,800원</span>
+					</button>
+					<button type="button" class="title2_btn btn_number_414659"
+						name="414659"
+						value="{&quot;number&quot;:&quot;414659&quot;,&quot;product_number&quot;:&quot;5229&quot;,&quot;run_date&quot;:&quot;2024-09-18 14:00:00&quot;,&quot;title1&quot;:&quot;선착순할인&quot;,&quot;title2&quot;:&quot;&quot;,&quot;promo&quot;:&quot;&quot;,&quot;full_price&quot;:&quot;55000&quot;,&quot;sale_price&quot;:&quot;21900&quot;,&quot;jaego&quot;:&quot;20&quot;,&quot;soldout&quot;:&quot;0&quot;,&quot;open_date&quot;:&quot;0000-00-00 00:00:00&quot;,&quot;close_date&quot;:&quot;2024-09-18 13:00:00&quot;,&quot;expire_date&quot;:&quot;0000-00-00 00:00:00&quot;}">
+						<span class="option_title">선착순할인</span><span
+							class="title2_left">남은티켓 20매</span><span class="title2_price">21,900원</span>
+					</button>
+					<button type="button"
+						class="title2_btn btn_number_414660 active" name="414660"
+						value="{&quot;number&quot;:&quot;414660&quot;,&quot;product_number&quot;:&quot;5229&quot;,&quot;run_date&quot;:&quot;2024-09-18 14:00:00&quot;,&quot;title1&quot;:&quot;일반&quot;,&quot;title2&quot;:&quot;&quot;,&quot;promo&quot;:&quot;&quot;,&quot;full_price&quot;:&quot;55000&quot;,&quot;sale_price&quot;:&quot;25000&quot;,&quot;jaego&quot;:&quot;20&quot;,&quot;soldout&quot;:&quot;0&quot;,&quot;open_date&quot;:&quot;0000-00-00 00:00:00&quot;,&quot;close_date&quot;:&quot;2024-09-18 13:00:00&quot;,&quot;expire_date&quot;:&quot;0000-00-00 00:00:00&quot;}">
+						<span class="option_title">일반</span><span class="title2_left">남은티켓
+							20매</span><span class="title2_price">25,000원</span>
+					</button>
+				</p>
+			</div>
+			<div class="choice_select" style="display: block;">
+				<p class="title">수량선택</p>
+				<div class="select_list">
+					<div class="select_item" id="414660">
+						<input type="hidden" name="cate_title[]" class="cate_title"
+							value="9.18[수] 14:00 일반">
+						<div class="select_name" style="float: left;">9.18[수]
+							14:00&nbsp;일반&nbsp;</div>
+						<div style="float: right; display: inline-block;">
+							<a href="#item_close" class="close" data-store="414660"><span
+								class="remove_ticket"
+								style="font-size: 14px; border: 1px solid #888; border-radius: 5px; width: 16px; padding: 0 6px; color: #fff; background: #888;"
+								value="25000">X</span></a>
 						</div>
-					
-						<div class="time_select selectBox" style="display: block;">
-							<p class="selectbox_title" style="display: block;">
-								시간선택
-								<button type="button" class="time_btn active" value="14:00">
-									<span class="option_title">14:00</span>
+						<div style="clear: both;"></div>
+						<div class="price_warp">
+							<div class="quantity">
+								<button type="button" class="remove_ticket" value="25000">
+									<img src="${pageContext.request.contextPath}/resources/images/musical_detail/btn_minus.png"
+										style="width: 18px; vertical-align: -3px;">
 								</button>
-								<button type="button" class="time_btn" value="16:20">
-									<span class="option_title">16:20</span>
+								<span class="selected_quantity">1</span>
+								<button type="button" class="add_ticket" value="25000">
+									<img src="${pageContext.request.contextPath}/resources/images/musical_detail/btn_plus.png"
+										style="width: 18px; vertical-align: -3px;">
 								</button>
-							</p>
-						</div>
-						<div class="title1_select selectBox" style="display: none;">
-							<p class="selectbox_title">옵션선택</p>
-						</div>
-						<div class="title2_select selectBox" style="display: block;">
-							<p class="selectbox_title" style="display: block;">
-								권종선택
-								<button type="button" class="title2_btn btn_number_420478"
-									name="420478"
-									value="{&quot;number&quot;:&quot;420478&quot;,&quot;product_number&quot;:&quot;5229&quot;,&quot;run_date&quot;:&quot;2024-09-18 14:00:00&quot;,&quot;title1&quot;:&quot;★타임세일★&quot;,&quot;title2&quot;:&quot;&quot;,&quot;promo&quot;:&quot;timesale&quot;,&quot;full_price&quot;:&quot;55000&quot;,&quot;sale_price&quot;:&quot;19800&quot;,&quot;jaego&quot;:&quot;4&quot;,&quot;soldout&quot;:&quot;0&quot;,&quot;open_date&quot;:&quot;0000-00-00 00:00:00&quot;,&quot;close_date&quot;:&quot;2024-09-18 13:00:00&quot;,&quot;expire_date&quot;:&quot;0000-00-00 00:00:00&quot;}">
-									<span style="color: #ff4b4b;" class="option_title">★타임세일★</span><span
-										class="title2_left">남은티켓 4매</span><span
-										style="color: #ff4b4b;" class="title2_price">19,800원</span>
-								</button>
-								<button type="button" class="title2_btn btn_number_414659"
-									name="414659"
-									value="{&quot;number&quot;:&quot;414659&quot;,&quot;product_number&quot;:&quot;5229&quot;,&quot;run_date&quot;:&quot;2024-09-18 14:00:00&quot;,&quot;title1&quot;:&quot;선착순할인&quot;,&quot;title2&quot;:&quot;&quot;,&quot;promo&quot;:&quot;&quot;,&quot;full_price&quot;:&quot;55000&quot;,&quot;sale_price&quot;:&quot;21900&quot;,&quot;jaego&quot;:&quot;20&quot;,&quot;soldout&quot;:&quot;0&quot;,&quot;open_date&quot;:&quot;0000-00-00 00:00:00&quot;,&quot;close_date&quot;:&quot;2024-09-18 13:00:00&quot;,&quot;expire_date&quot;:&quot;0000-00-00 00:00:00&quot;}">
-									<span class="option_title">선착순할인</span><span
-										class="title2_left">남은티켓 20매</span><span class="title2_price">21,900원</span>
-								</button>
-								<button type="button"
-									class="title2_btn btn_number_414660 active" name="414660"
-									value="{&quot;number&quot;:&quot;414660&quot;,&quot;product_number&quot;:&quot;5229&quot;,&quot;run_date&quot;:&quot;2024-09-18 14:00:00&quot;,&quot;title1&quot;:&quot;일반&quot;,&quot;title2&quot;:&quot;&quot;,&quot;promo&quot;:&quot;&quot;,&quot;full_price&quot;:&quot;55000&quot;,&quot;sale_price&quot;:&quot;25000&quot;,&quot;jaego&quot;:&quot;20&quot;,&quot;soldout&quot;:&quot;0&quot;,&quot;open_date&quot;:&quot;0000-00-00 00:00:00&quot;,&quot;close_date&quot;:&quot;2024-09-18 13:00:00&quot;,&quot;expire_date&quot;:&quot;0000-00-00 00:00:00&quot;}">
-									<span class="option_title">일반</span><span class="title2_left">남은티켓
-										20매</span><span class="title2_price">25,000원</span>
-								</button>
-							</p>
-						</div>
-						<div class="choice_select" style="display: block;">
-							<p class="title">수량선택</p>
-							<div class="select_list">
-								<div class="select_item" id="414660">
-									<input type="hidden" name="cate_title[]" class="cate_title"
-										value="9.18[수] 14:00 일반">
-									<div class="select_name" style="float: left;">9.18[수]
-										14:00&nbsp;일반&nbsp;</div>
-									<div style="float: right; display: inline-block;">
-										<a href="#item_close" class="close" data-store="414660"><span
-											class="remove_ticket"
-											style="font-size: 14px; border: 1px solid #888; border-radius: 5px; width: 16px; padding: 0 6px; color: #fff; background: #888;"
-											value="25000">X</span></a>
-									</div>
-									<div style="clear: both;"></div>
-									<div class="price_warp">
-										<div class="quantity">
-											<button type="button" class="remove_ticket" value="25000">
-												<img src="${pageContext.request.contextPath}/resources/images/musical_detail/btn_minus.png"
-													style="width: 18px; vertical-align: -3px;">
-											</button>
-											<span class="selected_quantity">1</span>
-											<button type="button" class="add_ticket" value="25000">
-												<img src="${pageContext.request.contextPath}/resources/images/musical_detail/btn_plus.png"
-													style="width: 18px; vertical-align: -3px;">
-											</button>
-										</div>
-										<p class="price">25,000원</p>
-										<input type="hidden" name="product_cate[]" value="414660"><input
-											type="hidden" name="product_cate_price[]" class="item_price"
-											value="25000"><input type="hidden"
-											name="product_cate_fullprice[]" value="55000"><input
-											type="hidden" name="item_jaego" class="item_jaego" value="20"><input
-											type="hidden" name="cate_date[]" class="cate_date"
-											value="2024-09-18"><input type="hidden"
-											name="want_quantity[]" class="item_ticket" value="1">
-									</div>
-								</div>
 							</div>
+							<p class="price">25,000원</p>
+							<input type="hidden" name="product_cate[]" value="414660"><input
+								type="hidden" name="product_cate_price[]" class="item_price"
+								value="25000"><input type="hidden"
+								name="product_cate_fullprice[]" value="55000"><input
+								type="hidden" name="item_jaego" class="item_jaego" value="20"><input
+								type="hidden" name="cate_date[]" class="cate_date"
+								value="2024-09-18"><input type="hidden"
+								name="want_quantity[]" class="item_ticket" value="1">
 						</div>
-						<div class="total_warp" style="display: flex;">
-							<p class="title">총 결제금액</p>
-							<p class="total_price">25,000원</p>
-						</div>
-						<div class="submit_btn">
-							<button href="#" class="">결제하기</button>
-						</div>
+					</div>
+				</div>
+			</div>
+			<div class="total_warp" style="display: flex;">
+				<p class="title">총 결제금액</p>
+				<p class="total_price">25,000원</p>
+			</div>
+			<div class="submit_btn">
+				<button href="#" class="">결제하기</button>
+			</div>
 					
-			</section>
-		</form>
-	</div>
+		</section>
+	</form>
+</div>
 		
 
 		
@@ -394,18 +381,12 @@
 
 
 
-
-
-
-
-
-
 <jsp:include page="../include/bottom.jsp"/>
 
 
-
-
 <script>
+const option = document.getElementById("option");
+
 
 $.datepicker.setDefaults({ 
     dateFormat: 'yy-mm-dd',
@@ -447,10 +428,21 @@ $(function() {
             return [false]; //선택불가
        	},
         minDate: minDate, // 최소 날짜 설정
-        maxDate: maxDate  // 최대 날짜 설정// 선택 불가
+        maxDate: maxDate, // 최대 날짜 설정
+        onSelect: function(dateValue) {
+            // 선택한 날짜를 처리하는 로직
+            console.log("선택한 날짜:", dateValue); // 선택한 날짜를 콘솔에 출력
+            
+			if(dateValue != null) {
+				
+			}
+            
+            
+        }
     });
 });
 </script>
+
 
 
 
