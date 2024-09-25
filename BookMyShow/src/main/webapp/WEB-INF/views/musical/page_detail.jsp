@@ -40,10 +40,11 @@
 		<form>
 		<section style="float: right; width: 307px;">
 						<div>
+							
 							<input style="width: 300px; height:40px; margin-top: 30px; border-radius: 15px;
 											border-style: none; background-color: #fca7a7; color:#fff; padding-left: 10px;
 											font-weight: bolder; font-size: large;" 
-							class="datepicker" placeholder="날짜를 선택하세요"/>
+							class="datepicker" placeholder="날짜를 선택하세요" />
 						</div>
 					
 						<div class="time_select selectBox" style="display: block;">
@@ -403,27 +404,52 @@
 
 
 
-<script>
-document.getElementById('datepicker').value= new Date().toISOString().slice(0, 10);
-</script>
 
 <script>
 
-$.datepicker.setDefaults({
-	  dateFormat: 'yy-mm-dd',
-	  prevText: '이전 달',
-	  nextText: '다음 달',
-	  monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-	  monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
-	  dayNames: ['일', '월', '화', '수', '목', '금', '토'],
-	  dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
-	  dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
-	  showMonthAfterYear: true,
-	  yearSuffix: '년'
-	});
-$(function(){
-    $('.datepicker').datepicker();
-  })
+$.datepicker.setDefaults({ 
+    dateFormat: 'yy-mm-dd',
+    prevText: '이전 달',
+    nextText: '다음 달',
+    monthNames: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+    monthNamesShort: ['1월', '2월', '3월', '4월', '5월', '6월', '7월', '8월', '9월', '10월', '11월', '12월'],
+    dayNames: ['일', '월', '화', '수', '목', '금', '토'],
+    dayNamesShort: ['일', '월', '화', '수', '목', '금', '토'],
+    dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'],
+    showMonthAfterYear: true,
+    yearSuffix: '년'
+});
+
+$(function() {
+    // JSP에서 전달된 selectableDates를 자바스크립트 배열로 변환
+    var selectableDates = ${selectableDates != null ? selectableDates : '[]'};
+    var minDate = selectableDates[0]; // 배열의 첫 번째 값
+    var maxDate = selectableDates[selectableDates.length - 1]; // 배열의 마지막 값
+    
+    // 현재 날짜 구하기
+    var today = $.datepicker.formatDate("yy-mm-dd", new Date());
+
+    // minDate가 현재 날짜보다 작으면 현재 날짜를 minDate로 설정
+    if (minDate < today) {
+        minDate = today;
+    }
+
+    console.log(selectableDates); // 로그로 확인
+
+    // datepicker 초기화
+    $('.datepicker').datepicker({
+        beforeShowDay: function(date) {
+            var formattedDate = $.datepicker.formatDate("yy-mm-dd", date);
+            // selectableDates에 포함된 날짜만 선택 가능하게 설정
+            if ($.inArray(formattedDate, selectableDates) != -1) {
+                return [true];  // 선택 가능
+            }
+            return [false]; //선택불가
+       	},
+        minDate: minDate, // 최소 날짜 설정
+        maxDate: maxDate  // 최대 날짜 설정// 선택 불가
+    });
+});
 </script>
 
 

@@ -9,8 +9,22 @@ public class PerformanceDetailDTO {
 	private Integer musical_id;
 	private Integer venue_id;
 	private int capacity;
+	//capacity = capacity - tickets_sold
+	private int seat_class_id;
 	
 	
+	/**
+	 * @return the seat_class_id
+	 */
+	public int getSeat_class_id() {
+		return seat_class_id;
+	}
+	/**
+	 * @param seat_class_id the seat_class_id to set
+	 */
+	public void setSeat_class_id(int seat_class_id) {
+		this.seat_class_id = seat_class_id;
+	}
 	/**
 	 * @return the capacity
 	 */

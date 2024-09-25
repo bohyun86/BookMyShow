@@ -67,8 +67,9 @@ public class MusicalDAO {
 	public List<MusicalFileDTO> getMusicalFile(String musical_id) {
 		
 		return sqlSession.selectList(namespace + ".getMusicalFile", musical_id);
-	}	
+	}
 
+	
 
 
 

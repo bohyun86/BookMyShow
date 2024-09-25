@@ -150,9 +150,11 @@
     </select>
     
     <select id="getPerformance_date" resultType="com.itwillbs.domain.PerformanceDetailDTO">
-    	select performance_id, performance_date, musical_id, venue_id 
-		from Performance
-		where musical_id = #{musical_id}
+    	select p.performance_id, p.performance_date, p.musical_id, p.venue_id ,
+				(t.capacity - t.tickets_sold) as capacity, t.seat_class_id
+		from Performance p join TicketPrice t
+		on p.performance_id = t.performance_id
+		where p.musical_id = #{musical_id}
 		
     </select>
     

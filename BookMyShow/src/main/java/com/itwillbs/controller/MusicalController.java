@@ -1,7 +1,10 @@
 package com.itwillbs.controller;
 
 
-import javax.servlet.http.HttpServletRequest;
+import java.time.LocalDate;
+import java.util.List;
+
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.itwillbs.domain.MusicalDetatilDTO;
 import com.itwillbs.domain.MusicalMainDTO;
 import com.itwillbs.service.MusicalService;
@@ -83,14 +88,20 @@ public class MusicalController {
   
   	@RequestMapping("/page_detail")
   	public String musicalPage_detail( Model model,
-  			@RequestParam(required = false) String musical_id) {
+  			@RequestParam(required = false) String musical_id) throws JsonProcessingException {
 	  System.out.println("뮤지컬id = "+musical_id);
 	  
 	  model.addAttribute("musical_file", musicalService.getMusicalFile(musical_id));
-	  System.out.println(model);
 	  model.addAttribute("performace_date", musicalService.getPerformance_date(musical_id));
 	  model.addAttribute("musical_detail", musicalService.getMusicalDetail(musical_id));
 	 
+	  List<String> selectableDates = musicalService.getSelectableDates(musical_id);
+	  
+	  ObjectMapper objectMapper = new ObjectMapper();
+	  String selectableDatesJson = objectMapper.writeValueAsString(selectableDates);
+	    
+	  model.addAttribute("selectableDates", selectableDatesJson);
+      
   		return "/musical/page_detail";
   	}
   	
