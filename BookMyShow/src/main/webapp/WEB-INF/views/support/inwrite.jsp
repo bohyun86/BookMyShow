@@ -91,7 +91,7 @@
 <main class="support-notice-write" id="notice-main">
     <section class="h-100" id="board-content">
     <form action="${pageContext.request.contextPath}/support/inwritePro" class="supportForm" method="post" name="fr">
-                <p class="inquiry_1">아이디</p> <input type="text" name="user_id" value="${sessionScope.userId }" readonly>	
+                <p class="inquiry_1">아이디</p> <input type="text" name="name" value="${sessionScope.name }" readonly>	
 				<p class="inquiry_1">문의 제목</p> <input type="text" name="title" >				
 				<p class="inquiry_3">문의 유형</p> <input type="text" name="inquiry_type" >				
 				<div class="editer_content">
