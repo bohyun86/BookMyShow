@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.dao.PartnerDAO;
 import com.itwillbs.domain.PartnerDTO;
 import com.itwillbs.domain.PartnerDTO2;
@@ -122,7 +123,9 @@ public class PartnersServiceAdmin {
 		// TODO Auto-generated method stub
 		return partnerDAO.memberQnaAnser(inquiry_id,answer_content);
 	}
-	
+	//회원문의 답변
+
+
 	
 
 
