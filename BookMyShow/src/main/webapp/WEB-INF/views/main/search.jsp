@@ -22,7 +22,7 @@
         <div id="time-sale-container" class="position-relative time-sale-container d-flex flex-wrap" style="width: 1100px;">
 
             <c:forEach var="card" items="${searchingResult}">
-                <div class="card time-sale" id="sub-page" date-musical-id="${card.musicalId}">
+                <div class="card time-sale" id="sub-page" data-musical-id="${card.musicalId}">
                     <img src="${pageContext.request.contextPath}/${card.postFilePath}" class="card-img-top" alt="...">
                     <div class="card-body w-100" style="height: 156px;">
                         <p class="area">${card.area}</p>
