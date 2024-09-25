@@ -652,5 +652,5 @@
 </body>
 
 
->>>>>>> refs/heads/develop
+
 </html>
