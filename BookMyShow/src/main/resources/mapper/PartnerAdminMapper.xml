@@ -5,93 +5,14 @@
 
 <mapper namespace="com.itwillbs.mapper.PartnerAdminMapper">
 
- 
-<!--    <resultMap id="userResultMap" type="com.itwillbs.domain.UserDTOAdmin"> -->
-<!--         <id property="userId" column="user_id"/> -->
-<!--         <result property="userName" column="user_name"/> -->
-<!--         <result property="password" column="password"/> -->
-<!--         <result property="email" column="email"/> -->
-<!--         <result property="phoneNumber" column="phone_number"/> -->
-<!--         <result property="name" column="name"/> -->
-<!--         <result property="userRole" column="user_role"/> -->
-<!--         <result property="createdAt" column="created_at"/> -->
-<!--         <result property="updatedAt" column="updated_at"/> -->
-<!--     </resultMap> -->
 
-<!--    <resultMap id="partnerResultMap" type="com.itwillbs.domain.PartnerDTO2"> -->
-<!--         <result property="partnerId" column="partner_id"/> -->
-<!--         <result property="companyName" column="company_name"/> -->
-<!--         <result property="businessId" column="business_id"/> -->
-<!--         <result property="accountNumber" column="account_number"/> -->
-<!--         <result property="createdAt" column="created_at"/> -->
-<!--         <result property="updatedAt" column="updated_at"/> -->
-<!--         <result property="userId" column="user_id"/> -->
-<!--         <result property="partnerStatus" column="partner_status"/> -->
-<!--         <result property="bankName" column="bank_name"/> -->
-<!--         <result property="accountOwner" column="account_owner"/> -->
-<!--         <result property="approved" column="approved"/> -->
-        
-        
-        
-        
-<!--         <association property="userDTOAdmin" javaType="com.itwillbs.domain.UserDTOAdmin"> -->
-<!--             <id property="userId" column="user_id"/> -->
-<!--             <result property="userName" column="user_name"/> -->
-<!--             <result property="email" column="email"/> -->
-<!--             <result property="phoneNumber" column="phone_number"/> -->
-<!--             <result property="name" column="name"/> -->
-<!--             <result property="password" column="password"/> -->
-<!--             <result property="userRole" column="user_role"/> -->
-<!--             <result property="createdAt" column="created_at"/> -->
-<!--             <result property="updatedAt" column="updated_at"/> -->
-<!--         </association> -->
-        
-
-<!--     </resultMap> -->
-
-
-<!--     <resultMap id="partnerQnaResultMap" type="com.itwillbs.domain.PartnerQnaDTO"> -->
-<!--         <id property="inquiryId" column="inquiry_id"/> -->
-<!--         <result property="inquiryType" column="inquiry_type"/> -->
-<!--         <result property="title" column="title"/> -->
-<!--         <result property="content" column="content"/> -->
-<!--         <result property="createdAt" column="created_at"/> -->
-<!--         <result property="updatedAt" column="updated_at"/> -->
-<!--         <result property="answered" column="answered"/> -->
-<!--         <result property="answerContent" column="answer_content"/> -->
-        
-<!--         <association property="userDTOAdmin" javaType="com.itwillbs.domain.UserDTOAdmin"> -->
-<!--             <id property="userId" column="user_id"/> -->
-<!--             <result property="userName" column="user_name"/> -->
-<!--             <result property="email" column="email"/> -->
-<!--             <result property="phoneNumber" column="phone_number"/> -->
-<!--             <result property="name" column="name"/> -->
-<!--             <result property="password" column="password"/> -->
-<!--             <result property="userRole" column="user_role"/> -->
-<!--             <result property="createdAt" column="created_at"/> -->
-<!--             <result property="updatedAt" column="updated_at"/> -->
-<!--         </association> -->
-        
-<!--         <association property="partnerDTO2" javaType="com.itwillbs.domain.PartnerDTO2"> -->
-<!--             <id property="partnerId" column="partner_id"/> -->
-<!--             <result property="companyName" column="company_name"/> -->
-<!--             <result property="businessId" column="business_id"/> -->
-<!--             <result property="accountNumber" column="account_number"/> -->
-<!--             <result property="createdAt" column="created_at"/> -->
-<!--             <result property="updatedAt" column="updated_at"/> -->
-<!--             <result property="partnerStatus" column="partner_status"/> -->
-<!--             <result property="bankName" column="bank_name"/> -->
-<!--             <result property="accountOwner" column="account_owner"/> -->
-<!--             <result property="approved" column="approved"/> -->
-<!--         </association> -->
-<!--     </resultMap> -->
     
 
 	<select id="getPartnersy"  resultType="com.itwillbs.domain.PartnerDTO2" >
  		SELECT U.*, P.*
         FROM Partner P
         JOIN User U ON P.user_id = U.user_id
-        WHERE P.approved=1 and U.user_name =#{user_name}
+        WHERE P.approved=1 and U.user_name =#{user_name} or U.name=#{name}
     </select>	
 
 
@@ -137,8 +58,13 @@
 	
 	SELECT U.*, P.*
 	FROM Partner P 
-	JOIN User U ON P.user_id = U.user_id;
+	JOIN User U ON P.user_id = U.user_id
 	
+		
+<!-- 	SELECT U.*, P.* -->
+<!-- 	FROM User U -->
+<!-- 	JOIN Partner P ON U.user_id = P.user_id -->
+<!-- 	WHERE U.user_role ='partner' -->
 	    </select> 
 	    
 	    
@@ -148,7 +74,7 @@
 	SELECT U.*, P.*
 	FROM Partner P 
 	JOIN User U ON P.user_id = U.user_id
-	WHERE P.partner_id=#{partner_id};
+	WHERE P.partner_id=#{partner_id}
 	
 	    </select> 
 	    
@@ -161,12 +87,54 @@
 	   </update>
 	   
 	    
+<delete id="partner_delete" >
+	delete from Partner
+	Where partner_id = #{partner_id} and approved=1;
+</delete>
+<!-- 파트너삭제 -->
 
 
 
 
 
+<update id="editUserFOReditPartner">
+ UPDATE User 
+    SET user_name = #{user_name}, 
+        password = #{password}, 
+        name = #{name}, 
+        phone_number = #{phone_number}, 
+        email = #{email}
+    WHERE user_id = #{user_id} 
+    </update>
 
+<update id="editPartner">
+    UPDATE Partner 
+    SET company_name = #{company_name}, 
+        business_id = #{business_id}
+    WHERE partner_id = #{partner_id} 
+    AND approved = 1
+</update>
+<!-- 파트너정보업데이트 -->
+
+<select id="memberQnaList" resultType="com.itwillbs.domain.UserDTOAdmin" >
+
+SELECT I.answered,I.inquiry_id,I.inquiry_type,I.title,I.content,I.created_at,U.name,U.user_name
+	FROM Inquiry I 
+	JOIN User U ON I.user_id = U.user_id 
+	JOIN Member M ON U.user_id = M.user_id
+	order by I.created_at ASC
+
+</select>
+<!-- 회원문의 -->
+
+
+    <!-- 회원 문의답변페이지로 불러오기  -->
+	<select id="memberQnaAnser"  resultType="com.itwillbs.domain.UserDTOAdmin" >
+	
+	SELECT *
+	FROM Inquiry 
+	where inquiry_id =#{inquiryId}
+	    </select> 
 
 
 

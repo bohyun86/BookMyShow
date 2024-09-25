@@ -86,7 +86,7 @@
         							<h4 class="card-title">파트너 정보</h4>
        									 <p class="card-text">
        									 	
-       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/editPartnerForm" id="editPartnerForm" method="post" >
+       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/partner" id="editPartnerForm" method="post" >
        									 	<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">파트너ID</span>
   													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${userName}"required>
@@ -213,11 +213,16 @@
 				 										
 				 										
 				 										<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  															<button class="btn btn-primary me-md-2" type="submit" onclick= "submitForm()" >수정완료</button> &nbsp; &nbsp;
+				 										<input type="hidden" name="partner_id" value="${partner_id}">
+				 										<input type="hidden" name="user_id" value="${userId}">
+				 										<input type="hidden" name="user_name" value="${userName}">
+  															<button class="btn btn-primary me-md-2" type="button" onclick= "submitForm();" >수정완료</button> &nbsp; &nbsp;
+  															</div>
 														</form>
 														
   															<form action="${pageContext.request.contextPath}/admin/partnerDTO">
   																<button class="btn btn-primary" type="button" onclick="deleteok()">삭제</button>
+  																
   																</form>
 														</div>
     												</div>

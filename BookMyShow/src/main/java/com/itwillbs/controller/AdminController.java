@@ -16,6 +16,7 @@ import com.itwillbs.domain.Performance.AttachFile2DTO;
 import com.itwillbs.domain.Performance.AttachFileDTO;
 import com.itwillbs.domain.Performance.PerformanceTempDTO;
 import com.itwillbs.domain.UserDTO;
+import com.itwillbs.domain.UserDTOAdmin;
 import com.itwillbs.domain.partner.PartnerStatusDTO;
 import com.itwillbs.service.*;
 import lombok.AllArgsConstructor;
@@ -83,12 +84,14 @@ public class AdminController {
 
 	}
 
+
+
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		log.info("admin logout success");
 		session.invalidate();
 
-		return "/main/main";
+		return "redirect:/main/main";
 	}
 
 	@GetMapping("/search")
@@ -248,7 +251,8 @@ public class AdminController {
 	public String partner_submit(Model model) {
 		log.info("admin partner_submit success");
 		
-		 List<PartnerDTO2> partnerList = partnersServiceAdmin.partnersumbitList(); //파트너리스트
+		 List<PartnerDTO2> partnerList = partnersServiceAdmin.partnersumbitList(); //파트너리스트 파트너회원가입 구현하면 이거주석 하고 테스트
+//		 List<UserDTOAdmin> partnerList = partnersServiceAdmin.partnersumbitList(); //파트너리스트
 	        model.addAttribute("partnerList", partnerList);
 	        
 	        System.out.println("partnerQnaList size: " + partnerList.size());
@@ -300,6 +304,8 @@ public class AdminController {
 //		
 		partnersServiceAdmin.partnerConfirm(partner_id);
 		
+//		 List<UserDTOAdmin> partnerList = partnersServiceAdmin.partnersumbitList();
+
 		 List<PartnerDTO2> partnerList = partnersServiceAdmin.partnersumbitList();
 		model.addAttribute("partnerList", partnerList);
 //		System.out.println(partnerList);
@@ -307,9 +313,19 @@ public class AdminController {
 		
 		
 		return "redirect:/admin/partner_submit"; 
+	}//승인요청 수락
+	
+	
+	
+	
+	@PostMapping("/partner_delete")
+	public String partner_delete(@RequestParam("partner_id") int partner_id) {
+		log.info("admin partner_submitConfirm success");
+		
+		partnersServiceAdmin.partner_delete(partner_id);
+		
+		return "redirect:/admin/partner_submit";
 	}
-	
-	
 	
 	
 	
@@ -323,10 +339,11 @@ public class AdminController {
 			@RequestParam("company_name") String  company_name,
 			@RequestParam("business_id") String business_id,
 			@RequestParam("account_number") String account_number,
-			@RequestParam("bankName") String bankName,
+			@RequestParam("bank_name") String bank_name,
 			@RequestParam("phone_number") String phone_number,
 			@RequestParam("email") String email, 
 			@RequestParam("created_at") String created_at,
+			@RequestParam(required = false)Integer partner_id,
 			Model model) {
 		log.info("admin partnerPro success");
 
@@ -336,16 +353,31 @@ public class AdminController {
 		model.addAttribute("companyName", company_name);
 		model.addAttribute("businessId", business_id);
 		model.addAttribute("accountNumber", account_number);
-		model.addAttribute("bankName", bankName);
+		model.addAttribute("bankName", bank_name);
 		model.addAttribute("phoneNumber", phone_number);
 		model.addAttribute("email", email);
 		model.addAttribute("createdAt", created_at);
+		model.addAttribute("partner_id", partner_id);
 
 		return "/admin/partnerPro";
 	} // parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 partnerPro로 넘기는 과정
 
 
-   
+//	@PostMapping("/editPartnerForm")
+//	public String editPartnerForm(@RequestParam(required = false)Integer partner_id,
+//			@RequestParam(required = false)Integer user_id,
+//			@RequestParam("user_name") String user_name
+//						) {
+//		log.info("admin editPartnerForm success");
+//		System.out.println("editPartner"+partner_id);
+//		System.out.println("editPartner"+user_id);
+//		System.out.println("editPartner"+user_name);
+//		
+//		
+//		return "redirect:/admin/partner";
+//	}
+//	
+	
 	
 	
 	
@@ -415,6 +447,24 @@ public class AdminController {
         }
     ////////수정필요할듯
     
+    @PostMapping("/memberqnaAnswerOK")
+    public String memberqnaAnswerOK(Model model,
+    						  @RequestParam("inquiryId") int inquiryId,
+    						  @RequestParam("answerContent") String answerContent
+    						  ) {
+    	log.info("admin qnaAnswerOK success");
+    	partnersServiceAdmin.qnaAnswerOK(inquiryId);
+    	partnersServiceAdmin.qnaAnswerContentOK(answerContent,inquiryId);  
+    	System.out.println("admin inquiryId"+inquiryId);
+    	System.out.println("admin answerContent"+answerContent);
+    	
+    	  List<UserDTOAdmin> memberQnaList = partnersServiceAdmin.memberQnaList();
+        model.addAttribute("memberQnaList", memberQnaList); //답변상태최신으로업데이트
+        
+        return "redirect:/admin/member_qna"; 
+        }
+    ////////수정필요할듯
+    
     
     
 
@@ -460,10 +510,48 @@ public class AdminController {
 	
 	
 	@GetMapping("/member_qna")
-	public String member_qna() {
+	public String member_qna(Model model) {
+		
 		log.info("admin member_qna success");
+		  List<UserDTOAdmin> memberQnaList = partnersServiceAdmin.memberQnaList();
+	        model.addAttribute("memberQnaList", memberQnaList);
+	        
+	        
+	        System.out.println("memberQnaList size: " + memberQnaList.size());
+	        System.out.println("memberQnaList"+memberQnaList);
+		
+				
+		
+		
 		return "/admin/member_qna";
 	}
+	
+	
+	@GetMapping("/member_qnaAnswer")
+    public String member_qnaAnswer(@RequestParam("inquiry_id") int inquiry_id,
+    								@RequestParam(required = false) String answer_content,Model model) {
+    	log.info("admin member_qnaAnswer success");
+    	
+    	
+    	
+//    	List<PartnerQnaDTO> partnerQna = partnersServiceAdmin.PartnerQnaAnser(inquiryId);
+    	List<UserDTOAdmin> memberQna = partnersServiceAdmin.memberQnaAnser(inquiry_id,answer_content);
+    	
+    	model.addAttribute("memberQna", memberQna);
+//    	 List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.selectAllPartnerQnaList();
+//        model.addAttribute("partnerQnaList", partnerQnaList);
+    	log.info("Fetched memberQna: {}", memberQna);
+    	System.out.println("member_qnaAnswer"+inquiry_id);
+        
+        return "/admin/member_qnaAnswer"; 
+        }
+	
+	
+	
+	
+	
+	
+	
 
 	@GetMapping("/booking")
 	public String booking() {
