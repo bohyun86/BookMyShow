@@ -47,7 +47,7 @@
 
 		<!-- Gmail 계정 정보 설정 -->
 		<property name="username" value="qhgusdlsp86@cuk.edu"/>
-		<property name="password" value="bshxeiwhcqlovyir" /> <!-- Gmail 앱 비밀번호 입력 -->
+		<property name="password" value="#{systemEnvironment['GOOGLE_APP_PASSWORD']}" />  <!-- 보안상의 이유로 비밀번호는 별도로 관리하는 것이 좋음 -->
 
 		<property name="javaMailProperties">
 			<props>
@@ -61,6 +61,12 @@
 		</property>
 	</bean>
 
+	<!-- 공연 정보 등록 Service Key 등록 -->
+	<bean id="serviceKey" class="java.lang.String">
+		<constructor-arg
+				value="#{systemEnvironment['KOPIS_API_KEY']}" />
+	</bean>
+
 	<!-- 비동기 처리 설정 -->
 	<task:annotation-driven executor="asyncExecutor" />
 	<task:executor id="asyncExecutor" pool-size="5-10" queue-capacity="25" />
@@ -69,11 +75,7 @@
 	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"/>
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
-	<!-- 공연 정보 등록 Service Key 등록 -->
-	<bean id="serviceKey" class="java.lang.String">
-		<constructor-arg
-			value="a85b154a49f4403da522aba1e732569f" />
-	</bean>
+
 
 	<bean id="mysqlCleanup" class="com.itwillbs.common.MySQLCleanup"
 		destroy-method="cleanup" />
