@@ -14,6 +14,7 @@ import com.itwillbs.domain.MusicalDTO;
 import com.itwillbs.domain.MusicalDetatilDTO;
 import com.itwillbs.domain.MusicalFileDTO;
 import com.itwillbs.domain.MusicalMainDTO;
+import com.itwillbs.domain.MusicalTicketDTO;
 import com.itwillbs.domain.PerformanceDetailDTO;
 
 
@@ -79,7 +80,10 @@ public class MusicalService {
 	                .collect(Collectors.toList());
 	}
 
-	
+	public List<MusicalTicketDTO> getMusicalTickets() {
+		
+		return musicalDAO.getMusicalTickets();
+	}
 	
 }
 

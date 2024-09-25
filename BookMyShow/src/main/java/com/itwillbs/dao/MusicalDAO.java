@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.itwillbs.domain.MusicalDetatilDTO;
 import com.itwillbs.domain.MusicalFileDTO;
 import com.itwillbs.domain.MusicalMainDTO;
+import com.itwillbs.domain.MusicalTicketDTO;
 import com.itwillbs.domain.PerformanceDetailDTO;
 import com.itwillbs.domain.Performance.MusicalDTO;
 
@@ -67,6 +68,11 @@ public class MusicalDAO {
 	public List<MusicalFileDTO> getMusicalFile(String musical_id) {
 		
 		return sqlSession.selectList(namespace + ".getMusicalFile", musical_id);
+	}
+
+	public List<MusicalTicketDTO> getMusicalTickets() {
+		
+		return sqlSession.selectList(namespace + ".getMusicalTickets");
 	}
 
 	

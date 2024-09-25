@@ -56,7 +56,7 @@
 	            musical_id
 	    ) w ON w.musical_id = m.musical_id
 	    WHERE 
-	        1=1 <!-- 기본 조건 충족 -->
+	        m.approved = 1
 	        <if test="genreCheck != null">
 	            AND g.genre_name = #{genreCheck}
 	        </if>
@@ -163,6 +163,34 @@
 		where musical_id = #{musical_id}
 		order by file_name
     </select>
+    
+    <select id="getMusicalTickets" resultType="com.itwillbs.domain.MusicalTicketDTO">
+    	select s.class_name, (t.capacity - t.tickets_sold) as capacity, 
+		m.discount_rate, 
+            CONCAT(
+	            SUBSTR(FLOOR(MIN(t.price) * (1 - m.discount_rate)), 1, 2),
+	            ',',
+	            SUBSTR(ROUND(MIN(t.price) * (1 - m.discount_rate), -2), -3, 4)
+	        ) AS price
+		from TicketPrice t
+			join SeatClass s 
+				on t.seat_class_id = s.seat_class_id
+			join Performance p 
+				on t.performance_id = p.performance_id
+			JOIN Musical m 
+				ON m.musical_id = p.musical_id
+		where p.musical_id = #{}
+		and p.performance_date = #{}
+		group by
+			p.musical_id,
+			 s.class_name,
+		     t.capacity,
+		     t.tickets_sold,
+		     m.discount_rate;
+		    
+    </select>
+    
+    
     
     
     
