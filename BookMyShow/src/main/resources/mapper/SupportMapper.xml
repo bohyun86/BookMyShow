@@ -110,9 +110,10 @@
 		where inquiry_id = #{inquiry_id}             
 	</delete>
 	
-	<insert id="answerInquiry">
-		insert into Inquiry(answer_content)
-		values(#{answer_content})
-	</insert>
+	<update id="answerInquiry">
+		update Inquiry
+		set answer_content = #{answer_content}, updated_at = #{updated_at}
+		where inquiry_id = #{inquiry_id}
+	</update>
 	   
 </mapper>

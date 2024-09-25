@@ -109,9 +109,9 @@
 					    <p class="inquiry_2">답변</p> <textarea name="answer_content" rows="10" cols="30" readonly>${supportinquiryDTO.answer_content}</textarea>
 					    </div>  
 					<p class="btn_line txt_right">
-				<c:if test="${sessionScope.userRole eq 'admin'}">
-				<a href="${pageContext.request.contextPath}/support/inanswer?inquiry_id=${supportinquiryDTO.inquiry_id}" class="btn_bbs3">답변 달기</a>
-				</c:if>
+<%-- 				<c:if test="${sessionScope.userRole eq 'admin'}"> --%>
+<%-- 				<a href="${pageContext.request.contextPath}/support/inanswer?inquiry_id=${supportinquiryDTO.inquiry_id}" class="btn_bbs3">답변 달기</a> --%>
+<%-- 				</c:if> --%>
 				<c:if test="${ ! empty sessionScope.userRole }">
 				<c:if test="${sessionScope.userId eq supportinquiryDTO.user_id or sessionScope.userRole eq 'admin'}">
 				<a href="${pageContext.request.contextPath}/support/inupdate?inquiry_id=${supportinquiryDTO.inquiry_id}" class="btn_bbs1">문의 수정하기</a>

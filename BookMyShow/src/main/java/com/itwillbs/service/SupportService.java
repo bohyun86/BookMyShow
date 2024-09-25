@@ -158,7 +158,7 @@ public class SupportService {
     
     public void answerInquiry(SupportinquiryDTO supportinquiryDTO) {
 		System.out.println("SupportService answerInquiry()");				
-		supportinquiryDTO.setCreated_at(new Timestamp(System.currentTimeMillis()));
+		supportinquiryDTO.setUpdated_at(new Timestamp(System.currentTimeMillis()));
 		supportDAO.answerInquiry(supportinquiryDTO);
 	}
     
