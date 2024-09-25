@@ -447,6 +447,24 @@ public class AdminController {
         }
     ////////수정필요할듯
     
+    @PostMapping("/memberqnaAnswerOK")
+    public String memberqnaAnswerOK(Model model,
+    						  @RequestParam("inquiryId") int inquiryId,
+    						  @RequestParam("answerContent") String answerContent
+    						  ) {
+    	log.info("admin qnaAnswerOK success");
+    	partnersServiceAdmin.qnaAnswerOK(inquiryId);
+    	partnersServiceAdmin.qnaAnswerContentOK(answerContent,inquiryId);  
+    	System.out.println("admin inquiryId"+inquiryId);
+    	System.out.println("admin answerContent"+answerContent);
+    	
+    	  List<UserDTOAdmin> memberQnaList = partnersServiceAdmin.memberQnaList();
+        model.addAttribute("memberQnaList", memberQnaList); //답변상태최신으로업데이트
+        
+        return "redirect:/admin/member_qna"; 
+        }
+    ////////수정필요할듯
+    
     
     
 
@@ -492,10 +510,48 @@ public class AdminController {
 	
 	
 	@GetMapping("/member_qna")
-	public String member_qna() {
+	public String member_qna(Model model) {
+		
 		log.info("admin member_qna success");
+		  List<UserDTOAdmin> memberQnaList = partnersServiceAdmin.memberQnaList();
+	        model.addAttribute("memberQnaList", memberQnaList);
+	        
+	        
+	        System.out.println("memberQnaList size: " + memberQnaList.size());
+	        System.out.println("memberQnaList"+memberQnaList);
+		
+				
+		
+		
 		return "/admin/member_qna";
 	}
+	
+	
+	@GetMapping("/member_qnaAnswer")
+    public String member_qnaAnswer(@RequestParam("inquiry_id") int inquiry_id,
+    								@RequestParam(required = false) String answer_content,Model model) {
+    	log.info("admin member_qnaAnswer success");
+    	
+    	
+    	
+//    	List<PartnerQnaDTO> partnerQna = partnersServiceAdmin.PartnerQnaAnser(inquiryId);
+    	List<UserDTOAdmin> memberQna = partnersServiceAdmin.memberQnaAnser(inquiry_id,answer_content);
+    	
+    	model.addAttribute("memberQna", memberQna);
+//    	 List<PartnerQnaDTO> partnerQnaList = partnersServiceAdmin.selectAllPartnerQnaList();
+//        model.addAttribute("partnerQnaList", partnerQnaList);
+    	log.info("Fetched memberQna: {}", memberQna);
+    	System.out.println("member_qnaAnswer"+inquiry_id);
+        
+        return "/admin/member_qnaAnswer"; 
+        }
+	
+	
+	
+	
+	
+	
+	
 
 	@GetMapping("/booking")
 	public String booking() {

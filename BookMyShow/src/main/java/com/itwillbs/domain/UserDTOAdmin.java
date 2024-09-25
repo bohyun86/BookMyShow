@@ -54,6 +54,28 @@ private int partner_id;
 	private String account_owner;
 	
 	private int approved;
+	
+	//partnerqna
+	
+	private int inquiry_id;
+	
+	private String inquiry_type;
+	
+	private String title;
+	
+	private String content;
+	
+	
+	
+	private int answered;
+	
+	private String answer_content;
+	
+	
+	
+	
+	
+	
 
 
 }

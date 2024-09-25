@@ -21,6 +21,7 @@ public class PartnerDAO {
 	
 	@Autowired
 	private SqlSession sqlSession;
+
 	
 	private static final String namespace="com.itwillbs.mapper.PartnerAdminMapper";
 	
@@ -117,6 +118,18 @@ public List<PartnerDTO2> partnersumbitList() {
 	}
 	//파트너삭제
 
+
+	public List<UserDTOAdmin> memberQnaList() {
+		
+		return sqlSession.selectList(namespace + ".memberQnaList");
+	}
+	//회원문의
+
+
+	public List<UserDTOAdmin> memberQnaAnser(int inquiry_id, String answer_content) {
+		// TODO Auto-generated method stub
+		 return sqlSession.selectList(namespace + ".memberQnaAnser",inquiry_id);
+	}
 
 	
 

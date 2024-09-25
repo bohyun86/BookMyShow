@@ -116,8 +116,25 @@
 </update>
 <!-- 파트너정보업데이트 -->
 
+<select id="memberQnaList" resultType="com.itwillbs.domain.UserDTOAdmin" >
+
+SELECT I.answered,I.inquiry_id,I.inquiry_type,I.title,I.content,I.created_at,U.name,U.user_name
+	FROM Inquiry I 
+	JOIN User U ON I.user_id = U.user_id 
+	JOIN Member M ON U.user_id = M.user_id
+	order by I.created_at ASC
+
+</select>
+<!-- 회원문의 -->
 
 
+    <!-- 회원 문의답변페이지로 불러오기  -->
+	<select id="memberQnaAnser"  resultType="com.itwillbs.domain.UserDTOAdmin" >
+	
+	SELECT *
+	FROM Inquiry 
+	where inquiry_id =#{inquiryId}
+	    </select> 
 
 
 

@@ -109,7 +109,19 @@ public class PartnersServiceAdmin {
 		partnerDAO.partner_delete(partner_id);
 	}
 	//파트너 삭제
-	
+
+
+	public List<UserDTOAdmin> memberQnaList() {
+		// TODO Auto-generated method stub
+		return partnerDAO.memberQnaList();
+	}
+	//회원문의
+
+
+	public List<UserDTOAdmin> memberQnaAnser(int inquiry_id, String answer_content) {
+		// TODO Auto-generated method stub
+		return partnerDAO.memberQnaAnser(inquiry_id,answer_content);
+	}
 	
 	
 
