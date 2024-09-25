@@ -131,6 +131,7 @@ public List<PartnerDTO2> partnersumbitList() {
 		 return sqlSession.selectList(namespace + ".memberQnaAnser",inquiry_id);
 	}
 
+
 	
 
 

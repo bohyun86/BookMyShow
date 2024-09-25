@@ -54,6 +54,8 @@ public class AdminController {
 	private PartnerController partnerController;
 	private ServletContext servletContext;
 	private ObjectMapper objectMapper;
+	private MemberService memberService;
+	
 
 	@GetMapping("/main")
 	public String home() {
@@ -548,16 +550,54 @@ public class AdminController {
 	
 	
 	
+	@GetMapping("/booking")
+	public String booking(
+			@RequestParam(required = false) int user_id, 
+			Model model
+			) {
+		log.info("admin booking success");
+System.out.println("booking user_id"+user_id);
+
+//List<UserDTOAdmin> memberBooked = memberService.memberBooked(user_id); //예매내역
+//model.addAttribute("memberBooked",memberBooked);
+//System.out.println("memberBooked----"+memberBooked);
+
+
+		return "/admin/booking";
+	} // parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 booking로 넘기는 과정
 	
+//	
+	
+	
+//
+//	
+//	@GetMapping("/bookingPro")
+//	public String bookingPro(
+//			@RequestParam(required = false) int user_id, 
+//			Model model
+//			) {
+//		log.info("admin bookingPro success");
+//
+//System.out.println("booking user_id"+user_id);
+//
+//List<UserDTOAdmin> memberBooked = memberService.memberBooked(user_id); //예매내역
+//System.out.println("booking user_id"+user_id);
+//model.addAttribute("memberBooked",memberBooked);
+//System.out.println("memberBooked----"+memberBooked);
+//		
+//
+//		return "/admin/booking";
+//	} // parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 booking로 넘기는 과정
+//	
+//	
 	
 	
 	
 
-	@GetMapping("/booking")
-	public String booking() {
-		log.info("admin booking success");
-		return "/admin/booking";
-	}
+	
+
+	
+
 
 	@GetMapping("/payment")
 	public String payment() {
