@@ -37,9 +37,7 @@ public class TheaterController {
         RestTemplate restTemplate = new RestTemplate();
         ResponseEntity<byte[]> response = restTemplate.getForEntity(url, byte[].class);  // byte 배열로 응답 받음
 
-        // 수동으로 인코딩 변환 (ISO-8859-1 -> UTF-8)
-        String responseBody = new String(Objects.requireNonNull(response.getBody()), StandardCharsets.ISO_8859_1);
-        responseBody = new String(responseBody.getBytes(StandardCharsets.ISO_8859_1), StandardCharsets.UTF_8);
+        String responseBody = new String(Objects.requireNonNull(response.getBody()), StandardCharsets.UTF_8);
 
         // MediaType을 수동으로 생성하고 UTF-8 인코딩을 명시
         HttpHeaders responseHeaders = new HttpHeaders();

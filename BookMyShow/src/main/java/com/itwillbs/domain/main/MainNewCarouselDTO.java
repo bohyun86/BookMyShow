@@ -6,6 +6,7 @@ import lombok.Data;
 public class MainNewCarouselDTO {
 
     private String postFilePath;
+    private int musicalId;
     private String area;
     private String category;
     private String title;
