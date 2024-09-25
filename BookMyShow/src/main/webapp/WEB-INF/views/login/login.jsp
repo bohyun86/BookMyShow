@@ -59,7 +59,7 @@
         </div>
 
         <div class="text-center mt-5" id="login-problem">
-            <a href="#" class="fs-6 fw-bolder">※ 회원가입/로그인에 문제가 있어요!></a>
+            <a href="${pageContext.request.contextPath}/support/qnacontent?faq_id=1" class="fs-6 fw-bolder">※ 회원가입/로그인에 문제가 있어요!></a>
         </div>
         <input type='hidden' name="${_csrf.parameterName}" value="${_csrf.token}"/>
     </form>
