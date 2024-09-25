@@ -35,10 +35,10 @@
 				href="${contextPath}/support/notice"
 				class="${currentPath == '/support/notice' ? 'text-danger' : ''}">
 					공지사항 </a></li>
-			<li class="list-group-item"><a href="${contextPath}/support/faq"
+			<li class="list-group-item"><a href="${contextPath}/support/frequentQuestion"
 				class="${currentPath == '/support/faq' ? 'text-danger' : ''}">
 					자주묻는질문 </a></li>
-			<li class="list-group-item"><a href="${contextPath}/support/qna"
+			<li class="list-group-item"><a href="${contextPath}/support/inquiry"
 				class="${currentPath == '/support/qna' ? 'text-danger' : ''}">
 					1:1문의 </a></li>
 		</ul>
