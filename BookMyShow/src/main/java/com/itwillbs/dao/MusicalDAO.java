@@ -8,8 +8,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-
+import com.itwillbs.domain.MusicalDetatilDTO;
+import com.itwillbs.domain.MusicalFileDTO;
 import com.itwillbs.domain.MusicalMainDTO;
+import com.itwillbs.domain.PerformanceDetailDTO;
 import com.itwillbs.domain.Performance.MusicalDTO;
 
 @Repository
@@ -50,8 +52,24 @@ public class MusicalDAO {
 	public MusicalDTO getMusical(String title) {
 		// TODO Auto-generated method stub
 		return  sqlSession.selectOne(namespace + ".getMusical", title);
-	}	
+	}
 
+	public MusicalDetatilDTO getMusicalDetail(String musical_id) {
+		
+		return sqlSession.selectOne(namespace + ".getMusicalDetail", musical_id);
+	}
+
+	public List<PerformanceDetailDTO> getPerformance_date(String musical_id) {
+		
+		return sqlSession.selectList(namespace + ".getPerformance_date" ,musical_id);
+	}
+
+	public List<MusicalFileDTO> getMusicalFile(String musical_id) {
+		
+		return sqlSession.selectList(namespace + ".getMusicalFile", musical_id);
+	}
+
+	
 
 
 

@@ -12,9 +12,21 @@
             </li>
             <li class="nav-item">
 <<<<<<< HEAD
-                <a class="nav-link text-black" id="cs-dropdown" href="${pageContext.request.contextPath}/support/frequentQuestion">고객센터</a>
+
 =======
+<<<<<<< HEAD
+>>>>>>> refs/heads/develop
+                <a class="nav-link text-black" id="cs-dropdown" href="${pageContext.request.contextPath}/support/frequentQuestion">고객센터</a>
+<<<<<<< HEAD
+
+=======
+=======
+>>>>>>> refs/heads/develop
                 <a class="nav-link text-black" id="cs-dropdown" href="${pageContext.request.contextPath}/support/faq">고객센터</a>
+<<<<<<< HEAD
+
+=======
+>>>>>>> refs/heads/develop
 >>>>>>> refs/heads/develop
                 <!-- Dropdown menu -->
                 <div class="dropdown-menu shadow border-0 " id="cs-dropdown-menu">
