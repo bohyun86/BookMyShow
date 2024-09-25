@@ -1,4 +1,20 @@
 #noticenum {
+<<<<<<< HEAD
+	margin-left: 270px;
+}
+
+#noticenum a{
+text-align: center;
+width: 40px;
+color: #000;
+font-size: 14px;
+font-weight: bold;
+padding: 5px 5px;
+background: #eee;
+border:2px solid #fff;
+text-decoration: none;
+border-radius: 5px;
+=======
     text-align: center;
     padding: 0 0 30px 220px;
 }
@@ -14,6 +30,7 @@
     border:2px solid #fff;
     text-decoration: none;
     border-radius: 5px; 
+>>>>>>> refs/heads/develop
 }
 
 .next {

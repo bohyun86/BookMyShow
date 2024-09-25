@@ -28,6 +28,7 @@
 
     <context:component-scan base-package="com.itwillbs.controller"/>
     <context:component-scan base-package="com.itwillbs.common"/>
+    
 
     <!-- multipartResolver 설정 -->
     <beans:bean id="multipartResolver"

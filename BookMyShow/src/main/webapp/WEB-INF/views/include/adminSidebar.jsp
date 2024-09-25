@@ -26,11 +26,11 @@
                            data-target="#submenu-2" aria-controls="submenu-3">뮤지컬관리</a>
                         <div id="submenu-2" class="collapse submenu" style="">
                             <ul class="nav flex-column">
+<!--                                 <li class="nav-item"> -->
+<%--                                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/search/">뮤지컬검색</a> --%>
+<!--                                 </li> -->
                                 <li class="nav-item">
-                                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/search/">뮤지컬검색</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/edit/">뮤지컬수정/삭제</a>
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/edit/">뮤지컬 리스트</a>
                                 </li>
                             </ul>
                         </div>
@@ -44,6 +44,9 @@
                             <ul class="nav flex-column">
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/partner/">파트너검색</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/partner_qna">문의관리</a>
                                 </li>
                                 
                                 <li class="nav-item">
@@ -61,6 +64,9 @@
                             <ul class="nav flex-column">
                                 <li class="nav-item">
                                     <a class="nav-link" href="${pageContext.request.contextPath}/admin/member/">회원검색</a>
+                                </li>
+                                 <li class="nav-item">
+                                    <a class="nav-link" href="${pageContext.request.contextPath}/admin/member_qna">문의관리</a>
                                 </li>
                                 
                             </ul>

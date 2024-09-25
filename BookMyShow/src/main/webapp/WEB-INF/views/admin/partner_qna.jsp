@@ -70,49 +70,92 @@
 
 
 
-			
-				${sessionScope.id }파트너님의 문의<br>
-				
-				
-<c:if test="${empty partnerQnaList}">
-    <p>문의가 없습니다.</p>
-</c:if>
 
-<form action="#"></form>
-<div class="card w-75 mb-3">
-  <div class="card-body">
-    <h5 class="card-title">1.문의유형 / 문의 작성일<input type="date" name="createddate1"></h5>
-    <p class="card-text">문의내용 :</p>
-   <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <input type="text" name="answer">&nbsp;
-  <button class="btn btn-primary me-md-2" type="submit" href="" >답변등록</button>
-  </div>
-  </div>
-</div>
-</div>
+				<div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">문의현황</h5>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="bg-light">
+                                    <tr class="border-0">
+                                        <th class="border-0">#</th>
+                                        <th class="border-0">문의작성자</th>
+                                        <th class="border-0">문의유형</th>
+                                        <th class="border-0">제목</th>
+                                        <th class="border-0">내용</th>
+                                        <th class="border-0">작성일</th>
+                                        <th class="border-0">파트너성함</th>
+                                        <th class="border-0">회사명</th>
+                                        <th class="border-0">처리상태</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+<!--                                     리스트의 총 크기를 계산 -->
+                                    <c:choose>
+                                        <c:when test="${empty partnerQnaList}">
+                                            <tr>
+                                                <td colspan="9">데이터가 없습니다.</td>
+                                            </tr>
+                                        </c:when>
+                                    </c:choose>
 
-<!-- <form action="#"> -->
-<!-- <div class="card w-75 mb-3"> -->
-<!--   <div class="card-body"> -->
-<!--     <h5 class="card-title">2.문의유형 / 문의 작성일<input type="date" name="createddate2"></h5> -->
-<!--     <p class="card-text">문의내용 : </p> -->
-<!--      <div class="d-grid gap-2 d-md-flex justify-content-md-end"> -->
-<!--      <input type="text" name="answer" placeholder="기존답변 ---">&nbsp; -->
-<!--   <button class="btn btn-primary me-md-2" type="sumit" href="#" >수정완료</button> &nbsp;&nbsp; -->
-<!-- </form> -->
-<%--   <form action="${pageContext.request.contextPath}/admin/partnerDTO"> --%>
-<!--   	<button class="btn btn-primary" type="submit" onclick="deleteok()">삭제</button> -->
-<!--   	</form> -->
-  </div>
-</div>
-</div>
 
-<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/partnerDTO'" >돌아가기</button>&nbsp;&nbsp;
-</div>
 
-   </div>
+                                  <c:forEach var="partnerQna" items="${partnerQnaList}">
+<%--                                   ${partnerQna.inquiry_id} --%>
+<%--                                   ${partnerQna.user_name} --%>
+<%--                                   ${partnerQna.inquiry_type} --%>
+<%--                                   ${partnerQna.content} --%>
+<%--                                   ${partnerQna.inquiry_id} --%>
+                                  
+                                  
+                <tr>
+                    <td>${partnerQna.inquiry_id}</td>
+                    <td>${partnerQna.user_name}</td>
+                    <td>${partnerQna.inquiry_type}</td>
+                    <td><a href="${pageContext.request.contextPath}/admin/partner_qnaAnswer?inquiry_id=${partnerQna.inquiry_id}">${partnerQna.title}</a></td>
+                    <td>${partnerQna.content}</td>
+                    <td>${partnerQna.created_at}</td>
+                    <td>${partnerQna.name}</td>
+                    <td>${partnerQna.company_name}</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${partnerQna.answered == 1}">
+                                <span class="badge-dot badge-info mr-1"></span>완료
+                            </c:when>
+                            <c:otherwise>
+                                <span class="badge-dot badge-brand mr-1"></span>처리중
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </tr>
+            </c:forEach>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+ 								 <button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/main'" >돌아가기</button>&nbsp;&nbsp;
+							</div>
+
                 </div>
+            </div>
+        </div>
+    </div>
+
+               
+				
+
+</div>
+				
+				
+
+
                 
                 <script>
 	

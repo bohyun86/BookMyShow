@@ -212,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const withdrawalBtn = document.querySelector('#withdrawal-button');
     withdrawalBtn.addEventListener('click', function (e) {
         e.preventDefault();
-        window.location.href = '/i5/my/withdrawal';
+        window.location.href = `${contextPath}/my/withdrawal`;
     });
 });
 
