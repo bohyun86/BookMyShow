@@ -21,6 +21,7 @@ public class PartnerDAO {
 	
 	@Autowired
 	private SqlSession sqlSession;
+
 	
 	private static final String namespace="com.itwillbs.mapper.PartnerAdminMapper";
 	
@@ -81,11 +82,18 @@ public class PartnerDAO {
 	}
 
 
-	public List<PartnerDTO2> partnersumbitList() {
+//	public List<PartnerDTO2> partnersumbitList() {
+//		
+//		return sqlSession.selectList(namespace + ".partnersumbitList");
+//		//파트너 승인요청페이지 리스트
+//	}
+	
+public List<PartnerDTO2> partnersumbitList() {
 		
 		return sqlSession.selectList(namespace + ".partnersumbitList");
 		//파트너 승인요청페이지 리스트
 	}
+
 
 
 	public List<PartnerDTO2> partnersumbitConfirm(int partner_id) {
@@ -100,10 +108,28 @@ public class PartnerDAO {
 		 sqlSession.update(namespace+".partnerConfirm",partner_id);
 		
 	}
-	
 
-	
 
+	public void partner_delete(int partner_id) {
+		// TODO Auto-generated method stub
+		
+		sqlSession.delete(namespace+".partner_delete",partner_id);
+		
+	}
+	//파트너삭제
+
+
+	public List<UserDTOAdmin> memberQnaList() {
+		
+		return sqlSession.selectList(namespace + ".memberQnaList");
+	}
+	//회원문의
+
+
+	public List<UserDTOAdmin> memberQnaAnser(int inquiry_id, String answer_content) {
+		// TODO Auto-generated method stub
+		 return sqlSession.selectList(namespace + ".memberQnaAnser",inquiry_id);
+	}
 
 	
 

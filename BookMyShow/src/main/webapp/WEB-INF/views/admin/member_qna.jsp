@@ -54,12 +54,14 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title" >관리자메인페이지 </h2>
+                            <h2 class="pageheader-title" >회원 관리페이지 </h2>
                             <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel
                                 mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
                         </div>
                     </div>
                 </div>
+             
+                
                 <!-- ============================================================== -->
                 <!-- end pageheader  -->
                 <!-- ============================================================== -->
@@ -68,13 +70,107 @@
 
 
 
-			<h2><span class="name">${sessionScope.userName}</span>관리자님 환영합니다.</h2>
-			
-				
-				  </div>
+
+				<div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">문의현황</h5>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="bg-light">
+                                    <tr class="border-0">
+                                        <th class="border-0">#</th>
+                                        <th class="border-0">문의작성자</th>
+                                        <th class="border-0">문의유형</th>
+                                        <th class="border-0">제목</th>
+                                        <th class="border-0">내용</th>
+                                        <th class="border-0">작성일</th>
+                                        <th class="border-0">성함</th>
+                                        <th class="border-0">처리상태</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+<!--                                     리스트의 총 크기를 계산 -->
+                                    <c:choose>
+                                        <c:when test="${empty memberQnaList}">
+                                            <tr>
+                                                <td colspan="8">데이터가 없습니다.</td>
+                                            </tr>
+                                        </c:when>
+                                    </c:choose>
+
+
+
+                                  <c:forEach var="memberQna" items="${memberQnaList}">
+<%--                                   ${partnerQna.inquiry_id} --%>
+<%--                                   ${partnerQna.user_name} --%>
+<%--                                   ${partnerQna.inquiry_type} --%>
+<%--                                   ${partnerQna.content} --%>
+<%--                                   ${partnerQna.inquiry_id} --%>
+                                  
+                                  
+                <tr>
+                    <td>${memberQna.inquiry_id}</td>
+                    <td>${memberQna.user_name}</td>
+                    <td>${memberQna.inquiry_type}</td>
+                    <td><a href="${pageContext.request.contextPath}/admin/member_qnaAnswer?inquiry_id=${memberQna.inquiry_id}">${memberQna.title}</a></td>
+                    <td>${memberQna.content}</td>
+                    <td>${memberQna.created_at}</td>
+                    <td>${memberQna.name}</td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${memberQna.answered == 1}">
+                                <span class="badge-dot badge-info mr-1"></span>완료
+                            </c:when>
+                            <c:otherwise>
+                                <span class="badge-dot badge-brand mr-1"></span>처리중
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
+                </tr>
+            </c:forEach>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+ 								 <button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/main'" >돌아가기</button>&nbsp;&nbsp;
+							</div>
+<!--                     <nav aria-label="Page navigation"> -->
+<!--                         <ul class="pagination justify-content-center"> -->
+<%--                             <c:if test="${currentPage > 1}"> --%>
+<!--                                 <li class="page-item"> -->
+<%--                                     <a class="page-link" href="?page=${currentPage - 1}">&laquo;</a> --%>
+<!--                                 </li> -->
+<%--                             </c:if> --%>
+<%--                             <c:forEach var="i" begin="1" end="${totalPages}"> --%>
+<%--                                 <li class="page-item <c:if test='${i == currentPage}'>active</c:if>'"> --%>
+<%--                                     <a class="page-link" href="?page=${i}">${i}</a> --%>
+<!--                                 </li> -->
+<%--                             </c:forEach> --%>
+<%--                             <c:if test="${currentPage < totalPages}"> --%>
+<!--                                 <li class="page-item"> -->
+<%--                                     <a class="page-link" href="?page=${currentPage + 1}">&raquo;</a> --%>
+<!--                                 </li> -->
+<%--                             </c:if> --%>
+<!--                         </ul> -->
+<!--                     </nav> -->
                 </div>
+            </div>
+        </div>
+    </div>
 
+               
+				
 
+</div>
+				
+			               
+               
 
 <!-- 바텀 밑으로 내려야함 -->
 <%--         <jsp:include page="../include/adminBottom.jsp"/> --%>

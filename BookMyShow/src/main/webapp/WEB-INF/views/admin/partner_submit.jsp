@@ -117,7 +117,8 @@
                     <td>
                         <c:choose>
                             <c:when test="${partnerList.approved == 1}">
-                                <span class="badge-dot badge-info mr-1"></span>완료
+                            
+                                <span class="badge-dot badge-info mr-1" ></span>완료
                             </c:when>
                             <c:otherwise>
                                 <span class="badge-dot badge-brand mr-1"></span>처리중

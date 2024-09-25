@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: ITWILL
-  Date: 2024-09-03
-  Time: 오후 1:41
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!doctype html>
@@ -201,8 +194,9 @@
 				 										
 				 										<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 				 										<input type="hidden" name="partner_id" value="${partnerDTO2.partner_id}">
-  															<button class="btn btn-primary me-md-2" type="submit" onclick= "submitForm()" >승인</button> &nbsp; &nbsp;
-  																<button class="btn btn-primary me-md-2" type="button" onclick="deleteok()">삭제</button>
+				 										<input type="hidden" name="approved" value="${partnerDTO2.approved}">
+  															<button class="btn btn-primary me-md-2" type="button" onclick= "submitForm();" >승인</button> &nbsp; &nbsp;	
+  																<button class="btn btn-primary me-md-2" type="button" onclick="deleteok();">삭제</button>
   															</div>
 														</c:forEach> 
 														</form>
@@ -228,25 +222,38 @@
 <script>
 
 
+function submitForm() {
+//     var isAlreadyApproved = 1; // 이 부분은 실제 조건에 맞게 수정해야 합니다.
 
-function submitForm(){
-	 if (confirm("승인하시겠습니까?")) {
-         alert("승인 되었습니다.");
-         document.getElementById("PartnerSubmitForm").submit();
-     } else {
-         alert("취소되었습니다.");
-     }
-}
+//     if (isAlreadyApproved) {
+//         alert("이미 승인된 파트너입니다.");
+//         return; // 이미 승인된 경우 함수 종료
+//     } else {
+        // confirm을 조건문처럼 사용하면 안됨, 그냥 함수로 호출해야 함
+        if (confirm("승인하시겠습니까?")) {
+            alert("승인 되었습니다.");
+            document.getElementById("PartnerSubmitForm").submit();
+        } else {
+            alert("취소되었습니다.");
+        }
+    }
+
+
+
 
 //삭제 컨펌가능
-function deleteok(){
-    if(!confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')){
-        return false;
+function deleteok() {
+	
+    if (confirm('삭제하시면 복구할 수 없습니다. \n 정말로 삭제하시겠습니까??')) {
+        document.getElementById("PartnerSubmitForm").action = "${pageContext.request.contextPath}/admin/partner_delete"; 
+        document.getElementById("PartnerSubmitForm").submit();
+    } else {
+        return false; 
     }
 }
 
 
-    }
+    
 
 
 
