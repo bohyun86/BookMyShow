@@ -119,7 +119,7 @@
 			<div class="d-flex justify-content-center mt-4 action-buttons">
 				<a href="<c:url value='/my/refunds'/>"
 					class="btn btn-outline-secondary me-2 flex-grow-1">취소/환불내역</a> <a
-					href="<c:url value='/support/qna'/>"
+					href="<c:url value='/support/inquiry'/>"
 					class="btn btn-outline-dark flex-grow-1">1:1 문의</a>
 			</div>
 		</section>

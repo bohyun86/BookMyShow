@@ -18,15 +18,43 @@ function initAddressCopy() {
     const copyAddressBtn = document.querySelector('.copy-address');
     if (copyAddressBtn) {
         copyAddressBtn.addEventListener('click', function() {
-            const address = document.querySelector('.detail-value[data-address]').getAttribute('data-address');
-            navigator.clipboard.writeText(address).then(() => {
-                alert('주소가 클립보드에 복사되었습니다.');
-            }).catch(err => {
-                console.error('주소 복사 실패:', err);
-                alert('주소 복사에 실패했습니다. 수동으로 복사해주세요.');
-            });
+            const addressSpan = document.querySelector('.detail-value[data-address]');
+            if (addressSpan) {
+                const address = addressSpan.getAttribute('data-address');
+                if (navigator.clipboard && navigator.clipboard.writeText) {
+                    navigator.clipboard.writeText(address)
+                        .then(() => {
+                            alert('주소가 클립보드에 복사되었습니다.');
+                        })
+                        .catch(err => {
+                            console.error('주소 복사 실패:', err);
+                            fallbackCopyTextToClipboard(address);
+                        });
+                } else {
+                    fallbackCopyTextToClipboard(address);
+                }
+            } else {
+                alert('주소를 찾을 수 없습니다.');
+            }
         });
     }
+}
+
+function fallbackCopyTextToClipboard(text) {
+    const textArea = document.createElement("textarea");
+    textArea.value = text;
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+        const successful = document.execCommand('copy');
+        const msg = successful ? '주소가 클립보드에 복사되었습니다.' : '주소 복사에 실패했습니다. 수동으로 복사해주세요.';
+        alert(msg);
+    } catch (err) {
+        console.error('Fallback: Oops, unable to copy', err);
+        alert('주소 복사에 실패했습니다. 수동으로 복사해주세요.');
+    }
+    document.body.removeChild(textArea);
 }
 
 function initReceiptLookup() {

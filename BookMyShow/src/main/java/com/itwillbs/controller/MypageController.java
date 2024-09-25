@@ -5,6 +5,7 @@ import lombok.extern.log4j.Log4j2;
 
 import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -149,34 +151,39 @@ public class MypageController {
 
 		return "my/refund";
 	}
-	
+
 	@PostMapping("/refund-process/{bookingId}")
-	public String processRefund(@PathVariable Integer bookingId, @RequestParam BigDecimal refundRate, Model model, HttpSession session) {
-	    Integer userId = (Integer) session.getAttribute("userId");
-	    Integer memberId = mypageService.getMemberId(userId);
-	    
-	    BookingDTO booking = mypageService.getBooking(bookingId, memberId);
+	public String processRefund(@PathVariable Integer bookingId, @RequestParam BigDecimal refundRate, Model model,
+			HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		Integer memberId = mypageService.getMemberId(userId);
+
+		BookingDTO booking = mypageService.getBooking(bookingId, memberId);
 //	    PaymentDTO payment = mypageService.getPayment(bookingId);
 
 //	    BigDecimal refundAmount = new BigDecimal(payment.getPaymentAmount()).multiply(refundRate);
 //	    String refundType = getRefundType(refundRate);
 
 //	    boolean refundSuccess = mypageService.processRefund(bookingId, refundType, refundAmount, userId);
-	    boolean refundSuccess = mypageService.processRefund(bookingId, "전액환불", new BigDecimal("10.50"), userId);
+		boolean refundSuccess = mypageService.processRefund(bookingId, "전액환불", new BigDecimal("10.50"), userId);
 
-	    if (refundSuccess) {
-	        return "redirect:/my/refund-complete/" + bookingId;
-	    } else {
-	        return "redirect:/my/refund/" + bookingId + "?error=refund_failed";
-	    }
+		if (refundSuccess) {
+			return "redirect:/my/refund-complete/" + bookingId;
+		} else {
+			return "redirect:/my/refund/" + bookingId + "?error=refund_failed";
+		}
 	}
 
 	private String getRefundType(BigDecimal refundRate) {
-	    if (refundRate.compareTo(BigDecimal.ONE) == 0) return "전액환불";
-	    if (refundRate.compareTo(new BigDecimal("0.9")) == 0) return "90%환불";
-	    if (refundRate.compareTo(new BigDecimal("0.8")) == 0) return "80%환불";
-	    if (refundRate.compareTo(new BigDecimal("0.7")) == 0) return "70%환불";
-	    return "환불불가";
+		if (refundRate.compareTo(BigDecimal.ONE) == 0)
+			return "전액환불";
+		if (refundRate.compareTo(new BigDecimal("0.9")) == 0)
+			return "90%환불";
+		if (refundRate.compareTo(new BigDecimal("0.8")) == 0)
+			return "80%환불";
+		if (refundRate.compareTo(new BigDecimal("0.7")) == 0)
+			return "70%환불";
+		return "환불불가";
 	}
 
 	@GetMapping("/refund-detail/{bookingId}")
@@ -264,7 +271,6 @@ public class MypageController {
 	@PostMapping("/profile-editPro")
 	public String profileEditPro(UserDTO userDTO, @RequestParam(required = false) String newPassword, Model model,
 			HttpSession session) {
-		addCommonAttributes(model, session);
 		log.info("profileEditPro");
 		try {
 			if (userService.loginPro(userDTO) != null) {
@@ -279,6 +285,22 @@ public class MypageController {
 		return "redirect:/my/profile-edit";
 	}
 
+	@PostMapping("/checkPassword")
+	@ResponseBody
+	public Map<String, Boolean> checkPassword(@RequestBody Map<String, String> payload, HttpSession session) {
+		String userName = (String) session.getAttribute("userName");
+		String password = payload.get("password");
+		UserDTO userDTO = new UserDTO();
+		userDTO.setUserName(userName);
+		userDTO.setPassword(password);
+
+		boolean isValid = userService.loginPro(userDTO) != null;
+
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("isValid", isValid);
+		return response;
+	}
+
 	@GetMapping("/withdrawal")
 	public String withdrawal(Model model, HttpSession session) {
 		addCommonAttributes(model, session);
@@ -288,10 +310,10 @@ public class MypageController {
 
 	@PostMapping("/withdraw")
 	public String withdrawUser(HttpSession session, Model model) {
-		 Integer userId = (Integer) session.getAttribute("userId");
-				userService.deleteUser(userId);
-				session.invalidate();
-				return "redirect:/main/main";
+		Integer userId = (Integer) session.getAttribute("userId");
+		userService.deleteUser(userId);
+		session.invalidate();
+		return "redirect:/main/main";
 	}
 
 	@GetMapping("/reviews")
