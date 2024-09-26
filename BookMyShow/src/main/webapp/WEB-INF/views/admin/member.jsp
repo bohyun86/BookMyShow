@@ -216,7 +216,7 @@ $(function() {
                     $('#bookingButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/booking?user_id=' 
                     		+ encodeURIComponent(userDTO.user_id) +
                     		'"').prop('disabled', false);
-                    $('#paymentutton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/payment?user_name=' + userDTO.user_name + '"').prop('disabled', false);
+                    $('#paymentutton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/payment?user_id=' + userDTO.user_id + '"').prop('disabled', false);
                 } else {
                     $('#result').html("회원정보가 없습니다");
                     $('#editButton').prop('disabled', true);

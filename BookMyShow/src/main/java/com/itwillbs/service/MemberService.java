@@ -38,6 +38,11 @@ public class MemberService {
 	}
 	//예매내역
 
+	public List<UserDTOAdmin> memberpay(int user_id) {
+		// TODO Auto-generated method stub
+		return memberDAO.memberpay(user_id);
+	}
+	//결제내역
 
 
 }

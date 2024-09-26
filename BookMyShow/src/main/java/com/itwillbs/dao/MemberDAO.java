@@ -51,6 +51,11 @@ public class MemberDAO {
 	}
 	//예매내역
 
+	public List<UserDTOAdmin> memberpay(int user_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".memberpay",user_id);
+	}
+//결제내역
 	
 	
 }

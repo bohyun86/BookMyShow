@@ -9,8 +9,8 @@ public class AdminBookSeatDTO {
 
 	private int booked_seat_id;
 	private String seat_number;
-	private Timestamp  created_at;
-	private Timestamp updated_at;
+	private String  created_at;
+	private String updated_at;
 	private int seat_class_id;
 	private int booking_id; 
 	

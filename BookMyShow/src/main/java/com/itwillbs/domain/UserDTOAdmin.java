@@ -136,6 +136,14 @@ private int partner_id;
 	private String public_venue_id;
 	
 	
+	//payment
+	private int payment_id;
+	private Timestamp payment_date;
+	private String payment_method;
+	private int payment_amount;
+	private double refund_amount;
+	private int used_points;
+	private String refund_type;
 	
 	
 	@Override
@@ -162,8 +170,19 @@ private int partner_id;
 				+ ", tickets_per_person=" + tickets_per_person + ", venue_title=" + venue_title + ", venue_name="
 				+ venue_name + ", address=" + address + ", capacity=" + capacity + ", region_id=" + region_id
 				+ ", postal_code=" + postal_code + ", detail_address=" + detail_address + ", public_venue_id="
-				+ public_venue_id + "]";
+				+ public_venue_id + ", payment_id=" + payment_id + ", payment_date=" + payment_date
+				+ ", payment_method=" + payment_method + ", payment_amount=" + payment_amount + ", refund_amount="
+				+ refund_amount + ", used_points=" + used_points + ", refund_type=" + refund_type + "]";
 	}
+	
+	
+	
+
+	
+	
+	
+
+	
 	
 	
 

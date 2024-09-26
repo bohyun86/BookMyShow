@@ -571,44 +571,22 @@ System.out.println("booking memberBooked----"+memberBooked);
 	} // member에서 ajax에서 가져온 값을 admincontroller로 넘겨서 booking로 넘기는 과정
 
 	
-//	
-	
-	
-//
-//	
-//	@GetMapping("/bookingPro")
-//	public String bookingPro(
-//			@RequestParam(required = false) int user_id, 
-//			Model model
-//			) {
-//		log.info("admin bookingPro success");
-//
-//System.out.println("booking user_id"+user_id);
-//
-//List<UserDTOAdmin> memberBooked = memberService.memberBooked(user_id); //예매내역
-//System.out.println("booking user_id"+user_id);
-//model.addAttribute("memberBooked",memberBooked);
-//System.out.println("bookingPro memberBooked----"+memberBooked);
-//		
-//
-//		return "/admin/booking";
-//	} // parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 booking로 넘기는 과정
-////	
-//	
-	
-	
-	
-
-	
-
-	
 
 
 	@GetMapping("/payment")
-	public String payment() {
+	public String payment(@RequestParam(required = false) int user_id,Model model) {
 		log.info("admin payment success");
+		System.out.println("booking user_id"+user_id);
+		List<UserDTOAdmin> memberpay = memberService.memberpay(user_id); // 결제내역
+		model.addAttribute("memberpay", memberpay);
+		System.out.println("memberpay----"+memberpay);
+		
+		
 		return "/admin/payment";
-	}
+	}// member에서 ajax에서 가져온 값을 admincontroller로 넘겨서 payment로 넘기는 과정
+	
+	
+	
 
 	@GetMapping("/support")
 	public String support() {

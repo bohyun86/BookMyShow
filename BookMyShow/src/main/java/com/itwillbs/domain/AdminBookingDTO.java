@@ -11,8 +11,8 @@ public class AdminBookingDTO {
 	private int booking_id;
 	private Timestamp booking_date;
 	private String status;
-	private Timestamp created_at;
-	private Timestamp updated_at;
+	private String created_at;
+	private String updated_at;
 	private int musical_id;
 	private int member_id;
 	private int ticket_count;
