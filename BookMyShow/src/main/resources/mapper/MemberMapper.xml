@@ -33,13 +33,16 @@
     
     
         <select id="memberBooked" resultType="com.itwillbs.domain.UserDTOAdmin" >
-            SELECT M.*,U.*,B.*,BS.*,R.*
-        FROM Member M
-        JOIN User U ON M.user_id = U.user_id
-        Join Booking B ON M.member_id = B.member_id
-        Join BookedSeats BS ON B.booking_id = BS.booking_id 
-        Join Review R ON M.member_id = R.member_id
-        WHERE U.user_id = #{user_id} 
+   SELECT M.*, U.*, B.*, BS.*, MS.*, V.*,R.*
+    FROM `Member` AS M
+    JOIN `User` AS U ON M.user_id = U.user_id
+    JOIN `Booking` AS B ON M.member_id = B.member_id
+    JOIN `BookedSeats` AS BS ON B.booking_id = BS.booking_id
+    JOIN `Musical` AS MS ON B.musical_id = MS.musical_id
+    JOIN `Venue` AS V ON MS.venue_id = V.venue_id
+    JOIN `Review` AS R ON MS.musical_id = R.musical_id
+    WHERE U.user_id = #{user_id}
+
     </select>
     
     

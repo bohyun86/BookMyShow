@@ -17,6 +17,9 @@ public class AdminBookingDTO {
 	private int member_id;
 	private int ticket_count;
 	private int performance_id;
+
+	
+
 	
 	
 	

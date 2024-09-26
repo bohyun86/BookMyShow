@@ -5,7 +5,11 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+
+import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -92,6 +96,48 @@ private int partner_id;
 	
 	private int review_id;
 	private double rating;
+	
+	//musical
+	private String musical_sponsor;
+	private String venue_id;
+	
+	private int total_duration;
+	private int interval_duration;
+	
+	private BigDecimal discount_rate;
+	private Date discount_start_date;
+	private Date discount_end_date;
+	private String price;
+
+	private int review_count;
+	
+	private Integer reserved;
+	
+	//PerformanceTemp
+
+	private String description;
+	private Timestamp start_date;
+	private Timestamp end_date;
+	private int age_limit;
+	private String total_time;
+	private Timestamp interval_time;
+	private int genre_id;
+	private int tickets_per_person;
+	private String venue_title;
+	
+	
+	//Venue
+	private String venue_name;
+	private String address;
+	private int capacity;
+	private String region_id;
+	private String postal_code;
+	private String detail_address;
+	private String public_venue_id;
+	
+	
+	
+	
 	@Override
 	public String toString() {
 		return "UserDTOAdmin [user_id=" + user_id + ", user_name=" + user_name + ", password=" + password + ", email="
@@ -106,9 +152,25 @@ private int partner_id;
 				+ ", booking_date=" + booking_date + ", status=" + status + ", musical_id=" + musical_id
 				+ ", member_id=" + member_id + ", ticket_count=" + ticket_count + ", performance_id=" + performance_id
 				+ ", booked_seat_id=" + booked_seat_id + ", seat_number=" + seat_number + ", seat_class_id="
-				+ seat_class_id + ", review_id=" + review_id + ", rating=" + rating + "]";
+				+ seat_class_id + ", review_id=" + review_id + ", rating=" + rating + ", musical_sponsor="
+				+ musical_sponsor + ", venue_id=" + venue_id + ", total_duration=" + total_duration
+				+ ", interval_duration=" + interval_duration + ", discount_rate=" + discount_rate
+				+ ", discount_start_date=" + discount_start_date + ", discount_end_date=" + discount_end_date
+				+ ", price=" + price + ", review_count=" + review_count + ", reserved=" + reserved + ", description="
+				+ description + ", start_date=" + start_date + ", end_date=" + end_date + ", age_limit=" + age_limit
+				+ ", total_time=" + total_time + ", interval_time=" + interval_time + ", genre_id=" + genre_id
+				+ ", tickets_per_person=" + tickets_per_person + ", venue_title=" + venue_title + ", venue_name="
+				+ venue_name + ", address=" + address + ", capacity=" + capacity + ", region_id=" + region_id
+				+ ", postal_code=" + postal_code + ", detail_address=" + detail_address + ", public_venue_id="
+				+ public_venue_id + "]";
 	}
+	
+	
 
+
+
+
+	
 	
 	
 	

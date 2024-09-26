@@ -555,19 +555,20 @@ public class AdminController {
 	
 	@GetMapping("/booking")
 	public String booking(
-			@RequestParam(required = false) int user_id, 
+			@RequestParam(required = false) int user_id,
+//			 @RequestParam("booking_id") int booking_id,
 			Model model
 			) {
 		log.info("admin booking success");
 System.out.println("booking user_id"+user_id);
-
-//List<UserDTOAdmin> memberBooked = memberService.memberBooked(user_id); //예매내역
-//model.addAttribute("memberBooked",memberBooked);
-//System.out.println("memberBooked----"+memberBooked);
-
+//model.addAttribute("booking_id",booking_id);
+List<UserDTOAdmin> memberBooked = memberService.memberBooked(user_id); //예매내역
+System.out.println("booking user_id"+user_id);
+model.addAttribute("memberBooked",memberBooked);
+System.out.println("booking memberBooked----"+memberBooked);
 
 		return "/admin/booking";
-	} // parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 booking로 넘기는 과정
+	} // member에서 ajax에서 가져온 값을 admincontroller로 넘겨서 booking로 넘기는 과정
 
 	
 //	
@@ -587,12 +588,12 @@ System.out.println("booking user_id"+user_id);
 //List<UserDTOAdmin> memberBooked = memberService.memberBooked(user_id); //예매내역
 //System.out.println("booking user_id"+user_id);
 //model.addAttribute("memberBooked",memberBooked);
-//System.out.println("memberBooked----"+memberBooked);
+//System.out.println("bookingPro memberBooked----"+memberBooked);
 //		
 //
 //		return "/admin/booking";
 //	} // parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 booking로 넘기는 과정
-//	
+////	
 //	
 	
 	
