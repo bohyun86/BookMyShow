@@ -132,6 +132,15 @@ public List<PartnerDTO2> partnersumbitList() {
 	}
 
 	
+	
+
+	public List<PartnerDTO2> partner_settlement(int user_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".partner_settlement",user_id);
+	}
+
+//파트너 정산
+	
 
 
 

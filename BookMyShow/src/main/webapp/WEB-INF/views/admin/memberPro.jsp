@@ -131,17 +131,7 @@
 													</div>
 	 													 
 	 												
-	 													 
-	 													  <div class="input-group input-group-sm mb-3">
- 	 											<span class="input-group-text" id="inputGroup-sizing-sm">예매한 뮤지컬 내역</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" readonly>
-    													</div>
-													
-													 <div class="input-group input-group-sm mb-3">
- 	 											<span class="input-group-text" id="inputGroup-sizing-sm">리뷰작성 뮤지컬</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" readonly>
-    													
-													</div>
+	 													
 													
 													 <div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">가입날짜</span>

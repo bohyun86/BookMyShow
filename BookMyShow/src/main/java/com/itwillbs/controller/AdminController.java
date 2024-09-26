@@ -54,6 +54,8 @@ public class AdminController {
 	private PartnerController partnerController;
 	private ServletContext servletContext;
 	private ObjectMapper objectMapper;
+	private MemberService memberService;
+	
 
 	@GetMapping("/main")
 	public String home() {
@@ -447,31 +449,26 @@ public class AdminController {
         }
     ////////수정필요할듯
     
-    @PostMapping("/memberqnaAnswerOK")
-    public String memberqnaAnswerOK(Model model,
-    						  @RequestParam("inquiryId") int inquiryId,
-    						  @RequestParam("answerContent") String answerContent
-    						  ) {
-    	log.info("admin qnaAnswerOK success");
-    	partnersServiceAdmin.qnaAnswerOK(inquiryId);
-    	partnersServiceAdmin.qnaAnswerContentOK(answerContent,inquiryId);  
-    	System.out.println("admin inquiryId"+inquiryId);
-    	System.out.println("admin answerContent"+answerContent);
-    	
-    	  List<UserDTOAdmin> memberQnaList = partnersServiceAdmin.memberQnaList();
-        model.addAttribute("memberQnaList", memberQnaList); //답변상태최신으로업데이트
-        
-        return "redirect:/admin/member_qna"; 
-        }
-    ////////수정필요할듯
-    
-    
     
 
 
 	@GetMapping("/partner_settlement")
-	public String partner_settlement() {
+	public String partner_settlement(@RequestParam(required = false) int user_id,Model model) {
 		log.info("admin partner_settlement success");
+		System.out.println("user_id"+user_id);
+		
+		List<PartnerDTO2> partner_settlement = partnersServiceAdmin.partner_settlement(user_id);
+		
+		model.addAttribute("partner_settlement", partner_settlement);
+		System.out.println("partner_settlement"+partner_settlement);
+		
+		
+		
+		
+		
+		
+		
+		
 		return "/admin/partner_settlement";
 	}
 
@@ -526,6 +523,10 @@ public class AdminController {
 		return "/admin/member_qna";
 	}
 	
+    
+
+    
+	
 	
 	@GetMapping("/member_qnaAnswer")
     public String member_qnaAnswer(@RequestParam("inquiry_id") int inquiry_id,
@@ -534,7 +535,6 @@ public class AdminController {
     	
     	
     	
-//    	List<PartnerQnaDTO> partnerQna = partnersServiceAdmin.PartnerQnaAnser(inquiryId);
     	List<UserDTOAdmin> memberQna = partnersServiceAdmin.memberQnaAnser(inquiry_id,answer_content);
     	
     	model.addAttribute("memberQna", memberQna);
@@ -547,23 +547,60 @@ public class AdminController {
         }
 	
 	
+
+    @PostMapping("/memberqnaAnswerOK")
+    public String memberqnaAnswerOK(Model model,
+    						  @RequestParam("inquiryId") int inquiryId,
+    						  @RequestParam("answerContent") String answerContent
+    						  ) {
+    	log.info("admin qnaAnswerOK success");
+    	partnersServiceAdmin.qnaAnswerOK(inquiryId); // 완료처리
+    	partnersServiceAdmin.qnaAnswerContentOK(answerContent,inquiryId);  
+    	System.out.println("admin inquiryId"+inquiryId);
+    	System.out.println("admin answerContent"+answerContent);
+    	
+    	  List<UserDTOAdmin> memberQnaList = partnersServiceAdmin.memberQnaList();
+        model.addAttribute("memberQnaList", memberQnaList); //답변상태최신으로업데이트
+        
+        return "redirect:/admin/member_qna"; 
+        }
+    ////////수정필요할듯
+
 	
-	
-	
-	
+	@GetMapping("/booking")
+	public String booking(
+			@RequestParam(required = false) int user_id,
+//			 @RequestParam("booking_id") int booking_id,
+			Model model
+			) {
+		log.info("admin booking success");
+System.out.println("booking user_id"+user_id);
+//model.addAttribute("booking_id",booking_id);
+List<UserDTOAdmin> memberBooked = memberService.memberBooked(user_id); //예매내역
+System.out.println("booking user_id"+user_id);
+model.addAttribute("memberBooked",memberBooked);
+System.out.println("booking memberBooked----"+memberBooked);
+
+		return "/admin/booking";
+	} // member에서 ajax에서 가져온 값을 admincontroller로 넘겨서 booking로 넘기는 과정
+
 	
 
-	@GetMapping("/booking")
-	public String booking() {
-		log.info("admin booking success");
-		return "/admin/booking";
-	}
 
 	@GetMapping("/payment")
-	public String payment() {
+	public String payment(@RequestParam(required = false) int user_id,Model model) {
 		log.info("admin payment success");
+		System.out.println("booking user_id"+user_id);
+		List<UserDTOAdmin> memberpay = memberService.memberpay(user_id); // 결제내역
+		model.addAttribute("memberpay", memberpay);
+		System.out.println("memberpay----"+memberpay);
+		
+		
 		return "/admin/payment";
-	}
+	}// member에서 ajax에서 가져온 값을 admincontroller로 넘겨서 payment로 넘기는 과정
+	
+	
+	
 
 	@GetMapping("/support")
 	public String support() {

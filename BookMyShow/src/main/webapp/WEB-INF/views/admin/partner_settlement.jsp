@@ -54,13 +54,14 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title" >파트너 정산페이지 </h2>
+                            <h2 class="pageheader-title" >파트너 관리페이지 </h2>
                             <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel
                                 mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
                         </div>
                     </div>
                 </div>
-            
+             
+                
                 <!-- ============================================================== -->
                 <!-- end pageheader  -->
                 <!-- ============================================================== -->
@@ -69,112 +70,94 @@
 
 
 
-				${sessionScope.id }파트너님의 정산내역입니다.<br>
-				
-				<div class="card text-bg-light mb-3" style="max-width: 18rem;">
-  					<div class="card-header">정산내역</div>
-  						<div class="card-body">
-    						<p class="card-text">
-    
-    							<table class="table">
-									  <thead>
-									    <tr>
-									      <th scope="col">#</th>
-									      <th scope="col">결제수단</th>
-									      <th scope="col">건수</th>
-									      <th scope="col">금액</th>
-									    </tr>
-									  </thead>
-									  <tbody>
-									    <tr>
-									      <th scope="row">1</th>
-									      <td>현금</td>
-									      <td>~건</td>
-									      <td>~원</td>
-									    </tr>
-									    <tr>
-									      <th scope="row">2</th>
-									      <td>카드</td>
-									      <td>~건</td>
-									      <td>@~원</td>
-									    </tr>
-									    <tr>
-									      <th scope="row">3</th>
-									      <td>합계</td>
-									      <td>~건</td>
-									      <td>@~원</td>
-									    </tr>
-									  </tbody>
-									</table>
-									</p>
-									  </div>
-									</div>
 
-									<div class="card text-bg-light mb-3" style="max-width: 18rem;">
-									  <div class="card-header">정산내역</div>
-									  <div class="card-body">
-									    <p class="card-text">
-									    
-									     <table class="table">
-									  <thead>
-									    <tr>
-									      <th scope="col">#</th>
-									      <th scope="col">결제수단</th>
-									      <th scope="col">건수</th>
-									      <th scope="col">금액</th>
-									    </tr>
-									  </thead>
-									  <tbody>
-									    <tr>
-									      <th scope="row">1</th>
-									      <td>현금</td>
-									      <td>~건</td>
-									      <td>~원</td>
-									    </tr>
-									    <tr>
-									      <th scope="row">2</th>
-									      <td>카드</td>
-									      <td>~건</td>
-									      <td>@~원</td>
-									    </tr>
-									    <tr>
-									      <th scope="row">3</th>
-									      <td>합계</td>
-									      <td>~건</td>
-									      <td>@~원</td>
-									    </tr>
-									  </tbody>
-									</table>
-									    
-									    </p>
-									  </div>
-									</div>
-				
-				 					<table class="table">
-										  <thead>
-										    <tr>
-										      <th >수수료</th>
-										      <th >총매출</th>
-										    </tr>
-										  </thead>
-										  
-										  <tbody>
-										  <tr>
-										      <th >~원</th>
-										      <td>~원</td>
-										    </tr>
-										  </tbody>
-										  
-										  
-										</table>
+				<div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">정산내역</h5>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="bg-light">
+                                    <tr class="border-0">
+                                        <th class="border-0">#</th>
+                                        <th class="border-0">판매된 티켓 수</th>
+                                        <th class="border-0">판매수익</th>
+                                        <th class="border-0">수수료</th>
+                                        <th class="border-0">정산금액</th>
+                                        <th class="border-0">정산날짜</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+<!--                                     리스트의 총 크기를 계산 -->
+                                    <c:choose>
+                                        <c:when test="${empty partner_settlement}">
+                                            <tr>
+                                                <td colspan="6">데이터가 없습니다.</td>
+                                            </tr>
+                                        </c:when>
+                                    </c:choose>
 
 
-											<p><div class="d-grid gap-2 col-6 mx-auto">
-											  <button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/partnerDTO'">돌아가기</button>
-											</div></p>
+									
+                                  <c:forEach var="partner_settlement" items="${partner_settlement}">
+<%--                                   ${partnerQna.inquiry_id} --%>
+<%--                                   ${partnerQna.user_name} --%>
+<%--                                   ${partnerQna.inquiry_type} --%>
+<%--                                   ${partnerQna.content} --%>
+<%--                                   ${partnerQna.inquiry_id} --%>
+                                  
+                                  
+                <tr>
+                    <td>${partner_settlement.settlement_id}</td>
+                    <td>${partner_settlement.tickets_sold}</td>
+                    <td>${partner_settlement.total_revenue}</td>
+                    <td>${partner_settlement.fee}</td>
+                    <td>${partner_settlement.settlement_amount}</td>
+                    <td>${partner_settlement.settlement_date}</td>
+                </tr>
+            </c:forEach>
 
-    </div>
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+ 								 <button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/main'" >돌아가기</button>&nbsp;&nbsp;
+							</div>
+<!--                     <nav aria-label="Page navigation"> -->
+<!--                         <ul class="pagination justify-content-center"> -->
+<%--                             <c:if test="${currentPage > 1}"> --%>
+<!--                                 <li class="page-item"> -->
+<%--                                     <a class="page-link" href="?page=${currentPage - 1}">&laquo;</a> --%>
+<!--                                 </li> -->
+<%--                             </c:if> --%>
+<%--                             <c:forEach var="i" begin="1" end="${totalPages}"> --%>
+<%--                                 <li class="page-item <c:if test='${i == currentPage}'>active</c:if>'"> --%>
+<%--                                     <a class="page-link" href="?page=${i}">${i}</a> --%>
+<!--                                 </li> -->
+<%--                             </c:forEach> --%>
+<%--                             <c:if test="${currentPage < totalPages}"> --%>
+<!--                                 <li class="page-item"> -->
+<%--                                     <a class="page-link" href="?page=${currentPage + 1}">&raquo;</a> --%>
+<!--                                 </li> -->
+<%--                             </c:if> --%>
+<!--                         </ul> -->
+<!--                     </nav> -->
                 </div>
+            </div>
+        </div>
+    </div>
+
+               
+				
+
+</div>
+				
+			               
+               
 
 <!-- 바텀 밑으로 내려야함 -->
 <%--         <jsp:include page="../include/adminBottom.jsp"/> --%>
