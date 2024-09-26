@@ -447,25 +447,6 @@ public class AdminController {
         }
     ////////수정필요할듯
     
-    @PostMapping("/memberqnaAnswerOK")
-    public String memberqnaAnswerOK(Model model,
-    						  @RequestParam("inquiryId") int inquiryId,
-    						  @RequestParam("answerContent") String answerContent
-    						  ) {
-    	log.info("admin qnaAnswerOK success");
-    	partnersServiceAdmin.qnaAnswerOK(inquiryId);
-    	partnersServiceAdmin.qnaAnswerContentOK(answerContent,inquiryId);  
-    	System.out.println("admin inquiryId"+inquiryId);
-    	System.out.println("admin answerContent"+answerContent);
-    	
-    	  List<UserDTOAdmin> memberQnaList = partnersServiceAdmin.memberQnaList();
-        model.addAttribute("memberQnaList", memberQnaList); //답변상태최신으로업데이트
-        
-        return "redirect:/admin/member_qna"; 
-        }
-    ////////수정필요할듯
-    
-    
     
 
 
@@ -526,6 +507,10 @@ public class AdminController {
 		return "/admin/member_qna";
 	}
 	
+    
+
+    
+	
 	
 	@GetMapping("/member_qnaAnswer")
     public String member_qnaAnswer(@RequestParam("inquiry_id") int inquiry_id,
@@ -534,7 +519,6 @@ public class AdminController {
     	
     	
     	
-//    	List<PartnerQnaDTO> partnerQna = partnersServiceAdmin.PartnerQnaAnser(inquiryId);
     	List<UserDTOAdmin> memberQna = partnersServiceAdmin.memberQnaAnser(inquiry_id,answer_content);
     	
     	model.addAttribute("memberQna", memberQna);
@@ -547,7 +531,23 @@ public class AdminController {
         }
 	
 	
-	
+    @PostMapping("/memberqnaAnswerOK")
+    public String memberqnaAnswerOK(Model model,
+    						  @RequestParam("inquiryId") int inquiryId,
+    						  @RequestParam("answerContent") String answerContent
+    						  ) {
+    	log.info("admin qnaAnswerOK success");
+    	partnersServiceAdmin.qnaAnswerOK(inquiryId); // 완료처리
+    	partnersServiceAdmin.qnaAnswerContentOK(answerContent,inquiryId);  
+    	System.out.println("admin inquiryId"+inquiryId);
+    	System.out.println("admin answerContent"+answerContent);
+    	
+    	  List<UserDTOAdmin> memberQnaList = partnersServiceAdmin.memberQnaList();
+        model.addAttribute("memberQnaList", memberQnaList); //답변상태최신으로업데이트
+        
+        return "redirect:/admin/member_qna"; 
+        }
+    ////////수정필요할듯
 	
 	
 	
