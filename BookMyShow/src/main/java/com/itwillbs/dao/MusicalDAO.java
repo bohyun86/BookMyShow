@@ -70,9 +70,9 @@ public class MusicalDAO {
 		return sqlSession.selectList(namespace + ".getMusicalFile", musical_id);
 	}
 
-	public List<MusicalTicketDTO> getMusicalTickets() {
+	public List<MusicalTicketDTO> getMusicalTickets(MusicalTicketDTO musicalTicketDTO) {
 		
-		return sqlSession.selectList(namespace + ".getMusicalTickets");
+		return sqlSession.selectList(namespace + ".getMusicalTickets", musicalTicketDTO);
 	}
 
 	

@@ -80,9 +80,9 @@ public class MusicalService {
 	                .collect(Collectors.toList());
 	}
 
-	public List<MusicalTicketDTO> getMusicalTickets() {
+	public List<MusicalTicketDTO> getMusicalTickets(MusicalTicketDTO musicalTicketDTO) {
 		
-		return musicalDAO.getMusicalTickets();
+		return musicalDAO.getMusicalTickets(musicalTicketDTO);
 	}
 	
 }

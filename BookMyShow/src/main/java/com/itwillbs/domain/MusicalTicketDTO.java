@@ -4,12 +4,38 @@ import java.math.BigDecimal;
 
 public class MusicalTicketDTO {
 
-	
+	private int musical_id;
+	private String dateValue;
 	private String class_name;
 	private int capacity;
 	private BigDecimal discount_rate;
 	private String price;
 	
+	
+	/**
+	 * @return the musical_id
+	 */
+	public int getMusical_id() {
+		return musical_id;
+	}
+	/**
+	 * @param musical_id the musical_id to set
+	 */
+	public void setMusical_id(int musical_id) {
+		this.musical_id = musical_id;
+	}
+	/**
+	 * @return the dateValue
+	 */
+	public String getDateValue() {
+		return dateValue;
+	}
+	/**
+	 * @param dateValue the dateValue to set
+	 */
+	public void setDateValue(String dateValue) {
+		this.dateValue = dateValue;
+	}
 	
 	/**
 	 * @return the class_name
