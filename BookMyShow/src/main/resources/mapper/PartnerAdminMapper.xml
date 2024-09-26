@@ -142,7 +142,7 @@ SELECT TP.*, U.*, P.*, PF.*, S.*
 FROM `Partner` AS P
 JOIN `User` AS U ON P.user_id = U.user_id
 JOIN `Performance` AS PF ON P.partner_id = PF.partner_id
-JOIN `TicketPrice` AS TP ON PF.performance_id = TP.performance_id  -- 수정된 부분
+JOIN `TicketPrice` AS TP ON PF.performance_id = TP.performance_id  
 JOIN `Settlement` AS S ON P.partner_id = S.partner_id
 WHERE U.user_id = #{user_id}
 
