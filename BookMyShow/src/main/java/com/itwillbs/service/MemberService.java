@@ -32,4 +32,12 @@ public class MemberService {
 		return memberDAO.getMember(id);
 	}
 
+	public List<UserDTOAdmin> memberBooked(int user_id) {
+		// TODO Auto-generated method stub
+		return memberDAO.memberBooked(user_id);
+	}
+	//예매내역
+
+
+
 }

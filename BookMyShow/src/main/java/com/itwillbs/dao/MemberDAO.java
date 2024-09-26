@@ -44,6 +44,14 @@ public class MemberDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+ ".getMember", id);
 	}
+
+	public List<UserDTOAdmin> memberBooked(int user_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".memberBooked",user_id);
+	}
+	//예매내역
+
+	
 	
 }
 

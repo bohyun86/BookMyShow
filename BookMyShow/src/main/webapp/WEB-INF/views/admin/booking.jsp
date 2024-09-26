@@ -17,7 +17,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/bootstrap/css/bootstrap.min.css">
-    <link href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/fonts/circular-std/style.css">
+    <link href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/fonts/circular-std/style.css"
           rel="stylesheet">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/admin_partner/assets/libs/css/style.css">
     <link rel="stylesheet"
@@ -32,7 +32,7 @@
           href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/charts/c3charts/c3.css">
     <link rel="stylesheet"
           href="${pageContext.request.contextPath}/resources/admin_partner/assets/vendor/fonts/flag-icon-css/flag-icon.min.css">
-    <title >예매하다. 관리자 페이지</title>
+    <title>예매하다. 관리자 페이지</title>
 </head>
 
 <body>
@@ -60,7 +60,8 @@
                   </div>
                   </div>
                   </div>
-                  
+            
+                
                 <!-- ============================================================== -->
                 <!-- end pageheader  -->
                 <!-- ============================================================== -->
@@ -68,44 +69,92 @@
 <!-- ==================================================== -->
 
 
+			
 
-<!-- 			test -->
+			
 	
+
+
+
+				
 			<div class="card mb-3" style="max-width: 540px;">
   
 					<div class="card mb-3" style="max-width: 540px;">
   						<div class="row g-0">
     						<div class="col-md-8">
       							<div class="card-body">
-        							<h4 class="card-title">${sessionScope.id }회원님의 예매내역</h4>
+        							<h4 class="card-title">예매내역</h4>
        									 <p class="card-text">
-       									 <ul>
-       									 	<li>예매번호:</li>
-       									 	<li>예매한 뮤지컬:</li>
-       									 	<li>관람일:</li>
-       									 	<li>공연장소:</li>
-       									 	<li>예매날짜:</li>
-       									 	<li>예매좌석 번호:</li>
-       									 	<li>예매인원 수:</li>
        									 
-       									 
-       									 </ul>
-       									 
-       									 </p>
-       									 </div>
-       									 </div>
-       									 </div>
-       									 </div>
-       									 </div>
-       									 				
-										<div class="d-grid gap-2 col-6 mx-auto">
-  											<button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/member'">돌아가기</button> &nbsp;&nbsp; 
-										</div>
+<%-- 									<c:if test="${not empty memberBooked}">       									 	 --%>
+<%--        									 <c:forEach var="memberBooked" items="memberBooked"> --%>
+       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/member">
+       									 	<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">예매번호</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  readonly="readonly"  >
+													</div>
+													
+												<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">예매한 뮤지컬</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange"  readonly="readonly">
+													</div> 
+													
+													<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">관람일</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" onkeyup="phone(this.value);"  readonly="readonly">
+													</div>
+													
+													<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">공연장소</span>
+  													<input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" readonly="readonly">
+													</div>
+													
+													<div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">예매날짜</span>
+  													<input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" readonly="readonly">
+	 													 </div>
+	 												
+	 													 
+	 													  <div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">예매좌석 번호</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" readonly >
+    													</div>
+													
+													 <div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">리뷰작성 뮤지컬</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" readonly>
+    													
+													</div>
+													
+													 <div class="input-group input-group-sm mb-3">
+ 	 											<span class="input-group-text" id="inputGroup-sizing-sm">예매인원 수</span>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  readonly>
+    													
+													</div>
+													
+			
+  																</form>
+<%--   																</c:forEach> --%>
+<%--   																</c:if> --%>
+														</div>
+    												</div>
+  												</div>
+											</div>
+  										</div>
+  										</div>
+  										
+									<div class="d-grid gap-2 col-6 mx-auto">
+  										<button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/member'" >돌아가기</button>
+ 									 </div>
 
   </div>
-                  </div>
-                  
-     			
+              </div>
+
+
+
+
+
+
 
 <!-- 바텀 밑으로 내려야함 -->
 <%--         <jsp:include page="../include/adminBottom.jsp"/> --%>
