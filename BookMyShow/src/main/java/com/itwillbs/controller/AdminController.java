@@ -53,7 +53,6 @@ public class AdminController {
 	private PartnerService partnerService;
 	private PartnerController partnerController;
 	private ServletContext servletContext;
-	private ObjectMapper objectMapper;
 
 	@GetMapping("/main")
 	public String home() {
@@ -611,7 +610,7 @@ public class AdminController {
 		if (deleted) {
 			return ResponseEntity.ok().body("{\"success\": true}");
 		} else {
-			return ResponseEntity.badRequest().body("{\"success\": false}");
+			return ResponseEntity.badRequest().body("쿠폰 생성에 실패하였습니다.");
 		}
 	}
 	// coupon end

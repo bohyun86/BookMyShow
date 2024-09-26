@@ -11,7 +11,6 @@
 <body id="board-body">
 	<jsp:include page="../include/top.jsp" />
 	<jsp:include page="../include/my/myticket.jsp" />
-
 	<main id="board-main">
 		<jsp:include page="../include/my/sidebar.jsp" />
 		<section id="board-content">
@@ -24,7 +23,7 @@
 							<div
 								class="col-md-3 h-100 d-flex align-items-center justify-content-start">
 								<a
-									href="<c:url value='/musical/detail/${performances[status.index].musicalId}'/>"
+									href="<c:url value='/musical/page_detail?musical_id=${performances[status.index].musicalId}'/>"
 									class="img-container"> <img
 									src="${pageContext.request.contextPath}/${attachFiles[status.index].postFilePath}"
 									class="poster-img" alt="${musicals[status.index].title} 포스터">
@@ -45,7 +44,7 @@
 										<div class="col-8 pr-2">
 											<h5 class="card-title mb-0">
 												<a
-													href="<c:url value='/musical/detail/${performances[status.index].musicalId}'/>"
+													href="<c:url value='/musical/page_detail?musical_id=${performances[status.index].musicalId}'/>"
 													class="card-title-link">${musicals[status.index].title}</a>
 											</h5>
 										</div>
