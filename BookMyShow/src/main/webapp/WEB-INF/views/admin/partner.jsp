@@ -235,7 +235,7 @@ function ajaxSearchPartner(searchValue){
                                   if (partnerDTO2) {
                                       
                                       $('#partnerresult').append('<li class="list-group-item"><a href="javascript:;">'
-                                          + "회사명: " +partnerDTO2.company_name
+                                          + "제작사: " +partnerDTO2.company_name
                                           + ", 사업자 ID: " + partnerDTO2.business_id
                                           + ", 계좌번호: " + partnerDTO2.account_number
                                           + '</a></li>');
@@ -271,8 +271,7 @@ function ajaxSearchPartner(searchValue){
                                       + '"').prop('disabled', false);
                                   
                                   
-                                  $('#qnaButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_qna?userName=' + response.userName + '"').prop('disabled', false);
-                                  $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?userName=' + response.userName + '"').prop('disabled', false);
+                                  $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?user_id=' + partnerDTO2.user_id + '"').prop('disabled', false);
                               } 
                               }else {
 //             	console.log("요청실패",userDTO);

@@ -453,8 +453,22 @@ public class AdminController {
 
 
 	@GetMapping("/partner_settlement")
-	public String partner_settlement() {
+	public String partner_settlement(@RequestParam(required = false) int user_id,Model model) {
 		log.info("admin partner_settlement success");
+		System.out.println("user_id"+user_id);
+		
+		List<PartnerDTO2> partner_settlement = partnersServiceAdmin.partner_settlement(user_id);
+		
+		model.addAttribute("partner_settlement", partner_settlement);
+		System.out.println("partner_settlement"+partner_settlement);
+		
+		
+		
+		
+		
+		
+		
+		
 		return "/admin/partner_settlement";
 	}
 

@@ -126,6 +126,12 @@ public class PartnersServiceAdmin {
 	//회원문의 답변
 
 
+	public List<PartnerDTO2> partner_settlement(int user_id) {
+		// TODO Auto-generated method stub
+		return partnerDAO.partner_settlement(user_id);
+	}
+//파트너 정산
+
 	
 
 
