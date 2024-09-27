@@ -95,6 +95,7 @@ public class MusicalController {
 	  model.addAttribute("performace_date", musicalService.getPerformance_date(musical_id));
 	  model.addAttribute("musical_detail", musicalService.getMusicalDetail(musical_id));
 	 
+	  //json으로 날짜 배열 보내기
 	  List<String> selectableDates = musicalService.getSelectableDates(musical_id);
 	  
 	  ObjectMapper objectMapper = new ObjectMapper();
@@ -104,6 +105,7 @@ public class MusicalController {
       
   		return "/musical/page_detail";
   	}
+  	
   	
 
 

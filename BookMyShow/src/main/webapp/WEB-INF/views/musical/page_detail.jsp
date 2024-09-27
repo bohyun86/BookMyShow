@@ -24,6 +24,7 @@
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.css">
   <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
 
+
 </head>
 <body>
 <jsp:include page="../include/top.jsp"/>
@@ -38,107 +39,71 @@
 		</c:forEach>
 	</div>
 		<form>
-		<section style="float: right; width: 307px;">
-						<div>
+			<section style="float: right; width: 307px;">
+				<div>
+					<input style="width: 300px; height:40px; margin-top: 30px; border-radius: 15px;
+									border-style: none; background-color: #fca7a7; color:#fff; padding-left: 10px;
+									font-weight: bolder; font-size: large;" 
+					class="datepicker" placeholder="날짜를 선택하세요" id="dateValue" autocomplete="off" readonly/>
+				</div>
+				
+				
+				<div class="title2_select selectBox"  id="option">
+					<p class="selectbox_title" style="display: block;" id="optionSelect">
+					</p>
+				</div>
+				
+			<!--	좌석 선택시 표시할 모달창 관련 코드 	
+				<div class="modal">
+	    			<div class="modal_popup">
+	        			<h3>모달 팝업 타이틀 입니다!</h3>
+	        			<p>모달 테스트</p>
+	       				<button type="button" class="close_btn" name="modalClose">닫기</button>
+				    </div>
+				</div> -->	
+				
+				<div class="choice_select" id="ticketSelect">
+				
+					<div class="select_list" id="ticketSelectList">
+					
+						
+							<%-- <div style="clear: both;"></div>
 							
-							<input style="width: 300px; height:40px; margin-top: 30px; border-radius: 15px;
-											border-style: none; background-color: #fca7a7; color:#fff; padding-left: 10px;
-											font-weight: bolder; font-size: large;" 
-							class="datepicker" placeholder="날짜를 선택하세요" />
-						</div>
-					
-						<div class="time_select selectBox" style="display: block;">
-							<p class="selectbox_title" style="display: block;">
-								시간선택
-								<button type="button" class="time_btn active" value="14:00">
-									<span class="option_title">14:00</span>
-								</button>
-								<button type="button" class="time_btn" value="16:20">
-									<span class="option_title">16:20</span>
-								</button>
-							</p>
-						</div>
-						<div class="title1_select selectBox" style="display: none;">
-							<p class="selectbox_title">옵션선택</p>
-						</div>
-						<div class="title2_select selectBox" style="display: block;">
-							<p class="selectbox_title" style="display: block;">
-								권종선택
-								<button type="button" class="title2_btn btn_number_420478"
-									name="420478"
-									value="{&quot;number&quot;:&quot;420478&quot;,&quot;product_number&quot;:&quot;5229&quot;,&quot;run_date&quot;:&quot;2024-09-18 14:00:00&quot;,&quot;title1&quot;:&quot;★타임세일★&quot;,&quot;title2&quot;:&quot;&quot;,&quot;promo&quot;:&quot;timesale&quot;,&quot;full_price&quot;:&quot;55000&quot;,&quot;sale_price&quot;:&quot;19800&quot;,&quot;jaego&quot;:&quot;4&quot;,&quot;soldout&quot;:&quot;0&quot;,&quot;open_date&quot;:&quot;0000-00-00 00:00:00&quot;,&quot;close_date&quot;:&quot;2024-09-18 13:00:00&quot;,&quot;expire_date&quot;:&quot;0000-00-00 00:00:00&quot;}">
-									<span style="color: #ff4b4b;" class="option_title">★타임세일★</span><span
-										class="title2_left">남은티켓 4매</span><span
-										style="color: #ff4b4b;" class="title2_price">19,800원</span>
-								</button>
-								<button type="button" class="title2_btn btn_number_414659"
-									name="414659"
-									value="{&quot;number&quot;:&quot;414659&quot;,&quot;product_number&quot;:&quot;5229&quot;,&quot;run_date&quot;:&quot;2024-09-18 14:00:00&quot;,&quot;title1&quot;:&quot;선착순할인&quot;,&quot;title2&quot;:&quot;&quot;,&quot;promo&quot;:&quot;&quot;,&quot;full_price&quot;:&quot;55000&quot;,&quot;sale_price&quot;:&quot;21900&quot;,&quot;jaego&quot;:&quot;20&quot;,&quot;soldout&quot;:&quot;0&quot;,&quot;open_date&quot;:&quot;0000-00-00 00:00:00&quot;,&quot;close_date&quot;:&quot;2024-09-18 13:00:00&quot;,&quot;expire_date&quot;:&quot;0000-00-00 00:00:00&quot;}">
-									<span class="option_title">선착순할인</span><span
-										class="title2_left">남은티켓 20매</span><span class="title2_price">21,900원</span>
-								</button>
-								<button type="button"
-									class="title2_btn btn_number_414660 active" name="414660"
-									value="{&quot;number&quot;:&quot;414660&quot;,&quot;product_number&quot;:&quot;5229&quot;,&quot;run_date&quot;:&quot;2024-09-18 14:00:00&quot;,&quot;title1&quot;:&quot;일반&quot;,&quot;title2&quot;:&quot;&quot;,&quot;promo&quot;:&quot;&quot;,&quot;full_price&quot;:&quot;55000&quot;,&quot;sale_price&quot;:&quot;25000&quot;,&quot;jaego&quot;:&quot;20&quot;,&quot;soldout&quot;:&quot;0&quot;,&quot;open_date&quot;:&quot;0000-00-00 00:00:00&quot;,&quot;close_date&quot;:&quot;2024-09-18 13:00:00&quot;,&quot;expire_date&quot;:&quot;0000-00-00 00:00:00&quot;}">
-									<span class="option_title">일반</span><span class="title2_left">남은티켓
-										20매</span><span class="title2_price">25,000원</span>
-								</button>
-							</p>
-						</div>
-						<div class="choice_select" style="display: block;">
-							<p class="title">수량선택</p>
-							<div class="select_list">
-								<div class="select_item" id="414660">
-									<input type="hidden" name="cate_title[]" class="cate_title"
-										value="9.18[수] 14:00 일반">
-									<div class="select_name" style="float: left;">9.18[수]
-										14:00&nbsp;일반&nbsp;</div>
-									<div style="float: right; display: inline-block;">
-										<a href="#item_close" class="close" data-store="414660"><span
-											class="remove_ticket"
-											style="font-size: 14px; border: 1px solid #888; border-radius: 5px; width: 16px; padding: 0 6px; color: #fff; background: #888;"
-											value="25000">X</span></a>
-									</div>
-									<div style="clear: both;"></div>
-									<div class="price_warp">
-										<div class="quantity">
-											<button type="button" class="remove_ticket" value="25000">
-												<img src="${pageContext.request.contextPath}/resources/images/musical_detail/btn_minus.png"
-													style="width: 18px; vertical-align: -3px;">
-											</button>
-											<span class="selected_quantity">1</span>
-											<button type="button" class="add_ticket" value="25000">
-												<img src="${pageContext.request.contextPath}/resources/images/musical_detail/btn_plus.png"
-													style="width: 18px; vertical-align: -3px;">
-											</button>
-										</div>
-										<p class="price">25,000원</p>
-										<input type="hidden" name="product_cate[]" value="414660"><input
-											type="hidden" name="product_cate_price[]" class="item_price"
-											value="25000"><input type="hidden"
-											name="product_cate_fullprice[]" value="55000"><input
-											type="hidden" name="item_jaego" class="item_jaego" value="20"><input
-											type="hidden" name="cate_date[]" class="cate_date"
-											value="2024-09-18"><input type="hidden"
-											name="want_quantity[]" class="item_ticket" value="1">
-									</div>
+							<div class="price_warp">
+								<div class="quantity">
+									<button type="button" class="remove_ticket" value="25000">
+										<img src="${pageContext.request.contextPath}/resources/images/musical_detail/btn_minus.png"
+											style="width: 18px; vertical-align: -3px;">
+									</button>
+									<span class="selected_quantity">1</span>
+									<button type="button" class="add_ticket" value="25000">
+										<img src="${pageContext.request.contextPath}/resources/images/musical_detail/btn_plus.png"
+											style="width: 18px; vertical-align: -3px;">
+									</button>
 								</div>
-							</div>
+								<p class="price">25,000원</p>
+								<input type="hidden" name="product_cate[]" value="414660"><input
+									type="hidden" name="product_cate_price[]" class="item_price"
+									value="25000"><input type="hidden"
+									name="product_cate_fullprice[]" value="55000"><input
+									type="hidden" name="item_jaego" class="item_jaego" value="20"><input
+									type="hidden" name="cate_date[]" class="cate_date"
+									value="2024-09-18"><input type="hidden"
+									name="want_quantity[]" class="item_ticket" value="1">
+							</div>  --%>
 						</div>
-						<div class="total_warp" style="display: flex;">
-							<p class="title">총 결제금액</p>
-							<p class="total_price">25,000원</p>
-						</div>
-						<div class="submit_btn">
-							<button href="#" class="">결제하기</button>
-						</div>
-					
-			</section>
-		</form>
-	</div>
+					</div>
+
+				<div class="submit_btn">
+					<button href="#" class="disabled" id="submit_btn" disabled="disabled">결제하기</button>
+				</div>
+						
+		</section>
+	</form>
+</div>
 		
 
-		
+	
 
 		<!-- <!-- 	--- 가격노출영역 // 판매종료일때 ---
 			<div class="price_section_etc"
@@ -158,7 +123,7 @@
 
 
 
-	<section style="width: 820px; margin: 0 auto; padding-top: 20px;">
+	<%-- <section style="width: 820px; margin: 0 auto; padding-top: 20px;">
 		<div class="review_preview" style="height: 100%;">
 			<div class="review_preview_container">
 				<div class="review_preview_title_section">
@@ -389,13 +354,7 @@
 
       </div>
     </div>
-  </section>
-
-
-
-
-
-
+  </section> --%>
 
 
 
@@ -403,9 +362,26 @@
 <jsp:include page="../include/bottom.jsp"/>
 
 
-
-
 <script>
+
+
+
+
+const submit_btn = document.getElementById("submit_btn");
+const total_warp = document.getElementById("total_warp");
+const option = document.getElementById("option");
+const optionSelect = document.getElementById("optionSelect");
+const ticketSelectTag = document.getElementById("ticketSelect");
+const ticketSelectList = document.getElementById("ticketSelectList");
+const remove_ticket = document.getElementById("remove_ticket");
+const add_ticket = document.getElementById("add_ticket");
+
+
+/* const modal = document.querySelector('.modal');
+const modalOpen = document.querySelector('.modal_btn');
+const modalClose = document.querySelector('.close_btn'); */
+
+
 
 $.datepicker.setDefaults({ 
     dateFormat: 'yy-mm-dd',
@@ -421,6 +397,8 @@ $.datepicker.setDefaults({
 });
 
 $(function() {
+	
+	var selectedOptions = []; // 선택된 옵션들을 저장할 배열
     // JSP에서 전달된 selectableDates를 자바스크립트 배열로 변환
     var selectableDates = ${selectableDates != null ? selectableDates : '[]'};
     var minDate = selectableDates[0]; // 배열의 첫 번째 값
@@ -436,6 +414,10 @@ $(function() {
 
     console.log(selectableDates); // 로그로 확인
 
+    // URL에서 musical_id 추출
+    var urlParams = new URLSearchParams(window.location.search);
+    var musical_id = urlParams.get('musical_id'); // musical_id 값을 추출
+    
     // datepicker 초기화
     $('.datepicker').datepicker({
         beforeShowDay: function(date) {
@@ -447,10 +429,266 @@ $(function() {
             return [false]; //선택불가
        	},
         minDate: minDate, // 최소 날짜 설정
-        maxDate: maxDate  // 최대 날짜 설정// 선택 불가
+        maxDate: maxDate, // 최대 날짜 설정
+        onSelect: function(dateValue) {
+            // 선택한 날짜를 처리하는 로직
+            console.log("선택한 날짜:", dateValue); // 선택한 날짜를 콘솔에 출력
+            
+			if(dateValue != null) {
+				$(document).ready(function(){
+					$.ajax({
+				      url: "${pageContext.request.contextPath}/musical/getMusicalTickets",
+	                    data: {
+	                        "musical_id": musical_id,  // URL에서 추출한 musical_id 값
+	                        "dateValue": dateValue   // 선택한 날짜 값
+	                    },
+	                    dataType: "json",
+	                    success: function(result) {
+	                        // 성공적으로 데이터를 받았을 때 처리하는 로직
+	                        console.log(result);
+	                        
+	                        option.style.display = 'block';
+
+	                        // optionSelect를 jQuery 객체로 변환
+	                        var optionSelect = $("#optionSelect"); // id가 "optionSelect"인 요소
+
+	                        optionSelect.empty();
+	                        
+	                        optionSelect.append("권종선택");
+	                        
+							
+
+	                        result.forEach(function(option, i){
+	                        	
+	                        	var button = 
+	                        		
+	                                "<button type='button' class='title2_btn' name='optSelected' " +
+	                                "data-class_name='" + option.class_name + "' " +
+	                                "data-price='" + option.price + "' " +
+	                                "data-capacity='" + option.capacity + "'>" +
+	                                    "<span style='color: #ff4b4b;' class='option_title'>" + option.class_name + "</span>" +
+	                                    "<span class='title2_left'>남은티켓 " + option.capacity + "매</span>" +
+	                                    "<span style='color: #ff4b4b;' class='title2_price'>" + option.price + "원</span>" +
+	                                "</button>";
+      	
+    	                    	optionSelect.append(button);
+	                        });
+	                        
+							// 동적으로 생성된 버튼에 클릭 이벤트 등록
+							$(document).on('click', 'button[name="optSelected"]', function() {
+								// 클릭된 버튼에 대한 처리 로직
+								var selectedOption = $(this).toggleClass('active');
+								$("#submit_btn").addClass('disabled');
+							    $("#submit_btn").attr('disabled','disabled');
+								// var selectStatus = $(this).attr('class');
+								// console.log("selectStatus" , selectStatus);
+								
+								 // 버튼에서 데이터 속성 값 추출
+	                            var class_name = $(this).data('class_name'); // 버튼의 data-class_name 값
+	                            var price = $(this).data('price');           // 버튼의 data-price 값
+	                            var capacity = $(this).data('capacity');     // 버튼의 data-capacity 값
+								
+
+	                            if ($(this).hasClass('active')) {
+	                                // 버튼이 active 상태로 선택되면 배열에 추가
+	                                selectedOptions.push({
+	                                    class_name: class_name,
+	                                    price: price,
+	                                    capacity: capacity,
+	                                    count : 1
+	                                });
+	                            } else {
+	                                // 버튼이 선택 해제되면 배열에서 제거
+	                                selectedOptions = selectedOptions.filter(function(option) {
+	                                    return option.class_name !== class_name;
+	                                });
+	                            }
+	                            
+	                            console.log("선택된 옵션들:", selectedOptions);
+	                            
+								var ticketSelect = $("#ticketSelect");
+								var ticketSelectList = $("#ticketSelectList");
+								
+
+								// dateValue를 mm-dd로 변환하는 로직
+								var ticketDate = new Date(dateValue); // dateValue를 Date 객체로 변환
+							
+								// mm-dd 형식으로 포맷 (월은 0부터 시작하므로 +1)
+								var formattedTicketDate = ('0' + (ticketDate.getMonth() + 1)).slice(-2) + '-' + ('0' + ticketDate.getDate()).slice(-2);
+
+								
+								var activeLength = $('button[name="optSelected"].active').length;
+
+
+								if (selectedOptions.length > 0) {
+								    ticketSelectTag.style.display = 'block';
+								    ticketSelect.empty();
+								    ticketSelect.append("<p class='title'>수량선택</p>");
+
+								    var totalAmount = 0;  // 총 결제 금액을 누적할 변수
+
+								    selectedOptions.forEach(function(option, i) {
+								        // 문자열 형태의 price에서 쉼표 제거 후 숫자로 변환
+								        var priceWithoutComma = parseInt(option.price.replace(/,/g, ''), 10);
+								        var fullPrice = priceWithoutComma * option.count;
+								        totalAmount += fullPrice;  // 총 결제 금액에 추가
+
+								        var ticketSelectButton = 
+								            "<div class='select_item_wrap' id='select_item_wrap" + (i + 1) + "'>" +
+								                "<div class='select_item' id='ticketitem" + (i + 1) + "'>" +
+								                    "<input type='hidden' name='cate_title[]' class='cate_title' value='" + formattedTicketDate + "'>" +
+								                    "<div class='select_name' style='float: left; font-size: 14px; font-weight:bold;'>" + formattedTicketDate + "일 <br>" + option.class_name + "석</div>" +
+								                    "<div style='float: right; display: inline-block;'>" +
+								                        "<a href='#item_close' class='close' data-store='414660'>" +
+								                            "<span class='remove_ticket' id='remove_ticket" + (i + 1) + "' " +
+								                            "style='font-size: 14px; border: 1px solid #888; border-radius: 5px; width: 16px; padding: 0 6px; color: #fff; background: #888;' " +
+								                            "value='" + option.price + "'>X</span></a>" +
+								                    "</div>" +
+								                "</div>" +
+								                "<div class='price_warp'>" +
+								                    "<div class='quantity'>" +
+								                        "<button type='button' class='remove_ticket' id='remove_button" + (i + 1) + "'>" +
+								                            "<img src='${pageContext.request.contextPath}/resources/images/musical_detail/btn_minus.png' style='width: 18px; vertical-align: -3px;'>" +
+								                        "</button>" +
+								                        "<span class='selected_quantity' id='quantity" + (i + 1) + "'>" + option.count + "</span>" +
+								                        "<button type='button' class='add_ticket' id='add_button" + (i + 1) + "'>" +
+								                            "<img src='${pageContext.request.contextPath}/resources/images/musical_detail/btn_plus.png' style='width: 18px; vertical-align: -3px;'>" +
+								                        "</button>" +
+								                    "</div>" +
+								                "</div>" +
+								                "<div style='clear: both;'></div>" +
+								            "</div>";
+
+								        ticketSelect.append(ticketSelectButton);
+
+								        // 고유한 id로 이벤트 바인딩
+								        $("#remove_button" + (i + 1)).click(function() {
+								            option.count -= 1;
+								            if (option.count == 0) {
+								                $("#select_item_wrap" + (i + 1)).remove();  // 해당 아이템 삭제
+								                if ($(".select_item_wrap").length == 0) {
+								                    ticketSelectTag.style.display = 'none';  // 모든 아이템이 삭제되면 감추기
+								                    $('button[name="optSelected"].active').each(function() {
+										                if ($(this).data("class_name") === option.class_name) {
+										                    $(this).removeClass("active");
+										                    selectedOptions.splice(i, 1);
+										                    $("#submit_btn").addClass('disabled');
+													        $("#submit_btn").attr('disabled','disabled');
+										                }
+										            });
+								                }
+								            } else {
+								                $("#quantity" + (i + 1)).text(option.count);  // 수량 업데이트
+								            }
+								            updateTotalAmount();  // 총 결제 금액 업데이트
+								        });
+
+								        $("#add_button" + (i + 1)).click(function() {
+								            option.count += 1;
+								            $("#quantity" + (i + 1)).text(option.count);  // 수량 업데이트
+								            updateTotalAmount();  // 총 결제 금액 업데이트
+								        });
+
+								        // remove_ticket 버튼 클릭 시 해당 옵션 삭제 및 클래스 비활성화 처리
+								        $("#remove_ticket" + (i + 1)).click(function() {
+								            // 해당 옵션을 selectedOptions 배열에서 삭제
+								            selectedOptions.splice(i, 1);
+
+								            // 해당 option.class_name과 관련된 active 클래스만 제거
+								            $('button[name="optSelected"].active').each(function() {
+								                if ($(this).data("class_name") === option.class_name) {
+								                    $(this).removeClass("active");
+								                  
+								                }
+								            });
+
+								            // 해당 항목을 화면에서 제거
+								            $("#select_item_wrap" + (i + 1)).remove();
+
+								            // 항목이 모두 삭제되면 선택 영역을 숨김
+								            if (selectedOptions.length === 0) {
+								                ticketSelectTag.style.display = 'none';
+								                $("#submit_btn").addClass('disabled');
+										        $("#submit_btn").attr('disabled','disabled');
+								            }
+
+								            updateTotalAmount();  // 총 결제 금액 업데이트
+								        });
+								    });
+
+								    // 총 결제 금액 표시 부분이 이미 있으면 업데이트, 없으면 생성
+								    if ($("#total_warp").length === 0) {
+								        ticketSelect.append(
+								            "<div id='total_warp' class='total_warp' style='display: flex;'>" +
+								                "<p class='title'>총 결제금액</p>" +
+								                "<p id='total_price' class='total_price'>" + totalAmount.toLocaleString() + "원</p>" +
+								            "</div>"
+								        );
+
+								        $("#submit_btn").removeClass('disabled');
+								        $("#submit_btn").removeAttr('disabled');
+								    } else {
+								        $("#total_price").text(totalAmount.toLocaleString() + "원");
+								    }
+
+								    // 총 결제 금액 업데이트 함수
+								    function updateTotalAmount() {
+								        var newTotalAmount = 0;
+								        selectedOptions.forEach(function(option) {
+								            var priceWithoutComma = parseInt(option.price.replace(/,/g, ''), 10);
+								            newTotalAmount += priceWithoutComma * option.count;
+								        });
+								        $("#total_price").text(newTotalAmount.toLocaleString() + "원");  // 금액 업데이트
+								    }
+								    
+								    /* console.log("class_name : ", option.class_name);
+								    console.log("formattedTicketDate : ", formattedTicketDate);
+								    console.log("count : ", option.count);
+								    console.log("totalAmount : ", totalAmount); */
+
+								    	
+								    
+								} else {
+								    ticketSelectTag.style.display = 'none';
+								    ticketSelect.empty();
+								}
+
+							/* 	좌석 선택시 표시할 모달창 관련 코드
+								if(selectStatus == 'title2_btn active'){
+
+									var modal = $('.modal').css('display' , 'block');
+								} */
+
+								console.log("선택한 옵션:", selectedOption);
+							});	
+	                        
+	                    },
+	                    error: function() {
+	                        // 에러가 발생했을 때 처리하는 로직
+	                        console.error("Error occurred during AJAX request");
+						}
+					})
+				});
+				
+			}
+            
+        }
     });
-});
+	
+
+
+
+	/* 좌석 선택시 표시할 모달창 관련 코드
+		$(document).on('click', 'button[name="modalClose"]', function(){
+
+		var modal = $('.modal').css('display' , 'none');
+	}) */
+
+
+
+});	
 </script>
+
 
 
 
