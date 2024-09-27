@@ -138,12 +138,13 @@ SELECT I.answered,I.inquiry_id,I.inquiry_type,I.title,I.content,I.created_at,U.n
 
 
 <select id="partner_settlement"  resultType="com.itwillbs.domain.PartnerDTO2"   >
-SELECT TP.*, U.*, P.*, PF.*, S.*
+SELECT S.settlement_id,S.total_revenue,S.fee,S.settlement_amount,S.settlement_date,TP.tickets_sold,M.title,PF.performance_date
 FROM `Partner` AS P
 JOIN `User` AS U ON P.user_id = U.user_id
-JOIN `Performance` AS PF ON P.partner_id = PF.partner_id
-JOIN `TicketPrice` AS TP ON PF.performance_id = TP.performance_id  
 JOIN `Settlement` AS S ON P.partner_id = S.partner_id
+JOIN `Performance` AS PF ON S.musical_id = PF.musical_id
+JOIN `TicketPrice` AS TP ON PF.performance_id = TP.performance_id  
+JOIN `Musical`  AS M ON PF.musical_id = M.musical_id 
 WHERE U.user_id = #{user_id}
 
 

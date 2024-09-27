@@ -138,7 +138,8 @@ public List<PartnerDTO2> partnersumbitList() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+".partner_settlement",user_id);
 	}
-	//파트너 정산
+		
+//	//파트너 정산
 	
 	
 
@@ -153,7 +154,9 @@ public List<PartnerDTO2> partnersumbitList() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+ ".getPartnersy", user_id);
 	}
-	
+
+
+
 
 
 

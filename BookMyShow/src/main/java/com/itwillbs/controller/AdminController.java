@@ -479,7 +479,7 @@ public class AdminController {
         }
     ////////수정필요할듯
     
-    
+
 
 
 	@GetMapping("/partner_settlement")
@@ -492,13 +492,7 @@ public class AdminController {
 		model.addAttribute("partner_settlement", partner_settlement);
 		System.out.println("partner_settlement"+partner_settlement);
 		
-		
-		
-		
-		
-		
-		
-		
+				
 		return "/admin/partner_settlement";
 	}
 

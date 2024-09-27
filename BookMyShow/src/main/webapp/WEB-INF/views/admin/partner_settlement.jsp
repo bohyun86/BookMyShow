@@ -67,9 +67,7 @@
                 <!-- ============================================================== -->
                  
 <!-- ==================================================== -->
-
-
-
+            
 
 				<div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
                     <div class="card">
@@ -84,7 +82,9 @@
                                         <th class="border-0">판매수익</th>
                                         <th class="border-0">수수료</th>
                                         <th class="border-0">정산금액</th>
+                                        <th class="border-0">공연날짜</th>
                                         <th class="border-0">정산날짜</th>
+                                        <th class="border-0">뮤지컬명</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -92,7 +92,7 @@
                                     <c:choose>
                                         <c:when test="${empty partner_settlement}">
                                             <tr>
-                                                <td colspan="6">데이터가 없습니다.</td>
+                                                <td colspan="8">데이터가 없습니다.</td>
                                             </tr>
                                         </c:when>
                                     </c:choose>
@@ -108,12 +108,14 @@
                                   
                                   
                 <tr>
-                    <td>${partner_settlement.settlement_id}</td>
+                    <td><c:out value="${partner_settlement.settlement_id}"/></td>
                     <td>${partner_settlement.tickets_sold}</td>
                     <td>${partner_settlement.total_revenue}</td>
                     <td>${partner_settlement.fee}</td>
                     <td>${partner_settlement.settlement_amount}</td>
+                    <td>${partner_settlement.performance_date}</td>
                     <td>${partner_settlement.settlement_date}</td>
+                    <td>${partner_settlement.title}</td>
                 </tr>
             </c:forEach>
 
@@ -127,25 +129,32 @@
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
  								 <button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/main'" >돌아가기</button>&nbsp;&nbsp;
 							</div>
-<!--                     <nav aria-label="Page navigation"> -->
-<!--                         <ul class="pagination justify-content-center"> -->
-<%--                             <c:if test="${currentPage > 1}"> --%>
-<!--                                 <li class="page-item"> -->
-<%--                                     <a class="page-link" href="?page=${currentPage - 1}">&laquo;</a> --%>
-<!--                                 </li> -->
-<%--                             </c:if> --%>
-<%--                             <c:forEach var="i" begin="1" end="${totalPages}"> --%>
-<%--                                 <li class="page-item <c:if test='${i == currentPage}'>active</c:if>'"> --%>
-<%--                                     <a class="page-link" href="?page=${i}">${i}</a> --%>
-<!--                                 </li> -->
-<%--                             </c:forEach> --%>
-<%--                             <c:if test="${currentPage < totalPages}"> --%>
-<!--                                 <li class="page-item"> -->
-<%--                                     <a class="page-link" href="?page=${currentPage + 1}">&raquo;</a> --%>
-<!--                                 </li> -->
-<%--                             </c:if> --%>
-<!--                         </ul> -->
-<!--                     </nav> -->
+<!--                                <!-- product category  -->
+                            <!-- ============================================================== -->
+<!--                             <div class="col-xl-3 col-lg-6 col-md-6 col-sm-12 col-12"> -->
+<!--                                 <div class="card"> -->
+<!--                                     <h5 class="card-header"> Product Category</h5> -->
+<!--                                     <div class="card-body"> -->
+<!--                                         <div class="ct-chart-category ct-golden-section" style="height: 315px;"></div> -->
+<!--                                         <div class="text-center m-t-40"> -->
+<!--                                             <span class="legend-item mr-3"> -->
+<!--                                                     <span class="fa-xs text-primary mr-1 legend-tile"><i class="fa fa-fw fa-square-full "></i></span><span class="legend-text">Man</span> -->
+<!--                                             </span> -->
+<!--                                             <span class="legend-item mr-3"> -->
+<!--                                                 <span class="fa-xs text-secondary mr-1 legend-tile"><i class="fa fa-fw fa-square-full"></i></span> -->
+<!--                                             <span class="legend-text">Woman</span> -->
+<!--                                             </span> -->
+<!--                                             <span class="legend-item mr-3"> -->
+<!--                                                 <span class="fa-xs text-info mr-1 legend-tile"><i class="fa fa-fw fa-square-full"></i></span> -->
+<!--                                             <span class="legend-text">Accessories</span> -->
+<!--                                             </span> -->
+<!--                                         </div> -->
+<!--                                     </div> -->
+<!--                                 </div> -->
+<!--                             </div> -->
+                            <!-- ============================================================== -->
+                            <!-- end product category  -->
+                            
                 </div>
             </div>
         </div>
