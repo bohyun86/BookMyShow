@@ -364,6 +364,9 @@
 
 <script>
 
+
+
+
 const submit_btn = document.getElementById("submit_btn");
 const total_warp = document.getElementById("total_warp");
 const option = document.getElementById("option");
@@ -568,6 +571,7 @@ $(function() {
 								                    $('button[name="optSelected"].active').each(function() {
 										                if ($(this).data("class_name") === option.class_name) {
 										                    $(this).removeClass("active");
+										                    selectedOptions.splice(i, 1);
 										                    $("#submit_btn").addClass('disabled');
 													        $("#submit_btn").attr('disabled','disabled');
 										                }
