@@ -39,71 +39,65 @@
 		</c:forEach>
 	</div>
 		<form>
-		<section style="float: right; width: 307px;">
-			<div>
+			<section style="float: right; width: 307px;">
+				<div>
+					<input style="width: 300px; height:40px; margin-top: 30px; border-radius: 15px;
+									border-style: none; background-color: #fca7a7; color:#fff; padding-left: 10px;
+									font-weight: bolder; font-size: large;" 
+					class="datepicker" placeholder="날짜를 선택하세요" id="dateValue" autocomplete="off" readonly/>
+				</div>
 				
-				<input style="width: 300px; height:40px; margin-top: 30px; border-radius: 15px;
-								border-style: none; background-color: #fca7a7; color:#fff; padding-left: 10px;
-								font-weight: bolder; font-size: large;" 
-				class="datepicker" placeholder="날짜를 선택하세요" id="dateValue"/>
-			</div>
-			
-			
-			<div class="title2_select selectBox"  id="option">
-				<p class="selectbox_title" style="display: block;" id="optionSelect">
-				</p>
-			</div>
-			
-		<!--	좌석 선택시 표시할 모달창 관련 코드 	
-			<div class="modal">
-    			<div class="modal_popup">
-        			<h3>모달 팝업 타이틀 입니다!</h3>
-        			<p>모달 테스트</p>
-       				<button type="button" class="close_btn" name="modalClose">닫기</button>
-			    </div>
-			</div> -->	
-			
-			<div class="choice_select" id="ticketSelect">
-			
-				<div class="select_list" id="ticketSelectList">
 				
+				<div class="title2_select selectBox"  id="option">
+					<p class="selectbox_title" style="display: block;" id="optionSelect">
+					</p>
+				</div>
+				
+			<!--	좌석 선택시 표시할 모달창 관련 코드 	
+				<div class="modal">
+	    			<div class="modal_popup">
+	        			<h3>모달 팝업 타이틀 입니다!</h3>
+	        			<p>모달 테스트</p>
+	       				<button type="button" class="close_btn" name="modalClose">닫기</button>
+				    </div>
+				</div> -->	
+				
+				<div class="choice_select" id="ticketSelect">
+				
+					<div class="select_list" id="ticketSelectList">
 					
-						<div style="clear: both;"></div>
 						
-						<div class="price_warp">
-							<div class="quantity">
-								<button type="button" class="remove_ticket" value="25000">
-									<img src="${pageContext.request.contextPath}/resources/images/musical_detail/btn_minus.png"
-										style="width: 18px; vertical-align: -3px;">
-								</button>
-								<span class="selected_quantity">1</span>
-								<button type="button" class="add_ticket" value="25000">
-									<img src="${pageContext.request.contextPath}/resources/images/musical_detail/btn_plus.png"
-										style="width: 18px; vertical-align: -3px;">
-								</button>
-							</div>
-							<p class="price">25,000원</p>
-							<input type="hidden" name="product_cate[]" value="414660"><input
-								type="hidden" name="product_cate_price[]" class="item_price"
-								value="25000"><input type="hidden"
-								name="product_cate_fullprice[]" value="55000"><input
-								type="hidden" name="item_jaego" class="item_jaego" value="20"><input
-								type="hidden" name="cate_date[]" class="cate_date"
-								value="2024-09-18"><input type="hidden"
-								name="want_quantity[]" class="item_ticket" value="1">
+							<%-- <div style="clear: both;"></div>
+							
+							<div class="price_warp">
+								<div class="quantity">
+									<button type="button" class="remove_ticket" value="25000">
+										<img src="${pageContext.request.contextPath}/resources/images/musical_detail/btn_minus.png"
+											style="width: 18px; vertical-align: -3px;">
+									</button>
+									<span class="selected_quantity">1</span>
+									<button type="button" class="add_ticket" value="25000">
+										<img src="${pageContext.request.contextPath}/resources/images/musical_detail/btn_plus.png"
+											style="width: 18px; vertical-align: -3px;">
+									</button>
+								</div>
+								<p class="price">25,000원</p>
+								<input type="hidden" name="product_cate[]" value="414660"><input
+									type="hidden" name="product_cate_price[]" class="item_price"
+									value="25000"><input type="hidden"
+									name="product_cate_fullprice[]" value="55000"><input
+									type="hidden" name="item_jaego" class="item_jaego" value="20"><input
+									type="hidden" name="cate_date[]" class="cate_date"
+									value="2024-09-18"><input type="hidden"
+									name="want_quantity[]" class="item_ticket" value="1">
+							</div>  --%>
 						</div>
 					</div>
+
+				<div class="submit_btn">
+					<button href="#" class="disabled" id="submit_btn" disabled="disabled">결제하기</button>
 				</div>
-			</div>
-			
-			<div class="total_warp" style="display: flex;">
-				<p class="title">총 결제금액</p>
-				<p class="total_price">25,000원</p>
-			</div>
-			<div class="submit_btn">
-				<button href="#" class="">결제하기</button>
-			</div>
-					
+						
 		</section>
 	</form>
 </div>
@@ -369,10 +363,16 @@
 
 
 <script>
+
+const submit_btn = document.getElementById("submit_btn");
+const total_warp = document.getElementById("total_warp");
 const option = document.getElementById("option");
 const optionSelect = document.getElementById("optionSelect");
 const ticketSelectTag = document.getElementById("ticketSelect");
 const ticketSelectList = document.getElementById("ticketSelectList");
+const remove_ticket = document.getElementById("remove_ticket");
+const add_ticket = document.getElementById("add_ticket");
+
 
 /* const modal = document.querySelector('.modal');
 const modalOpen = document.querySelector('.modal_btn');
@@ -455,9 +455,10 @@ $(function() {
 	                        
 							
 
-	                        result.forEach(function(option){
+	                        result.forEach(function(option, i){
 	                        	
 	                        	var button = 
+	                        		
 	                                "<button type='button' class='title2_btn' name='optSelected' " +
 	                                "data-class_name='" + option.class_name + "' " +
 	                                "data-price='" + option.price + "' " +
@@ -474,6 +475,8 @@ $(function() {
 							$(document).on('click', 'button[name="optSelected"]', function() {
 								// 클릭된 버튼에 대한 처리 로직
 								var selectedOption = $(this).toggleClass('active');
+								$("#submit_btn").addClass('disabled');
+							    $("#submit_btn").attr('disabled','disabled');
 								// var selectStatus = $(this).attr('class');
 								// console.log("selectStatus" , selectStatus);
 								
@@ -488,7 +491,8 @@ $(function() {
 	                                selectedOptions.push({
 	                                    class_name: class_name,
 	                                    price: price,
-	                                    capacity: capacity
+	                                    capacity: capacity,
+	                                    count : 1
 	                                });
 	                            } else {
 	                                // 버튼이 선택 해제되면 배열에서 제거
@@ -513,36 +517,137 @@ $(function() {
 								var activeLength = $('button[name="optSelected"].active').length;
 
 
-	                            if (selectedOptions.length > 0) {
-	                                ticketSelectTag.style.display = 'block';
-	                                ticketSelect.empty();
-	                                ticketSelect.append("<p class='title'>수량선택</p>");
+								if (selectedOptions.length > 0) {
+								    ticketSelectTag.style.display = 'block';
+								    ticketSelect.empty();
+								    ticketSelect.append("<p class='title'>수량선택</p>");
 
-	                                selectedOptions.forEach(function(option, i) {
-	                                    var ticketSelectButton = 
-	                                        "<div class='select_item' id='ticketitem" + (i + 1) + "'>" +
-	                                            "<input type='hidden' name='cate_title[]' class='cate_title' value='" + formattedTicketDate + "'>" +
-	                                            "<div class='select_name' style='float: left;'>" + formattedTicketDate + "&nbsp;" + option.class_name + "&nbsp;</div>" +
-	                                            "<div style='float: right; display: inline-block;'>" +
-	                                                "<a href='#item_close' class='close' data-store='414660'>" +
-	                                                    "<span class='remove_ticket' " +
-	                                                    "style='font-size: 14px; border: 1px solid #888; border-radius: 5px; width: 16px; padding: 0 6px; color: #fff; background: #888;' " +
-	                                                    "value='" + option.price + "'>X</span></a>" +
-	                                            "</div>" +
-	                                        "</div>";
-										
-										
-										
-	                                    ticketSelectList.append(ticketSelectButton);
-	                                    ticketSelectList.append("<div style='clear: both;'></div>");
-	                                });
-	                            } else {
-	                                ticketSelectTag.style.display = 'none';
-	                                ticketSelect.empty();
-	                            }	
-								
-								
-								
+								    var totalAmount = 0;  // 총 결제 금액을 누적할 변수
+
+								    selectedOptions.forEach(function(option, i) {
+								        // 문자열 형태의 price에서 쉼표 제거 후 숫자로 변환
+								        var priceWithoutComma = parseInt(option.price.replace(/,/g, ''), 10);
+								        var fullPrice = priceWithoutComma * option.count;
+								        totalAmount += fullPrice;  // 총 결제 금액에 추가
+
+								        var ticketSelectButton = 
+								            "<div class='select_item_wrap' id='select_item_wrap" + (i + 1) + "'>" +
+								                "<div class='select_item' id='ticketitem" + (i + 1) + "'>" +
+								                    "<input type='hidden' name='cate_title[]' class='cate_title' value='" + formattedTicketDate + "'>" +
+								                    "<div class='select_name' style='float: left; font-size: 14px; font-weight:bold;'>" + formattedTicketDate + "일 <br>" + option.class_name + "석</div>" +
+								                    "<div style='float: right; display: inline-block;'>" +
+								                        "<a href='#item_close' class='close' data-store='414660'>" +
+								                            "<span class='remove_ticket' id='remove_ticket" + (i + 1) + "' " +
+								                            "style='font-size: 14px; border: 1px solid #888; border-radius: 5px; width: 16px; padding: 0 6px; color: #fff; background: #888;' " +
+								                            "value='" + option.price + "'>X</span></a>" +
+								                    "</div>" +
+								                "</div>" +
+								                "<div class='price_warp'>" +
+								                    "<div class='quantity'>" +
+								                        "<button type='button' class='remove_ticket' id='remove_button" + (i + 1) + "'>" +
+								                            "<img src='${pageContext.request.contextPath}/resources/images/musical_detail/btn_minus.png' style='width: 18px; vertical-align: -3px;'>" +
+								                        "</button>" +
+								                        "<span class='selected_quantity' id='quantity" + (i + 1) + "'>" + option.count + "</span>" +
+								                        "<button type='button' class='add_ticket' id='add_button" + (i + 1) + "'>" +
+								                            "<img src='${pageContext.request.contextPath}/resources/images/musical_detail/btn_plus.png' style='width: 18px; vertical-align: -3px;'>" +
+								                        "</button>" +
+								                    "</div>" +
+								                "</div>" +
+								                "<div style='clear: both;'></div>" +
+								            "</div>";
+
+								        ticketSelect.append(ticketSelectButton);
+
+								        // 고유한 id로 이벤트 바인딩
+								        $("#remove_button" + (i + 1)).click(function() {
+								            option.count -= 1;
+								            if (option.count == 0) {
+								                $("#select_item_wrap" + (i + 1)).remove();  // 해당 아이템 삭제
+								                if ($(".select_item_wrap").length == 0) {
+								                    ticketSelectTag.style.display = 'none';  // 모든 아이템이 삭제되면 감추기
+								                    $('button[name="optSelected"].active').each(function() {
+										                if ($(this).data("class_name") === option.class_name) {
+										                    $(this).removeClass("active");
+										                    $("#submit_btn").addClass('disabled');
+													        $("#submit_btn").attr('disabled','disabled');
+										                }
+										            });
+								                }
+								            } else {
+								                $("#quantity" + (i + 1)).text(option.count);  // 수량 업데이트
+								            }
+								            updateTotalAmount();  // 총 결제 금액 업데이트
+								        });
+
+								        $("#add_button" + (i + 1)).click(function() {
+								            option.count += 1;
+								            $("#quantity" + (i + 1)).text(option.count);  // 수량 업데이트
+								            updateTotalAmount();  // 총 결제 금액 업데이트
+								        });
+
+								        // remove_ticket 버튼 클릭 시 해당 옵션 삭제 및 클래스 비활성화 처리
+								        $("#remove_ticket" + (i + 1)).click(function() {
+								            // 해당 옵션을 selectedOptions 배열에서 삭제
+								            selectedOptions.splice(i, 1);
+
+								            // 해당 option.class_name과 관련된 active 클래스만 제거
+								            $('button[name="optSelected"].active').each(function() {
+								                if ($(this).data("class_name") === option.class_name) {
+								                    $(this).removeClass("active");
+								                  
+								                }
+								            });
+
+								            // 해당 항목을 화면에서 제거
+								            $("#select_item_wrap" + (i + 1)).remove();
+
+								            // 항목이 모두 삭제되면 선택 영역을 숨김
+								            if (selectedOptions.length === 0) {
+								                ticketSelectTag.style.display = 'none';
+								                $("#submit_btn").addClass('disabled');
+										        $("#submit_btn").attr('disabled','disabled');
+								            }
+
+								            updateTotalAmount();  // 총 결제 금액 업데이트
+								        });
+								    });
+
+								    // 총 결제 금액 표시 부분이 이미 있으면 업데이트, 없으면 생성
+								    if ($("#total_warp").length === 0) {
+								        ticketSelect.append(
+								            "<div id='total_warp' class='total_warp' style='display: flex;'>" +
+								                "<p class='title'>총 결제금액</p>" +
+								                "<p id='total_price' class='total_price'>" + totalAmount.toLocaleString() + "원</p>" +
+								            "</div>"
+								        );
+
+								        $("#submit_btn").removeClass('disabled');
+								        $("#submit_btn").removeAttr('disabled');
+								    } else {
+								        $("#total_price").text(totalAmount.toLocaleString() + "원");
+								    }
+
+								    // 총 결제 금액 업데이트 함수
+								    function updateTotalAmount() {
+								        var newTotalAmount = 0;
+								        selectedOptions.forEach(function(option) {
+								            var priceWithoutComma = parseInt(option.price.replace(/,/g, ''), 10);
+								            newTotalAmount += priceWithoutComma * option.count;
+								        });
+								        $("#total_price").text(newTotalAmount.toLocaleString() + "원");  // 금액 업데이트
+								    }
+								    
+								    /* console.log("class_name : ", option.class_name);
+								    console.log("formattedTicketDate : ", formattedTicketDate);
+								    console.log("count : ", option.count);
+								    console.log("totalAmount : ", totalAmount); */
+
+								    	
+								    
+								} else {
+								    ticketSelectTag.style.display = 'none';
+								    ticketSelect.empty();
+								}
 
 							/* 	좌석 선택시 표시할 모달창 관련 코드
 								if(selectStatus == 'title2_btn active'){
