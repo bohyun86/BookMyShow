@@ -145,11 +145,11 @@ public void deleteInquiry(SupportinquiryDTO supportinquiryDTO) {
 	sqlSession.delete(namespace + ".deleteInquiry" , supportinquiryDTO);
 }
 
-public void answerInquiry(SupportinquiryDTO supportinquiryDTO) {
-	System.out.println("SupportDAO answerInquiry()");
-	System.out.println(supportinquiryDTO);
-	
-	sqlSession.update(namespace + ".answerInquiry", supportinquiryDTO);
-}
+//public void answerInquiry(SupportinquiryDTO supportinquiryDTO) {
+//	System.out.println("SupportDAO answerInquiry()");
+//	System.out.println(supportinquiryDTO);
+//	
+//	sqlSession.update(namespace + ".answerInquiry", supportinquiryDTO);
+//}
 
 }

@@ -101,7 +101,7 @@
 <main class="support-notice-write" id="notice-main">
     <section class="h-100" id="board-content">
     <form action="${pageContext.request.contextPath}/support/inupdate" class="supportForm" method="post" name="fr">
-                <p class="inquiry_1">아이디</p> <input type="text" name="user_Id" value="${userDTO.name}" readonly>	
+                <p class="inquiry_1">아이디</p> <input type="text" name="name" value="${userDTO.name}" readonly>	
 				<p class="inquiry_1">문의 제목</p> <input type="text" name="title" value="${supportinquiryDTO.title }" readonly>				
 				<p class="inquiry_3">문의 유형</p> <input type="text" name="inquiry_type" value="${supportinquiryDTO.inquiry_type}" readonly>				
 				<div class="editer_content">

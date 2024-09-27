@@ -77,7 +77,7 @@
 	
 	<insert id="insertInquiry">
 		insert into Inquiry(inquiry_id,inquiry_type,title,content,created_at,user_id,answered)
-		values(#{inquiry_id},#{inquiry_type},#{title},#{content},#{created_at},#{userId},#{answered})
+		values(#{inquiry_id},#{inquiry_type},#{title},#{content},#{created_at},#{user_id},#{answered})
 	</insert>
 	
 	<select id="getMaxNum2" resultType="java.lang.Integer">

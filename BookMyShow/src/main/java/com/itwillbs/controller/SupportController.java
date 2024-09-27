@@ -326,21 +326,21 @@ public class SupportController {
 		return "redirect:/support/inquiry";
 	}
     
-    @GetMapping("/support/inanswer")
-	public String inanswer(@RequestParam("inquiry_id") int inquiry_id, Model model) {
-    	log.info("inanswer success");
-    	SupportinquiryDTO supportinquiryDTO = supportService.getInquiry(inquiry_id);
-    	
-		model.addAttribute("supportinquiryDTO", supportinquiryDTO);
-		return "/support/inanswer";
-    }
+//    @GetMapping("/support/inanswer")
+//	public String inanswer(@RequestParam("inquiry_id") int inquiry_id, Model model) {
+//    	log.info("inanswer success");
+//    	SupportinquiryDTO supportinquiryDTO = supportService.getInquiry(inquiry_id);
+//    	
+//		model.addAttribute("supportinquiryDTO", supportinquiryDTO);
+//		return "/support/inanswer";
+//    }
     
-    @PostMapping("support/inanswerPro")
-	public String inanswerPro(SupportinquiryDTO supportinquiryDTO) {
-		System.out.println("SupportController inanswerPro()");
-		System.out.println("!!!!!"+supportinquiryDTO);
-		supportService.answerInquiry(supportinquiryDTO);
-		return "redirect:/support/incontent";
-	}
+//    @PostMapping("support/inanswerPro")
+//	public String inanswerPro(SupportinquiryDTO supportinquiryDTO) {
+//		System.out.println("SupportController inanswerPro()");
+//		System.out.println("!!!!!"+supportinquiryDTO);
+//		supportService.answerInquiry(supportinquiryDTO);
+//		return "redirect:/support/incontent";
+//	}
     
 }
