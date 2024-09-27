@@ -71,7 +71,7 @@
     text-decoration: none;
     color: black; 
     border-radius: 5px;
-    margin-left: 630px;
+    margin-left: 625px;
     }
     </style>
     <style>
@@ -90,15 +90,13 @@
 
 <main class="support-notice-write" id="notice-main">
     <section class="h-100" id="board-content">
-    <form action="${pageContext.request.contextPath}/support/inwritePro" class="supportForm" method="post" name="fr">
-                <input type="hidden" name="user_id" value="${sessionScope.userId }" readonly>	
-				<p class="inquiry_1">문의 제목</p> <input type="text" name="title" >				
-				<p class="inquiry_3">문의 유형</p> <input type="text" name="inquiry_type" >				
+    <form action="${pageContext.request.contextPath}/support/inanswerPro?inquiry_id=${supportinquiryDTO.inquiry_id}" class="supportForm" method="post" name="fr">	
+                <p class="inquiry_1">문의 번호</p> <input type="text" name="inquiry_id" value="${supportinquiryDTO.inquiry_id }" readonly>		
 				<div class="editer_content">
-					    <p class="inquiry_2">문의 할 내용</p> <textarea name="content" rows="10" cols="30"></textarea>
+					    <p class="inquiry_2">답변</p> <textarea name="answer_content" rows="10" cols="30"></textarea>
 					    </div>  
 					<p class="btn_line txt_right">
-				<a href="javascript:document.fr.submit();" class="btn_bbs1">문의하기</a>
+				<a href="javascript:document.fr.submit();" class="btn_bbs1">답변 달기</a>
 				<a href="${pageContext.request.contextPath}/support/inquiry" class="btn_bbs2">돌아가기</a>
 			</p>			
 		</form>

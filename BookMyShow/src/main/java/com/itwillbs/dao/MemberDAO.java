@@ -44,6 +44,24 @@ public class MemberDAO {
 		// TODO Auto-generated method stub
 		return sqlSession.selectOne(namespace+ ".getMember", id);
 	}
+
+	public List<UserDTOAdmin> memberBooked(int user_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".memberBooked",user_id);
+	}
+	//예매내역
+
+	public List<UserDTOAdmin> memberpay(int user_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectList(namespace+".memberpay",user_id);
+	}
+//결제내역
+
+	public void memberdelete(int member_id) {
+		// TODO Auto-generated method stub
+		 sqlSession.delete(namespace+".memberdelete",member_id);
+	}
+	//회원삭제
 	
 }
 

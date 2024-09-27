@@ -19,7 +19,9 @@ import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.SupportNoticeDTO;
 import com.itwillbs.domain.SupportinquiryDTO;
 import com.itwillbs.domain.SupportqnaDTO;
+import com.itwillbs.domain.UserDTO;
 import com.itwillbs.service.SupportService;
+import com.itwillbs.service.UserService;
 
 @Controller
 @Log4j2
@@ -28,6 +30,8 @@ public class SupportController {
 	
 	@Autowired  
 	private SupportService supportService;
+	@Autowired 
+	private UserService userService; 
 
     @GetMapping("/faq")
     public String faq() {
@@ -36,17 +40,13 @@ public class SupportController {
         return "/support/frequentQuestion";
     }
     
-
     @GetMapping("/support/ntwrite")
 	public String ntwrite() {
     	log.info("ntwrite success");
 
-
-
 		return "/support/ntwrite";
 	}
     
-
     @PostMapping("support/ntwritePro")
 	public String ntwritePro(SupportNoticeDTO supportNoticeDTO) {
 		System.out.println("SupportController ntwritePro()");
@@ -284,8 +284,16 @@ public class SupportController {
 	public String incontent(@RequestParam("inquiry_id") int inquiry_id, Model model) {
     	log.info("incontent success");
         SupportinquiryDTO supportinquiryDTO = supportService.getInquiry(inquiry_id);
-		
+        System.out.println("supportinquiryDTO----------"+supportinquiryDTO);
+        
+        UserDTO userDTO=new UserDTO();
+        userDTO.setUserId(supportinquiryDTO.getUser_id());
+        userDTO = userService.getUserId(userDTO);
+        System.out.println("userDTO----------"+userDTO);
+        
 		model.addAttribute("supportinquiryDTO", supportinquiryDTO);
+		model.addAttribute("userDTO", userDTO);
+		
 		return "/support/incontent";
 	}
     
@@ -298,14 +306,41 @@ public class SupportController {
 		return "/support/inupdate";
     }
     
-//    @PostMapping("support/inupdatePro")
-//	public String inupdatePro(SupportinquiryDTO supportinquiryDTO){
-//		System.out.println("SupportController inpdatePro()");
-//		System.out.println(supportinquiryDTO);
-//
-//		supportService.updateInquiry(supportinquiryDTO);
-//		
-//		return "redirect:/support/inquiry";
+    @PostMapping("support/inupdatePro")
+	public String inupdatePro(SupportinquiryDTO supportinquiryDTO){
+		System.out.println("SupportController inupdatePro()");
+		System.out.println(supportinquiryDTO);
+
+		supportService.updateInquiry(supportinquiryDTO);
+		
+		return "redirect:/support/inquiry";
+	}
+    
+    @GetMapping("support/indelete")
+	public String indelete(SupportinquiryDTO supportinquiryDTO){
+		System.out.println("SupportController qnadelete()");
+		System.out.println(supportinquiryDTO);
+
+		supportService.deleteInquiry(supportinquiryDTO);
+		
+		return "redirect:/support/inquiry";
+	}
+    
+//    @GetMapping("/support/inanswer")
+//	public String inanswer(@RequestParam("inquiry_id") int inquiry_id, Model model) {
+//    	log.info("inanswer success");
+//    	SupportinquiryDTO supportinquiryDTO = supportService.getInquiry(inquiry_id);
+//    	
+//		model.addAttribute("supportinquiryDTO", supportinquiryDTO);
+//		return "/support/inanswer";
+//    }
+    
+//    @PostMapping("support/inanswerPro")
+//	public String inanswerPro(SupportinquiryDTO supportinquiryDTO) {
+//		System.out.println("SupportController inanswerPro()");
+//		System.out.println("!!!!!"+supportinquiryDTO);
+//		supportService.answerInquiry(supportinquiryDTO);
+//		return "redirect:/support/incontent";
 //	}
     
 }

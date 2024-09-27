@@ -91,7 +91,7 @@
 <main class="support-notice-write" id="notice-main">
     <section class="h-100" id="board-content">
     <form action="${pageContext.request.contextPath}/support/inupdatePro?inquiry_id=${supportinquiryDTO.inquiry_id}" class="supportForm" method="post" name="fr">
-                <p class="inquiry_1">아이디</p> <input type="text" name="user_id" value="${sessionScope.userId }" readonly>	
+                <input type="hidden" name="user_id" value="${supportinquiryDTO.user_id }" readonly>
 				<p class="inquiry_1">문의 제목</p> <input type="text" name="title" value="${supportinquiryDTO.title }">				
 				<p class="inquiry_3">문의 유형</p> <input type="text" name="inquiry_type" value="${supportinquiryDTO.inquiry_type}">				
 				<div class="editer_content">
@@ -99,7 +99,7 @@
 					    </div>  
 					<p class="btn_line txt_right">
 				<a href="javascript:document.fr.submit();" class="btn_bbs1">문의 수정하기</a>
-				<a href="${pageContext.request.contextPath}/support/inupdatePro?inquiry_id=${supportinquiryDTO.inquiry_id}" class="btn_bbs2">문의 삭제하기</a>
+				<a href="${pageContext.request.contextPath}/support/indelete?inquiry_id=${supportinquiryDTO.inquiry_id}" class="btn_bbs2">문의 삭제하기</a>
 				<a href="${pageContext.request.contextPath}/support/inquiry" class="btn_bbs2">돌아가기</a>
 			</p>			
 		</form>

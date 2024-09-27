@@ -11,6 +11,8 @@ public interface UserService {
     UserDTO loginPro(UserDTO userDTO);
 
     UserDTO getUser(UserDTO userDTO);
+    
+    UserDTO getUserId(UserDTO userDTO);
 
     UserDTO checkId(UserDTO userDTO);
 

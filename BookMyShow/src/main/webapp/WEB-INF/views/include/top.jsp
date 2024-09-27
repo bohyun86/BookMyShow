@@ -17,7 +17,6 @@
             <c:if test="${sessionScope.userRole == 'admin'}">
                 <li class="nav-item">
 
-
                     <a class="nav-link text-black" href="${pageContext.request.contextPath}/admin/main">관리자 페이지</a>
 
                 </li>
