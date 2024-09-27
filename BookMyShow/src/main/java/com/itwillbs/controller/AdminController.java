@@ -328,7 +328,7 @@ public class AdminController {
 		
 		return "redirect:/admin/partner_submit";
 	}
-	
+	//파트너삭제
 	
 	
 	
@@ -346,41 +346,71 @@ public class AdminController {
 			@RequestParam("email") String email, 
 			@RequestParam("created_at") String created_at,
 			@RequestParam(required = false)Integer partner_id,
+			@RequestParam(required = false)Integer user_id,
 			Model model) {
 		log.info("admin partnerPro success");
 
-		model.addAttribute("userName", user_name);
+		model.addAttribute("user_name", user_name);
 		model.addAttribute("password", password);
 		model.addAttribute("name", name);
-		model.addAttribute("companyName", company_name);
-		model.addAttribute("businessId", business_id);
-		model.addAttribute("accountNumber", account_number);
-		model.addAttribute("bankName", bank_name);
-		model.addAttribute("phoneNumber", phone_number);
+		model.addAttribute("company_name", company_name);
+		model.addAttribute("business_id", business_id);
+		model.addAttribute("account_number", account_number);
+		model.addAttribute("bank_name", bank_name);
+		model.addAttribute("phone_number", phone_number);
 		model.addAttribute("email", email);
-		model.addAttribute("createdAt", created_at);
+		model.addAttribute("created_at", created_at);
 		model.addAttribute("partner_id", partner_id);
+		
+//		partnersServiceAdmin.editPartner(user_id);
 
 		return "/admin/partnerPro";
 	} // parter에서 ajax에서 가져온 값을 admincontroller로 넘겨서 partnerPro로 넘기는 과정
 
 
+	
+	@PostMapping("/partnerdelete")
+	public String partnerdelete(@RequestParam(" partner_id") int  partner_id) {
+		log.info("admin partner_submitConfirm success");
+		
+		partnersServiceAdmin.partner_delete( partner_id);
+		
+		return "redirect:/admin/partner";
+	}
+	
+	//파트너 검색에서 삭제
+	
+	
+	//파트너삭제
 //	@PostMapping("/editPartnerForm")
-//	public String editPartnerForm(@RequestParam(required = false)Integer partner_id,
-//			@RequestParam(required = false)Integer user_id,
-//			@RequestParam("user_name") String user_name
+//	public String editPartnerForm(@RequestParam(required = false)Integer user_id,
+//			@RequestParam("user_name") String user_name, 
+//			@RequestParam("password") String password,
+//			@RequestParam("name") String name, 
+//			@RequestParam("company_name") String  company_name,
+//			@RequestParam("business_id") String business_id,
+//			@RequestParam("account_number") String account_number,
+//			@RequestParam("bank_name") String bank_name,
+//			@RequestParam("phone_number") String phone_number,
+//			@RequestParam("email") String email, 
+//			@RequestParam("created_at") String created_at,
+//			@RequestParam(required = false)Integer partner_id
 //						) {
 //		log.info("admin editPartnerForm success");
-//		System.out.println("editPartner"+partner_id);
+//		
 //		System.out.println("editPartner"+user_id);
-//		System.out.println("editPartner"+user_name);
+//		partnersServiceAdmin.geteditPartner(user_id);
+//		System.out.println("editPartner"+user_id);
+////		
+//		partnersServiceAdmin.editPartner(user_id);
+//		
 //		
 //		
 //		return "redirect:/admin/partner";
 //	}
+	
+//	//파트너 정보 수정
 //	
-	
-	
 	
 	
 	
@@ -488,6 +518,7 @@ public class AdminController {
 			@RequestParam("phone_number") String phone_number,
 			@RequestParam("email") String email, 
 			@RequestParam("created_at") String created_at,
+			@RequestParam(required = false) Integer member_id,
 			Model model) {
 		log.info("admin memberPro success");
 		
@@ -497,6 +528,7 @@ public class AdminController {
 		model.addAttribute("phoneNumber", phone_number);
 		model.addAttribute("email", email);
 		model.addAttribute("createdAt", created_at);
+		model.addAttribute("member_id", member_id);
 //		
 		
 		
@@ -504,6 +536,19 @@ public class AdminController {
 		
 		return "/admin/memberPro";
 	}
+	
+	
+	@PostMapping("/memberdelete")
+	public String memberdelete(@RequestParam(required = false) Integer  member_id) {
+		log.info("admin memberdelete success");
+		
+		memberService.memberdelete(member_id);
+		
+		return "redirect:/admin/member"; 
+	}
+	
+	
+	
 	
 	
 	@GetMapping("/member_qna")

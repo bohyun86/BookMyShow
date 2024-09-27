@@ -97,23 +97,23 @@
 
 
 
-<update id="editUserFOReditPartner">
- UPDATE User 
-    SET user_name = #{user_name}, 
-        password = #{password}, 
-        name = #{name}, 
-        phone_number = #{phone_number}, 
-        email = #{email}
-    WHERE user_id = #{user_id} 
-    </update>
+<!-- <update id="editUserFOReditPartner"> -->
+<!--  UPDATE User  -->
+<!--     SET user_name = #{user_name},  -->
+<!--         password = #{password},  -->
+<!--         name = #{name},  -->
+<!--         phone_number = #{phone_number},  -->
+<!--         email = #{email} -->
+<!--     WHERE user_id = #{user_id}  -->
+<!--     </update> -->
 
-<update id="editPartner">
-    UPDATE Partner 
-    SET company_name = #{company_name}, 
-        business_id = #{business_id}
-    WHERE partner_id = #{partner_id} 
-    AND approved = 1
-</update>
+<!-- <update id="editPartner"> -->
+<!--     UPDATE Partner  -->
+<!--     SET company_name = #{company_name},  -->
+<!--         business_id = #{business_id} -->
+<!--     WHERE partner_id = #{partner_id}  -->
+<!--     AND approved = 1 -->
+<!-- </update> -->
 <!-- 파트너정보업데이트 -->
 
 <select id="memberQnaList" resultType="com.itwillbs.domain.UserDTOAdmin" >
@@ -151,6 +151,24 @@ WHERE U.user_id = #{user_id}
 </select>
 <!-- 파트너정산 -->
 
+<update id="editPartner">
+update Partner P
+join User U on P.user_id = U.user_id
+set U.user_name=#{user_name}, 
+U.password =#{password}, 
+U.name=#{name},
+P.company_name=#{company_name},
+P.business_id=#{business_id},
+P.account_number=#{account_number},
+P.bank_name=#{bank_name},
+U.email=#{email}
+where U.user_id =#{user_id}
+
+
+
+
+</update>
+<!-- 파트너 정보수정 -->
 
 
 

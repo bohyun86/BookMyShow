@@ -44,5 +44,12 @@ public class MemberService {
 	}
 	//결제내역
 
+	public void memberdelete(int member_id) {
+		// TODO Auto-generated method stub.
+		memberDAO.memberdelete(member_id);
+		
+	}
+	//회원삭제
+
 
 }

@@ -86,7 +86,7 @@
 					  </ul>
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" type="button" id="editButton"   disabled>정보 조회 및 수정</button>
+					  <button class="btn btn-primary" type="button" id="editButton"   disabled>정보 조회 및 삭제</button>
 					</div></p> 
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">

@@ -132,6 +132,19 @@ public class PartnersServiceAdmin {
 	}
 //파트너 정산
 
+
+	
+	
+	public void editPartner(int user_id) {
+		// TODO Auto-generated method stub
+		 partnerDAO.editPartner(user_id);
+	}
+
+
+
+
+	
+
 	
 
 

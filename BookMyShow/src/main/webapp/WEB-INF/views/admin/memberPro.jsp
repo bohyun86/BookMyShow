@@ -87,10 +87,10 @@
         							<h4 class="card-title">회원 정보</h4>
        									 <p class="card-text">
        									 	
-       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/member">
+       									 	<form class="was-validated" action="${pageContext.request.contextPath}/admin/memberdelete" method="post" id="memberdelteForm">
        									 	<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">회원ID</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${userName}" required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${userName}" readonly="readonly">
     													<div class="invalid-feedback">
      														 회원ID를 입력해주세요.
    														 </div>
@@ -98,7 +98,7 @@
 													
 												<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">이름</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange"  value="${name}"required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  id="startDate" name="daterange"  value="${name}"readonly>
     													
     													<div class="invalid-feedback">
      														 이름을 입력해주세요.
@@ -108,7 +108,7 @@
 													
 													<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">연락처</span>
-  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" onkeyup="phone(this.value);"  value="${phoneNumber}" required>
+  													<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" onkeyup="phone(this.value);"  value="${phoneNumber}" readonly>
     													<div class="invalid-feedback">
      														 연락처를 입력해주세요.
    														 </div>
@@ -116,7 +116,7 @@
 													
 													<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">이메일</span>
-  													<input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${email}" required>
+  													<input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${email}" readonly>
     													<div class="invalid-feedback">
      														  이메일을 입력해주세요.
    														 </div>
@@ -124,7 +124,7 @@
 													
 													<div class="input-group input-group-sm mb-3">
  	 											<span class="input-group-text" id="inputGroup-sizing-sm">비밀번호</span>
-  													<input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${password}" required>
+  													<input type="email" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" value="${password}" readonly>
     													<div class="invalid-feedback">
      														  비밀번호를 입력해주세요.
    														 </div>
@@ -141,12 +141,13 @@
 													
 			
 				 										
-				 										<div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  															<button class="btn btn-primary me-md-2" type="submit" >수정완료</button> &nbsp; &nbsp;
+<!-- 				 										<div class="d-grid gap-2 d-md-flex justify-content-md-end"> -->
+				 										<input type="hidden" name="member_id" value="${member_id}">
+<!--   															<button class="btn btn-primary me-md-2" type="submit" >수정완료</button> &nbsp; &nbsp; -->
 														</form>
-  																<form action="${pageContext.request.contextPath}/admin/member">
-  																<button class="btn btn-primary" type="submit" onclick="deleteok()">삭제</button>
-  																</form>
+<%--   																<form action="${pageContext.request.contextPath}/admin/member"> --%>
+  																<button class="btn btn-primary" type="button" onclick="deleteok()">삭제</button>
+<!--   																</form> -->
 														</div>
     												</div>
   												</div>
@@ -164,22 +165,18 @@
 <script>
 
 
-function deleteok(){
-    if(!confirm('삭제하시면 복구할수 없습니다. \n 정말로 삭제하시겠습니까??')){
-        return false;
+function deleteok() {
+	
+    if (confirm('삭제하시면 복구할 수 없습니다. \n 정말로 삭제하시겠습니까??')) {
+    	 var form = document.getElementById("memberdelteForm");
+         form.action = "${pageContext.request.contextPath}/admin/memberdelete"; 
+         form.method = "post"; 
+         form.submit();  // 폼 제출
+    } else {
+        return false; 
     }
 }
 
-function phone(inMoney, Ev) {
-    var evCode = (window.netscape) ? Ev.which : event.keyCode;
-
-    if (!((evCode >= 37 && evCode <= 57)|| (evCode >= 96 && evCode <= 105)|| evCode == 8 || evCode == 9)) {
-
-          alert("숫자만 입력해주세요. ");
-          event.returnValue = false;
-          
-    }
-    }
 
 </script>
 

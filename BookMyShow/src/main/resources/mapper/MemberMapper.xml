@@ -33,7 +33,11 @@
     </select>
 <!--     예매내역     -->
     
-   
+   <delete id="memberdelete" >
+	delete from Member
+	Where member_id = #{member_id} 
+</delete>
+<!-- 회원삭제 -->
     
     
     
