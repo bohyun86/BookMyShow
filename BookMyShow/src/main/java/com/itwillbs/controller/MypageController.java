@@ -4,9 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 import java.math.BigDecimal;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -22,14 +21,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.itwillbs.domain.BookingDTO;
 import com.itwillbs.domain.MyPageDTO;
-import com.itwillbs.domain.PaymentDTO;
 import com.itwillbs.domain.PerformanceDTO;
 import com.itwillbs.domain.PointDTO;
 import com.itwillbs.domain.ReviewDTO;
@@ -153,34 +151,39 @@ public class MypageController {
 
 		return "my/refund";
 	}
-	
+
 	@PostMapping("/refund-process/{bookingId}")
-	public String processRefund(@PathVariable Integer bookingId, @RequestParam BigDecimal refundRate, Model model, HttpSession session) {
-	    Integer userId = (Integer) session.getAttribute("userId");
-	    Integer memberId = mypageService.getMemberId(userId);
-	    
-	    BookingDTO booking = mypageService.getBooking(bookingId, memberId);
+	public String processRefund(@PathVariable Integer bookingId, @RequestParam BigDecimal refundRate, Model model,
+			HttpSession session) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		Integer memberId = mypageService.getMemberId(userId);
+
+		BookingDTO booking = mypageService.getBooking(bookingId, memberId);
 //	    PaymentDTO payment = mypageService.getPayment(bookingId);
 
 //	    BigDecimal refundAmount = new BigDecimal(payment.getPaymentAmount()).multiply(refundRate);
 //	    String refundType = getRefundType(refundRate);
 
 //	    boolean refundSuccess = mypageService.processRefund(bookingId, refundType, refundAmount, userId);
-	    boolean refundSuccess = mypageService.processRefund(bookingId, "전액환불", new BigDecimal("10.50"), userId);
+		boolean refundSuccess = mypageService.processRefund(bookingId, "전액환불", new BigDecimal("10.50"), userId);
 
-	    if (refundSuccess) {
-	        return "redirect:/my/refund-complete/" + bookingId;
-	    } else {
-	        return "redirect:/my/refund/" + bookingId + "?error=refund_failed";
-	    }
+		if (refundSuccess) {
+			return "redirect:/my/refund-complete/" + bookingId;
+		} else {
+			return "redirect:/my/refund/" + bookingId + "?error=refund_failed";
+		}
 	}
 
 	private String getRefundType(BigDecimal refundRate) {
-	    if (refundRate.compareTo(BigDecimal.ONE) == 0) return "전액환불";
-	    if (refundRate.compareTo(new BigDecimal("0.9")) == 0) return "90%환불";
-	    if (refundRate.compareTo(new BigDecimal("0.8")) == 0) return "80%환불";
-	    if (refundRate.compareTo(new BigDecimal("0.7")) == 0) return "70%환불";
-	    return "환불불가";
+		if (refundRate.compareTo(BigDecimal.ONE) == 0)
+			return "전액환불";
+		if (refundRate.compareTo(new BigDecimal("0.9")) == 0)
+			return "90%환불";
+		if (refundRate.compareTo(new BigDecimal("0.8")) == 0)
+			return "80%환불";
+		if (refundRate.compareTo(new BigDecimal("0.7")) == 0)
+			return "70%환불";
+		return "환불불가";
 	}
 
 	@GetMapping("/refund-detail/{bookingId}")
@@ -268,7 +271,6 @@ public class MypageController {
 	@PostMapping("/profile-editPro")
 	public String profileEditPro(UserDTO userDTO, @RequestParam(required = false) String newPassword, Model model,
 			HttpSession session) {
-		addCommonAttributes(model, session);
 		log.info("profileEditPro");
 		try {
 			if (userService.loginPro(userDTO) != null) {
@@ -283,6 +285,22 @@ public class MypageController {
 		return "redirect:/my/profile-edit";
 	}
 
+	@PostMapping("/checkPassword")
+	@ResponseBody
+	public Map<String, Boolean> checkPassword(@RequestBody Map<String, String> payload, HttpSession session) {
+		String userName = (String) session.getAttribute("userName");
+		String password = payload.get("password");
+		UserDTO userDTO = new UserDTO();
+		userDTO.setUserName(userName);
+		userDTO.setPassword(password);
+
+		boolean isValid = userService.loginPro(userDTO) != null;
+
+		Map<String, Boolean> response = new HashMap<>();
+		response.put("isValid", isValid);
+		return response;
+	}
+
 	@GetMapping("/withdrawal")
 	public String withdrawal(Model model, HttpSession session) {
 		addCommonAttributes(model, session);
@@ -291,25 +309,11 @@ public class MypageController {
 	}
 
 	@PostMapping("/withdraw")
-	public String withdrawUser(HttpSession session, RedirectAttributes redirectAttributes, Model model) {
-		addCommonAttributes(model, session);
-		String userName = (String) session.getAttribute("userName");
-		if (userName != null) {
-			try {
-				UserDTO userDTO = new UserDTO();
-				userDTO.setUserName(userName);
-				userService.deleteUser(userDTO);
-				session.invalidate();
-				redirectAttributes.addFlashAttribute("message", "회원 탈퇴가 완료되었습니다.");
-				return "redirect:/main/main"; // 탈퇴 후 메인 페이지로 리다이렉션
-			} catch (Exception e) {
-				redirectAttributes.addFlashAttribute("error", "회원 탈퇴 중 오류가 발생했습니다: " + e.getMessage());
-				return "redirect:/my/profile-edit"; // 오류 발생 시 프로필 수정 페이지로 리다이렉션
-			}
-		} else {
-			redirectAttributes.addFlashAttribute("error", "로그인 정보가 유효하지 않습니다.");
-			return "redirect:/my/profile-edit";
-		}
+	public String withdrawUser(HttpSession session, Model model) {
+		Integer userId = (Integer) session.getAttribute("userId");
+		userService.deleteUser(userId);
+		session.invalidate();
+		return "redirect:/main/main";
 	}
 
 	@GetMapping("/reviews")

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.UserDTO;
+import com.itwillbs.domain.UserDTOAdmin;
 
 @Service
 public class MemberService {
@@ -15,7 +16,7 @@ public class MemberService {
 	@Autowired
 	private MemberDAO memberDAO;
 	
-	public UserDTO getMember(String id, String email, String phoneNumber, String name, String password, String createdAt,String user_role) {
+	public UserDTOAdmin getMember(String id, String email, String phoneNumber, String name, String password, String createdAt,String user_role) {
 		System.out.println("MemberService getMember");
 		System.out.println("MemberService getMember id::"+id);
 		System.out.println("MemberService getMember email::"+email);
@@ -27,8 +28,28 @@ public class MemberService {
 		return memberDAO.getMember(id,email,phoneNumber,name,password,createdAt,user_role);
 	}
 
-	public UserDTO getMember(String id) {
+	public UserDTOAdmin getMember(String id) {
 		return memberDAO.getMember(id);
 	}
+
+	public List<UserDTOAdmin> memberBooked(int user_id) {
+		// TODO Auto-generated method stub
+		return memberDAO.memberBooked(user_id);
+	}
+	//예매내역
+
+	public List<UserDTOAdmin> memberpay(int user_id) {
+		// TODO Auto-generated method stub
+		return memberDAO.memberpay(user_id);
+	}
+	//결제내역
+
+	public void memberdelete(int member_id) {
+		// TODO Auto-generated method stub.
+		memberDAO.memberdelete(member_id);
+		
+	}
+	//회원삭제
+
 
 }

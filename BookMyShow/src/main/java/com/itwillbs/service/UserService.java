@@ -20,7 +20,7 @@ public interface UserService {
     
     Boolean updateUser(UserDTO userDTO, String newPassword );
 
-	void deleteUser(UserDTO userDTO);
+	Boolean deleteUser(Integer userId);
 
     boolean updateUserPasswordAndEncode(UserDTO userDTO, String newPassword);
 

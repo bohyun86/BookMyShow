@@ -6,23 +6,65 @@
 <mapper namespace="com.itwillbs.mapper.MemberMapper">
 
  
-    <resultMap id="userResultMap" type="com.itwillbs.domain.UserDTO">
-        <id property="userId" column="user_id"/>
-        <result property="userName" column="user_name"/>
-        <result property="password" column="password"/>
-        <result property="email" column="email"/>
-        <result property="phoneNumber" column="phone_number"/>
-        <result property="name" column="name"/>
-        <result property="userRole" column="user_role"/>
-        <result property="createdAt" column="created_at"/>
-        <result property="updatedAt" column="updated_at"/>
-    </resultMap>
 
-    <select id="getMember" resultType="com.itwillbs.domain.UserDTO" resultMap="userResultMap">
-        SELECT *
+
+    <select id="getMember" resultType="com.itwillbs.domain.UserDTOAdmin" >
+        SELECT M.*,U.*
         FROM Member M
         JOIN User U ON M.user_id = U.user_id
-        WHERE U.user_name = #{id} or U.name =#{name} or U.email =#{email}
+        WHERE U.user_name = #{user_name} or U.name =#{name} or U.email =#{email}
+
     </select>
+<!--     회원검색 -->
+    
+    
+    
+        <select id="memberBooked" resultType="com.itwillbs.domain.UserDTOAdmin" >
+   SELECT M.*, U.*, B.*, BS.*, MS.*, V.*,R.*
+    FROM `Member` AS M
+    JOIN `User` AS U ON M.user_id = U.user_id
+    JOIN `Booking` AS B ON M.member_id = B.member_id
+    JOIN `BookedSeats` AS BS ON B.booking_id = BS.booking_id
+    JOIN `Musical` AS MS ON B.musical_id = MS.musical_id
+    JOIN `Venue` AS V ON MS.venue_id = V.venue_id
+    JOIN `Review` AS R ON MS.musical_id = R.musical_id
+    WHERE U.user_id = #{user_id}
+
+    </select>
+<!--     예매내역     -->
+    
+   <delete id="memberdelete" >
+	delete from Member
+	Where member_id = #{member_id} 
+</delete>
+<!-- 회원삭제 -->
+    
+    
+    
+
+
+<select id="memberpay"  resultType="com.itwillbs.domain.UserDTOAdmin"   >
+	SELECT M.*, U.*, B.*, BS.*, MS.*, V.*, R.*, P.*
+FROM `Member` AS M
+JOIN `User` AS U ON M.user_id = U.user_id
+JOIN `Booking` AS B ON M.member_id = B.member_id
+JOIN `BookedSeats` AS BS ON B.booking_id = BS.booking_id
+JOIN `Musical` AS MS ON B.musical_id = MS.musical_id
+JOIN `Venue` AS V ON MS.venue_id = V.venue_id
+JOIN `Review` AS R ON MS.musical_id = R.musical_id
+JOIN `Payment` AS P ON BS.booking_id = P.booking_id
+    WHERE U.user_id = #{user_id}
+
+
+
+</select>
+<!-- 결제내역     -->
+    
+    
+    
+    
+    
+    
+    
 
 </mapper>

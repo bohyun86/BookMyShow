@@ -5,63 +5,178 @@
 
 <mapper namespace="com.itwillbs.mapper.PartnerAdminMapper">
 
- 
-   <resultMap id="userResultMap" type="com.itwillbs.domain.UserDTO">
-        <id property="userId" column="user_id"/>
-        <result property="userName" column="user_name"/>
-        <result property="password" column="password"/>
-        <result property="email" column="email"/>
-        <result property="phoneNumber" column="phone_number"/>
-        <result property="name" column="name"/>
-        <result property="userRole" column="user_role"/>
-        <result property="createdAt" column="created_at"/>
-        <result property="updatedAt" column="updated_at"/>
-    
-     <association property="partnerDTO" javaType="com.itwillbs.domain.PartnerDTO">
-             <result property="partnerId" column="partner_id"/>
-        <result property="companyName" column="company_name"/>
-        <result property="businessId" column="business_id"/>
-        <result property="accountNumber" column="account_number"/>
-        <result property="createdAt" column="created_at"/>
-        <result property="updatedAt" column="updated_at"/>
-        <result property="userId" column="user_id"/>
-        <result property="partnerStatus" column="partner_status"/>
-        <result property="bankName" column="bank_name"/>
-        <result property="accountOwner" column="account_owner"/>
-        <result property="approved" column="approved"/>
-        
-<!--         <collection property="partnerQnaDTO" javaType="java.util.List" ofType="com.itwillbs.domain.PartnerQnaDTO"> -->
-<!--             <result property="inquiryId" column="inquiry_id"/> -->
-<!--             <result property="inquiryType" column="inquiry_type"/> -->
-<!--             <result property="title" column="title"/> -->
-<!--             <result property="content" column="content"/> -->
-<!--             <result property="createdAt" column="created_at"/> -->
-<!--             <result property="updatedAt" column="updated_at"/> -->
-<!--             <result property="userId" column="user_id"/> -->
-<!--             <result property="answered" column="answered"/> -->
-<!--         </collection> -->
-   
-        </association>
-    </resultMap>
 
-	<select id="getPartnersy"  resultMap="userResultMap" >
+    
+
+	<select id="getPartnersy"  resultType="com.itwillbs.domain.PartnerDTO2" >
  		SELECT U.*, P.*
         FROM Partner P
         JOIN User U ON P.user_id = U.user_id
-        WHERE U.user_name = #{id} or U.name =#{name}
+        WHERE P.approved=1 and U.user_name =#{user_name} or U.name=#{name}
     </select>	
-    
-<!--     <select id="getPartneQna"  resultMap="userResultMap" > -->
-<!--  			SELECT I.*, P.* -->
-<!--         FROM  Inquiry I -->
-<!--         JOIN Partner P ON I.user_id = P.user_id -->
-<!--         JOIN User U ON U.user_id = P.user_id -->
-<!--         WHERE U.user_name = #{user_name} or U.name =#{name} and I.answered =0   -->
-        
-<!--     </select> -->
-    
-    
-    
+
+
+<!-- 파트너 문의 리스트불러오기 -->
+	<select id="selectPartnerQnaList"   resultType="com.itwillbs.domain.PartnerQnaDTO"  >
+	
+<!-- 	SELECT I.*, U.*, P.* -->
+	SELECT I.answered,I.inquiry_id,I.inquiry_type,I.title,I.content,I.created_at,U.name,U.user_name,P.company_name
+	FROM Inquiry I 
+	JOIN User U ON I.user_id = U.user_id 
+	JOIN Partner P ON U.user_id = P.user_id
+	order by I.created_at ASC
+	    </select> 
+	    
+	    
+	    
+	    
+	    
+	    <!-- 파트너 문의답변페이지로 불러오기  -->
+	<select id="PartnerQnaAnser"  resultType="com.itwillbs.domain.PartnerQnaDTO" >
+	
+	SELECT *
+	FROM Inquiry 
+	where inquiry_id =#{inquiryId}
+	    </select> 
+	    
+	    <update id="qnaAnswerOK" >
+    UPDATE Inquiry
+    SET answered = 1
+    ,answer_content =#{answerContent}
+    WHERE inquiry_id = #{inquiryId}
+</update>
+	    
+	    <update id="qnaAnswerContentOK" >
+      UPDATE Inquiry set
+    answer_content =#{answerContent}
+    WHERE inquiry_id = #{inquiryId}
+</update>
+
+
+<!-- 파트너 승인대기 및 승인 완료 리스트  -->
+<select id="partnersumbitList"   resultType="com.itwillbs.domain.PartnerDTO2" >
+	
+	SELECT U.*, P.*
+	FROM Partner P 
+	JOIN User U ON P.user_id = U.user_id
+	
+		
+<!-- 	SELECT U.*, P.* -->
+<!-- 	FROM User U -->
+<!-- 	JOIN Partner P ON U.user_id = P.user_id -->
+<!-- 	WHERE U.user_role ='partner' -->
+	    </select> 
+	    
+	    
+<!-- 	    파트너 승인대기 상세정보 -->
+	    <select id="partnersumbitConfirm"   resultType="com.itwillbs.domain.PartnerDTO2" >
+	
+	SELECT U.*, P.*
+	FROM Partner P 
+	JOIN User U ON P.user_id = U.user_id
+	WHERE P.partner_id=#{partner_id}
+	
+	    </select> 
+	    
+<!-- 	    승인누르면 완료 -->
+	   <update id="partnerConfirm">
+	   UPDATE Partner
+	   SET approved=1
+	   WHERE partner_id=#{partner_id}
+	      
+	   </update>
+	   
+	    
+<delete id="partner_delete" >
+	delete from Partner
+	Where partner_id = #{partner_id} and approved=1;
+</delete>
+<!-- 파트너삭제 -->
+
+
+
+
+
+<!-- <update id="editUserFOReditPartner"> -->
+<!--  UPDATE User  -->
+<!--     SET user_name = #{user_name},  -->
+<!--         password = #{password},  -->
+<!--         name = #{name},  -->
+<!--         phone_number = #{phone_number},  -->
+<!--         email = #{email} -->
+<!--     WHERE user_id = #{user_id}  -->
+<!--     </update> -->
+
+<!-- <update id="editPartner"> -->
+<!--     UPDATE Partner  -->
+<!--     SET company_name = #{company_name},  -->
+<!--         business_id = #{business_id} -->
+<!--     WHERE partner_id = #{partner_id}  -->
+<!--     AND approved = 1 -->
+<!-- </update> -->
+<!-- 파트너정보업데이트 -->
+
+<select id="memberQnaList" resultType="com.itwillbs.domain.UserDTOAdmin" >
+
+SELECT I.answered,I.inquiry_id,I.inquiry_type,I.title,I.content,I.created_at,U.name,U.user_name
+	FROM Inquiry I 
+	JOIN User U ON I.user_id = U.user_id 
+	JOIN Member M ON U.user_id = M.user_id
+	order by I.created_at ASC
+
+</select>
+<!-- 회원문의 -->
+
+
+    <!-- 회원 문의답변페이지로 불러오기  -->
+	<select id="memberQnaAnser"  resultType="com.itwillbs.domain.UserDTOAdmin" >
+	
+	SELECT *
+	FROM Inquiry 
+	where inquiry_id =#{inquiryId}
+	    </select> 
+
+
+<select id="partner_settlement"  resultType="com.itwillbs.domain.PartnerDTO2"   >
+SELECT S.settlement_id,S.total_revenue,S.fee,S.settlement_amount,S.settlement_date,TP.tickets_sold,M.title,PF.performance_date
+FROM `Partner` AS P
+JOIN `User` AS U ON P.user_id = U.user_id
+JOIN `Settlement` AS S ON P.partner_id = S.partner_id
+JOIN `Performance` AS PF ON S.musical_id = PF.musical_id
+JOIN `TicketPrice` AS TP ON PF.performance_id = TP.performance_id  
+JOIN `Musical`  AS M ON PF.musical_id = M.musical_id 
+WHERE U.user_id = #{user_id}
+
+
+
+</select>
+<!-- 파트너정산 -->
+
+<update id="editPartner">
+update Partner P
+join User U on P.user_id = U.user_id
+set U.user_name=#{user_name}, 
+U.password =#{password}, 
+U.name=#{name},
+P.company_name=#{company_name},
+P.business_id=#{business_id},
+P.account_number=#{account_number},
+P.bank_name=#{bank_name},
+U.email=#{email}
+where U.user_id =#{user_id}
+
+
+
+
+</update>
+<!-- 파트너 정보수정 -->
+
+
+
+
+
+
+
     
 
 </mapper>
