@@ -19,7 +19,9 @@ import com.itwillbs.domain.PageDTO;
 import com.itwillbs.domain.SupportNoticeDTO;
 import com.itwillbs.domain.SupportinquiryDTO;
 import com.itwillbs.domain.SupportqnaDTO;
+import com.itwillbs.domain.UserDTO;
 import com.itwillbs.service.SupportService;
+import com.itwillbs.service.UserService;
 
 @Controller
 @Log4j2
@@ -28,6 +30,8 @@ public class SupportController {
 	
 	@Autowired  
 	private SupportService supportService;
+	@Autowired 
+	private UserService userService; 
 
     @GetMapping("/faq")
     public String faq() {
@@ -280,8 +284,16 @@ public class SupportController {
 	public String incontent(@RequestParam("inquiry_id") int inquiry_id, Model model) {
     	log.info("incontent success");
         SupportinquiryDTO supportinquiryDTO = supportService.getInquiry(inquiry_id);
-		
+        System.out.println("supportinquiryDTO----------"+supportinquiryDTO);
+        
+        UserDTO userDTO=new UserDTO();
+        userDTO.setUserId(supportinquiryDTO.getUser_id());
+        userDTO = userService.getUserId(userDTO);
+        System.out.println("userDTO----------"+userDTO);
+        
 		model.addAttribute("supportinquiryDTO", supportinquiryDTO);
+		model.addAttribute("userDTO", userDTO);
+		
 		return "/support/incontent";
 	}
     
@@ -326,7 +338,7 @@ public class SupportController {
     @PostMapping("support/inanswerPro")
 	public String inanswerPro(SupportinquiryDTO supportinquiryDTO) {
 		System.out.println("SupportController inanswerPro()");
-		System.out.println(supportinquiryDTO);
+		System.out.println("!!!!!"+supportinquiryDTO);
 		supportService.answerInquiry(supportinquiryDTO);
 		return "redirect:/support/incontent";
 	}

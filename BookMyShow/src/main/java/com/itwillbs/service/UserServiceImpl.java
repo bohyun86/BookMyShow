@@ -144,4 +144,10 @@ public class UserServiceImpl implements UserService {
 		userDTO.setTempPassword(passwordEncoder.encode(userDTO.getTempPassword()));
 		return userMapper.updateUserTempPw(userDTO) > 0;
 	}
+
+	@Override
+	public UserDTO getUserId(UserDTO userDTO) {
+
+		return userMapper.getUserId(userDTO);
+	}
 }

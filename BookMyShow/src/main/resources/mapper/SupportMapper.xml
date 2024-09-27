@@ -112,7 +112,7 @@
 	
 	<update id="answerInquiry">
 		update Inquiry
-		set answer_content = #{answer_content}, updated_at = #{updated_at}
+		set answer_content = #{answer_content}, updated_at = #{updated_at}, answered = #{answered}
 		where inquiry_id = #{inquiry_id}
 	</update>
 	   
