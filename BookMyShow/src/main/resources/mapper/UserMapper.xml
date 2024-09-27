@@ -91,6 +91,11 @@
     DELETE FROM User
     WHERE user_id = #{userId}
 	</delete>
+	
+	<select id="getUserId" resultType="com.itwillbs.domain.UserDTO"
+		resultMap="userResultMap">
+		select * from User where user_id = #{userId}
+	</select>
     
 </mapper>
   

@@ -77,7 +77,7 @@
 	
 	<insert id="insertInquiry">
 		insert into Inquiry(inquiry_id,inquiry_type,title,content,created_at,user_id,answered)
-		values(#{inquiry_id},#{inquiry_type},#{title},#{content},#{created_at},#{userId},#{answered})
+		values(#{inquiry_id},#{inquiry_type},#{title},#{content},#{created_at},#{user_id},#{answered})
 	</insert>
 	
 	<select id="getMaxNum2" resultType="java.lang.Integer">
@@ -98,5 +98,22 @@
 		select * from Inquiry
 		where inquiry_id = #{inquiry_id}
 	</select>
+	
+	<update id="updateInquiry">
+		update Inquiry
+		set title = #{title}, inquiry_type = #{inquiry_type}, content = #{content}, updated_at = #{updated_at}
+		where inquiry_id = #{inquiry_id}             
+	</update>
+	
+	<delete id="deleteInquiry">
+		delete from Inquiry
+		where inquiry_id = #{inquiry_id}             
+	</delete>
+	
+	<update id="answerInquiry">
+		update Inquiry
+		set answer_content = #{answer_content}, updated_at = #{updated_at}, answered = #{answered}
+		where inquiry_id = #{inquiry_id}
+	</update>
 	   
 </mapper>
