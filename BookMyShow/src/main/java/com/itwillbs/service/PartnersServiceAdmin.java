@@ -130,7 +130,27 @@ public class PartnersServiceAdmin {
 		// TODO Auto-generated method stub
 		return partnerDAO.partner_settlement(user_id);
 	}
-//파트너 정산
+	
+
+
+////파트너 정산
+	
+
+
+
+	
+	
+	public void editPartner(int user_id) {
+		// TODO Auto-generated method stub
+		 partnerDAO.editPartner(user_id);
+	}
+
+
+
+
+
+
+	
 
 	
 

@@ -82,6 +82,15 @@ public class PartnerDTO2 {
 	private int settlement_amo;
 	private Timestamp settlement_date;
 	private int seat_class_id;
+
+	//Settlement
+	private int settlement_id;
+	private int total_revenue;
+	private int settlement_amount;
+	
+	//뮤지컬
+	
+	private String title;
 	
 	
 	

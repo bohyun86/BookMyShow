@@ -138,9 +138,25 @@ public List<PartnerDTO2> partnersumbitList() {
 		// TODO Auto-generated method stub
 		return sqlSession.selectList(namespace+".partner_settlement",user_id);
 	}
-
-//파트너 정산
+		
+//	//파트너 정산
 	
+	
+
+	public void editPartner(int user_id) {
+		
+		sqlSession.update(namespace+".editPartner",user_id);
+	}
+//파트너 정보 수정
+
+
+	public UserDTOAdmin geteditPartner(int user_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.selectOne(namespace+ ".getPartnersy", user_id);
+	}
+
+
+
 
 
 
