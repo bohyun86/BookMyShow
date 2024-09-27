@@ -1,13 +1,5 @@
-<<<<<<< HEAD
-#noticenum {
-=======
-#noticenum {
-<<<<<<< HEAD
 
-=======
-<<<<<<< HEAD
->>>>>>> refs/heads/develop
->>>>>>> refs/heads/develop
+#noticenum {
 	margin-left: 270px;
 }
 
@@ -22,16 +14,6 @@ background: #eee;
 border:2px solid #fff;
 text-decoration: none;
 border-radius: 5px;
-<<<<<<< HEAD
-=======
-<<<<<<< HEAD
-
-=======
-=======
->>>>>>> refs/heads/develop
-    text-align: center;
-    padding: 0 0 30px 220px;
->>>>>>> refs/heads/develop
 }
 
 .pgnum, .now, .next {
@@ -44,12 +26,7 @@ border-radius: 5px;
     background: #eee;
     border:2px solid #fff;
     text-decoration: none;
-<<<<<<< HEAD
     border-radius: 5px; 
-=======
-    border-radius: 5px; 
->>>>>>> refs/heads/develop
->>>>>>> refs/heads/develop
 }
 
 .next {
