@@ -138,4 +138,5 @@ function handleWithdrawal(e) {
 
 function handleCancel(event) {
     event.preventDefault();
+    history.back();
 }
