@@ -101,7 +101,7 @@
 <main class="support-notice-write" id="notice-main">
     <section class="h-100" id="board-content">
     <form action="${pageContext.request.contextPath}/support/inupdate" class="supportForm" method="post" name="fr">
-                <p class="inquiry_1">아이디</p> <input type="text" name="name" value="${userDTO.name}" readonly>	
+                <p class="inquiry_1">작성자 이름</p> <input type="text" name="name" value="${userDTO.name}" readonly>	
 				<p class="inquiry_1">문의 제목</p> <input type="text" name="title" value="${supportinquiryDTO.title }" readonly>				
 				<p class="inquiry_3">문의 유형</p> <input type="text" name="inquiry_type" value="${supportinquiryDTO.inquiry_type}" readonly>				
 				<div class="editer_content">
@@ -114,7 +114,7 @@
 <%-- 				<a href="${pageContext.request.contextPath}/support/inanswer?inquiry_id=${supportinquiryDTO.inquiry_id}" class="btn_bbs3">답변 달기</a> --%>
 <%-- 				</c:if> --%>
 				<c:if test="${ ! empty sessionScope.userRole }">
-				<c:if test="${sessionScope.userId eq supportinquiryDTO.userId or sessionScope.userRole eq 'admin'}">
+				<c:if test="${sessionScope.userId eq supportinquiryDTO.user_id or sessionScope.userRole eq 'admin'}">
 				<a href="${pageContext.request.contextPath}/support/inupdate?inquiry_id=${supportinquiryDTO.inquiry_id}" class="btn_bbs1">문의 수정하기</a>
 				</c:if>
 				</c:if>
