@@ -26,7 +26,8 @@
 						<div class="row h-100 no-gutters">
 							<div
 								class="col-md-3 h-100 d-flex align-items-center justify-content-start">
-								<a href="<c:url value='/musical/page_detail?musical_id=${musical.musicalId}'/>"
+								<a
+									href="<c:url value='/musical/page_detail?musical_id=${musical.musicalId}'/>"
 									class="img-container"> <img
 									src="${pageContext.request.contextPath}/${attachFile.postFilePath}"
 									class="poster-img" alt="${musical.title} 포스터">
@@ -132,11 +133,21 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<ul>
-						<c:forEach var="seat" items="${bookedSeatsMap[booking.bookingId]}">
-							<li>${seat.seatNumber}</li>
-						</c:forEach>
-					</ul>
+					<c:choose>
+						<c:when test="${empty bookedSeatsMap[booking.bookingId]}">
+							<div class="alert alert-info" role="alert">
+								<i class="bi bi-info-circle me-2"></i>비지정석입니다.
+							</div>
+						</c:when>
+						<c:otherwise>
+							<ul class="list-group">
+								<c:forEach var="seat"
+									items="${bookedSeatsMap[booking.bookingId]}">
+									<li class="list-group-item">${seat.seatNumber}</li>
+								</c:forEach>
+							</ul>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>
