@@ -64,6 +64,36 @@ public class PartnerDTO2 {
 	private String account_owner;
 	
 	private int approved;
+	
+	
+	//Performance
+	private int performance_id;
+	private Timestamp performance_date;
+	private int musical_id;
+	private int venue_id;
+	
+	//TicketPrice
+	private int ticket_price_id;
+	private int price;
+	private int capacity;
+	private int tickets_sold;
+	private int revenue;
+	private int fee;
+	private int settlement_amo;
+	private Timestamp settlement_date;
+	private int seat_class_id;
+
+	//Settlement
+	private int settlement_id;
+	private int total_revenue;
+	private int settlement_amount;
+	
+	//뮤지컬
+	
+	private String title;
+	
+	
+	
 
 	@Override
 	public String toString() {

@@ -107,7 +107,7 @@
                                                       </div>
                                                       
                                         <input type="hidden" name="inquiryId" value="${memberQna.inquiry_id}">
-                                        <input type="hidden" name="answerContent" value="${memberQna.answer_content}">
+                                        <input type="hidden" name="answerContent" value="${memberQnaList.answer_content}">
                                         </div>
                                         </c:forEach>
                                         </c:if>
