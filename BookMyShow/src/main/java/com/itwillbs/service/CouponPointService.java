@@ -12,7 +12,7 @@ public interface CouponPointService {
 
 	int redeemCoupon(Integer userId, String couponCode);
 
-	void createCoupon(CouponDTO couponDTO);
+	boolean createCoupon(CouponDTO couponDTO);
 
 	Page<CouponDTO> getAllCoupons(int page, int size);
 

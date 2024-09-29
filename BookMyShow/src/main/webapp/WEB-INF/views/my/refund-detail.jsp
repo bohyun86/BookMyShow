@@ -20,7 +20,7 @@
 			<div class="detail-card">
 				<div class="detail-row">
 					<span class="detail-label">티켓명</span> <span class="detail-value">
-						<a href="<c:url value='/musical/detail/${musical.musicalId}'/>"
+						<a href="<c:url value='/musical/page_detail?musical_id=${musical.musicalId}'/>"
 						class="musical-title-link">${musical.title}</a>
 					</span>
 				</div>

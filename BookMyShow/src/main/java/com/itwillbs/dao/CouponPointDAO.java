@@ -47,8 +47,8 @@ public class CouponPointDAO {
 		sqlSession.insert(NAMESPACE + ".addPoints", params);
 	}
 
-	public void insertCoupon(CouponDTO couponDTO) {
-		sqlSession.insert(NAMESPACE + ".insertCoupon", couponDTO);
+	public boolean insertCoupon(CouponDTO couponDTO) {
+		return sqlSession.insert(NAMESPACE + ".insertCoupon", couponDTO) > 0;
 	}
 
 	public List<CouponDTO> getAllCoupons(int offset, int limit) {
