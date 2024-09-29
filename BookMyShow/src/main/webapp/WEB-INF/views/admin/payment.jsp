@@ -54,12 +54,14 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title" >회원결제내역 페이지 </h2>
+                            <h2 class="pageheader-title" >회원 관리페이지 </h2>
                             <p class="pageheader-text">Nulla euismod urna eros, sit amet scelerisque torton lectus vel
                                 mauris facilisis faucibus at enim quis massa lobortis rutrum.</p>
                         </div>
                     </div>
                 </div>
+             
+                
                 <!-- ============================================================== -->
                 <!-- end pageheader  -->
                 <!-- ============================================================== -->
@@ -69,49 +71,98 @@
 
 
 
-			
+				<div class="col-xl-9 col-lg-12 col-md-6 col-sm-12 col-12">
+                    <div class="card">
+                        <h5 class="card-header">결제내역</h5>
+                        <div class="card-body p-0">
+                            <div class="table-responsive">
+                                <table class="table">
+                                    <thead class="bg-light">
+                                    <tr class="border-0">
+                                        <th class="border-0">결제번호</th>
+                                        <th class="border-0">결제한 뮤지컬</th>
+                                        <th class="border-0">결제일</th>
+                                        <th class="border-0">결제상태</th>
+                                        <th class="border-0">결제좌석 번호</th>
+                                        <th class="border-0">결제티켓 수</th>
+                                        <th class="border-0">결제금액</th>
+                                        <th class="border-0">결제방법 (카드/현금)</th>
+                                        <th class="border-0">환불일</th>
+                                        <th class="border-0">환불내역</th>
+                                        <th class="border-0">환불상세</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+<!--                                     리스트의 총 크기를 계산 -->
+                                    <c:choose>
+                                        <c:when test="${empty memberpay}">
+                                            <tr>
+                                                <td colspan="11">데이터가 없습니다.</td>
+                                            </tr>
+                                        </c:when>
+                                    </c:choose>
+
+
+									
+                                  <c:forEach var="memberpay" items="${memberpay}">
+                                  
+                                  
+                <tr>
+                    <td>${memberpay.payment_id}</td>
+                    <td>${memberpay.title}</td>
+                    <td>${memberpay.status}</td>
+                    <td>${memberpay.created_at}</td>
+                    <td>${memberpay.seat_number}</td>
+                    <td>${memberpay.ticket_count}</td>
+                    <td>${memberpay.payment_date}</td>
+                    <td>${memberpay.payment_amount}</td>
+                    <td>${memberpay.payment_method}</td>
+                    <td>${memberpay.refund_amount}</td>
+                    <td>${memberpay.refund_type}</td>
+                </tr>
+            </c:forEach>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                            
+                        </div>
+                        
+                    </div>
+                            <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+ 								 <button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/main'" >돌아가기</button>&nbsp;&nbsp;
+							</div>
+<!--                     <nav aria-label="Page navigation"> -->
+<!--                         <ul class="pagination justify-content-center"> -->
+<%--                             <c:if test="${currentPage > 1}"> --%>
+<!--                                 <li class="page-item"> -->
+<%--                                     <a class="page-link" href="?page=${currentPage - 1}">&laquo;</a> --%>
+<!--                                 </li> -->
+<%--                             </c:if> --%>
+<%--                             <c:forEach var="i" begin="1" end="${totalPages}"> --%>
+<%--                                 <li class="page-item <c:if test='${i == currentPage}'>active</c:if>'"> --%>
+<%--                                     <a class="page-link" href="?page=${i}">${i}</a> --%>
+<!--                                 </li> -->
+<%--                             </c:forEach> --%>
+<%--                             <c:if test="${currentPage < totalPages}"> --%>
+<!--                                 <li class="page-item"> -->
+<%--                                     <a class="page-link" href="?page=${currentPage + 1}">&raquo;</a> --%>
+<!--                                 </li> -->
+<%--                             </c:if> --%>
+<!--                         </ul> -->
+<!--                     </nav> -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+               
 				
-					
-			<div class="card mb-3" style="max-width: 540px;">
-  
-					<div class="card mb-3" style="max-width: 540px;">
-  						<div class="row g-0">
-    						<div class="col-md-8">
-      							<div class="card-body">
-        							<h4 class="card-title">${sessionScope.id }회원님의 결제내역</h4>
-       									 <p class="card-text">
-       									 <ul>
-       									 	<li>결제번호:</li>
-       									 	<li>결제한 뮤지컬:</li>
-       									 	<li>결제일:</li>
-       									 	<li>결제상태:</li>
-       									 	<li>관람일:</li>
-       									 	<li>결제좌석 번호:</li>
-       									 	<li>결제티켓 수:</li>
-       									 	<li>결제금액</li>
-       									 	<li>결제방법 (카드/현금):</li>
-       									 
-       									 
-       									 </ul>
-       									 
-       									 </p>
-       									 </div>
-       									 </div>
-       									 </div>
-       									 </div>
-       									 </div>
-       									 
-       									 			
-											<div class="d-grid gap-2 col-6 mx-auto">
-											  <button class="btn btn-primary" type="button" onclick = "location.href='${pageContext.request.contextPath}/admin/member'">돌아가기</button> &nbsp;&nbsp;
-											</div>
 
 </div>
-       									 </div>
-       									 		
 				
-
-
+			               
+               
 
 <!-- 바텀 밑으로 내려야함 -->
 <%--         <jsp:include page="../include/adminBottom.jsp"/> --%>

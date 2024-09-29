@@ -12,6 +12,8 @@ public interface UserMapper {
     UserDTO loginPro(UserDTO userDTO);
 
     UserDTO getUser(UserDTO userDTO);
+    
+    UserDTO getUserId(UserDTO userDTO);
 
     UserDTO getUserByEmail(UserDTO userDTO);
 
