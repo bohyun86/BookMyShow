@@ -51,14 +51,26 @@ public class LoginController {
                 session.setAttribute("userRole", getUser.getUserRole());
                 session.setAttribute("userName", getUser.getUserName());
                 session.setAttribute("name", getUser.getName());
+
+                session.setAttribute("email", getUser.getEmail());
+                session.setAttribute("phoneNumber", getUser.getPhoneNumber());
+
                 session.setAttribute("oauth", getUser.getOauth());
+
+               
                 return ResponseEntity.ok(Map.of("success", true, "tempPassword", true));
             } else {
                 session.setAttribute("userId", getUser.getUserId());
                 session.setAttribute("userRole", getUser.getUserRole());
                 session.setAttribute("userName", getUser.getUserName());
                 session.setAttribute("name", getUser.getName());
+
+                session.setAttribute("email", getUser.getEmail());
+                session.setAttribute("phoneNumber", getUser.getPhoneNumber());
+
                 session.setAttribute("oauth", getUser.getOauth());
+
+              
                 return ResponseEntity.ok(Map.of("success", true, "tempPassword", false));
             }
         }
