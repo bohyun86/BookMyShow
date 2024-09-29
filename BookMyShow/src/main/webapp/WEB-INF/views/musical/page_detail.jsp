@@ -5,8 +5,7 @@
 <!DOCTYPE html>
 <html style="overflow-y:hidden !important">
 <head>
-<meta charset="UTF-8">
-<title>[뮤지컬]</title>
+
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
@@ -23,7 +22,11 @@
     crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/jquery-ui.css">
   <script src="${pageContext.request.contextPath}/resources/js/jquery-ui.min.js"></script>
+<script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 
+
+<meta charset="UTF-8">
+<title>[뮤지컬]</title>
 
 </head>
 <body>
@@ -38,6 +41,7 @@
 			</c:if>
 		</c:forEach>
 	</div>
+	<%-- action="${pageContext.request.contextPath}/musical/page_order" method="post" --%>
 		<form>
 			<section style="float: right; width: 307px;">
 				<div>
@@ -95,7 +99,8 @@
 					</div>
 
 				<div class="submit_btn">
-					<button href="#" class="disabled" id="submit_btn" disabled="disabled">결제하기</button>
+					<button type="button" class="disabled" id="submit_btn" disabled="disabled">결제하기</button>
+					
 				</div>
 						
 		</section>
@@ -364,10 +369,19 @@
 
 <script>
 
+var musical_title = "${musical_detail.title}";
+
+var sessionUserName = '<%= session.getAttribute("userName") != null ? session.getAttribute("userName") : "" %>';
+var sessionName='<%=session.getAttribute("name")%>';
+var sessionPhoneNumber='<%=session.getAttribute("phoneNumber")%>';
+var sessionEmail='<%=session.getAttribute("email")%>';
+
+console.log("유저 id : " + sessionUserName);
+console.log("유저 이름 : " + sessionName);
+console.log("유저 이름 : " + sessionPhoneNumber);
+console.log("유저 이름 : " + sessionEmail);
 
 
-
-const submit_btn = document.getElementById("submit_btn");
 const total_warp = document.getElementById("total_warp");
 const option = document.getElementById("option");
 const optionSelect = document.getElementById("optionSelect");
@@ -377,9 +391,13 @@ const remove_ticket = document.getElementById("remove_ticket");
 const add_ticket = document.getElementById("add_ticket");
 
 
+
+
 /* const modal = document.querySelector('.modal');
 const modalOpen = document.querySelector('.modal_btn');
 const modalClose = document.querySelector('.close_btn'); */
+
+//const IMP = window.IMP;
 
 
 
@@ -422,6 +440,7 @@ $(function() {
     $('.datepicker').datepicker({
         beforeShowDay: function(date) {
             var formattedDate = $.datepicker.formatDate("yy-mm-dd", date);
+            var ordDate = formattedDate;
             // selectableDates에 포함된 날짜만 선택 가능하게 설정
             if ($.inArray(formattedDate, selectableDates) != -1) {
                 return [true];  // 선택 가능
@@ -515,7 +534,7 @@ $(function() {
 							
 								// mm-dd 형식으로 포맷 (월은 0부터 시작하므로 +1)
 								var formattedTicketDate = ('0' + (ticketDate.getMonth() + 1)).slice(-2) + '-' + ('0' + ticketDate.getDate()).slice(-2);
-
+								var ordDate = ticketDate.getFullYear() + '-' + ('0' + (ticketDate.getMonth() + 1)).slice(-2) + '-' + ('0' + ticketDate.getDate()).slice(-2);
 								
 								var activeLength = $('button[name="optSelected"].active').length;
 
@@ -532,7 +551,9 @@ $(function() {
 								        var priceWithoutComma = parseInt(option.price.replace(/,/g, ''), 10);
 								        var fullPrice = priceWithoutComma * option.count;
 								        totalAmount += fullPrice;  // 총 결제 금액에 추가
-
+										var ordCount = option.count;
+								        var ordClassName = option.class_name;
+								        
 								        var ticketSelectButton = 
 								            "<div class='select_item_wrap' id='select_item_wrap" + (i + 1) + "'>" +
 								                "<div class='select_item' id='ticketitem" + (i + 1) + "'>" +
@@ -557,6 +578,15 @@ $(function() {
 								                    "</div>" +
 								                "</div>" +
 								                "<div style='clear: both;'></div>" +
+								                "<input type='text' name='ordMusical_id' value='"+ musical_id + "' hidden>"+
+								            	"<input type='text' name='ordUserId' value='"+ sessionUserName + "' hidden>"+
+								            	"<input type='text' name='ordUserName' value='"+ sessionName + "' hidden>"+
+								            	"<input type='text' name='ordPhoneNumber' value='"+ sessionPhoneNumber + "' hidden>"+
+								            	"<input type='text' name='ordEmail' value='"+ sessionEmail + "' hidden>"+
+								            	"<input type='text' name='ordTotalAmount' value='"+ totalAmount + "' hidden>"+
+								            	"<input type='text' name='ordClassName' value='"+ ordClassName + "' hidden>"+
+								            	"<input type='text' name='ordCount' value='"+ ordCount + "' hidden>"+
+								            	"<input type='text' name='ordDate' value='"+ ordDate + "' hidden>"+
 								            "</div>";
 
 								        ticketSelect.append(ticketSelectButton);
@@ -618,11 +648,14 @@ $(function() {
 
 								    // 총 결제 금액 표시 부분이 이미 있으면 업데이트, 없으면 생성
 								    if ($("#total_warp").length === 0) {
+								    					    	
 								        ticketSelect.append(
 								            "<div id='total_warp' class='total_warp' style='display: flex;'>" +
 								                "<p class='title'>총 결제금액</p>" +
 								                "<p id='total_price' class='total_price'>" + totalAmount.toLocaleString() + "원</p>" +
-								            "</div>"
+								            	
+								            	
+							                "</div>"
 								        );
 
 								        $("#submit_btn").removeClass('disabled');
@@ -688,6 +721,85 @@ $(function() {
 
     $('.datepicker').focus(); 
 });	
+
+
+
+
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    const submit_btn = document.getElementById("submit_btn");
+	
+	
+    
+    submit_btn.addEventListener('click', function(event) {
+        var uuid = crypto.randomUUID();
+        var ordMusical_id = $('input[name=ordMusical_id]').val();
+        var ordUserId = $('input[name=ordUserId]').val();
+        var ordUserName = $('input[name=ordUserName]').val();
+        var ordPhoneNumber = $('input[name=ordPhoneNumber]').val();
+        var ordEmail = $('input[name=ordEmail]').val();
+        var ordTotalPrice = parseInt(document.getElementById("total_price").innerText.replace(/,/g, ''), 10);
+        var ordClassName = $('input[name=ordClassName]').val();
+        var ordTotalCount = document.getElementById("quantity1").innerText;
+        var ordDate = $('input[name=ordDate]').val();
+        var ordTitle = "'" + musical_title + "'" + " " + ordDate + " " + ordClassName + "석";
+        
+        console.log("세션 유저 이름: " + sessionUserName);  // 세션값 확인
+        
+        if (!sessionUserName) {
+            alert("로그인이 필요합니다.");
+            event.preventDefault();  // form이 submit 되는 것을 방지
+        } else {
+            alert("결제를 진행합니다.");
+            console.log("<----결제관련 정보");
+            console.log(ordMusical_id);
+            console.log(ordUserId);
+            console.log(ordUserName);
+            console.log(ordEmail);
+            console.log(ordTotalPrice);
+            console.log(ordClassName);
+            console.log(ordTotalCount);
+            console.log(ordDate);
+            console.log(uuid);
+            console.log(ordTitle);
+            console.log("결제관련 정보---->");
+            // 결제 관련 함수 호출
+            IMP.init("imp41840484");
+
+            // 결제 요청 함수
+            IMP.request_pay({
+                pg: "kakaopay",
+                pay_method: "card",
+                amount: ordTotalPrice,  // 이 변수는 미리 정의되어 있어야 함
+                name: ordTitle,  // 결제 명세
+                quantity: ordTotalCount,
+                merchant_uid: uuid  // 유니크한 주문 번호 생성 (uuid 사용)
+            }, async (response) => {
+                if (response.error_code != null) {
+                    return alert(`결제에 실패하였습니다. 에러 내용: ${response.error_msg}`);
+                }
+
+                const notified = await fetch(`${SERVER_BASE_URL}/payment/complete`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    // imp_uid와 merchant_uid, 주문 정보를 서버에 전달합니다
+                    body: JSON.stringify({
+                        imp_uid: response.imp_uid,
+                        merchant_uid: response.merchant_uid,
+                        amount: response.amount,
+                        name: response.name,
+                        quantity: response.quantity
+                    })
+                }); // fetch 끝
+
+            }); // request_pay 끝
+        }
+    });
+});
+
+
+
 </script>
 
 
