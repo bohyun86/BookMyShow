@@ -31,6 +31,11 @@
 		#{userRole}, now())
 	</insert>
 
+	<select id="findByEmail" resultType="com.itwillbs.domain.UserDTO"
+		resultMap="userResultMap">
+		select * from User where email = #{email}
+	</select>
+
 	<select id="getUserById" resultType="com.itwillbs.domain.UserDTO"
 		resultMap="userResultMap">
 		select * from User where user_name = #{userName}
