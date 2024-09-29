@@ -448,7 +448,7 @@ $(function() {
 	                        console.log(result);
 	                        
 	                        option.style.display = 'block';
-
+	                        $(".submit_btn").css("padding-top" , "20px");
 	                        // optionSelect를 jQuery 객체로 변환
 	                        var optionSelect = $("#optionSelect"); // id가 "optionSelect"인 요소
 
@@ -673,6 +673,7 @@ $(function() {
 			}
             
         }
+          	
     });
 	
 
@@ -685,7 +686,7 @@ $(function() {
 	}) */
 
 
-
+    $('.datepicker').focus(); 
 });	
 </script>
 
