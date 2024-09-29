@@ -2,19 +2,22 @@ package com.itwillbs.service;
 
 import java.util.List;
 
+import com.itwillbs.domain.login.MemberDTO;
+import com.itwillbs.repository.MemberRepository;
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.itwillbs.dao.MemberDAO;
-import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.UserDTO;
 import com.itwillbs.domain.UserDTOAdmin;
 
 @Service
+@AllArgsConstructor
 public class MemberService {
 
-	@Autowired
 	private MemberDAO memberDAO;
+	private MemberRepository memberRepository;
 	
 	public UserDTOAdmin getMember(String id, String email, String phoneNumber, String name, String password, String createdAt,String user_role) {
 		System.out.println("MemberService getMember");
@@ -50,6 +53,8 @@ public class MemberService {
 		
 	}
 	//회원삭제
+
+
 
 
 }
