@@ -31,4 +31,5 @@ public interface UserMapper {
 
     int updateUserTempPw(UserDTO userDTO);
 
+    UserDTO findByEmail(String email);
 }
