@@ -53,9 +53,9 @@ public class AdminController {
 	private PartnerService partnerService;
 	private PartnerController partnerController;
 	private ServletContext servletContext;
+
 	private ObjectMapper objectMapper;
 	private MemberService memberService;
-	
 
 	@GetMapping("/main")
 	public String home() {
@@ -687,7 +687,7 @@ System.out.println("booking memberBooked----"+memberBooked);
 		if (deleted) {
 			return ResponseEntity.ok().body("{\"success\": true}");
 		} else {
-			return ResponseEntity.badRequest().body("{\"success\": false}");
+			return ResponseEntity.badRequest().body("쿠폰 생성에 실패하였습니다.");
 		}
 	}
 	// coupon end

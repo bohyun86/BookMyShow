@@ -2,6 +2,8 @@ package com.itwillbs.controller;
 
 import com.itwillbs.domain.UserDTO;
 import com.itwillbs.service.EmailService;
+import com.itwillbs.service.KakaoLoginService;
+import com.itwillbs.service.NaverLoginService;
 import com.itwillbs.service.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -25,6 +27,8 @@ public class LoginController {
 
     private UserServiceImpl userServiceImpl;
     private EmailService emailService;
+    private KakaoLoginService kakaoLoginService;
+    private NaverLoginService naverLoginService;
 
 
     @GetMapping("")
@@ -47,16 +51,26 @@ public class LoginController {
                 session.setAttribute("userRole", getUser.getUserRole());
                 session.setAttribute("userName", getUser.getUserName());
                 session.setAttribute("name", getUser.getName());
+
                 session.setAttribute("email", getUser.getEmail());
                 session.setAttribute("phoneNumber", getUser.getPhoneNumber());
+
+                session.setAttribute("oauth", getUser.getOauth());
+
+               
                 return ResponseEntity.ok(Map.of("success", true, "tempPassword", true));
             } else {
                 session.setAttribute("userId", getUser.getUserId());
                 session.setAttribute("userRole", getUser.getUserRole());
                 session.setAttribute("userName", getUser.getUserName());
                 session.setAttribute("name", getUser.getName());
+
                 session.setAttribute("email", getUser.getEmail());
                 session.setAttribute("phoneNumber", getUser.getPhoneNumber());
+
+                session.setAttribute("oauth", getUser.getOauth());
+
+              
                 return ResponseEntity.ok(Map.of("success", true, "tempPassword", false));
             }
         }
@@ -135,9 +149,20 @@ public class LoginController {
     @GetMapping("/logout")
     public String logout(HttpSession session) {
         log.info("logout success");
+        if (session.getAttribute("oauth") != null) {
+            if (session.getAttribute("oauth").equals("kakao")) {
+                kakaoLoginService.logout(session);
+            } else if (session.getAttribute("oauth").equals("naver")) {
+                naverLoginService.logout(session);
+            }
+        }
         session.invalidate();
+
         return "redirect:/main/main";
+
     }
+
+
 
 
 }

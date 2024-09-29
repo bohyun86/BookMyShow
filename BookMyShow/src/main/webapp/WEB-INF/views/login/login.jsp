@@ -48,11 +48,11 @@
         </div>
 
         <div class="text-center" id="simple-login-img">
-            <button type="submit" class="btn btn-outline-none py-3">
+            <button type="submit" class="btn btn-outline-none py-3" id="simple-login-btn-naver">
                 <img src="${pageContext.request.contextPath}/resources/images/login/circle_naver.png" alt="naver"
                      class="icon">
             </button>
-            <button type="submit" class="btn btn-outline-none py-3">
+            <button type="submit" class="btn btn-outline-none py-3" id="simple-login-btn-kakao">
                 <img src="${pageContext.request.contextPath}/resources/images/login/circle_kakao.png" alt="kakao"
                      class="icon">
             </button>
@@ -108,5 +108,26 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
         crossorigin="anonymous"></script>
+<script>
+    const pageContext = {
+        request: {
+            contextPath: '${pageContext.request.contextPath}'
+        }
+    };
+
+    document.addEventListener("DOMContentLoaded", () => {
+        const loginBtnNaver = document.querySelector("#simple-login-btn-naver");
+        const loginBtnKakao = document.querySelector("#simple-login-btn-kakao");
+
+        loginBtnKakao.addEventListener("click", () => {
+            window.location.href = "${pageContext.request.contextPath}/kakao/login";
+        });
+
+        loginBtnNaver.addEventListener("click", () => {
+            window.location.href = "${pageContext.request.contextPath}/naver/login";
+        });
+
+    });
+</script>
 </body>
 </html>

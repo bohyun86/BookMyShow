@@ -260,7 +260,8 @@ function checkValidForm() {
     const isPhoneValid = phoneAlert.innerText === '사용가능한 전화번호입니다.';
     const isPasswordValid = confirmPasswordAlert.innerText === '비밀번호가 일치합니다.';
     const isNewPasswordValid = (newPasswordAlert.innerText === '' || newPasswordAlert.innerText === '사용가능한 비밀번호입니다.' || newPasswordAlert.innerText === '비밀번호를 변경하려면 새 비밀번호를 입력하세요.');
-    const isConfirmNewPasswordValid = (confirmNewPasswordAlert.innerText === '비밀번호가 일치합니다.' || (newPasswordAlert.innerText === '' && confirmNewPasswordAlert.innerText === ''));
+    const isConfirmNewPasswordValid = (confirmNewPasswordAlert.innerText === '비밀번호가 일치합니다.' || ((newPasswordAlert.innerText === '' || newPasswordAlert.innerText === '비밀번호를 변경하려면 새 비밀번호를 입력하세요.')
+    								&& (confirmNewPasswordAlert.innerText === '')));
 
     return isEmailValid && isNameValid && isPhoneValid && isPasswordValid && isNewPasswordValid && isConfirmNewPasswordValid;
 }

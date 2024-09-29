@@ -3,10 +3,10 @@ package com.itwillbs.service;
 import com.itwillbs.domain.MemberDTO;
 import com.itwillbs.domain.UserDTO;
 import com.itwillbs.mapper.UserMapper;
+import com.itwillbs.repository.UserRepository;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,6 +17,7 @@ public class UserServiceImpl implements UserService {
 
 	private UserMapper userMapper;
     private BCryptPasswordEncoder passwordEncoder;
+	private UserRepository userRepository;
 
 	@Transactional
 	@Override
@@ -141,5 +142,14 @@ public class UserServiceImpl implements UserService {
 	public UserDTO getUserId(UserDTO userDTO) {
 
 		return userMapper.getUserId(userDTO);
+	}
+
+	public UserDTO checkPhoneNumber(UserDTO userDTO) {
+		return userRepository.findByPhoneNumber(userDTO.getPhoneNumber());
+	}
+
+	public UserDTO checkEmailJPA(UserDTO userDTO) {
+		String email = userDTO.getEmail();
+		return userMapper.findByEmail(email);
 	}
 }

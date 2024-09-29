@@ -9,9 +9,7 @@ public class SupportNoticeDTO {
 	private String content;
 	private Timestamp created_at;
 	private Timestamp update_at;
-	
-	
-	
+
 	@Override
 	public String toString() {
 		return "SupportNoticeDTO [notice_id=" + notice_id + ", title=" + title + ", content=" + content
