@@ -123,6 +123,10 @@
             window.location.href = "${pageContext.request.contextPath}/kakao/login";
         });
 
+        loginBtnNaver.addEventListener("click", () => {
+            window.location.href = "${pageContext.request.contextPath}/naver/login";
+        });
+
     });
 </script>
 </body>

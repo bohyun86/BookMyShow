@@ -79,6 +79,13 @@
 	<prop key="kakao.redirectUri">http://localhost:8080/oauth/kakao/callback</prop>
 	</util:properties>
 
+	<!-- Kakao API Key 설정 -->
+	<util:properties id="naverProperties">
+		<prop key="naver.restApiKey">b1nZhbAfVg0CcxxmfH8s</prop>
+		<prop key="naver.redirectUri">http://localhost:8080/oauth/naver/callback</prop>
+		<prop key="naver.clientSecret">GOgvJQ_6Iv</prop>
+	</util:properties>
+
 	<!-- 비동기 처리 설정 -->
 	<task:annotation-driven executor="asyncExecutor" />
 	<task:executor id="asyncExecutor" pool-size="5-10" queue-capacity="25" />

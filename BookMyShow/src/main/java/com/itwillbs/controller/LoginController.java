@@ -3,6 +3,7 @@ package com.itwillbs.controller;
 import com.itwillbs.domain.UserDTO;
 import com.itwillbs.service.EmailService;
 import com.itwillbs.service.KakaoLoginService;
+import com.itwillbs.service.NaverLoginService;
 import com.itwillbs.service.UserServiceImpl;
 import lombok.AllArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -27,6 +28,7 @@ public class LoginController {
     private UserServiceImpl userServiceImpl;
     private EmailService emailService;
     private KakaoLoginService kakaoLoginService;
+    private NaverLoginService naverLoginService;
 
 
     @GetMapping("")
@@ -139,7 +141,7 @@ public class LoginController {
             if (session.getAttribute("oauth").equals("kakao")) {
                 kakaoLoginService.logout(session);
             } else if (session.getAttribute("oauth").equals("naver")) {
-
+                naverLoginService.logout(session);
             }
         }
         session.invalidate();
