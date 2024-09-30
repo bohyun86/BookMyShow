@@ -27,7 +27,7 @@
 								<c:if
 									test="${not empty musicals[status.index] and not empty attachFiles[status.index]}">
 									<a
-										href="<c:url value='/musical/detail/${musicals[status.index].musicalId}'/>"
+										href="<c:url value='/musical/page_detail?musical_id=${musicals[status.index].musicalId}'/>"
 										class="img-container"> <img
 										src="${pageContext.request.contextPath}/${attachFiles[status.index].postFilePath}"
 										class="poster-img" alt="${musicals[status.index].title} 포스터">
@@ -50,7 +50,7 @@
 											<h5 class="card-title mb-0">
 												<c:if test="${not empty musicals[status.index]}">
 													<a
-														href="<c:url value='/musical/detail/${musicals[status.index].musicalId}'/>"
+														href="<c:url value='/musical/page_detail?musical_id=${musicals[status.index].musicalId}'/>"
 														class="card-title-link">${musicals[status.index].title}</a>
 												</c:if>
 											</h5>
@@ -78,10 +78,10 @@
 									<div class="row align-items-center no-gutters">
 										<div class="col-12">
 											<p class="card-text mb-0 refund-amount">
-												총 ${booking.ticketCount}매 /
+												총 ${booking.ticketCount}매 
 												<c:if test="${not empty payments[status.index]}">
 													<fmt:formatNumber
-														value="${payments[status.index].refundAmount}"
+														value="${payments[status.index].refundAmount * booking.ticketCount}"
 														type="currency" currencySymbol="₩" />
 												</c:if>
 											</p>

@@ -138,5 +138,5 @@ function handleWithdrawal(e) {
 
 function handleCancel(event) {
     event.preventDefault();
-    window.location.href = '/i5/my/profile-edit';
+    history.back();
 }

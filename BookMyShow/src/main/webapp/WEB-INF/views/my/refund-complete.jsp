@@ -19,7 +19,7 @@
 		<section id="board-content">
 			<div class="title">환불 완료</div>
 			<div class="booking-complete-card">
-				<p class="text-center mb-4">환불 처리가 완료되었습니다</p>
+				<h1 class="text-center mb-4">환불 처리가 완료되었습니다</h1>
 				<div class="booking-card mb-4">
 					<div class="card-body">
 						<div class="row h-100 no-gutters">
@@ -86,7 +86,7 @@
 			</div>
 
 			<div
-				class="refund-details bg-secondary bg-opacity-25 p-4 rounded mb-4">
+				class="refund-details bg-secondary bg-opacity-10 p-4 rounded mb-4">
 				<h3 class="mb-3">환불 상세 정보</h3>
 				<ul class="list-unstyled">
 					<li>결제금액: <fmt:formatNumber value="${payment.paymentAmount}"
@@ -96,22 +96,24 @@
 							type="currency" currencySymbol="₩" /></li>
 					<li>환불금액: <fmt:formatNumber value="${payment.refundAmount}"
 							type="currency" currencySymbol="₩" /></li>
-					<li>환불수단: ${payment.paymentMethod}</li>
+					<%-- 					<li>환불수단: ${payment.paymentMethod}</li> --%>
 					<li>환불 예정일: 즉시 또는 평일 3~5일 이내</li>
 				</ul>
 			</div>
 
 			<div
-				class="refund-notice bg-secondary bg-opacity-50 p-4 rounded mb-4">
+				class="refund-notice bg-secondary bg-opacity-10 p-4 rounded mb-4">
 				<h3 class="mb-3">환불 안내 사항</h3>
 				<ul class="list-unstyled">
 					<li>
-<%-- 					${payment.paymentMethod} 내  --%>
-					결제수단에 따라 최종 환불까지 3~5 일이 소요 될 수 있습니다.</li>
+						<%-- 					${payment.paymentMethod} 내  --%> 결제수단에 따라 최종 환불까지 3~5 일이
+						소요 될 수 있습니다.
+					</li>
 					<li>
-<%-- 					${payment.paymentMethod}  --%>
-					포인트로 결제하신 경우 동일한 포인트로 즉시 환불이 완료됩니다.</li>
-<%-- 					<li>세부사항은 ${payment.paymentMethod} 내 결제내역을 확인해주세요.</li> --%>
+						<%-- 					${payment.paymentMethod}  --%> 포인트로 결제하신 경우 동일한 포인트로 즉시
+						환불이 완료됩니다.
+					</li>
+					<%-- 					<li>세부사항은 ${payment.paymentMethod} 내 결제내역을 확인해주세요.</li> --%>
 					<li>해당 티켓은 환불 승인이 완료되었기에 사용할 수 없으며, 환불 철회 또한 불가한 점 유의 부탁드립니다.</li>
 				</ul>
 			</div>

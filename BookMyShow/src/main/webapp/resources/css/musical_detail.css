@@ -178,11 +178,12 @@ object {
 
 /*---------- ë©”ì¸/ë¦¬ìŠ¤íŠ¸ 4ì—´ ê³ ì •í˜• í‹°ì¼“ ----------*/
 .submit_btn {
-   padding-top: 10px;
+   padding-top: 330px;
    width: 100%;
-   background: #f4f4f4;
+   /* background: #f4f4f4; */
    cursor: pointer;
 }
+
 
 .submit_btn button {
     display: block;

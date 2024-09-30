@@ -79,3 +79,29 @@ function deleteReview(reviewId) {
         });
     }
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const deleteButton = document.getElementById('deleteReview');
+    if (deleteButton) {
+        deleteButton.addEventListener('click', function() {
+            if (confirm('정말로 이 리뷰를 삭제하시겠습니까?')) {
+                const reviewId = this.getAttribute('data-review-id');
+                fetch(`${contextPath}/my/review-delete/${reviewId}`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    }
+                })
+                .then(response => {
+                    if (response.ok) {
+                        alert('리뷰가 성공적으로 삭제되었습니다.');
+                        window.location.href = `${contextPath}/my/reviews`;
+                    } else {
+                        alert('리뷰 삭제에 실패했습니다.');
+                    }
+                })
+                .catch(() => alert('리뷰 삭제 중 오류가 발생했습니다.'));
+            }
+        });
+    }
+});
