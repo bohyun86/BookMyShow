@@ -64,7 +64,7 @@
                 <div class="row">
                     <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                         <div class="page-header">
-                            <h2 class="pageheader-title">신규등록</h2>
+                            <h2 class="pageheader-title">등록 조회ㆍ수정</h2>
                             <div class="m-2 bg-white form-body">
                                 <form enctype="multipart/form-data" class="was-validated">
                                     <div class="p-3 mb-2 bg-body-tertiary">
