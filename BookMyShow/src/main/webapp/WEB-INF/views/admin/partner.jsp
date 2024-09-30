@@ -86,7 +86,7 @@
 					  </ul>
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-					  <button class="btn btn-primary" type="button" id="editButton"   disabled>정보 조회 및 수정</button>
+					  <button class="btn btn-primary" type="button" id="editButton"   disabled>정보 조회 및 삭제</button>
 					</div></p> 
 					
 					<p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -235,7 +235,7 @@ function ajaxSearchPartner(searchValue){
                                   if (partnerDTO2) {
                                       
                                       $('#partnerresult').append('<li class="list-group-item"><a href="javascript:;">'
-                                          + "회사명: " +partnerDTO2.company_name
+                                          + "제작사: " +partnerDTO2.company_name
                                           + ", 사업자 ID: " + partnerDTO2.business_id
                                           + ", 계좌번호: " + partnerDTO2.account_number
                                           + '</a></li>');
@@ -255,20 +255,23 @@ function ajaxSearchPartner(searchValue){
                                       + encodeURIComponent(partnerDTO2.business_id) 
                                       +'&account_number='
                                       + encodeURIComponent(partnerDTO2.account_number) 
-                                      +'&bankName='
-                                      + encodeURIComponent(partnerDTO2.bankName) 
+                                      +'&bank_name='
+                                      + encodeURIComponent(partnerDTO2.bank_name) 
                                       +'&phone_number='
                                       + encodeURIComponent(partnerDTO2.phone_number) 
                                       +'&email='
                                       + encodeURIComponent(partnerDTO2.email) 
                                       +'&created_at='
                                       + encodeURIComponent(partnerDTO2.created_at) 
+                                      +'&partner_id='
+                                      + encodeURIComponent(partnerDTO2.partner_id) 
+                                      +'&user_id='
+                                      + encodeURIComponent(partnerDTO2.user_id) 
                                       
                                       + '"').prop('disabled', false);
                                   
                                   
-                                  $('#qnaButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_qna?userName=' + response.userName + '"').prop('disabled', false);
-                                  $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?userName=' + response.userName + '"').prop('disabled', false);
+                                  $('#paymentButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/partner_settlement?user_id=' + partnerDTO2.user_id + '"').prop('disabled', false);
                               } 
                               }else {
 //             	console.log("요청실패",userDTO);

@@ -7,6 +7,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.itwillbs.dao.MemberDAO;
 import com.itwillbs.dao.PartnerDAO;
 import com.itwillbs.domain.PartnerDTO;
 import com.itwillbs.domain.PartnerDTO2;
@@ -78,10 +79,16 @@ public class PartnersServiceAdmin {
 
 
 
+//	public List<PartnerDTO2> partnersumbitList() {
+//		// TODO Auto-generated method stub
+//		return partnerDAO.partnersumbitList();
+//	} //파트너 승인페이지 리스트
+//	
 	public List<PartnerDTO2> partnersumbitList() {
 		// TODO Auto-generated method stub
 		return partnerDAO.partnersumbitList();
 	} //파트너 승인페이지 리스트
+
 
 
 	public List<PartnerDTO2> partnersumbitConfirm(int partner_id) {
@@ -95,8 +102,56 @@ public class PartnersServiceAdmin {
 		// TODO Auto-generated method stub
 		partnerDAO.partnerConfirm(partner_id);
 	}
+	//파트너승인수락
+
+
+	public void partner_delete(int partner_id) {
+		// TODO Auto-generated method stub
+		partnerDAO.partner_delete(partner_id);
+	}
+	//파트너 삭제
+
+
+	public List<UserDTOAdmin> memberQnaList() {
+		// TODO Auto-generated method stub
+		return partnerDAO.memberQnaList();
+	}
+	//회원문의
+
+
+	public List<UserDTOAdmin> memberQnaAnser(int inquiry_id, String answer_content) {
+		// TODO Auto-generated method stub
+		return partnerDAO.memberQnaAnser(inquiry_id,answer_content);
+	}
+	//회원문의 답변
+
+
+	public List<PartnerDTO2> partner_settlement(int user_id) {
+		// TODO Auto-generated method stub
+		return partnerDAO.partner_settlement(user_id);
+	}
+	
+
+
+////파트너 정산
+	
+
+
 
 	
+	
+	public void editPartner(int user_id) {
+		// TODO Auto-generated method stub
+		 partnerDAO.editPartner(user_id);
+	}
+
+
+
+
+
+
+	
+
 	
 
 

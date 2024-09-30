@@ -47,11 +47,11 @@ public class CouponPointServiceImpl implements CouponPointService {
 	}
 
 	@Override
-	public void createCoupon(CouponDTO couponDTO) {
+	public boolean createCoupon(CouponDTO couponDTO) {
 		if (couponDTO.getCode().length() != 12) {
 			throw new IllegalArgumentException("쿠폰 코드는 12자리여야 합니다.");
 		}
-		couponPointDAO.insertCoupon(couponDTO);
+		return couponPointDAO.insertCoupon(couponDTO);
 	}
 	
 	@Override

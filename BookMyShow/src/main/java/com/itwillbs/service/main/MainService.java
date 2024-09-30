@@ -123,6 +123,7 @@ public class MainService {
             mainNewCarouselDTO.setTitle(musicalDTO.getTitle());
             mainNewCarouselDTO.setDiscountRate(intDiscountRate + "");
             mainNewCarouselDTO.setPrice(formattedPrice);
+            mainNewCarouselDTO.setMusicalId(musicalDTO.getMusicalId());
 
 
             log.info("{}: {}",keyName, mainNewCarouselDTO);

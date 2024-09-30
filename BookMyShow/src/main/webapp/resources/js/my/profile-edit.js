@@ -2,6 +2,50 @@
 document.addEventListener('DOMContentLoaded', function () {
     eventCheck(); // 유효성 검사 함수 실행
     initialValidation(); // 초기 유효성 검사 실행
+   
+    const withdrawalBtn = document.querySelector('#withdrawal-button');
+    withdrawalBtn.addEventListener('click', function (e) {
+        e.preventDefault();
+        const password = document.querySelector('input[name="password"]').value;
+        const confirmPassword = document.querySelector('input[name="confirmPassword"]').value;
+
+        if (password === '' || confirmPassword === '') {
+            alert('현재 비밀번호와 비밀번호 확인을 입력해주세요.');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            alert('현재 비밀번호와 비밀번호 확인이 일치하지 않습니다.');
+            return;
+        }
+
+        // 비밀번호 확인을 서버에서 수행
+        fetch(`${contextPath}/my/checkPassword`, {
+		    method: 'POST',
+		    headers: {
+		        'Content-Type': 'application/json',
+		        'Accept': 'application/json'
+		    },
+		    body: JSON.stringify({ password: password }),
+		})
+		.then(response => {
+		    if (!response.ok) {
+		        throw new Error('Network response was not ok');
+		    }
+		    return response.json();
+		})
+		.then(data => {
+		    if (data.isValid) {
+		        window.location.href = `${contextPath}/my/withdrawal`;
+		    } else {
+		        alert('비밀번호가 올바르지 않습니다.');
+		    }
+		})
+		.catch(error => {
+		    console.error('Error:', error);
+		    alert('오류가 발생했습니다. 다시 시도해주세요.');
+		});
+    });
 });
 
 // 유효성 검사 이벤트 리스너 모음
@@ -208,12 +252,6 @@ document.addEventListener('DOMContentLoaded', function () {
             alert('입력값을 확인해주세요.');
         }
     });
-
-    const withdrawalBtn = document.querySelector('#withdrawal-button');
-    withdrawalBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        window.location.href = `${contextPath}/my/withdrawal`;
-    });
 });
 
 function checkValidForm() {
@@ -222,7 +260,8 @@ function checkValidForm() {
     const isPhoneValid = phoneAlert.innerText === '사용가능한 전화번호입니다.';
     const isPasswordValid = confirmPasswordAlert.innerText === '비밀번호가 일치합니다.';
     const isNewPasswordValid = (newPasswordAlert.innerText === '' || newPasswordAlert.innerText === '사용가능한 비밀번호입니다.' || newPasswordAlert.innerText === '비밀번호를 변경하려면 새 비밀번호를 입력하세요.');
-    const isConfirmNewPasswordValid = (confirmNewPasswordAlert.innerText === '비밀번호가 일치합니다.' || (newPasswordAlert.innerText === '' && confirmNewPasswordAlert.innerText === ''));
+    const isConfirmNewPasswordValid = (confirmNewPasswordAlert.innerText === '비밀번호가 일치합니다.' || ((newPasswordAlert.innerText === '' || newPasswordAlert.innerText === '비밀번호를 변경하려면 새 비밀번호를 입력하세요.')
+    								&& (confirmNewPasswordAlert.innerText === '')));
 
     return isEmailValid && isNameValid && isPhoneValid && isPasswordValid && isNewPasswordValid && isConfirmNewPasswordValid;
 }

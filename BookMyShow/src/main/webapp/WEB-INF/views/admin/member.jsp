@@ -88,7 +88,7 @@
 <!-- </div> -->
 
 <p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  <button class="btn btn-primary" type="button" id="editButton" disabled>정보 조회 및 수정</button>
+  <button class="btn btn-primary" type="button" id="editButton" disabled>정보 조회 및 삭제</button>
 </div></p> 
 
 <p><div class="d-grid gap-2 d-md-flex justify-content-md-end">
@@ -212,9 +212,13 @@ $(function() {
                     		+ encodeURIComponent(userDTO.password)
                     		+'&created_at='
                     		+ encodeURIComponent(userDTO.created_at)
+                    		+'&member_id='
+                    		+ encodeURIComponent(userDTO.member_id)
                     		+'"').prop('disabled', false);
-                    $('#bookingButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/booking?user_name=' + userDTO.user_name + '"').prop('disabled', false);
-                    $('#paymentutton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/payment?user_name=' + userDTO.user_name + '"').prop('disabled', false);
+                    $('#bookingButton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/booking?user_id=' 
+                    		+ encodeURIComponent(userDTO.user_id) +
+                    		'"').prop('disabled', false);
+                    $('#paymentutton').attr('onclick', 'location.href="' + '${pageContext.request.contextPath}/admin/payment?user_id=' + userDTO.user_id + '"').prop('disabled', false);
                 } else {
                     $('#result').html("회원정보가 없습니다");
                     $('#editButton').prop('disabled', true);

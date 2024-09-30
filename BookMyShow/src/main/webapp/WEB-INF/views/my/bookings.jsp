@@ -11,7 +11,6 @@
 <body id="board-body">
 	<jsp:include page="../include/top.jsp" />
 	<jsp:include page="../include/my/myticket.jsp" />
-
 	<main id="board-main">
 		<jsp:include page="../include/my/sidebar.jsp" />
 		<section id="board-content">
@@ -24,7 +23,7 @@
 							<div
 								class="col-md-3 h-100 d-flex align-items-center justify-content-start">
 								<a
-									href="<c:url value='/musical/detail/${performances[status.index].musicalId}'/>"
+									href="<c:url value='/musical/page_detail?musical_id=${performances[status.index].musicalId}'/>"
 									class="img-container"> <img
 									src="${pageContext.request.contextPath}/${attachFiles[status.index].postFilePath}"
 									class="poster-img" alt="${musicals[status.index].title} 포스터">
@@ -45,7 +44,7 @@
 										<div class="col-8 pr-2">
 											<h5 class="card-title mb-0">
 												<a
-													href="<c:url value='/musical/detail/${performances[status.index].musicalId}'/>"
+													href="<c:url value='/musical/page_detail?musical_id=${performances[status.index].musicalId}'/>"
 													class="card-title-link">${musicals[status.index].title}</a>
 											</h5>
 										</div>
@@ -144,28 +143,41 @@
 
 	<jsp:include page="../include/bottom.jsp" />
 
-	 <!-- 좌석 확인 모달 -->
-    <c:forEach var="booking" items="${bookings}" varStatus="status">
-        <div class="modal fade" id="seatModal${booking.bookingId}" tabindex="-1" aria-labelledby="seatModalLabel${booking.bookingId}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="seatModalLabel${booking.bookingId}">
-                            <i class="bi bi-chair me-2"></i>좌석 정보
-                        </h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <ul>
-                            <c:forEach var="seat" items="${bookedSeatsMap[booking.bookingId]}">
-                                <li>${seat.seatNumber}</li>
-                            </c:forEach>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </c:forEach>
+	<!-- 좌석 확인 모달 -->
+	<c:forEach var="booking" items="${bookings}" varStatus="status">
+		<div class="modal fade" id="seatModal${booking.bookingId}"
+			tabindex="-1" aria-labelledby="seatModalLabel${booking.bookingId}"
+			aria-hidden="true">
+			<div class="modal-dialog modal-dialog-centered">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="seatModalLabel${booking.bookingId}">
+							<i class="bi bi-chair me-2"></i>좌석 정보
+						</h5>
+						<button type="button" class="btn-close" data-bs-dismiss="modal"
+							aria-label="Close"></button>
+					</div>
+					<div class="modal-body">
+						<c:choose>
+							<c:when test="${empty bookedSeatsMap[booking.bookingId]}">
+								<div class="alert alert-info" role="alert">
+									<i class="bi bi-info-circle me-2"></i>비지정석입니다.
+								</div>
+							</c:when>
+							<c:otherwise>
+								<ul class="list-group">
+									<c:forEach var="seat"
+										items="${bookedSeatsMap[booking.bookingId]}">
+										<li class="list-group-item">${seat.seatNumber}</li>
+									</c:forEach>
+								</ul>
+							</c:otherwise>
+						</c:choose>
+					</div>
+				</div>
+			</div>
+		</div>
+	</c:forEach>
 
 	<script>
         var contextPath = '${pageContext.request.contextPath}';

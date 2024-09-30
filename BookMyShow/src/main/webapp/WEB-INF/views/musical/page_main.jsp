@@ -71,13 +71,12 @@
             
             <c:forEach var="MusicalDTO" items="${getMusical}">
                 <!-- 카드 간 위아래 margin 추가 -->
-                <div class="card new-open" 
+                <div class="card new-open" onclick="location.href='${pageContext.request.contextPath}/musical/page_detail?musical_id=${MusicalDTO.musical_id}'"
                      style="width: 100%; margin-bottom: 60px; display: flex; flex-direction: column;">
-                    <a href="${pageContext.request.contextPath}/musical/page_detail">
-<%--                     <a href="${pageContext.request.contextPath}/musical/page_detail?musical_id=${MusicalDTO.musical_id}"> --%>
+                    
                         <img src="${pageContext.request.contextPath}/resources/upload/${MusicalDTO.upload_path }/${MusicalDTO.uuid}_${MusicalDTO.file_name}"
                             class="card-img-top" alt="..." style="width: 100%; height: auto;">
-                    </a>
+                   
                     <!-- 카드 바디가 콘텐츠에 맞춰 자연스럽게 확장되도록 설정 -->
                     <div class="card-body w-100" style="flex-grow: 1;">
                         <c:if test="${!MusicalDTO.region_name1 eq null }" >

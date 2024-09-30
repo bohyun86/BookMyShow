@@ -1,12 +1,14 @@
 package com.itwillbs.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.itwillbs.domain.login.MemberDTO;
 import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.List;
 
 @Data
 @Entity(name = "User")
@@ -39,16 +41,17 @@ public class UserDTO {
     private Timestamp updatedAt;
 
 
-    @OneToOne(mappedBy = "userDTO", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToOne(mappedBy = "userDTO", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private PartnerDTO partnerDTO;
 
-
+    @OneToOne(mappedBy = "userDTO", cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private MemberDTO memberDTO;
     
 //
 //    @OneToMany(mappedBy = "userDTO", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 //    private List<PartnerQnaDTO>partnerQnaDTO;
-
-
 
     @Column(name = "is_encoded")
     private boolean isEncoded;
@@ -59,6 +62,14 @@ public class UserDTO {
     @Column(name = "temp_password_created_at")
     @UpdateTimestamp
     private Timestamp tempPasswordCreatedAt;
+
+    private String oauth;
+
+    @Column(name = "access_token")
+    private String accessToken;
+
+    @Column(name = "refresh_token")
+    private String refreshToken;
 
 
 }

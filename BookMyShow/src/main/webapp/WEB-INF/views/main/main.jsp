@@ -92,7 +92,7 @@
             <div class="cards-wrapper overflow-hidden position-relative" style="width: 1100px;">
                 <div class="cards new-open d-flex mt-2" style="width: 2200px;">
                     <c:forEach var="newCarousel" items="${newCarouselDTOS}">
-                        <div class="card new-open">
+                        <div class="card new-open" data-musical-id="${newCarousel.musicalId}">
                             <img src="${pageContext.request.contextPath}/${newCarousel.postFilePath}" class="card-img-top new-carousel" alt="...">
                             <div class="card-body w-100">
                                 <p class="area new-carousel">${newCarousel.area}</p>
@@ -131,7 +131,7 @@
             <div class="cards-wrapper overflow-hidden position-relative" style="width: 1100px;">
                 <div class="cards time-sale d-flex mt-2" style="width: 2200px;">
                     <c:forEach var="card" items="${timeSaleCarouselDTOS}">
-                        <div class="card time-sale">
+                        <div class="card time-sale" data-musical-id="${card.musicalId}">
                             <img src="${pageContext.request.contextPath}/${card.postFilePath}" class="card-img-top" alt="...">
                             <div class="card-body w-100">
                                 <p class="area">${card.area}</p>
@@ -169,5 +169,28 @@
 <script src="${pageContext.request.contextPath}/resources/js/carousel.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/cards.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/dropdown.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const newCarousel = document.querySelectorAll('.card.new-open');
+        const timeSaleCarousel = document.querySelectorAll('.card.time-sale');
+
+        newCarousel.forEach((card) => {
+            card.addEventListener('click', () => {
+                const newMusicalId = card.getAttribute('data-musical-id');
+                window.location.href = "${pageContext.request.contextPath}/musical/page_detail?musical_id=" + newMusicalId;
+            });
+        });
+
+        timeSaleCarousel.forEach((card) => {
+            card.addEventListener('click', () => {
+                const timeSaleMusicalId = card.getAttribute('data-musical-id');
+                window.location.href = "${pageContext.request.contextPath}/musical/page_detail?musical_id=" + timeSaleMusicalId;
+            });
+        });
+
+
+    });
+</script>
 </body>
 </html>

@@ -142,25 +142,7 @@
                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
  								 <button class="btn btn-primary me-md-2" type="reset" onclick = "location.href='${pageContext.request.contextPath}/admin/main'" >돌아가기</button>&nbsp;&nbsp;
 							</div>
-<!--                     <nav aria-label="Page navigation"> -->
-<!--                         <ul class="pagination justify-content-center"> -->
-<%--                             <c:if test="${currentPage > 1}"> --%>
-<!--                                 <li class="page-item"> -->
-<%--                                     <a class="page-link" href="?page=${currentPage - 1}">&laquo;</a> --%>
-<!--                                 </li> -->
-<%--                             </c:if> --%>
-<%--                             <c:forEach var="i" begin="1" end="${totalPages}"> --%>
-<%--                                 <li class="page-item <c:if test='${i == currentPage}'>active</c:if>'"> --%>
-<%--                                     <a class="page-link" href="?page=${i}">${i}</a> --%>
-<!--                                 </li> -->
-<%--                             </c:forEach> --%>
-<%--                             <c:if test="${currentPage < totalPages}"> --%>
-<!--                                 <li class="page-item"> -->
-<%--                                     <a class="page-link" href="?page=${currentPage + 1}">&raquo;</a> --%>
-<!--                                 </li> -->
-<%--                             </c:if> --%>
-<!--                         </ul> -->
-<!--                     </nav> -->
+
                 </div>
             </div>
         </div>
@@ -172,35 +154,7 @@
 </div>
 				
 				
-<%-- <c:if test="${empty partnerQnaList}"> --%>
-<!--     <p>문의가 없습니다.</p> -->
-<%-- </c:if> --%>
 
-<!-- <form action="#"></form> -->
-<!-- <div class="card w-75 mb-3"> -->
-<!--   <div class="card-body"> -->
-<!--     <h5 class="card-title">1.문의유형 / 문의 작성일<input type="date" name="createddate1"></h5> -->
-<!--     <p class="card-text">문의내용 :</p> -->
-<!--    <div class="d-grid gap-2 d-md-flex justify-content-md-end"> -->
-<!--   <input type="text" name="answer">&nbsp; -->
-<!--   <button class="btn btn-primary me-md-2" type="submit" href="" >답변등록</button> -->
-<!--   </div> -->
-<!--   </div> -->
-<!-- </div> -->
-<!-- </div> -->
-
-<!-- <form action="#"> -->
-<!-- <div class="card w-75 mb-3"> -->
-<!--   <div class="card-body"> -->
-<!--     <h5 class="card-title">2.문의유형 / 문의 작성일<input type="date" name="createddate2"></h5> -->
-<!--     <p class="card-text">문의내용 : </p> -->
-<!--      <div class="d-grid gap-2 d-md-flex justify-content-md-end"> -->
-<!--      <input type="text" name="answer" placeholder="기존답변 ---">&nbsp; -->
-<!--   <button class="btn btn-primary me-md-2" type="sumit" href="#" >수정완료</button> &nbsp;&nbsp; -->
-<!-- </form> -->
-<%--   <form action="${pageContext.request.contextPath}/admin/partnerDTO"> --%>
-<!--   	<button class="btn btn-primary" type="submit" onclick="deleteok()">삭제</button> -->
-<!--   	</form> -->
 
                 
                 <script>

@@ -22,7 +22,7 @@
         <div id="time-sale-container" class="position-relative time-sale-container d-flex flex-wrap" style="width: 1100px;">
 
                     <c:forEach var="card" items="${newMusical}">
-                        <div class="card time-sale" id="sub-page">
+                        <div class="card time-sale" id="sub-page" data-musical-id="${card.musicalId}">
                             <img src="${pageContext.request.contextPath}/${card.postFilePath}" class="card-img-top" alt="...">
                             <div class="card-body w-100" style="height: 156px;">
                                 <p class="area">${card.area}</p>
@@ -56,5 +56,20 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/resources/js/cards.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/dropdown.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const timeSaleCarousel = document.querySelectorAll('.card.time-sale');
+
+        timeSaleCarousel.forEach((card) => {
+            card.addEventListener('click', () => {
+                const timeSaleMusicalId = card.getAttribute('data-musical-id');
+                window.location.href = "${pageContext.request.contextPath}/musical/page_detail?musical_id=" + timeSaleMusicalId;
+            });
+        });
+
+
+    });
+</script>
 </body>
 </html>

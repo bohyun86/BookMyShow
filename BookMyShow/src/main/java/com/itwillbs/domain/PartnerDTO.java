@@ -12,6 +12,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import org.hibernate.annotations.CascadeType;
 
@@ -57,6 +58,7 @@ public class PartnerDTO {
 	
 	 @OneToOne
 	 @JoinColumn(name = "userId")
+	 @JsonBackReference
 	 private UserDTO userDTO;
 	
 	

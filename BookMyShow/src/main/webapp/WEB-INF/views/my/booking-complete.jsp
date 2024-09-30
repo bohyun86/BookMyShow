@@ -19,14 +19,15 @@
 		<section id="board-content">
 			<div class="title">예매 완료</div>
 			<div class="booking-complete-card">
-				<p class="text-center mb-2">결제가 정상적으로 완료되었습니다.</p>
-				<p class="text-center mb-4">하단의 티켓 배부 및 좌석 배정 방식을 확인해주세요.</p>
+				<h3 class="text-center mb-2">결제가 정상적으로 완료되었습니다.</h3>
+				<h3 class="text-center mb-4">하단의 티켓 배부 및 좌석 배정 방식을 확인해주세요.</h3>
 				<div class="booking-card mb-4">
 					<div class="card-body">
 						<div class="row h-100 no-gutters">
 							<div
 								class="col-md-3 h-100 d-flex align-items-center justify-content-start">
-								<a href="<c:url value='/musical/detail/${musical.musicalId}'/>"
+								<a
+									href="<c:url value='/musical/page_detail?musical_id=${musical.musicalId}'/>"
 									class="img-container"> <img
 									src="${pageContext.request.contextPath}/${attachFile.postFilePath}"
 									class="poster-img" alt="${musical.title} 포스터">
@@ -47,7 +48,7 @@
 										<div class="col-8 pr-2">
 											<h5 class="card-title mb-0">
 												<a
-													href="<c:url value='/musical/detail/${musical.musicalId}'/>"
+													href="<c:url value='/musical/page_detail?musical_id=${musical.musicalId}'/>"
 													class="card-title-link">${musical.title}</a>
 											</h5>
 										</div>
@@ -78,7 +79,7 @@
 									<div class="row align-items-center no-gutters">
 										<div class="col-8 pr-2">
 											<p class="card-text mb-0 ticket-amount">
-												총 ${booking.ticketCount}매 /
+												총 ${booking.ticketCount}매
 												<fmt:formatNumber value="${payment.paymentAmount}"
 													type="currency" currencySymbol="₩" />
 											</p>
@@ -103,6 +104,7 @@
 						<li>문자/예매내역 제시 및 본인확인 후 수령</li>
 						<li>공연 시작 20분 전부터 공연장 입장</li>
 						<li>지정석: 예매 시 지정한 좌석</li>
+						<li>비지정석: 공연일 좌석 배정</li>
 					</ul>
 				</div>
 
@@ -131,11 +133,21 @@
 						aria-label="Close"></button>
 				</div>
 				<div class="modal-body">
-					<ul>
-						<c:forEach var="seat" items="${bookedSeatsMap[booking.bookingId]}">
-							<li>${seat.seatNumber}</li>
-						</c:forEach>
-					</ul>
+					<c:choose>
+						<c:when test="${empty bookedSeatsMap[booking.bookingId]}">
+							<div class="alert alert-info" role="alert">
+								<i class="bi bi-info-circle me-2"></i>비지정석입니다.
+							</div>
+						</c:when>
+						<c:otherwise>
+							<ul class="list-group">
+								<c:forEach var="seat"
+									items="${bookedSeatsMap[booking.bookingId]}">
+									<li class="list-group-item">${seat.seatNumber}</li>
+								</c:forEach>
+							</ul>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</div>
