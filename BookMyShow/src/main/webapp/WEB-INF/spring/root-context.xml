@@ -53,7 +53,7 @@
 
 		<!-- Gmail 계정 정보 설정 -->
 		<property name="username" value="qhgusdlsp86@cuk.edu"/>
-		<property name="password" value="bshxeiwhcqlovyir" />  <!-- 보안상의 이유로 비밀번호는 별도로 관리하는 것이 좋음 -->
+		<property name="password" value="" />  <!-- 보안상의 이유로 공백 처리 -->
 
 		<property name="javaMailProperties">
 			<props>
@@ -70,20 +70,20 @@
 	<!-- 공연 정보 등록 Service Key 등록 -->
 	<bean id="serviceKey" class="java.lang.String">
 		<constructor-arg
-				value="a85b154a49f4403da522aba1e732569f" />
+				value="" />  <!-- 보안상의 이유로 공백 처리 -->
 	</bean>
 
 	<!-- Kakao API Key 설정 -->
 	<util:properties id="kakaoProperties">
-	<prop key="kakao.restApiKey">1a2350e132d10d8500c1b281e8a76bc6</prop>
+	<prop key="kakao.restApiKey"></prop>  <!-- 보안상의 이유로 공백 처리 -->
 	<prop key="kakao.redirectUri">http://c1d2405t1.itwillbs.com/BookMyShow/oauth/kakao/callback</prop>
 	</util:properties>
 
-	<!-- Kakao API Key 설정 -->
+	<!-- Naver API Key 설정 -->
 	<util:properties id="naverProperties">
-		<prop key="naver.restApiKey">b1nZhbAfVg0CcxxmfH8s</prop>
+		<prop key="naver.restApiKey"></prop>  <!-- 보안상의 이유로 공백 처리 -->
 		<prop key="naver.redirectUri">http://c1d2405t1.itwillbs.com/BookMyShow/oauth/naver/callback</prop>
-		<prop key="naver.clientSecret">GOgvJQ_6Iv</prop>
+		<prop key="naver.clientSecret"></prop>  <!-- 보안상의 이유로 공백 처리 -->
 	</util:properties>
 
 	<!-- 비동기 처리 설정 -->
@@ -106,8 +106,8 @@
 			value="com.mysql.cj.jdbc.Driver" />
 		<property name="jdbcUrl"
 			value="jdbc:mysql://itwillbs.com:3306/c1d2405t1?serverTimezone=Asia/Seoul" />
-		<property name="username" value="c1d2405t1" />
-		<property name="password" value="1234" />
+		<property name="username" value="" /> <!-- 보안상의 이유로 공백 처리 -->
+		<property name="password" value="" /> <!-- 보안상의 이유로 공백 처리 -->
 
 	</bean>
 
